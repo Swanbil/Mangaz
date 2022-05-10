@@ -8,7 +8,7 @@ export default function Home({ navigation }) {
       <Image source={require('../assets/luffy.jpg')} style={{ width: 200, height: 200 }} />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('MangaReader')}
+        onPress={() => navigation.navigate('Login')}
         underlayColor='#fff'>
         <Text style={styles.textButton}>Go To MangaReader</Text>
       </TouchableOpacity>
