@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home';
 import MangaReader from './components/MangaReader';
 import TabsNavigator from './components/TabNavigator';
+import AppNavigator from './components/AppNavigator';
 
 
 
@@ -13,8 +14,8 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <TabsNavigator/>
+    <NavigationContainer >
+      <AppNavigator />
     </NavigationContainer>
     
   );

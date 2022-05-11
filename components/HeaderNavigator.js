@@ -20,14 +20,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textHeader:{
-    fontSize: 20, 
+    fontSize: 18, 
     fontWeight: "bold", 
     color: "black", 
   },
   headerStyle: {
-    height: 50,
+    height: 60,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor:'#F6F6F6'
   }
 });
 

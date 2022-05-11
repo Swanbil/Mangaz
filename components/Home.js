@@ -10,7 +10,7 @@ export default function Home({ navigation }) {
         style={styles.button}
         onPress={() => navigation.navigate('Login')}
         underlayColor='#fff'>
-        <Text style={styles.textButton}>Go To MangaReader</Text>
+        <Text style={styles.textButton}>Go To Login Page</Text>
       </TouchableOpacity>
 
     </View>

@@ -1,10 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { Link, NavigationContainer } from '@react-navigation/native';
 
-
-const Login = ({navigation}) => {
+const Register = () => {
     const [username, setUserName] = useState("");
     const [password, setPassWord] = useState("");
     return (
@@ -17,22 +15,13 @@ const Login = ({navigation}) => {
             <TextInput style={styles.textInput}
                 placeholder="Password"
                 placeholderTextColor="#C1C1C1"
-                secureTextEntry={true}
                 onChangeText={(password) => setPassWord(password)} />
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => alert("Login successfully " + username )}
+                onPress={() => alert("Login successfully " + username)}
                 underlayColor='#fff'>
-                <Text style={styles.textButton}>Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.buttonRegister}
-                onPress={() => navigation.navigate('Register')}
-                underlayColor='#fff'
-                >
                 <Text style={styles.textButton}>Register</Text>
             </TouchableOpacity>
-            
 
         </View>
 
@@ -46,11 +35,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    logo:{
-        color:"#C0A6F7",
-        fontSize:30,
-        fontWeight:"bold",
-        marginBottom:30
+    logo: {
+        color: "#C0A6F7",
+        fontSize: 30,
+        fontWeight: "bold",
+        marginBottom: 30
     },
     textInput: {
         paddingLeft: 50,
@@ -59,15 +48,15 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         margin: 20,
         width: "60%",
-        fontStyle:'italic',
+        fontStyle: 'italic',
         backgroundColor: "white",
         borderRadius: 5
     },
-    registerText:{
-        marginTop:20,
-        fontSize:10,
-        color:"grey",
-        fontStyle:'italic'
+    registerText: {
+        marginTop: 20,
+        fontSize: 10,
+        color: "grey",
+        fontStyle: 'italic'
     },
     loginBlock: {
         flex: 1,
@@ -85,17 +74,17 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
     },
     button: {
-        width:"50%",
-        padding:10,
+        width: "50%",
+        padding: 10,
         backgroundColor: '#C0A6F7',
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#fff'
     },
-    buttonRegister:{
-        width:"50%",
-        padding:10,
-        marginTop:10,
+    buttonRegister: {
+        width: "50%",
+        padding: 10,
+        marginTop: 10,
         backgroundColor: '#E5D9FF',
         borderRadius: 10,
         borderWidth: 1,
@@ -110,4 +99,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Login;
+export default Register;

@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './Home';
 import MangaReader from './MangaReader';
+import AppNavigator from './AppNavigator';
 import Login from './Login';
 import HeaderNavigator from './HeaderNavigator';
 import { StyleSheet, Text, View } from 'react-native';
@@ -17,7 +18,7 @@ const Tabs = () => {
             screenOptions={({ navigation, route }) => ({
                 header: ({ navigation, route, options }) => {
                     const title = getHeaderTitle(options, route.name);
-                    return <HeaderNavigator title={title} style={styles.headerStyle}/>;
+                    return <HeaderNavigator title={title}  />;
                 },
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
@@ -38,13 +39,10 @@ const Tabs = () => {
         >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="MangaReader" component={MangaReader} />
-            <Tab.Screen name="Login" component={Login} />
         </Tab.Navigator>
     );
 }
 const styles = StyleSheet.create({
-    headerStyle: {
-        height: 180, // Specify the height of your custom header
-      }
-  });
+   
+});
 export default Tabs;
