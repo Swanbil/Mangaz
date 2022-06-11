@@ -14,7 +14,7 @@ const Login = ({ navigation }) => {
         try {
             const response = await axios.post('http://192.168.1.82:8000/login', user);
             const data = response.data;
-            navigation.navigate('Home');
+            navigation.navigate({name:'Home',params: { userName: data },merge: true,});
         } catch (error) {
             alert(error.response.data)
         }

@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, route }) {
+  React.useEffect(() => {
+    if (route.params?.userName) {
+    }
+  }, [route.params?.userName]);
   return (
     <View style={styles.container}>
+      {route.params?.userName && <Text style={{ margin: 10, fontWeight:"bold" }}>Hello {route.params?.userName}</Text>}
       <Text style={{ fontSize: 20, marginBottom: 15, fontWeight: "bold", color: "#C0A6F7" }}>Welcome on Mangaz</Text>
       <Image source={require('../assets/luffy.jpg')} style={{ width: 200, height: 200 }} />
       <TouchableOpacity

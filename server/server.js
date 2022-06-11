@@ -92,7 +92,7 @@ app.post('/login', async (req, res) => {
             //     token: token
             // })
             // console.log("Authentification réussie")
-            res.status(200).json("Hello "+ user.pseudo);
+            res.status(200).json(user.pseudo);
         }
         else {
             res.status(401).json('Mot de passe inconu');
