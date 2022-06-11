@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import axios from "axios";
 
-const Register = () => {
+const Register = ({navigation}) => {
     const [firstname, setFirstName] = useState("");
     const [lastname, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -14,6 +14,7 @@ const Register = () => {
         const user = {"lastname":lastname,"firstname":firstname,"email":email,"pseudo":pseudo, "password":password};
         const res = await axios.post('http://192.168.1.82:8000/register', user);
         alert(res.data);
+        navigation.navigate('Home');
     }
 
     return (
