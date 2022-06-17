@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const bcrypt = require('bcrypt');
+const axios = require('axios').default;
 const port = process.env.PORT || 8000;
 
 const Pool = require('pg').Pool
@@ -16,9 +17,26 @@ const pool = new Pool({
 })
 
 app.get('/welcome', (req, res) => {
+    
     res.send('Hello world !!');
 });
 
+app.get('/catalogue', async(req, res) => {
+    const datas = await (await axios.get('https://kitsu.io/api/edge/manga?sort=popularityRank&page[limit]=20')).data.data;
+    let catalogue = []
+    
+    datas.forEach(manga => {
+        const m = {
+            "title": manga['attributes']['titles']['en_jp'],
+            "startDate": manga['attributes']['startDate'],
+            "synopsis": manga['attributes']['synopsis'],
+            "coverImage": manga['attributes']['posterImage']['small'],
+            "popularityRank": manga['attributes']['popularityRank']
+        }
+        catalogue.push(m)
+    });
+    res.send(catalogue)
+})
 app.post('/register', async (req, res) => {
     const user = req.body;
     if (user.lastname === '' || user.firstname === '' || user.email === '' || user.pseudo === '' || user.password === '') {

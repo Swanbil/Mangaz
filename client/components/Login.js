@@ -5,7 +5,7 @@ import { Link, NavigationContainer } from '@react-navigation/native';
 import axios from 'axios';
 
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, getLogState }) => {
     const [pseudo, setPseudo] = useState("");
     const [password, setPassWord] = useState("");
 
@@ -14,12 +14,13 @@ const Login = ({ navigation }) => {
         try {
             const response = await axios.post('http://192.168.1.82:8000/login', user);
             const data = response.data;
+            getLogState(true);
             navigation.navigate({name:'Home',params: { userName: data },merge: true,});
         } catch (error) {
             alert(error.response.data)
         }
-
     }
+    
     return (
         <View style={styles.loginBlock}>
             <Text style={styles.logo}>MANGAZ</Text>

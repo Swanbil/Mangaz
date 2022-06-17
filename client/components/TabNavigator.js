@@ -11,7 +11,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const Tabs = ({ isLog }) => {
     return (
         <Tab.Navigator
 
@@ -37,12 +37,14 @@ const Tabs = () => {
                 tabBarInactiveTintColor: 'gray',
             })}
         >
-            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Home">
+                {(props) => <Home {...props} isLog={isLog} />}
+            </Tab.Screen>
             <Tab.Screen name="MangaReader" component={MangaReader} />
-        </Tab.Navigator>
+        </Tab.Navigator >
     );
 }
 const styles = StyleSheet.create({
-   
+
 });
 export default Tabs;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './Login';
@@ -8,6 +8,11 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
+    const [isLog, setIsLog] = useState(false);
+
+    const getLogState = (data) => {
+        setIsLog(data);
+    }
     return (
         <Stack.Navigator
             screenOptions={{
@@ -15,17 +20,21 @@ const AppNavigator = () => {
                 headerStyle: { backgroundColor: '#F6F6F6' },
                 cardStyle: { backgroundColor: 'red' }
             }}>
-            <Stack.Screen name="TabNavigator" options={{ headerShown: false }} component={TabNavigator} />
-            <Stack.Screen name="Login" component={Login}
-                options={({ navigation }) => ({
-                    headerLeft: props => (
-                        <TouchableOpacity
-                            underlayColor='#fff' onPress={() => navigation.goBack()}
-                        >
-                            <MaterialIcons name="cancel" color="#C0A6F7" size={32} />
-                        </TouchableOpacity>
-                    )
-                })} />
+            <Stack.Screen name="TabNavigator" options={{ headerShown: false }}>
+                {(props) => <TabNavigator {...props} isLog={isLog} />}
+            </Stack.Screen>
+            <Stack.Screen name="Login" options={({ navigation }) => ({
+                headerLeft: props => (
+                    <TouchableOpacity
+                        underlayColor='#fff' onPress={() => navigation.goBack()}
+                    >
+                        <MaterialIcons name="cancel" color="#C0A6F7" size={32} />
+                    </TouchableOpacity>
+                )
+            })}>
+
+                {(props) => <Login {...props} getLogState={getLogState} />}
+            </Stack.Screen>
             <Stack.Screen name="Register" component={Register}
                 options={({ navigation }) => ({
                     headerLeft: props => (
