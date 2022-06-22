@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './Login';
 import Register from './Register';
+import MangaPage from './MangaPage';
 import TabNavigator from './TabNavigator';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
@@ -18,7 +19,7 @@ const AppNavigator = () => {
             screenOptions={{
                 cardStyle: { backgroundColor: 'white' },
                 headerStyle: { backgroundColor: '#F6F6F6' },
-                cardStyle: { backgroundColor: 'red' }
+                cardStyle: { backgroundColor: 'red' },
             }}>
             <Stack.Screen name="TabNavigator" options={{ headerShown: false }}>
                 {(props) => <TabNavigator {...props} isLog={isLog} />}
@@ -28,7 +29,7 @@ const AppNavigator = () => {
                     <TouchableOpacity
                         underlayColor='#fff' onPress={() => navigation.goBack()}
                     >
-                        <MaterialIcons name="cancel" color="#C0A6F7" size={32} />
+                        <MaterialIcons name="cancel" color="#C0A6F7" size={24} />
                     </TouchableOpacity>
                 )
             })}>
@@ -41,10 +42,15 @@ const AppNavigator = () => {
                         <TouchableOpacity
                             underlayColor='#fff' onPress={() => navigation.navigate('Home')}
                         >
-                            <MaterialIcons name="cancel" color="#C0A6F7" size={32} />
+                            <MaterialIcons name="cancel" color="#C0A6F7" size={24} />
                         </TouchableOpacity>
                     )
                 })} />
+            <Stack.Screen name="MangaPage" options={({ navigation }) => ({
+                headerShown:false
+            })} >
+             {(props) => <MangaPage {...props}  />}
+            </Stack.Screen>
         </Stack.Navigator>
 
     );

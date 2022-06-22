@@ -14,7 +14,7 @@ export default function Home({ navigation, route, isLog }) {
     return (
       <View style={styles.container}>
         {route.params?.userName && <Text style={{ margin: 10, fontWeight: "bold" }}>Hello {route.params?.userName}</Text>}
-        <Catalogue></Catalogue>
+        <Catalogue navigation={navigation}></Catalogue>
 
       </View>
 

@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { ActivityIndicator, View, ScrollView } from 'react-native';
+import { ActivityIndicator, View, ScrollView, Button } from 'react-native';
 import MangaItem from "./MangaItem";
 
 
-const Catalogue = () => {
+const Catalogue = ({navigation}) => {
     const [catalogue, setCatalogue] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const getCatalogue = async () => {
@@ -30,7 +30,7 @@ const Catalogue = () => {
         <ScrollView style={{ flex: 1, padding: 24 }}>
             <View className="catalogue"  style={{ flexDirection:"row", flexWrap:"wrap", justifyContent:"center" }}>
                 {catalogue.map((manga, idx) => (
-                    <MangaItem manga={manga} key={idx} />
+                    <MangaItem manga={manga} key={idx} navigation={navigation}/>
                 )
                 )}
             </View>
