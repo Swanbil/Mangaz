@@ -13,7 +13,7 @@ export default function Home({ navigation, route, isLog }) {
   if (isLog) {
     return (
       <View style={styles.container}>
-        {route.params?.userName && <Text style={{ margin: 10, fontWeight: "bold" }}>Hello {route.params?.userName}</Text>}
+        {route.params?.userName && <Text style={{ margin: 10, fontWeight: "bold" }}>⛩ Hello <Text style={{color:"#C0A6F7"}}>{route.params?.userName}</Text> ⛩ </Text>}
         <Catalogue navigation={navigation}></Catalogue>
 
       </View>

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
-import { View, ScrollView, Text, FlatList } from "react-native";
+import { View, ScrollView, Text, StyleSheet } from "react-native";
 import { Link } from '@react-navigation/native';
 
 const MangaItem = ({ navigation, manga, width }) => {
     const [cardWidth, setCardWidth] = useState(width == "large" ? "100%" : "30%");
-    const chapters = [{ number: "1", title:"A l'aventure !" }, { number: "2", title:"A l'aventure !" }, { number: "3", title:"A l'aventure !" }, { number: "4", title:"A l'aventure !" }, { number: "5", title:"A l'aventure !" }, { number: "6", title:"A l'aventure !" }, { number: "7", title:"A l'aventure !" }, { number: "8", title:"A l'aventure !" }, { number: "9", title:"A l'aventure !" }];
+    const chapters = [{ number: "1", title: "A l'aventure !" }, { number: "2", title: "A l'aventure !" }, { number: "3", title: "A l'aventure !" }, { number: "4", title: "A l'aventure !" }, { number: "5", title: "A l'aventure !" }, { number: "6", title: "A l'aventure !" }, { number: "7", title: "A l'aventure !" }, { number: "8", title: "A l'aventure !" }, { number: "9", title: "A l'aventure !" }];
     const goToMangaPage = () => {
         navigation.navigate('MangaPage', { manga, width: "large" })
     }
@@ -27,19 +27,22 @@ const MangaItem = ({ navigation, manga, width }) => {
         return (
             <ScrollView style={{ boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px" }}>
                 <Card style={{ marginRight: 20, marginLeft: 20 }}>
-                    <Card.Title title={manga.title} subtitle={manga.startDate}/>
+                    <Card.Title title={manga.title} subtitle={manga.startDate} />
                     <Card.Cover source={{ uri: manga.coverImage }} style={{ width: cardWidth, height: 300 }} />
                     <Card.Content>
-                        <Text style={{ fontWeight: "bold", marginBottom:10, marginTop:10, color: "#C0A6F7"}}>Description</Text>
+                        <Text style={styles.cardSubtitle}>Description</Text>
                         <Paragraph style={{ fontSize: 10 }}>{manga.synopsis}</Paragraph>
                     </Card.Content>
                     <Card.Content>
-                        <Text style={{ fontWeight: "bold", marginBottom:10, marginTop:10, color: "#C0A6F7"}}>Chapters</Text>
-                        {chapters.map((chapter) => {
-                            return(
-                                <Text key={chapter.number} style={{marginBottom:5, backgroundColor:"#F5F5F5", padding:4, fontStyle:"italic"}}>{chapter.number} - {chapter.title}</Text>
-                            )
-                        })}
+                        <Text style={styles.cardSubtitle}>Chapters</Text>
+                        <View>
+                            {chapters.map((chapter) => {
+                                return (
+                                    <Text key={chapter.number} style={styles.chapter}>{chapter.number} - {chapter.title}</Text>
+                                )
+                            })}
+                        </View>
+
                     </Card.Content>
                 </Card>
             </ScrollView>
@@ -48,5 +51,15 @@ const MangaItem = ({ navigation, manga, width }) => {
     }
 
 }
-
+const styles = StyleSheet.create({
+    cardSubtitle: {
+        fontWeight: "bold",
+        marginBottom: 10,
+        marginTop: 10,
+        color: "#C0A6F7"
+    },
+    chapter:{ marginBottom: 5, backgroundColor: "#F5F5F5", padding: 4, fontStyle: "italic" },
+        
+    
+})
 export default MangaItem;
