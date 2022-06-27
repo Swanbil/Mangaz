@@ -5,12 +5,13 @@ import { AntDesign } from '@expo/vector-icons';
 import axios from "axios";
 import {API_URL} from '@env';
 
+
 export default function Chapter({ route, navigation }) {
   const [chapter, setChapter] = useState([]);
   const [currentPage, setCurrentPage] = useState({});
   const [numberCurrentPage, setNumberCurrentPage] = useState(0);
   const { chapterNumber, mangaTitle } = route.params;
-
+ 
   useEffect(() => {
     const getChapter = async () => {
       const res = await axios.get(API_URL + '/chapter/' + mangaTitle + '/' + chapterNumber);

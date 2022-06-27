@@ -23,7 +23,7 @@ const AppNavigator = () => {
                 cardStyle: { backgroundColor: 'red' },
             }}>
             <Stack.Screen name="TabNavigator" options={{ headerShown: false }}>
-                {(props) => <TabNavigator {...props} isLog={isLog} />}
+                {(props) => <TabNavigator {...props} isLog={isLog}  getLogState={getLogState}/>}
             </Stack.Screen>
             <Stack.Screen name="Login" options={({ navigation }) => ({
                 headerLeft: props => (

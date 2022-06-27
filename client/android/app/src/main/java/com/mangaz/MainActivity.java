@@ -2,7 +2,8 @@ package com.mangaz;
 
 import android.os.Build;
 import android.os.Bundle;
-
+import android.view.WindowManager;
+import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
@@ -16,7 +17,11 @@ public class MainActivity extends ReactActivity {
     // coloring the background, status bar, and navigation bar.
     // This is required for expo-splash-screen.
     setTheme(R.style.AppTheme);
-    super.onCreate(null);
+    super.onCreate(savedInstanceState);
+    getWindow().setFlags(
+      WindowManager.LayoutParams.FLAG_SECURE,
+      WindowManager.LayoutParams.FLAG_SECURE
+    );
   }
 
   /**

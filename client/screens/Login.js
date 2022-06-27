@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {API_URL} from '@env';
+import { API_URL } from '@env';
 
 const Login = ({ navigation, getLogState }) => {
     const [pseudo, setPseudo] = useState("");
     const [password, setPassWord] = useState("");
+
+    const _storeData = async (data) => {
+        try {
+            await AsyncStorage.setItem('@username', data);
+        } catch (error) {
+            alert(error)
+        }
+    };
 
     const login = async () => {
         const user = { "pseudo": pseudo, "password": password };
@@ -13,12 +22,13 @@ const Login = ({ navigation, getLogState }) => {
             const response = await axios.post(API_URL + '/login', user);
             const data = response.data;
             getLogState(true);
-            navigation.navigate({name:'Home',params: { userName: data },merge: true,});
+            _storeData(data);
+            navigation.navigate({ name: 'Home', params: { userName: data }, merge: true, });
         } catch (error) {
             alert(error.response.data)
         }
     }
-    
+
     return (
         <View style={styles.loginBlock}>
             <Text style={styles.logo}>MANGAZ</Text>

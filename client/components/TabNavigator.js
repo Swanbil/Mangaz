@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from '../screens/Home';
 import HeaderNavigator from './HeaderNavigator';
+import Settings from '../screens/Settings';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getHeaderTitle } from '@react-navigation/elements';
@@ -8,7 +9,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = ({ isLog }) => {
+const Tabs = ({ getLogState, isLog }) => {
     return (
         <Tab.Navigator
 
@@ -23,8 +24,8 @@ const Tabs = ({ isLog }) => {
                         iconName = focused
                             ? 'ios-home'
                             : 'ios-home-outline';
-                    } else if (route.name === 'MangaReader') {
-                        iconName = focused ? 'ios-reader' : 'ios-reader-outline';
+                    } else if (route.name === 'Settings') {
+                        iconName = focused ? 'settings' : 'settings-outline';
                     }
 
                     // You can return any component that you like here!
@@ -37,7 +38,9 @@ const Tabs = ({ isLog }) => {
             <Tab.Screen name="Home">
                 {(props) => <Home {...props} isLog={isLog} />}
             </Tab.Screen>
-            {/* <Tab.Screen name="MangaReader" component={MangaReader} /> */}
+            <Tab.Screen name="Settings">
+             {(props) => <Settings {...props} isLog={isLog} getLogState={getLogState}/>}    
+            </Tab.Screen> 
         </Tab.Navigator >
     );
 }
