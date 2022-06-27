@@ -1,8 +1,6 @@
 import React from 'react';
 import Home from './Home';
-import MangaReader from './MangaReader';
-import AppNavigator from './AppNavigator';
-import Login from './Login';
+//import MangaReader from './Chapter';
 import HeaderNavigator from './HeaderNavigator';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -40,7 +38,7 @@ const Tabs = ({ isLog }) => {
             <Tab.Screen name="Home">
                 {(props) => <Home {...props} isLog={isLog} />}
             </Tab.Screen>
-            <Tab.Screen name="MangaReader" component={MangaReader} />
+            {/* <Tab.Screen name="MangaReader" component={MangaReader} /> */}
         </Tab.Navigator >
     );
 }

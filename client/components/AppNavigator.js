@@ -5,6 +5,7 @@ import Login from './Login';
 import Register from './Register';
 import MangaPage from './MangaPage';
 import TabNavigator from './TabNavigator';
+import Chapter from './Chapter';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 const Stack = createNativeStackNavigator();
@@ -47,9 +48,14 @@ const AppNavigator = () => {
                     )
                 })} />
             <Stack.Screen name="MangaPage" options={({ navigation }) => ({
-                headerShown:false
+                headerShown: false
             })} >
-             {(props) => <MangaPage {...props}  />}
+                {(props) => <MangaPage {...props} />}
+            </Stack.Screen>
+            <Stack.Screen name="Chapter" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <Chapter {...props} />}
             </Stack.Screen>
         </Stack.Navigator>
 

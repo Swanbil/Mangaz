@@ -15,18 +15,18 @@ const pool = new Pool({
     password: 'vote',
     port: 5432,
 })
+app.use("/images", express.static('chapters'));
 
 app.get('/welcome', (req, res) => {
-    
     res.send('Hello world !!');
 });
 
 app.get('/catalogue', async(req, res) => {
     const datas = await (await axios.get('https://kitsu.io/api/edge/manga?sort=popularityRank&page[limit]=20')).data.data;
     let catalogue = []
-    
     datas.forEach(manga => {
         const m = {
+            "id":manga["id"],
             "title": manga['attributes']['titles']['en_jp'],
             "startDate": manga['attributes']['startDate'],
             "synopsis": manga['attributes']['synopsis'],
@@ -36,7 +36,26 @@ app.get('/catalogue', async(req, res) => {
         catalogue.push(m)
     });
     res.send(catalogue)
-})
+});
+
+app.get('/chapter/:manga/:number', async(req,res) => {
+    const mangaTitle = req.params.manga;
+    const numberChapter = req.params.number;
+    console.log(mangaTitle, numberChapter);
+    let urlScan = "http://192.168.1.82:8000/images/";
+    let chapter = [];
+    for(let i=1;i<=16;i++){
+        if(i<=9){
+            chapter.push({uri:urlScan + "0"+ i + ".png"});
+        }
+        else{
+            chapter.push({uri:urlScan + i + ".png"});
+        }
+    }
+    res.json(chapter);
+
+});
+
 app.post('/register', async (req, res) => {
     const user = req.body;
     if (user.lastname === '' || user.firstname === '' || user.email === '' || user.pseudo === '' || user.password === '') {

@@ -12,12 +12,7 @@ const MangaPage = ({ route, navigation }) => {
             >
                 <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
             </TouchableOpacity>
-            <MangaItem manga={manga} width={width} />
-            <TouchableOpacity
-                underlayColor='#fff' onPress={() => navigation.goBack()}
-            >
-                <AntDesign name="leftcircleo" size={24} color="#C0A6F7" />
-            </TouchableOpacity>
+            <MangaItem manga={manga} width={width} navigation={navigation}/>
         </View>
 
     )

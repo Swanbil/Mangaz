@@ -30,7 +30,7 @@ const Catalogue = ({navigation}) => {
         <ScrollView style={{ flex: 1, padding: 24 }}>
             <View className="catalogue"  style={{ flexDirection:"row", flexWrap:"wrap", justifyContent:"center" }}>
                 {catalogue.map((manga, idx) => (
-                    <MangaItem manga={manga} key={idx} navigation={navigation}/>
+                    <MangaItem manga={manga} key={manga.id} navigation={navigation}/>
                 )
                 )}
             </View>

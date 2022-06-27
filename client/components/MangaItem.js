@@ -5,10 +5,16 @@ import { Link } from '@react-navigation/native';
 
 const MangaItem = ({ navigation, manga, width }) => {
     const [cardWidth, setCardWidth] = useState(width == "large" ? "100%" : "30%");
-    const chapters = [{ number: "1", title: "A l'aventure !" }, { number: "2", title: "A l'aventure !" }, { number: "3", title: "A l'aventure !" }, { number: "4", title: "A l'aventure !" }, { number: "5", title: "A l'aventure !" }, { number: "6", title: "A l'aventure !" }, { number: "7", title: "A l'aventure !" }, { number: "8", title: "A l'aventure !" }, { number: "9", title: "A l'aventure !" }];
+    const chapters = [{ number: "1", title: "A l'aventure !" }, { number: "2", title: "Nouveaux compagnons" }, { number: "3", title: "Test " }, { number: "4", title: "Le pouvoir" }, { number: "5", title: "Stratipo vs Loutfi" }, { number: "6", title: "Dernière minute" }, { number: "7", title: "L'éveil" }, { number: "8", title: "Le réveil" }, { number: "9", title: "Final..." }];
+    
     const goToMangaPage = () => {
-        navigation.navigate('MangaPage', { manga, width: "large" })
+        navigation.navigate('MangaPage', { manga, width: "large"})
     }
+
+    const goToChapter = (chapterNumber) => {
+        navigation.navigate('Chapter', {chapterNumber:chapterNumber, mangaTitle:manga.title});
+    }
+
     if (cardWidth == "30%") {
         return (
             <View style={{ width: cardWidth, marginBottom: 20, marginRight: 10, boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px" }}>
@@ -38,7 +44,7 @@ const MangaItem = ({ navigation, manga, width }) => {
                         <View>
                             {chapters.map((chapter) => {
                                 return (
-                                    <Text key={chapter.number} style={styles.chapter}>{chapter.number} - {chapter.title}</Text>
+                                    <Text key={chapter.number} style={styles.chapter} onPress={goToChapter.bind(this,chapter.number)}>{chapter.number} - {chapter.title}</Text>
                                 )
                             })}
                         </View>
