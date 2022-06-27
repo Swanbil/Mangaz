@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { ActivityIndicator, View, ScrollView, Button } from 'react-native';
 import MangaItem from "./MangaItem";
-
+import {API_URL} from '@env';
 
 const Catalogue = ({navigation}) => {
     const [catalogue, setCatalogue] = useState([]);
@@ -10,7 +10,7 @@ const Catalogue = ({navigation}) => {
     const getCatalogue = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://192.168.1.82:8000/catalogue');
+            const response = await axios.get(API_URL + '/catalogue');
             const data = response.data;
             setCatalogue(data);
         }

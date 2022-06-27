@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import axios from "axios";
+import {API_URL} from '@env';
 
 const Register = ({navigation}) => {
     const [firstname, setFirstName] = useState("");
@@ -12,7 +13,7 @@ const Register = ({navigation}) => {
 
     const register = async() => {
         const user = {"lastname":lastname,"firstname":firstname,"email":email,"pseudo":pseudo, "password":password};
-        const res = await axios.post('http://192.168.1.82:8000/register', user);
+        const res = await axios.post(API_URL + '/register', user);
         alert(res.data);
         navigation.navigate('Home');
     }

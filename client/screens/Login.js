@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
-
+import {API_URL} from '@env';
 
 const Login = ({ navigation, getLogState }) => {
     const [pseudo, setPseudo] = useState("");
@@ -10,7 +10,7 @@ const Login = ({ navigation, getLogState }) => {
     const login = async () => {
         const user = { "pseudo": pseudo, "password": password };
         try {
-            const response = await axios.post('http://192.168.1.82:8000/login', user);
+            const response = await axios.post(API_URL + '/login', user);
             const data = response.data;
             getLogState(true);
             navigation.navigate({name:'Home',params: { userName: data },merge: true,});

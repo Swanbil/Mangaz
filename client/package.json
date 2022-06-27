@@ -19,6 +19,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-native": "0.68.1",
+    "react-native-dotenv": "^3.3.1",
     "react-native-grid-component": "^2.0.1",
     "react-native-paper": "^4.12.1",
     "react-native-responsive-grid-system": "^1.0.4",

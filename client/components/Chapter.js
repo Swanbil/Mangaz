@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { AntDesign } from '@expo/vector-icons';
 import axios from "axios";
+import {API_URL} from '@env';
 
 export default function Chapter({ route, navigation }) {
   const [chapter, setChapter] = useState([]);
@@ -12,7 +13,7 @@ export default function Chapter({ route, navigation }) {
 
   useEffect(() => {
     const getChapter = async () => {
-      const res = await axios.get('http://192.168.1.82:8000/chapter/' + mangaTitle + '/' + chapterNumber);
+      const res = await axios.get(API_URL + '/chapter/' + mangaTitle + '/' + chapterNumber);
       setChapter(res.data);
       setCurrentPage(res.data[0]);
       setNumberCurrentPage(0)
