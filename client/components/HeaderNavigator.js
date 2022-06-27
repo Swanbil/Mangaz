@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Header } from 'react-native/Libraries/NewAppScreen';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { StyleSheet, Text, View } from 'react-native';
 
 const HeaderNavigator = (props) => {
   return (

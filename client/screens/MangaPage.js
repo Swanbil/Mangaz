@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MangaItem from "./MangaItem";
+import MangaItem from "../components/MangaItem";
 import { TouchableOpacity, Text, View } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 const MangaPage = ({ route, navigation }) => {

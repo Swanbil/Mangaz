@@ -1,7 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { Link, NavigationContainer } from '@react-navigation/native';
 import axios from 'axios';
 
 

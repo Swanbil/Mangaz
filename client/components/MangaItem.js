@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Title, Paragraph, Button } from 'react-native-paper';
+import React, { useState } from 'react';
+import { Card, Title, Paragraph } from 'react-native-paper';
 import { View, ScrollView, Text, StyleSheet } from "react-native";
-import { Link } from '@react-navigation/native';
 
 const MangaItem = ({ navigation, manga, width }) => {
     const [cardWidth, setCardWidth] = useState(width == "large" ? "100%" : "30%");

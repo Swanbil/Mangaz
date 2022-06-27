@@ -1,6 +1,5 @@
 import React from 'react';
-import Home from './Home';
-//import MangaReader from './Chapter';
+import Home from '../screens/Home';
 import HeaderNavigator from './HeaderNavigator';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from './Login';
-import Register from './Register';
-import MangaPage from './MangaPage';
+import Login from '../screens/Login';
+import Register from '../screens/Register';
+import MangaPage from '../screens/MangaPage';
 import TabNavigator from './TabNavigator';
 import Chapter from './Chapter';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
