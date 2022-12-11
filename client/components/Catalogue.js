@@ -10,7 +10,7 @@ const Catalogue = ({navigation}) => {
     const getCatalogue = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(API_URL + '/catalogue');
+            const response = await axios.get(API_URL + '/manga/catalogue');
             const data = response.data;
             setCatalogue(data);
         }
