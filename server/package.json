@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "insert-pages" : "node services/insert-chapter-page.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +17,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "prompt-sync": "^4.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
