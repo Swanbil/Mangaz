@@ -34,7 +34,6 @@ exports.getChapters = async (req, res) => {
 exports.getPagesOfChapter = async (req, res) => {
     const mangaTitle = req.params.manga;
     const numberChapter = req.params.number;
-    console.log(mangaTitle, numberChapter);
     let sql = 'SELECT p."idPage", p.source, p."pageNumber", c."idChapter" from  page p INNER JOIN chapter c on c."idChapter" = p."idChapter" RIGHT JOIN manga m on m."idManga" = c."idManga" WHERE "technicalName" = $1 and c.number = $2';
     await db.query(sql, [mangaTitle, numberChapter], (err, result) => {
         if (err) {

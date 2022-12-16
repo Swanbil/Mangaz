@@ -4,21 +4,47 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { AntDesign } from '@expo/vector-icons';
 import axios from "axios";
 import {API_URL} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function Chapter({ route, navigation }) {
   const [pages, setPages] = useState([]);
   const [currentPage, setCurrentPage] = useState({});
+  const [numberPageRead, setNumberPageRead] = useState(0);
+  const [isUserHistorySaved, setUserHistorySaved] = useState(false);
+
   const { chapterNumber, mangaTitle } = route.params;
  
   useEffect(() => {
     getPagesOfChapter();
   }, [chapterNumber]);
 
+  const getDataUserPseudo = async () => {
+    try {
+        const userPseudo =  await AsyncStorage.getItem('@username');
+        return userPseudo;
+    } catch (error) {
+        alert(error)
+    }
+};
+
   const getPagesOfChapter = async () => {
     const response = await axios.get(API_URL + `/manga/${mangaTitle}/chapter/${chapterNumber}`);
     setPages(response.data.pages);
     setCurrentPage(response.data.pages[0]);
+  }
+
+  const saveUserHistoryChapterRead = async () => {
+    const userPseudo = await getDataUserPseudo('@username');
+    console.log(userPseudo)
+    const payload = {
+      userPseudo : userPseudo, //store user pseudo
+      chapterNumber : chapterNumber,
+      mangaName : mangaTitle
+    };
+    console.log("Saving user history", payload);
+    await axios.post(API_URL + `/chapter/history/save`, payload);
+    setUserHistorySaved(true)
   }
 
   const goPreviousPage = () => {
@@ -27,10 +53,14 @@ export default function Chapter({ route, navigation }) {
       setCurrentPage(pages[currentIndex - 1]);
     }
   }
-  const goNextPage = () => {
+  const goNextPage = async() => {
     const currentIndex = pages.findIndex((page) => {return page.idPage == currentPage.idPage});
     if(currentIndex<pages.length){
       setCurrentPage(pages[currentIndex + 1]);
+      setNumberPageRead(state => state + 1);
+    }
+    if(numberPageRead === 8 && !isUserHistorySaved){    //saving user history if 5 page is read
+      await saveUserHistoryChapterRead();
     }
   }
   return (

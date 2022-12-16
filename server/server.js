@@ -12,9 +12,12 @@ app.use(cors());
 
 const authentificationRoutes = require('./routes/authentification.routes');
 const mangaRoutes = require('./routes/manga.routes');
+const userRoutes = require('./routes/user.routes');
+
 
 app.use(authentificationRoutes);
 app.use(mangaRoutes);
+app.use(userRoutes);
 app.use("/images", express.static('chapters'));
 
 app.listen(port, () => {
