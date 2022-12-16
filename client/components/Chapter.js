@@ -10,7 +10,6 @@ export default function Chapter({ route, navigation }) {
   const [pages, setPages] = useState([]);
   const [currentPage, setCurrentPage] = useState({});
   const { chapterNumber, mangaTitle } = route.params;
-  const [btnDisabled, setBtnDisabled] = useState(true);
  
   useEffect(() => {
     getPagesOfChapter();
@@ -26,10 +25,6 @@ export default function Chapter({ route, navigation }) {
     const currentIndex = pages.findIndex((page) => {return page.idPage == currentPage.idPage});
     if(currentIndex>0){
       setCurrentPage(pages[currentIndex - 1]);
-      setBtnDisabled(false)
-    }
-    else{
-      setBtnDisabled(true)
     }
   }
   const goNextPage = () => {

@@ -46,5 +46,4 @@ exports.getPagesOfChapter = async (req, res) => {
         res.status(200).send({ pages: pages });
         return;
     })
-    
 }
