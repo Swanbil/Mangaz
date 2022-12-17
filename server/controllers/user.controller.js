@@ -81,7 +81,6 @@ exports.saveChapterRead = async (req, res) => {
     const chapterNumber = req.body.chapterNumber;
     let dateNow = new Date();
     const readDate = dateNow.getFullYear() + '-' + (dateNow.getMonth() + 1) + '-' + dateNow.getDate();
-    console.log([userPseudo, mangaName, chapterNumber, readDate]);
 
     const sqlGetId = 'SELECT users."idUser", chapter."idChapter" from users, chapter, manga\
     WHERE chapter."number" = $1 and chapter."idManga" = manga."idManga"\
@@ -98,6 +97,7 @@ exports.saveChapterRead = async (req, res) => {
         }
         const { idUser, idChapter } = result.rows[0];
         const checkHistory = await isUserHistoryAlreadyExist(idUser, idChapter);
+        console.log(checkHistory, [userPseudo, mangaName, chapterNumber, readDate]);
         if (checkHistory) {
             res.status(202).send({ message: "History already saved" });
             return;

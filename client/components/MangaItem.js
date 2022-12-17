@@ -20,7 +20,7 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
                 <Card >
                     <Card.Content style={{ textAlign: "center", height: 100 }}>
                         <Title style={{ fontSize: 10 }} onPress={goToMangaPage}>{manga.titleName}</Title>
-                        <Paragraph style={{ fontSize: 5 }}>{manga.createdDate}</Paragraph>
+                        <Paragraph style={{ fontSize: 5 }}>{(manga.createdDate !== null) ? manga.createdDate.split('-')[0] : ''}</Paragraph>
                     </Card.Content>
                     <Card.Cover width={cardWidth} source={{ uri: manga.coverImage }} />
                 </Card>
@@ -33,7 +33,7 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
             <ScrollView style={{ boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px" }}>
                 <Card style={{ marginRight: 20, marginLeft: 20 }}>
                     <Card.Title title={manga.titleName} subtitle={(manga.createdDate !== null) ? manga.createdDate.split('-')[0] : ''} />
-                    <Card.Cover source={{ uri: manga.coverImage }} style={{ width: cardWidth, height: 300 }} />
+                    <Card.Cover source={{ uri: manga.coverImage }} style={{ width: cardWidth, height: 300, backgroundColor:'white' }} resizeMode="contain"/>
                     <Card.Content>
                         <Text style={styles.cardSubtitle}>Description</Text>
                         <Paragraph style={{ fontSize: 10 }}>{manga.description}</Paragraph>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         color: "#C0A6F7"
     },
-    chapter:{ marginBottom: 5, backgroundColor: "#F5F5F5", padding: 4, fontStyle: "italic" },
+    chapter:{ marginBottom: 5, backgroundColor: "#F5F5F5", padding: 4, fontStyle: "italic", fontWeight : "600" },
         
     
 })
