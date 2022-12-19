@@ -116,6 +116,25 @@ exports.saveChapterRead = async (req, res) => {
         })
 
     })
+}
 
 
+exports.getUserIdFromPseudo = async (userPseudo) => {
+    const sql = 'SELECT "idUser" FROM users WHERE pseudo = $1';
+    return new Promise((resolve, reject) => {
+        setTimeout(async () => {
+            await db.query(sql, [userPseudo], (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve(null);
+                    return
+                }
+                if (result.rows.length !== 1) {
+                    resolve(null);
+                    return
+                }
+                resolve(result.rows[0].idUser);
+            })
+        }, 100)
+    });
 }

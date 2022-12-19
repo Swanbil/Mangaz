@@ -27,8 +27,8 @@ const Catalogue = ({navigation}) => {
         return <ActivityIndicator style={{flex:1}}/>
     }
     return (
-        <ScrollView style={{ flex: 1, padding: 24 }}>
-            <View className="catalogue"  style={{ flexDirection:"row", flexWrap:"wrap", justifyContent:"center" }}>
+        <ScrollView contentContainerStyle={{ padding:24 }} >
+            <View className="catalogue"  style={{ flexGrow :1, flexDirection:'row', justifyContent:'space-between', flexWrap:"wrap" }}>
                 {catalogue.map((manga, idx) => (
                     <MangaItem manga={manga} key={manga.idManga} navigation={navigation}/>
                 )

@@ -1,5 +1,5 @@
 const db = require('../config/database');
-const axios = require('axios').default;
+const {getUserIdFromPseudo} = require('../controllers/user.controller');
 
 exports.getCatalogue = async (req, res) => {
     let sql = "SELECT * from manga";
@@ -41,8 +41,50 @@ exports.getPagesOfChapter = async (req, res) => {
             res.status(404).send({ message: "An error occur while loading chapter pages" });
             return;
         }
-        let pages = result.rows.sort((a, b) => parseInt(a.pageNumber) - parseInt(b.pageNumber))
+        let pages = result.rows.sort((a, b) => parseInt(a.pageNumber) - parseInt(b.pageNumber));
         res.status(200).send({ pages: pages });
         return;
     })
+}
+exports.addMangaToFavoris = async (req, res) => {
+    const idManga = req.body.idManga;
+    const userPseudo = req.body.userPseudo;
+
+    const idUser = await getUserIdFromPseudo(userPseudo);
+    if (idUser === null) {
+        res.status(404).send({ message: "No user corresponding to this pseudo" });
+        return;
+    }
+    let sql = 'INSERT INTO users_favoris("idUser", "idManga") VALUES ($1, $2)';
+    await db.query(sql, [idUser, idManga], (err, result) => {
+        if (err) {
+            console.error('Error executing query', err.stack);
+            res.status(404).send({ message: "An error occured by adding to favoris this manga" });
+            return;
+        }
+        res.status(200).send({ message: "Manga added to favoris !" });
+        return;
+    });
+}
+
+exports.removeMangaFromFavoris = async (req, res) => {
+    const idManga = req.body.idManga;
+    const userPseudo = req.body.userPseudo;
+
+    const idUser = await getUserIdFromPseudo(userPseudo);
+    if (idUser === null) {
+        res.status(404).send({ message: "No user corresponding to this pseudo" });
+        return;
+    }
+
+    let sql = 'DELETE FROM users_favoris uf WHERE uf."idManga" = $1 and uf."idUser" = $2';
+    await db.query(sql, [idManga, idUser], async (err, result) => {
+        if (err) {
+            console.error('Error executing query', err.stack);
+            res.status(404).send({ message: "An error occured by removing to favoris this manga" });
+            return;
+        }
+        res.status(200).send({ message: "Manga removed from favoris !" });
+        return;
+    });
 }

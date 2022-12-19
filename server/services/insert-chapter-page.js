@@ -1,7 +1,7 @@
 const db = require('../config/database');
 const prompt = require("prompt-sync")({ sigint: true });
 
-const chapterNumber = parseInt(prompt("Which chapter : "));
+const chapterNumber = parseInt(prompt("Which id Chapter : "));
 const pageNumber = prompt('How many pages : ');
 const baseUrl = prompt('Base url page : ');
 
