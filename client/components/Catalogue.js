@@ -3,14 +3,16 @@ import React, { useState, useEffect } from "react";
 import { ActivityIndicator, View, ScrollView, Button } from 'react-native';
 import MangaItem from "./MangaItem";
 import {API_URL} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Catalogue = ({navigation}) => {
     const [catalogue, setCatalogue] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const getCatalogue = async () => {
         setLoading(true);
+        const userPseudo = await AsyncStorage.getItem('@username');
         try {
-            const response = await axios.get(API_URL + '/manga/catalogue');
+            const response = await axios.get(API_URL + `/manga/catalogue/${userPseudo}`);
             const data = response.data;
             setCatalogue(data);
         }

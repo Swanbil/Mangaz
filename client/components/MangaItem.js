@@ -1,33 +1,50 @@
 import React, { useState } from 'react';
-import { Card, Title, Paragraph, Button,IconButton  } from 'react-native-paper';
+import { Card, Paragraph, IconButton } from 'react-native-paper';
 import { View, ScrollView, Text, StyleSheet } from "react-native";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {API_URL} from '@env';
 
 const MangaItem = ({ navigation, manga, width, chapters }) => {
     const [cardWidth, setCardWidth] = useState(width == "large" ? "100%" : "30%");
-
+    const [mangaItem, setMangaItem] = useState(manga)
 
     const goToMangaPage = () => {
-        navigation.navigate('MangaPage', { manga, width: "large" })
+        console.log(mangaItem)
+        navigation.navigate('MangaPage', { manga : mangaItem, width: "large" })
     }
 
     const goToChapter = (chapterNumber) => {
-        navigation.navigate('Chapter', { chapterNumber: chapterNumber, mangaTitle: manga.technicalName });
+        navigation.navigate('Chapter', { chapterNumber: chapterNumber, mangaTitle: mangaItem.technicalName });
     }
 
-    const addMangaToFavoris = (manga) => {
-        console.log("Add to fav", manga.technicalName);
+    const toogleMangaToFavoris = async (manga) => {
+        const userPseudo = await AsyncStorage.getItem('@username');
+        const payload = {
+            userPseudo: userPseudo,
+            idManga: mangaItem.idManga
+        };
+        console.log(mangaItem.isFavoris)
+        if(mangaItem.isFavoris){
+            setMangaItem((prevState) => ({...prevState, isFavoris : false}))
+            await axios.post(`${API_URL}/manga/remove/favoris`, payload)
+        }
+        else{
+            setMangaItem((prevState) => ({...prevState, isFavoris : true}))
+            await axios.post(`${API_URL}/manga/add/favoris`, payload)
+        }
     }
 
     if (cardWidth == "30%") {
         return (
-            <View style={{width:"45%", marginBottom: 20,  boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px" }}>
+            <View style={{ width: "45%", marginBottom: 20, boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px" }}>
                 <Card onPress={goToMangaPage}>
-                    <Card.Title 
-                    title={manga.titleName} titleStyle={{fontSize:8}}
-                    subtitle={(manga.createdDate !== null) ? manga.createdDate.split('-')[0] : ''}  subtitleStyle={{fontSize:5}}
-                    right={(props) => <IconButton {...props} icon="star" color="black" onPress={addMangaToFavoris.bind(this, manga)} size={20} />}                 
+                    <Card.Title
+                        title={mangaItem.titleName} titleStyle={{ fontSize: 8 }}
+                        subtitle={(mangaItem.createdDate !== null) ? mangaItem.createdDate.split('-')[0] : ''} subtitleStyle={{ fontSize: 5 }}
+                        right={(props) => <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={20} />}
                     />
-                    <Card.Cover width={"100%"} source={{ uri: manga.coverImage }} />
+                    <Card.Cover width={"100%"} source={{ uri: mangaItem.coverImage }} />
                 </Card>
             </View>
 
@@ -37,11 +54,11 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
         return (
             <ScrollView style={{ boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px" }}>
                 <Card style={{ marginRight: 20, marginLeft: 20 }}>
-                    <Card.Title title={manga.titleName} subtitle={(manga.createdDate !== null) ? manga.createdDate.split('-')[0] : ''} />
+                    <Card.Title title={mangaItem.titleName} subtitle={(mangaItem.createdDate !== null) ? mangaItem.createdDate.split('-')[0] : ''} />
                     <Card.Cover source={{ uri: manga.coverImage }} style={{ width: cardWidth, height: 300, backgroundColor: 'white' }} resizeMode="contain" />
                     <Card.Content>
                         <Text style={styles.cardSubtitle}>Description</Text>
-                        <Paragraph style={{ fontSize: 10 }}>{manga.description}</Paragraph>
+                        <Paragraph style={{ fontSize: 10 }}>{mangaItem.description}</Paragraph>
                     </Card.Content>
                     <Card.Content>
                         <Text style={styles.cardSubtitle}>Chapters</Text>

@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import Catalogue from "../components/Catalogue";
-import { API_URL } from '@env';
 
 export default function Home({ navigation, route, isLog }) {
   useEffect(() => {
@@ -10,7 +9,7 @@ export default function Home({ navigation, route, isLog }) {
     }
   }, [route.params?.userName]);
 
-  if (true) {
+  if (isLog) {
     return (
       <View style={styles.container}>
         {route.params?.userName && <Text style={{ margin: 10, fontWeight: "bold" }}>⛩ Hello <Text style={{ color: "#C0A6F7" }}>{route.params?.userName}</Text> ⛩ </Text>}
@@ -39,7 +38,6 @@ export default function Home({ navigation, route, isLog }) {
 
     );
   }
-
 }
 
 const styles = StyleSheet.create({

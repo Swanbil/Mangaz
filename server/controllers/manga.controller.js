@@ -1,5 +1,5 @@
 const db = require('../config/database');
-const {getUserIdFromPseudo} = require('../controllers/user.controller');
+const { getUserIdFromPseudo } = require('../controllers/user.controller');
 
 exports.getCatalogue = async (req, res) => {
     let sql = "SELECT * from manga";
@@ -11,6 +11,32 @@ exports.getCatalogue = async (req, res) => {
         res.status(200).send(catalogue);
         return
     })
+}
+
+exports.getCatalogueWithUserFavoris = async (req, res) => {
+    const userPseudo = req.params.userPseudo;
+    let sql = 'SELECT * from manga';
+    await db.query(sql, async (err, result) => {
+        if (err) {
+            return console.error('Error executing query', err.stack)
+        }
+        let catalogue = result.rows;
+
+        sql = 'SELECT m."technicalName" FROM users_favoris uf INNER JOIN manga m ON m."idManga" = uf."idManga" INNER JOIN users u ON u."idUser" = uf."idUser"\
+              WHERE u.pseudo = $1';
+        await db.query(sql, [userPseudo], (err, result) => {
+            if (err) {
+                return console.error('Error executing query', err.stack)
+            }
+            const mangaFavoris = result.rows;
+            const catalogueWithFavoris = catalogue.map((manga) => {
+                manga.isFavoris = (mangaFavoris.find(m => m.technicalName === manga.technicalName)) !== undefined ? true : false;
+                return manga;
+            });
+            res.status(200).send(catalogueWithFavoris);
+            return;
+        })
+    });
 }
 
 exports.getChapters = async (req, res) => {
@@ -70,7 +96,6 @@ exports.addMangaToFavoris = async (req, res) => {
 exports.removeMangaFromFavoris = async (req, res) => {
     const idManga = req.body.idManga;
     const userPseudo = req.body.userPseudo;
-
     const idUser = await getUserIdFromPseudo(userPseudo);
     if (idUser === null) {
         res.status(404).send({ message: "No user corresponding to this pseudo" });
