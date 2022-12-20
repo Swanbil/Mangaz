@@ -6,7 +6,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppNavigator from './components/AppNavigator';
 import { usePreventScreenCapture } from 'expo-screen-capture';
 
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {

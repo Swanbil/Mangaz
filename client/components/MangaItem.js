@@ -10,7 +10,6 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
     const [mangaItem, setMangaItem] = useState(manga)
 
     const goToMangaPage = () => {
-        console.log(mangaItem)
         navigation.navigate('MangaPage', { manga : mangaItem, width: "large" })
     }
 
@@ -24,7 +23,6 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
             userPseudo: userPseudo,
             idManga: mangaItem.idManga
         };
-        console.log(mangaItem.isFavoris)
         if(mangaItem.isFavoris){
             setMangaItem((prevState) => ({...prevState, isFavoris : false}))
             await axios.post(`${API_URL}/manga/remove/favoris`, payload)

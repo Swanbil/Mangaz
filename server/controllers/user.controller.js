@@ -54,7 +54,7 @@ exports.register = async (req, res) => {
 
         }
     });
-    
+
 }
 
 const isUserHistoryAlreadyExist = async (idUser, idChapter) => {
@@ -116,6 +116,26 @@ exports.saveChapterRead = async (req, res) => {
         })
 
     })
+}
+
+exports.getMangasFavoris = async (req, res) => {
+    const userPseudo = req.params.userPseudo;
+    sql = 'SELECT m."coverImage", m."createdDate", m.description, m.genre, m."idManga", m."popularityRank", m."technicalName", m."titleName"\
+           FROM users_favoris uf INNER JOIN manga m ON m."idManga" = uf."idManga" INNER JOIN users u ON u."idUser" = uf."idUser"\
+           WHERE u.pseudo = $1';
+    await db.query(sql, [userPseudo], (err, result) => {
+        if (err) {
+            return console.error('Error executing query', err.stack)
+        }
+        let mangaFavoris = result.rows;
+        mangaFavoris = mangaFavoris.map((manga) => {
+            manga.isFavoris = true;
+            return manga;
+        });
+        res.status(200).send({mangaFavoris : mangaFavoris});
+        return;
+    })
+
 }
 
 

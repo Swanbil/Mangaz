@@ -1,20 +1,47 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import Catalogue from "../components/Catalogue";
+import { API_URL } from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
+
 
 export default function Home({ navigation, route, isLog }) {
-  useEffect(() => {
-    if (route.params?.userName) {
+  const [catalogue, setCatalogue] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      getCatalogue();
+    }, [])
+  );
+
+  const getCatalogue = async () => {
+    setLoading(true);
+    const userPseudo = await AsyncStorage.getItem('@username');
+    try {
+      const response = await axios.get(API_URL + `/manga/catalogue/${userPseudo}`);
+      const data = response.data;
+      setCatalogue(data);
     }
-  }, [route.params?.userName]);
+    catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   if (isLog) {
     return (
       <View style={styles.container}>
         {route.params?.userName && <Text style={{ margin: 10, fontWeight: "bold" }}>⛩ Hello <Text style={{ color: "#C0A6F7" }}>{route.params?.userName}</Text> ⛩ </Text>}
-        <View style={{flex:'1', justifyContent:'center'}}>
-          <Catalogue navigation={navigation}></Catalogue>
+        <View style={{ flex: '1', justifyContent: 'center' }}>
+          {isLoading
+            ? <ActivityIndicator style={{ flex: 1 }} />
+            : <Catalogue navigation={navigation} catalogue={catalogue} pageName="Home"/>
+          }
+
         </View>
       </View>
 

@@ -1,41 +1,23 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { ActivityIndicator, View, ScrollView, Button } from 'react-native';
+import React from "react";
+import { View, ScrollView, Text } from 'react-native';
 import MangaItem from "./MangaItem";
-import {API_URL} from '@env';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Catalogue = ({navigation}) => {
-    const [catalogue, setCatalogue] = useState([]);
-    const [isLoading, setLoading] = useState(false);
-    const getCatalogue = async () => {
-        setLoading(true);
-        const userPseudo = await AsyncStorage.getItem('@username');
-        try {
-            const response = await axios.get(API_URL + `/manga/catalogue/${userPseudo}`);
-            const data = response.data;
-            setCatalogue(data);
-        }
-        catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    }
-    useEffect(() => {
-        getCatalogue();
-    }, []);
-    if(isLoading){
-        return <ActivityIndicator style={{flex:1}}/>
-    }
+const Catalogue = ({ navigation, catalogue, pageName }) => {
     return (
-        <ScrollView contentContainerStyle={{ padding:24 }} >
-            <View className="catalogue"  style={{ flexGrow :1, flexDirection:'row', justifyContent:'space-between', flexWrap:"wrap" }}>
-                {catalogue.map((manga, idx) => (
-                    <MangaItem manga={manga} key={manga.idManga} navigation={navigation}/>
+        <ScrollView contentContainerStyle={{ padding: 24 }} >
+            {catalogue?.length === 0
+                ? <Text style={{ flex: 1, textAlign:"center", fontWeight:"500", marginTop:50 }}>Any mangas in the {pageName === "Favoris" ? "favorites" : "catalogue"} 😪</Text>
+                : (
+                    <View className="catalogue" style={{ flexGrow: 1, flexDirection: 'row', justifyContent: 'space-between', flexWrap: "wrap" }}>
+                        {catalogue?.map((manga, idx) => (
+                            <MangaItem manga={manga} key={manga.idManga} navigation={navigation} />
+                        )
+                        )}
+                    </View>
                 )
-                )}
-            </View>
+            }
+
         </ScrollView>)
 
 }

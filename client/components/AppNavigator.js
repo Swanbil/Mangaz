@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../screens/Login';
@@ -7,10 +7,25 @@ import MangaPage from '../screens/MangaPage';
 import TabNavigator from './TabNavigator';
 import Chapter from './Chapter';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
     const [isLog, setIsLog] = useState(false);
+
+    useEffect(() => {
+        setUserLogState();
+    }, []);
+
+    const setUserLogState = async() => {
+        const userPseudo = await AsyncStorage.getItem('@username');
+        console.log(userPseudo);
+        if(userPseudo !== undefined && userPseudo !== null){
+            console.log("oui", userPseudo);
+            setIsLog(true);
+        }
+        setIsLog(false);
+    }
 
     const getLogState = (data) => {
         setIsLog(data);

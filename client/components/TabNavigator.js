@@ -2,6 +2,7 @@ import React from 'react';
 import Home from '../screens/Home';
 import HeaderNavigator from './HeaderNavigator';
 import Settings from '../screens/Settings';
+import Favoris from '../screens/Favoris';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getHeaderTitle } from '@react-navigation/elements';
@@ -27,6 +28,9 @@ const Tabs = ({ getLogState, isLog }) => {
                     } else if (route.name === 'Settings') {
                         iconName = focused ? 'settings' : 'settings-outline';
                     }
+                    else if (route.name === 'Favoris') {
+                        iconName = focused ? 'heart-circle' : 'heart-circle-outline';
+                    }
 
                     // You can return any component that you like here!
                     return <Ionicons name={iconName} size={size} color={color} />;
@@ -37,6 +41,9 @@ const Tabs = ({ getLogState, isLog }) => {
         >
             <Tab.Screen name="Home">
                 {(props) => <Home {...props} isLog={isLog} />}
+            </Tab.Screen>
+            <Tab.Screen name="Favoris">
+                {(props) => <Favoris {...props} isLog={isLog} />}
             </Tab.Screen>
             <Tab.Screen name="Settings">
              {(props) => <Settings {...props} isLog={isLog} getLogState={getLogState}/>}    
