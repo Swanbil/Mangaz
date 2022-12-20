@@ -28,7 +28,7 @@ const Favoris = ({ navigation }) => {
         return <ActivityIndicator style={{flex:1}}/>
     }
     return (
-        <Catalogue navigation={navigation} catalogue={mangaFavoris} pageName="Favoris"/>
+        <Catalogue navigation={navigation} catalogue={mangaFavoris} pageName="Favoris" widthMangaItem={"small"}/>
 
     )
 }

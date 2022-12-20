@@ -39,7 +39,7 @@ export default function Home({ navigation, route, isLog }) {
         <View style={{ flex: '1', justifyContent: 'center' }}>
           {isLoading
             ? <ActivityIndicator style={{ flex: 1 }} />
-            : <Catalogue navigation={navigation} catalogue={catalogue} pageName="Home"/>
+            : <Catalogue navigation={navigation} catalogue={catalogue} pageName="Home" widthMangaItem="large"/>
           }
 
         </View>

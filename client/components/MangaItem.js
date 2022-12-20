@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { Card, Paragraph, IconButton } from 'react-native-paper';
-import { View, ScrollView, Text, StyleSheet } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { Card, Paragraph, IconButton, Avatar } from 'react-native-paper';
+import { View, ScrollView, Text, StyleSheet, Image } from "react-native";
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {API_URL} from '@env';
+import { API_URL } from '@env';
 
 const MangaItem = ({ navigation, manga, width, chapters }) => {
-    const [cardWidth, setCardWidth] = useState(width == "large" ? "100%" : "30%");
-    const [mangaItem, setMangaItem] = useState(manga)
+    const [cardWidth, setCardWidth] = useState(width == "xlarge" ? "100%" : "30%");
+    const [mangaItem, setMangaItem] = useState(manga);
+
 
     const goToMangaPage = () => {
-        navigation.navigate('MangaPage', { manga : mangaItem, width: "large" })
+        navigation.navigate('MangaPage', { manga: mangaItem, width: "xlarge" })
     }
 
     const goToChapter = (chapterNumber) => {
@@ -23,23 +24,23 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
             userPseudo: userPseudo,
             idManga: mangaItem.idManga
         };
-        if(mangaItem.isFavoris){
-            setMangaItem((prevState) => ({...prevState, isFavoris : false}))
+        if (mangaItem.isFavoris) {
+            setMangaItem((prevState) => ({ ...prevState, isFavoris: false }))
             await axios.post(`${API_URL}/manga/remove/favoris`, payload)
         }
-        else{
-            setMangaItem((prevState) => ({...prevState, isFavoris : true}))
+        else {
+            setMangaItem((prevState) => ({ ...prevState, isFavoris: true }))
             await axios.post(`${API_URL}/manga/add/favoris`, payload)
         }
     }
 
-    if (cardWidth == "30%") {
+    if (width == "large") {
         return (
             <View style={{ width: "45%", marginBottom: 20, boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px" }}>
                 <Card onPress={goToMangaPage}>
                     <Card.Title
                         title={mangaItem.titleName} titleStyle={{ fontSize: 8 }}
-                        subtitle={(mangaItem.createdDate !== null) ? mangaItem.createdDate.split('-')[0] : ''} subtitleStyle={{ fontSize: 5 }}
+                        subtitle={(mangaItem.createdDate !== null) ? mangaItem.createdDate.split('-')[0] : ''} subtitleStyle={{ fontSize: 6 }}
                         right={(props) => <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={20} />}
                     />
                     <Card.Cover width={"100%"} source={{ uri: mangaItem.coverImage }} />
@@ -48,12 +49,28 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
 
         )
     }
+    else if (width === "small") {
+        return (
+            <View style={{ width: "100%", marginBottom: 20, boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px" }}>
+                <Card onPress={goToMangaPage}>
+                    <Card.Title
+                        title={mangaItem.titleName} titleStyle={{ fontSize: 15 }}
+                        subtitle={(mangaItem.createdDate !== null) ? mangaItem.createdDate.split('-')[0] : ''} subtitleStyle={{ fontSize: 10 }}
+                        left={(props) => <Image {...props} source={{ uri: mangaItem.coverImage }} style={{width: 50, height: 50,}}/>}
+                        right={(props) => <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={25} />}
+                    />
+
+                </Card>
+
+            </View>
+        )
+    }
     else {
         return (
             <ScrollView style={{ boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px" }}>
                 <Card style={{ marginRight: 20, marginLeft: 20 }}>
                     <Card.Title title={mangaItem.titleName} subtitle={(mangaItem.createdDate !== null) ? mangaItem.createdDate.split('-')[0] : ''} />
-                    <Card.Cover source={{ uri: manga.coverImage }} style={{ width: cardWidth, height: 300, backgroundColor: 'white' }} resizeMode="contain" />
+                    <Card.Cover source={{ uri: mangaItem.coverImage }} style={{ width: cardWidth, height: 300, backgroundColor: 'white' }} resizeMode="contain" />
                     <Card.Content>
                         <Text style={styles.cardSubtitle}>Description</Text>
                         <Paragraph style={{ fontSize: 10 }}>{mangaItem.description}</Paragraph>

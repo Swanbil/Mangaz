@@ -3,7 +3,7 @@ import React from "react";
 import { View, ScrollView, Text } from 'react-native';
 import MangaItem from "./MangaItem";
 
-const Catalogue = ({ navigation, catalogue, pageName }) => {
+const Catalogue = ({ navigation, catalogue, pageName, widthMangaItem }) => {
     return (
         <ScrollView contentContainerStyle={{ padding: 24 }} >
             {catalogue?.length === 0
@@ -11,7 +11,7 @@ const Catalogue = ({ navigation, catalogue, pageName }) => {
                 : (
                     <View className="catalogue" style={{ flexGrow: 1, flexDirection: 'row', justifyContent: 'space-between', flexWrap: "wrap" }}>
                         {catalogue?.map((manga, idx) => (
-                            <MangaItem manga={manga} key={manga.idManga} navigation={navigation} />
+                            <MangaItem manga={manga} key={manga.idManga} navigation={navigation} width={widthMangaItem}/>
                         )
                         )}
                     </View>
