@@ -24,6 +24,7 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
             userPseudo: userPseudo,
             idManga: mangaItem.idManga
         };
+        console.log(payload)
         if (mangaItem.isFavoris) {
             setMangaItem((prevState) => ({ ...prevState, isFavoris: false }))
             await axios.post(`${API_URL}/manga/remove/favoris`, payload)

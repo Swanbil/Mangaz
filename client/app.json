@@ -5,7 +5,12 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "splash": {
+      "image": "./assets/manga-icon.png",
+      "backgroundColor": "#FFFFFF",
+      "resizeMode" : "contain"
+    }
   },
   "name": "Mangaz"
 }

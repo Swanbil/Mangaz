@@ -5,7 +5,7 @@ import MangaItem from "./MangaItem";
 
 const Catalogue = ({ navigation, catalogue, pageName, widthMangaItem }) => {
     return (
-        <ScrollView contentContainerStyle={{ padding: 24 }} >
+        <ScrollView contentContainerStyle={{ padding: 24 }} style={{marginTop:10}}>
             {catalogue?.length === 0
                 ? <Text style={{ flex: 1, textAlign:"center", fontWeight:"500", marginTop:50 }}>Any mangas in the {pageName === "Favoris" ? "favorites" : "catalogue"} 😪</Text>
                 : (

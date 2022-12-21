@@ -10,26 +10,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createNativeStackNavigator();
-const AppNavigator = () => {
-    const [isLog, setIsLog] = useState(false);
-
-    useEffect(() => {
-        setUserLogState();
-    }, []);
-
-    const setUserLogState = async() => {
-        const userPseudo = await AsyncStorage.getItem('@username');
-        console.log(userPseudo);
-        if(userPseudo !== undefined && userPseudo !== null){
-            console.log("oui", userPseudo);
-            setIsLog(true);
-        }
-        setIsLog(false);
-    }
-
-    const getLogState = (data) => {
-        setIsLog(data);
-    }
+const AppNavigator = ({isLogedIn, getLogState, userCredentials, getUserCredState}) => {
     return (
         <Stack.Navigator
             screenOptions={{
@@ -38,7 +19,7 @@ const AppNavigator = () => {
                 cardStyle: { backgroundColor: 'red' },
             }}>
             <Stack.Screen name="TabNavigator" options={{ headerShown: false }}>
-                {(props) => <TabNavigator {...props} isLog={isLog}  getLogState={getLogState}/>}
+                {(props) => <TabNavigator {...props} isLog={isLogedIn} userCredentials={userCredentials} getLogState={getLogState}/>}
             </Stack.Screen>
             <Stack.Screen name="Login" options={({ navigation }) => ({
                 headerLeft: props => (
@@ -50,7 +31,7 @@ const AppNavigator = () => {
                 )
             })}>
 
-                {(props) => <Login {...props} getLogState={getLogState} />}
+                {(props) => <Login {...props} getLogState={getLogState}/>}
             </Stack.Screen>
             <Stack.Screen name="Register" component={Register}
                 options={({ navigation }) => ({
@@ -83,6 +64,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingTop:10
     },
     textHeader: {
         fontSize: 20,

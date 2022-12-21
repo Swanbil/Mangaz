@@ -11,22 +11,23 @@ const HeaderNavigator = (props) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   textHeader:{
-    fontSize: 18, 
+    fontSize: 15, 
     fontWeight: "bold", 
     color: "black", 
+    padding:8,
+    backgroundColor:"#C0A6F7",
+    borderRadius:10,
+    overflow:"hidden"
   },
   headerStyle: {
     height: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:'#F6F6F6'
+    backgroundColor:'#FFFFFF',
+    paddingTop:6,
+    borderBottomColor: '#F1F1F1',
+    borderBottomWidth: 2,
   }
 });
 

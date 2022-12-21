@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 
 
-export default function Home({ navigation, route, isLog }) {
+export default function Home({ navigation, route, isLog}) {
   const [catalogue, setCatalogue] = useState([]);
   const [isLoading, setLoading] = useState(false);
 

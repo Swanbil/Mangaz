@@ -82,6 +82,7 @@ exports.addMangaToFavoris = async (req, res) => {
         return;
     }
     let sql = 'INSERT INTO users_favoris("idUser", "idManga") VALUES ($1, $2)';
+    console.log('add', [idUser, idManga, userPseudo])
     await db.query(sql, [idUser, idManga], (err, result) => {
         if (err) {
             console.error('Error executing query', err.stack);
@@ -103,6 +104,7 @@ exports.removeMangaFromFavoris = async (req, res) => {
     }
 
     let sql = 'DELETE FROM users_favoris uf WHERE uf."idManga" = $1 and uf."idUser" = $2';
+    console.log('remove', [idUser, idManga, userPseudo])
     await db.query(sql, [idManga, idUser], async (err, result) => {
         if (err) {
             console.error('Error executing query', err.stack);

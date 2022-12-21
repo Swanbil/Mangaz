@@ -1,20 +1,48 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppNavigator from './components/AppNavigator';
-import { usePreventScreenCapture } from 'expo-screen-capture';
+import * as SplashScreen from 'expo-splash-screen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Stack = createNativeStackNavigator();
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  usePreventScreenCapture();
+  const [appIsReady, setAppIsReady] = useState(false);
+  const [isLogedIn, setIsLogedIn] = useState(false);
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        const userInfos = await AsyncStorage.getItem('@username');
+        console.log("USER CRED", userInfos);
+        if (userInfos) {
+          setIsLogedIn(true);
+        }
+
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+        await SplashScreen.hideAsync();
+      }
+    }
+    prepare();
+  }, []);
+
+  const getLogState = (data) => {
+    setIsLogedIn(data);
+  }
+ 
+
+  if (!appIsReady) {
+    return null;
+  }
   return (
-    <NavigationContainer >
-      <AppNavigator/>
-    </NavigationContainer>
-    
+      <NavigationContainer>
+        <AppNavigator isLogedIn={isLogedIn} getLogState={getLogState} />
+      </NavigationContainer>
   );
 }
 

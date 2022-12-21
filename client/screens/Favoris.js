@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Catalogue from "../components/Catalogue";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, TouchableOpacity, Text, StyleSheet, View } from "react-native";
 import axios from "axios";
 import { API_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 
-const Favoris = ({ navigation }) => {
+const Favoris = ({ navigation, isLog}) => {
     const [mangaFavoris, setMangaFavoris] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -16,7 +16,6 @@ const Favoris = ({ navigation }) => {
             getMangasFavoris();
         }, [])
     );
-
     const getMangasFavoris = async () => {
         setIsLoading(true);
         const userPseudo = await AsyncStorage.getItem('@username');
@@ -24,13 +23,31 @@ const Favoris = ({ navigation }) => {
         setMangaFavoris(response.data.mangaFavoris);
         setIsLoading(false);
     }
-    if(isLoading){
-        return <ActivityIndicator style={{flex:1}}/>
+    if (!isLog) {
+        return (
+            <TouchableOpacity
+                style
+                onPress={() => navigation.navigate('Login')}
+                underlayColor='#fff'>
+                <Text style>Go To Login Page </Text>
+            </TouchableOpacity>
+        )
     }
     return (
-        <Catalogue navigation={navigation} catalogue={mangaFavoris} pageName="Favoris" widthMangaItem={"small"}/>
-
+        <View style={styles.container}>
+            {isLoading
+                ? <ActivityIndicator style={{ flex: 1 }} />
+                : <Catalogue navigation={navigation} catalogue={mangaFavoris} pageName="Favoris" widthMangaItem={"small"} />
+            }
+        </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+});
 
 export default Favoris;

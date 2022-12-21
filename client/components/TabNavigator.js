@@ -13,7 +13,6 @@ const Tab = createBottomTabNavigator();
 const Tabs = ({ getLogState, isLog }) => {
     return (
         <Tab.Navigator
-
             screenOptions={({ navigation, route }) => ({
                 header: ({ navigation, route, options }) => {
                     const title = getHeaderTitle(options, route.name);
@@ -40,13 +39,13 @@ const Tabs = ({ getLogState, isLog }) => {
             })}
         >
             <Tab.Screen name="Home">
-                {(props) => <Home {...props} isLog={isLog} />}
+                {(props) => <Home {...props} isLog={isLog}/>}
             </Tab.Screen>
             <Tab.Screen name="Favoris">
-                {(props) => <Favoris {...props} isLog={isLog} />}
+                {(props) => <Favoris {...props} isLog={isLog}/>}
             </Tab.Screen>
             <Tab.Screen name="Settings">
-             {(props) => <Settings {...props} isLog={isLog} getLogState={getLogState}/>}    
+             {(props) => <Settings {...props} isLog={isLog} getLogState={getLogState} />}    
             </Tab.Screen> 
         </Tab.Navigator >
     );
