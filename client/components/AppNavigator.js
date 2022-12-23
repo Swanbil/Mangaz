@@ -7,7 +7,7 @@ import MangaPage from '../screens/MangaPage';
 import TabNavigator from './TabNavigator';
 import Chapter from './Chapter';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Settings from '../screens/Settings';
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = ({isLogedIn, getLogState, userCredentials, getUserCredState}) => {
@@ -52,6 +52,11 @@ const AppNavigator = ({isLogedIn, getLogState, userCredentials, getUserCredState
                 headerShown: false
             })} >
                 {(props) => <Chapter {...props} />}
+            </Stack.Screen>
+            <Stack.Screen name="Settings" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <Settings {...props} />}
             </Stack.Screen>
         </Stack.Navigator>
 

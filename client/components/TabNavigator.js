@@ -1,12 +1,13 @@
 import React from 'react';
 import Home from '../screens/Home';
 import HeaderNavigator from './HeaderNavigator';
-import Settings from '../screens/Settings';
+import ProfilePage from '../screens/ProfilePage';
 import Favoris from '../screens/Favoris';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getHeaderTitle } from '@react-navigation/elements';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { IconButton } from 'react-native-paper';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -20,32 +21,32 @@ const Tabs = ({ getLogState, isLog }) => {
                 },
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
-                    if (route.name === 'Home') {
+                    if (route.name === 'Catalogue') {
                         iconName = focused
-                            ? 'ios-home'
-                            : 'ios-home-outline';
-                    } else if (route.name === 'Settings') {
-                        iconName = focused ? 'settings' : 'settings-outline';
+                            ? 'home-circle'
+                            : 'home-circle-outline';
+                    } else if (route.name === 'Profile') {
+                        iconName = focused ? 'account-circle' : 'account-circle-outline';
                     }
                     else if (route.name === 'Favoris') {
                         iconName = focused ? 'heart-circle' : 'heart-circle-outline';
                     }
 
                     // You can return any component that you like here!
-                    return <Ionicons name={iconName} size={size} color={color} />;
+                    return <IconButton icon={iconName} size={size} color={color} />;
                 },
                 tabBarActiveTintColor: '#C0A6F7',
                 tabBarInactiveTintColor: 'gray',
             })}
         >
-            <Tab.Screen name="Home">
+            <Tab.Screen name="Catalogue">
                 {(props) => <Home {...props} isLog={isLog}/>}
             </Tab.Screen>
             <Tab.Screen name="Favoris">
                 {(props) => <Favoris {...props} isLog={isLog}/>}
             </Tab.Screen>
-            <Tab.Screen name="Settings">
-             {(props) => <Settings {...props} isLog={isLog} getLogState={getLogState} />}    
+            <Tab.Screen name="Profile">
+             {(props) => <ProfilePage {...props} isLog={isLog} getLogState={getLogState} />}    
             </Tab.Screen> 
         </Tab.Navigator >
     );

@@ -158,3 +158,18 @@ exports.getUserIdFromPseudo = async (userPseudo) => {
         }, 100)
     });
 }
+
+exports.getUserInfos = async(req, res) => {
+    const userPseudo = req.params.userPseudo;
+    const sql = "SELECT firstname, lastname, pseudo, email from users WHERE pseudo = $1";
+    await db.query(sql, [userPseudo], (err, result) => {
+        if(err){
+            console.log(err);
+            res.status(404).send({ message: "An error occurred during getting user infos" });
+            return;
+        }
+        const userInfos = result.rows[0];
+        res.status(200).send({userInfos : userInfos});
+        return;
+    })
+}

@@ -35,7 +35,6 @@ export default function Home({ navigation, route, isLog}) {
   if (isLog) {
     return (
       <View style={styles.container}>
-        {route.params?.userName && <Text style={{ margin: 10, fontWeight: "bold" }}>⛩ Hello <Text style={{ color: "#C0A6F7" }}>{route.params?.userName}</Text> ⛩ </Text>}
         <View style={{ flex: '1', justifyContent: 'center' }}>
           {isLoading
             ? <ActivityIndicator style={{ flex: 1 }} />
