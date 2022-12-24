@@ -6,6 +6,7 @@ import Register from '../screens/Register';
 import MangaPage from '../screens/MangaPage';
 import TabNavigator from './TabNavigator';
 import Chapter from './Chapter';
+import MenuProfile from './MenuProfile';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import Settings from '../screens/Settings';
 
@@ -57,6 +58,11 @@ const AppNavigator = ({isLogedIn, getLogState, userCredentials, getUserCredState
                 headerShown: false
             })} >
                 {(props) => <Settings {...props} />}
+            </Stack.Screen>
+            <Stack.Screen name="MenuProfile" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <MenuProfile {...props} />}
             </Stack.Screen>
         </Stack.Navigator>
 

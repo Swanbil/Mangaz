@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Feather, AntDesign } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserProfile from '../components/UserProfile';
+import MenuProfile from '../components/MenuProfile';
 import axios from 'axios';
 import { API_URL } from '@env';
 
@@ -32,6 +33,7 @@ export default function ProfilePage({ navigation, isLog, getLogState }) {
                 <UserProfile isLog={isLog} userInfos={userInfos} />
             </View>
             <View style={styles.menu}>
+                <MenuProfile />
 
             </View>
 
@@ -51,6 +53,6 @@ const styles = StyleSheet.create({
 
     },
     menu: {
-
+        marginTop:30
     }
 })

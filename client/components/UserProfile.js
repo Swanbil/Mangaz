@@ -5,7 +5,7 @@ import { Badge } from 'react-native-paper'
 export default function UserProfile({ isLog, userInfos }) {
 
     return (
-        <View style={[styles.userProfileContainer, styles.elevation]}>
+        <View style={[styles.userProfileContainer]}>
             <View style={styles.userProfileImage}>
                 <Image source={{ uri: "https://img.wattpad.com/6d13c0a6090e0e3b8851180426edf247b461205f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f376a68464955746e42735a3750773d3d2d3937393137353136322e313634356663326464396631393063383933353132383638303036322e6a7067?s=fit&w=720&h=720" }}
                     style={{ width: 100, height: 100, borderRadius: 50 }} />
@@ -58,6 +58,8 @@ const styles = StyleSheet.create({
         marginLeft: 3,
         marginRight: 3,
         borderRadius: 5,
+        borderBottomColor: '#F1F1F1',
+        borderBottomWidth: 2,
     },
     userProfileImage: {
         backgroundColor: "#F7F7F7",
