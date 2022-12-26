@@ -2,7 +2,7 @@ const db = require('../config/database');
 
 exports.getUserHistoryMangaRead = async (req, res) => {
     const userPseudo = req.params.userPseudo;
-
+    
     const sql = 'SELECT hc."readDate", u.pseudo, c."number", c."title", m."titleName" FROM history_read_chapter hc INNER JOIN chapter c on c."idChapter" = hc."idChapter"\
     INNER JOIN manga m ON m."idManga" = c."idManga" INNER JOIN users u ON hc."idUser" = u."idUser" WHERE u.pseudo = $1';
 

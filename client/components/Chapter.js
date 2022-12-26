@@ -36,7 +36,6 @@ export default function Chapter({ route, navigation }) {
 
   const saveUserHistoryChapterRead = async () => {
     const userPseudo = await getDataUserPseudo('@username');
-    console.log(userPseudo)
     const payload = {
       userPseudo : userPseudo, //store user pseudo
       chapterNumber : chapterNumber,

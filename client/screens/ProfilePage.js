@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { Feather, AntDesign } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserProfile from '../components/UserProfile';
 import MenuProfile from '../components/MenuProfile';
@@ -19,12 +18,17 @@ export default function ProfilePage({ navigation, isLog, getLogState }) {
         if (userPseudo) {
             try {
                 const response = await axios.get(`${API_URL}/user/${userPseudo}`);
-                console.log(response.data.userInfos)
                 setUserInfos(response.data.userInfos);
             } catch (error) {
                 console.log(error);
             }
         }
+    }
+
+    const logout = async () => {
+        await AsyncStorage.removeItem('@username');
+        getLogState(false);
+        navigation.navigate('Login');
     }
 
     return (
@@ -33,8 +37,15 @@ export default function ProfilePage({ navigation, isLog, getLogState }) {
                 <UserProfile isLog={isLog} userInfos={userInfos} />
             </View>
             <View style={styles.menu}>
-                <MenuProfile />
-
+                <MenuProfile navigation={navigation} userInfos={userInfos} />
+            </View>
+            <View>
+                <TouchableOpacity
+                    style={styles.logoutBtn}
+                    onPress={logout}
+                    underlayColor='#fff'>
+                    <Text style={styles.textButton}>Logout </Text>
+                </TouchableOpacity>
             </View>
 
 
@@ -49,10 +60,26 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     blockUser: {
-        marginTop:5
+        marginTop: 5
 
     },
     menu: {
-        marginTop:30
+        marginTop: 30
+    },
+    logoutBtn: {
+        marginRight: 40,
+        marginLeft: 40,
+        marginTop: 10,
+        padding: 10,
+        backgroundColor: '#EA5F5F',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#fff'
+    },
+    textButton: {
+        color: '#fff',
+        textAlign: 'center',
+        paddingLeft: 10,
+        paddingRight: 10
     }
 })

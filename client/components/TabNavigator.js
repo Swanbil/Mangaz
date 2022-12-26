@@ -17,7 +17,7 @@ const Tabs = ({ getLogState, isLog }) => {
             screenOptions={({ navigation, route }) => ({
                 header: ({ navigation, route, options }) => {
                     const title = getHeaderTitle(options, route.name);
-                    return <HeaderNavigator title={title}  />;
+                    return <HeaderNavigator title={title} />;
                 },
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
@@ -40,14 +40,23 @@ const Tabs = ({ getLogState, isLog }) => {
             })}
         >
             <Tab.Screen name="Catalogue">
-                {(props) => <Home {...props} isLog={isLog}/>}
+                {(props) => <Home {...props} isLog={isLog} />}
             </Tab.Screen>
-            <Tab.Screen name="Favoris">
-                {(props) => <Favoris {...props} isLog={isLog}/>}
-            </Tab.Screen>
-            <Tab.Screen name="Profile">
-             {(props) => <ProfilePage {...props} isLog={isLog} getLogState={getLogState} />}    
-            </Tab.Screen> 
+            {isLog
+                ? (
+                    <>
+                        <Tab.Screen name="Favoris">
+                            {(props) => <Favoris {...props} isLog={isLog} />}
+                        </Tab.Screen>
+                        <Tab.Screen name="Profile">
+                            {(props) => <ProfilePage {...props} isLog={isLog} getLogState={getLogState} />}
+                        </Tab.Screen>
+                    </>
+
+                )
+                : (<></>)
+            }
+
         </Tab.Navigator >
     );
 }

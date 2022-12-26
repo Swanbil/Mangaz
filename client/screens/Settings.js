@@ -13,33 +13,39 @@ export default function Settings({ navigation, isLog, getLogState }) {
                 setUserName(value)
             }
         } catch (error) {
-           console.log(error);
+            console.log(error);
         }
     };
 
-    const logout = async() => {
+    const logout = async () => {
         getLogState(false);
         await AsyncStorage.removeItem('@username')
     }
-    useEffect(() =>{
-        _retrieveData();
+    useEffect(() => {
+        //_retrieveData();
     })
     if (isLog) {
         return (
             <View style={styles.container}>
+                <TouchableOpacity
+                    style={{ margin: 20 }}
+                    underlayColor='#fff' onPress={() => navigation.goBack()}
+                >
+                    <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
+                </TouchableOpacity>
                 <View style={styles.settingBlock}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <AntDesign name="user" size={24} color="#C0A6F7" style={{ marginRight: 10 }} />
                         <Text style={styles.settingTitle}>User informations</Text>
                     </View>
-                    <Text style={styles.settingInfo }>Username : {userName}</Text>
+                    <Text style={styles.settingInfo}>Username : {userName}</Text>
                 </View>
                 <View style={styles.settingBlock}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <Feather name="user-plus" size={24} color="#C0A6F7" style={{ marginRight: 10 }} />
                         <Text style={styles.settingTitle}>Premium</Text>
                     </View>
-                    <Text style={styles.settingInfo }>Premium : No </Text>
+                    <Text style={styles.settingInfo}>Premium : No </Text>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => navigation.navigate('Login')}
@@ -65,6 +71,12 @@ export default function Settings({ navigation, isLog, getLogState }) {
     else {
         return (
             <View style={styles.container}>
+                <TouchableOpacity
+                    style={{ margin: 20 }}
+                    underlayColor='#fff' onPress={() => navigation.goBack()}
+                >
+                    <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
+                </TouchableOpacity>
                 <View style={styles.settingBlock}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <AntDesign name="user" size={24} color="#C0A6F7" style={{ marginRight: 10 }} />
@@ -89,7 +101,6 @@ export default function Settings({ navigation, isLog, getLogState }) {
                         <Text style={styles.textButton}>Subscribe Premium Account </Text>
                     </TouchableOpacity>
                 </View>
-                
             </View>
         )
     }
@@ -107,15 +118,14 @@ const styles = StyleSheet.create({
     },
     settingBlock: {
         padding: 20,
-        marginTop: 10
     },
-    settingInfo:{
+    settingInfo: {
         fontSize: 14,
-        padding:15,
-        fontWeight:"bold",
-        color:"#686868"
+        padding: 15,
+        fontWeight: "bold",
+        color: "#686868"
     },
-    logoutBtn:{
+    logoutBtn: {
         marginRight: 40,
         marginLeft: 40,
         marginTop: 10,

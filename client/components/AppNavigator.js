@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 import MangaPage from '../screens/MangaPage';
+import History from '../screens/History';
+import Wallet from '../screens/Wallet';
 import TabNavigator from './TabNavigator';
 import Chapter from './Chapter';
 import MenuProfile from './MenuProfile';
@@ -11,34 +13,29 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import Settings from '../screens/Settings';
 
 const Stack = createNativeStackNavigator();
-const AppNavigator = ({isLogedIn, getLogState, userCredentials, getUserCredState}) => {
+const AppNavigator = ({ isLogedIn, getLogState, userCredentials }) => {
     return (
         <Stack.Navigator
+            initialRouteName={isLogedIn ? 'Catalogue' : 'Login'}
             screenOptions={{
                 cardStyle: { backgroundColor: 'white' },
                 headerStyle: { backgroundColor: '#F6F6F6' },
                 cardStyle: { backgroundColor: 'red' },
             }}>
             <Stack.Screen name="TabNavigator" options={{ headerShown: false }}>
-                {(props) => <TabNavigator {...props} isLog={isLogedIn} userCredentials={userCredentials} getLogState={getLogState}/>}
+                {(props) => <TabNavigator {...props} isLog={isLogedIn} userCredentials={userCredentials} getLogState={getLogState} />}
             </Stack.Screen>
             <Stack.Screen name="Login" options={({ navigation }) => ({
-                headerLeft: props => (
-                    <TouchableOpacity
-                        underlayColor='#fff' onPress={() => navigation.goBack()}
-                    >
-                        <MaterialIcons name="cancel" color="#C0A6F7" size={24} />
-                    </TouchableOpacity>
-                )
+                headerShown: false
             })}>
 
-                {(props) => <Login {...props} getLogState={getLogState}/>}
+                {(props) => <Login {...props} getLogState={getLogState} />}
             </Stack.Screen>
             <Stack.Screen name="Register" component={Register}
                 options={({ navigation }) => ({
                     headerLeft: props => (
                         <TouchableOpacity
-                            underlayColor='#fff' onPress={() => navigation.navigate('Home')}
+                            underlayColor='#fff' onPress={() => navigation.navigate('Login')}
                         >
                             <MaterialIcons name="cancel" color="#C0A6F7" size={24} />
                         </TouchableOpacity>
@@ -64,6 +61,16 @@ const AppNavigator = ({isLogedIn, getLogState, userCredentials, getUserCredState
             })} >
                 {(props) => <MenuProfile {...props} />}
             </Stack.Screen>
+            <Stack.Screen name="Wallet" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <Wallet {...props} />}
+            </Stack.Screen>
+            <Stack.Screen name="History" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <History {...props} />}
+            </Stack.Screen>
         </Stack.Navigator>
 
     );
@@ -75,7 +82,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop:10
+        paddingTop: 10
     },
     textHeader: {
         fontSize: 20,

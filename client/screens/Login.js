@@ -23,7 +23,7 @@ const Login = ({ navigation, getLogState }) => {
             const data = response.data;
             getLogState(true);
             _storeData(data);
-            navigation.navigate({ name: 'Home', params: { userName: data }, merge: true, });
+            navigation.navigate("TabNavigator", { screen: 'Catalogue', params: { userName: data }, merge: true, });
         } catch (error) {
             alert(error.response.data)
         }
