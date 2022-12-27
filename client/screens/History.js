@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView, ActivityIndicator } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import axios from "axios";
@@ -8,6 +8,7 @@ import { List } from 'react-native-paper';
 
 export default function History({ isLog, navigation, route }) {
     const [historyReadChapters, setHistoryReadChapters] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (route.params?.userInfos) {
@@ -16,9 +17,11 @@ export default function History({ isLog, navigation, route }) {
     }, [route.params?.userInfos]);
 
     const getHistoryReadChapters = async () => {
+        setIsLoading(true);
         const userPseudo = route.params?.userInfos.pseudo;
         const response = await axios.get(`${API_URL}/reporting/user/${userPseudo}/history/manga`);
         setHistoryReadChapters(response.data.historyUser);
+        setIsLoading(false);
     }
 
     return (
@@ -37,16 +40,22 @@ export default function History({ isLog, navigation, route }) {
                 </View>
 
                 <ScrollView style={styles.chapterContainer}>
-                    {historyReadChapters?.map((chapter, index) => (
-                        <List.Item
-                            key={index}
-                            title={"Chapter " + chapter.number + ' - ' + chapter.title}
-                            titleStyle={styles.titleListItem}
-                            description={chapter.titleName}
-                            left={props => <List.Icon {...props} icon="book" style={{marginLeft:0, backgroundColor:'#333', borderRadius:50}} color="#C0A6F7"/>}
-                            style={{borderBottomColor:'grey', borderBottomWidth:.5}}
-                        />
-                    ))}
+                    {isLoading
+                        ? <ActivityIndicator style={{ flex: 1 }}/>
+                        : (
+                            historyReadChapters?.map((chapter, index) => (
+                                <List.Item
+                                    key={index}
+                                    title={"Chapter " + chapter.number + ' - ' + chapter.title}
+                                    titleStyle={styles.titleListItem}
+                                    description={chapter.titleName}
+                                    left={props => <List.Icon {...props} icon="book" style={{ marginLeft: 0, backgroundColor: '#333', borderRadius: 50 }} color="#C0A6F7" />}
+                                    style={{ borderBottomColor: 'grey', borderBottomWidth: .5 }}
+                                />
+                            ))
+                        )
+                    }
+
                 </ScrollView>
 
             </View>
@@ -62,7 +71,7 @@ const styles = StyleSheet.create({
     },
     historyContainer: {
         padding: 20,
-        height:"100%"
+        height: "100%"
     },
     pageTitleContainer: {
         flexDirection: "row",
@@ -80,10 +89,10 @@ const styles = StyleSheet.create({
     chapterContainer: {
         marginTop: 10,
     },
-    titleListItem:{
-        fontWeight:"500",
-        color:"black",
-        fontStyle:'italic',
-        textDecorationStyle:'dotted'
+    titleListItem: {
+        fontWeight: "500",
+        color: "black",
+        fontStyle: 'italic',
+        textDecorationStyle: 'dotted'
     }
 })

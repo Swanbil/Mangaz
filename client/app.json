@@ -7,7 +7,7 @@
       "**/*"
     ],
     "splash": {
-      "image": "./assets/manga-icon.png",
+      "image": "./assets/MangaZ_logo.png",
       "backgroundColor": "#FFFFFF",
       "resizeMode" : "contain"
     }

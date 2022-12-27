@@ -1,26 +1,30 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import axios from "axios";
-import {API_URL} from '@env';
+import { API_URL } from '@env';
 
-const Register = ({navigation}) => {
+const Register = ({ navigation }) => {
     const [firstname, setFirstName] = useState("");
     const [lastname, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [pseudo, setPseudo] = useState("");
     const [password, setPassWord] = useState("");
 
-    const register = async() => {
-        const user = {"lastname":lastname,"firstname":firstname,"email":email,"pseudo":pseudo, "password":password};
+    const register = async () => {
+        const user = { "lastname": lastname, "firstname": firstname, "email": email, "pseudo": pseudo, "password": password };
         const res = await axios.post(API_URL + '/register', user);
         alert(res.data);
-        navigation.navigate('Home');
+        navigation.navigate('Login');
     }
 
     return (
         <View style={styles.loginBlock}>
-            <Text style={styles.logo}>MANGAZ</Text>
+            <View style={styles.loginAppImage}>
+                <Image source={require('../assets/MangaZ_logo.png')} style={{ width: 180, height: 100, borderRadius: 30 }} resizeMode="contain" />
+                <Text style={styles.logo}>MANGAZ</Text>
+            </View>
+
             <TextInput style={styles.textInput}
                 placeholder="Firstname"
                 placeholderTextColor="#C1C1C1"
@@ -65,18 +69,20 @@ const styles = StyleSheet.create({
         color: "#C0A6F7",
         fontSize: 30,
         fontWeight: "bold",
-        marginBottom: 30
+        marginVertical: 10
     },
     textInput: {
         paddingLeft: 50,
         paddingRight: 50,
         paddingBottom: 10,
         paddingTop: 10,
-        margin: 20,
+        margin: 10,
         width: "60%",
         fontStyle: 'italic',
-        backgroundColor: "white",
-        borderRadius: 5
+        backgroundColor: "#F6F6F6",
+        borderRadius: 5,
+        borderBottomColor: "#333",
+        borderBottomWidth: 2
     },
     registerText: {
         marginTop: 20,
@@ -88,16 +94,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 100,
-        marginBottom: 100,
-        marginLeft: 20,
-        marginRight: 20,
-        backgroundColor: "#EBEBEB",
-        borderRadius: 20,
-        shadowColor: '#171717',
-        shadowOffset: { width: -2, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
+
     },
     button: {
         width: "50%",
@@ -122,6 +119,11 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         fontWeight: "bold"
+    },
+    loginAppImage: {
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center'
     }
 });
 

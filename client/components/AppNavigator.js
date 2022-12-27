@@ -40,6 +40,7 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials }) => {
                             <MaterialIcons name="cancel" color="#C0A6F7" size={24} />
                         </TouchableOpacity>
                     )
+                    
                 })} />
             <Stack.Screen name="MangaPage" options={({ navigation }) => ({
                 headerShown: false

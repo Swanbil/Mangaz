@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { API_URL } from '@env';
@@ -30,8 +30,11 @@ const Login = ({ navigation, getLogState }) => {
     }
 
     return (
-        <View style={styles.loginBlock}>
-            <Text style={styles.logo}>MANGAZ</Text>
+        <View style={styles.container}>
+             <View style={styles.loginAppImage}>
+                <Image source={require('../assets/MangaZ_logo.png')} style={{width:180, height:100, borderRadius:30}} resizeMode="contain" />
+                <Text style={styles.logo}>MANGAZ</Text>
+            </View>
             <TextInput style={styles.textInput}
                 placeholder="Pseudo"
                 placeholderTextColor="#C1C1C1"
@@ -72,7 +75,7 @@ const styles = StyleSheet.create({
         color: "#C0A6F7",
         fontSize: 30,
         fontWeight: "bold",
-        marginBottom: 30
+        marginVertical: 10
     },
     textInput: {
         paddingLeft: 50,
@@ -82,8 +85,10 @@ const styles = StyleSheet.create({
         margin: 20,
         width: "60%",
         fontStyle: 'italic',
-        backgroundColor: "white",
-        borderRadius: 5
+        backgroundColor: "#F6F6F6",
+        borderRadius: 5,
+        borderBottomColor:"#333",
+        borderBottomWidth:2
     },
     registerText: {
         marginTop: 20,
@@ -92,19 +97,10 @@ const styles = StyleSheet.create({
         fontStyle: 'italic'
     },
     loginBlock: {
-        flex: 1,
+        flex:1,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 100,
-        marginBottom: 100,
-        marginLeft: 20,
-        marginRight: 20,
-        backgroundColor: "#EBEBEB",
-        borderRadius: 20,
-        shadowColor: '#171717',
-        shadowOffset: { width: -2, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
+        
     },
     button: {
         width: "50%",
@@ -129,6 +125,11 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         fontWeight: "bold"
+    },
+    loginAppImage:{
+        justifyContent:'center',
+        flexDirection:'column',
+        alignItems:'center'
     }
 });
 
