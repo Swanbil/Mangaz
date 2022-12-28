@@ -7,5 +7,7 @@ router.post('/register', userController.register);
 router.post('/chapter/history/save', userController.saveChapterRead);
 router.get('/user/:userPseudo/mangas/favoris', userController.getMangasFavoris);
 router.get('/user/:userPseudo', userController.getUserInfos);
+router.post('/user/subscribe', userController.subscribe);
+router.get('/user/:userPseudo/subscribe', userController.getUserSubscribeValid);
 
 module.exports = router;

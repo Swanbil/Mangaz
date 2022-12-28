@@ -3,11 +3,11 @@ import React, { useCallback, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import Catalogue from "../components/Catalogue";
 import { API_URL } from '@env';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import { getDataUser } from '../utilities/localStorage';
 
 
-export default function Home({ navigation, route, isLog}) {
+export default function Home({ navigation, route, isLog }) {
   const [catalogue, setCatalogue] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
@@ -19,17 +19,22 @@ export default function Home({ navigation, route, isLog}) {
 
   const getCatalogue = async () => {
     setLoading(true);
-    const userPseudo = await AsyncStorage.getItem('@username');
-    try {
-      const response = await axios.get(API_URL + `/manga/catalogue/${userPseudo}`);
-      const data = response.data;
-      setCatalogue(data);
+    const userData = await getDataUser();
+    if (userData) {
+      const userPseudo = userData.userPseudo;
+      try {
+        const response = await axios.get(API_URL + `/manga/catalogue/${userPseudo}`);
+        const data = response.data;
+        setCatalogue(data);
+      }
+      catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+
     }
-    catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+
   }
 
   if (isLog) {
@@ -38,7 +43,7 @@ export default function Home({ navigation, route, isLog}) {
         <View style={{ flex: '1', justifyContent: 'center' }}>
           {isLoading
             ? <ActivityIndicator style={{ flex: 1 }} />
-            : <Catalogue navigation={navigation} catalogue={catalogue} pageName="Home" widthMangaItem="large"/>
+            : <Catalogue navigation={navigation} catalogue={catalogue} pageName="Home" widthMangaItem="large" />
           }
 
         </View>

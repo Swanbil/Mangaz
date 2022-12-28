@@ -3,9 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { AntDesign } from '@expo/vector-icons';
 import axios from "axios";
-import {API_URL} from '@env';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { API_URL } from '@env';
+import { getDataUser } from '../utilities/localStorage';
 
 export default function Chapter({ route, navigation }) {
   const [pages, setPages] = useState([]);
@@ -14,19 +13,10 @@ export default function Chapter({ route, navigation }) {
   const [isUserHistorySaved, setUserHistorySaved] = useState(false);
 
   const { chapterNumber, mangaTitle } = route.params;
- 
+
   useEffect(() => {
     getPagesOfChapter();
   }, [chapterNumber]);
-
-  const getDataUserPseudo = async () => {
-    try {
-        const userPseudo =  await AsyncStorage.getItem('@username');
-        return userPseudo;
-    } catch (error) {
-        alert(error)
-    }
-};
 
   const getPagesOfChapter = async () => {
     const response = await axios.get(API_URL + `/manga/${mangaTitle}/chapter/${chapterNumber}`);
@@ -35,11 +25,11 @@ export default function Chapter({ route, navigation }) {
   }
 
   const saveUserHistoryChapterRead = async () => {
-    const userPseudo = await getDataUserPseudo('@username');
+    const {userPseudo} = await getDataUser();
     const payload = {
-      userPseudo : userPseudo, //store user pseudo
-      chapterNumber : chapterNumber,
-      mangaName : mangaTitle
+      userPseudo: userPseudo, //store user pseudo
+      chapterNumber: chapterNumber,
+      mangaName: mangaTitle
     };
     console.log("Saving user history", payload);
     await axios.post(API_URL + `/chapter/history/save`, payload);
@@ -47,18 +37,18 @@ export default function Chapter({ route, navigation }) {
   }
 
   const goPreviousPage = () => {
-    const currentIndex = pages.findIndex((page) => {return page.idPage == currentPage.idPage});
-    if(currentIndex>0){
+    const currentIndex = pages.findIndex((page) => { return page.idPage == currentPage.idPage });
+    if (currentIndex > 0) {
       setCurrentPage(pages[currentIndex - 1]);
     }
   }
-  const goNextPage = async() => {
-    const currentIndex = pages.findIndex((page) => {return page.idPage == currentPage.idPage});
-    if(currentIndex<pages.length){
+  const goNextPage = async () => {
+    const currentIndex = pages.findIndex((page) => { return page.idPage == currentPage.idPage });
+    if (currentIndex < pages.length) {
       setCurrentPage(pages[currentIndex + 1]);
       setNumberPageRead(state => state + 1);
     }
-    if(numberPageRead === 8 && !isUserHistorySaved){    //saving user history if 5 page is read
+    if (numberPageRead === 8 && !isUserHistorySaved) {    //saving user history if 5 page is read
       await saveUserHistoryChapterRead();
     }
   }
@@ -72,32 +62,32 @@ export default function Chapter({ route, navigation }) {
       </TouchableOpacity>
 
       <View style={styles.container}>
-        <Image source={{uri : currentPage.source}} style={{ width: 320, height: 530 }} />
+        <Image source={{ uri: currentPage.source }} style={{ width: 320, height: 530 }} />
         <View style={{
           flexDirection: "row",
-          marginTop:10,
-          alignItems:"center",
+          marginTop: 10,
+          alignItems: "center",
         }}>
           <TouchableOpacity
             underlayColor='#fff'
-            style={{ marginRight: 100, opacity : ((currentPage.pageNumber === "1") ? 0.5 : 1)}}
+            style={{ marginRight: 100, opacity: ((currentPage.pageNumber === "1") ? 0.5 : 1) }}
             onPress={goPreviousPage}
             disabled={currentPage.pageNumber === "1"}
-            >
+          >
             <Ionicons name="ios-arrow-back-circle" color="#C0A6F7" size={36} />
           </TouchableOpacity>
-          <Text style={{fontWeight:"bold"}}>Page {currentPage.pageNumber}</Text>
-          
+          <Text style={{ fontWeight: "bold" }}>Page {currentPage.pageNumber}</Text>
+
           <TouchableOpacity
             underlayColor='#fff'
-            style={{ marginLeft: 100, opacity : ((parseInt(currentPage.pageNumber) === pages.length) ? 0.5 : 1)}}
+            style={{ marginLeft: 100, opacity: ((parseInt(currentPage.pageNumber) === pages.length) ? 0.5 : 1) }}
             onPress={goNextPage}
             disabled={(parseInt(currentPage.pageNumber) === pages.length)}
-            >
+          >
             <Ionicons name="ios-arrow-forward-circle" color="#C0A6F7" size={36} />
-          </TouchableOpacity>         
-        
-         </View>
+          </TouchableOpacity>
+
+        </View>
       </View>
     </View>
 

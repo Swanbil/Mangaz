@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Paragraph, IconButton, Avatar } from 'react-native-paper';
 import { View, ScrollView, Text, StyleSheet, Image } from "react-native";
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getDataUser } from '../utilities/localStorage';
 import { API_URL } from '@env';
 
 const MangaItem = ({ navigation, manga, width, chapters }) => {
@@ -19,7 +19,7 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
     }
 
     const toogleMangaToFavoris = async (manga) => {
-        const userPseudo = await AsyncStorage.getItem('@username');
+        const {userPseudo} = await getDataUser();
         const payload = {
             userPseudo: userPseudo,
             idManga: mangaItem.idManga

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image } from "react-native";
 import { Badge } from 'react-native-paper'
 
-export default function UserProfile({ isLog, userInfos }) {
+export default function UserProfile({ isLog, userInfos, isSubscribe }) {
 
     return (
         <View style={[styles.userProfileContainer]}>
@@ -39,7 +39,7 @@ export default function UserProfile({ isLog, userInfos }) {
                     </View>
                 </View>
                 <View style={styles.blockTextInfos}>
-                    <Badge style={{ color: "white", fontWeight: "bold", backgroundColor: "#C7F8A7" }}>Premium</Badge>
+                    <Badge style={{ color: "white", fontWeight: "bold", backgroundColor: (isSubscribe ? "#C7F8A7" : "#FFCA68")}}>{isSubscribe ? "Premium" : "Freemium"}</Badge>
                 </View>
 
             </View>

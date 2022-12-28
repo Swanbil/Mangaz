@@ -5,8 +5,9 @@ import UserProfile from '../components/UserProfile';
 import MenuProfile from '../components/MenuProfile';
 import axios from 'axios';
 import { API_URL } from '@env';
+import { getDataUser, removeDataUser } from '../utilities/localStorage';
 
-export default function ProfilePage({ navigation, isLog, getLogState }) {
+export default function ProfilePage({ navigation, isLog, getLogState, isSubscribe, getSubState }) {
     const [userInfos, setUserInfos] = useState();
 
     useEffect(() => {
@@ -14,7 +15,7 @@ export default function ProfilePage({ navigation, isLog, getLogState }) {
     }, [])
 
     const getUserInfos = async () => {
-        const userPseudo = await AsyncStorage.getItem('@username');
+        const { userPseudo } = await getDataUser();
         if (userPseudo) {
             try {
                 const response = await axios.get(`${API_URL}/user/${userPseudo}`);
@@ -26,15 +27,16 @@ export default function ProfilePage({ navigation, isLog, getLogState }) {
     }
 
     const logout = async () => {
-        await AsyncStorage.removeItem('@username');
+        await removeDataUser();
         getLogState(false);
+        getSubState(false)
         navigation.navigate('Login');
     }
 
     return (
         <View style={styles.container}>
             <View style={styles.blockUser}>
-                <UserProfile isLog={isLog} userInfos={userInfos} />
+                <UserProfile isLog={isLog} userInfos={userInfos} isSubscribe={isSubscribe}/>
             </View>
             <View style={styles.menu}>
                 <MenuProfile navigation={navigation} userInfos={userInfos} />

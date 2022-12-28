@@ -1,5 +1,31 @@
 const db = require('../config/database');
 const bcrypt = require('bcryptjs');
+const { getCurrentDate, getDateInOneMonth } = require('../utilities/date');
+
+const isUserSubscribe = async (userPseudo) => {
+    const currentDate = getCurrentDate();
+    const sql = 'SELECT s."idSubscription", "pseudo", "endedDate", "price", "type" FROM subscribe s\
+    INNER JOIN subscription on subscription."idSubscription" = s."idSubscription"\
+    INNER JOIN users u on u."idUser" = s."idUser"\
+    WHERE u.pseudo = $1 and "endedDate" >= $2';
+    return new Promise((resolve, reject) => {
+        setTimeout(async () => {
+            await db.query(sql, [userPseudo, currentDate], (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve(null);
+                    return
+                }
+                if (result.rows.length < 1) {
+                    resolve(null);
+                    return
+                }
+                resolve(result.rows[0].endedDate);
+            })
+        }, 100)
+    });
+
+}
 
 exports.login = async (req, res) => {
     const user = req.body;
@@ -17,8 +43,10 @@ exports.login = async (req, res) => {
             return
         }
         const passwordHash = result.rows[0].password;
+        const endedDateSub = await isUserSubscribe(user.pseudo);
+        console.log("sub", endedDateSub)
         if (await bcrypt.compare(user.password, passwordHash)) {
-            res.status(200).json(user.pseudo);
+            res.status(200).json({ userPseudo: user.pseudo, endedDateSubscription: endedDateSub });
         }
         else {
             res.status(401).json('Mot de passe inconu');
@@ -132,7 +160,7 @@ exports.getMangasFavoris = async (req, res) => {
             manga.isFavoris = true;
             return manga;
         });
-        res.status(200).send({mangaFavoris : mangaFavoris});
+        res.status(200).send({ mangaFavoris: mangaFavoris });
         return;
     })
 
@@ -158,18 +186,74 @@ exports.getUserIdFromPseudo = async (userPseudo) => {
         }, 100)
     });
 }
+const getUserId = async (userPseudo) => {
+    const sql = 'SELECT "idUser" FROM users WHERE pseudo = $1';
+    return new Promise((resolve, reject) => {
+        setTimeout(async () => {
+            await db.query(sql, [userPseudo], (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve(null);
+                    return
+                }
+                if (result.rows.length !== 1) {
+                    resolve(null);
+                    return
+                }
+                resolve(result.rows[0].idUser);
+            })
+        }, 100)
+    });
+}
 
-exports.getUserInfos = async(req, res) => {
+exports.getUserInfos = async (req, res) => {
     const userPseudo = req.params.userPseudo;
     const sql = "SELECT firstname, lastname, pseudo, email from users WHERE pseudo = $1";
     await db.query(sql, [userPseudo], (err, result) => {
-        if(err){
+        if (err) {
             console.log(err);
             res.status(404).send({ message: "An error occurred during getting user infos" });
             return;
         }
         const userInfos = result.rows[0];
-        res.status(200).send({userInfos : userInfos});
+        res.status(200).send({ userInfos: userInfos });
+        return;
+    })
+}
+
+exports.subscribe = async (req, res) => {
+    const userPseudo = req.body.userPseudo;
+    const idUser = await getUserId(userPseudo);
+    const idSubscription = req.body.idSubscription;
+    const startedDate = getCurrentDate();
+    const endedDate = getDateInOneMonth(); //sub for 1 month
+
+    const sql = 'INSERT INTO subscribe ("idSubscription", "startedDate", "endedDate", "idUser") VALUES ($1,$2,$3,$4)';
+    await db.query(sql, [idSubscription, startedDate, endedDate, idUser], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(404).send({ message: "An error occurred during the subscription" });
+            return;
+        }
+        res.status(200).send({ message: "Your premium subscription is ended " + endedDate + " !" });
+        return;
+    })
+}
+
+exports.getUserSubscribeValid = async (req, res) => {
+    const userPseudo = req.params.userPseudo;
+    const currentDate = getCurrentDate();
+    const sql = 'SELECT s."idSubscription", "pseudo", "endedDate", "price", "type" FROM subscribe s\
+    INNER JOIN subscription on subscription."idSubscription" = s."idSubscription"\
+    INNER JOIN users u on u."idUser" = s."idUser"\
+    WHERE u.pseudo = $1 and "endedDate" >= $2';
+    await db.query(sql, [userPseudo, currentDate], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(404).send({ message: "An error occurred during the subscription" });
+            return;
+        }
+        res.status(200).send({ subscription: result.rows[0] });
         return;
     })
 }

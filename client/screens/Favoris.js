@@ -5,6 +5,7 @@ import axios from "axios";
 import { API_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import { getDataUser } from '../utilities/localStorage';
 
 const Favoris = ({ navigation, isLog}) => {
     const [mangaFavoris, setMangaFavoris] = useState([]);
@@ -18,7 +19,7 @@ const Favoris = ({ navigation, isLog}) => {
     );
     const getMangasFavoris = async () => {
         setIsLoading(true);
-        const userPseudo = await AsyncStorage.getItem('@username');
+        const {userPseudo} = await getDataUser();
         const response = await axios.get(API_URL + `/user/${userPseudo}/mangas/favoris`);
         setMangaFavoris(response.data.mangaFavoris);
         setIsLoading(false);

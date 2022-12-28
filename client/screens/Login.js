@@ -1,20 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { storeDataUser } from '../utilities/localStorage';
 import axios from 'axios';
 import { API_URL } from '@env';
 
-const Login = ({ navigation, getLogState }) => {
+const Login = ({ navigation, getLogState, getSubState }) => {
     const [pseudo, setPseudo] = useState("");
     const [password, setPassWord] = useState("");
 
-    const _storeData = async (data) => {
-        try {
-            await AsyncStorage.setItem('@username', data);
-        } catch (error) {
-            alert(error)
-        }
-    };
 
     const login = async () => {
         const user = { "pseudo": pseudo, "password": password };
@@ -22,7 +15,8 @@ const Login = ({ navigation, getLogState }) => {
             const response = await axios.post(API_URL + '/login', user);
             const data = response.data;
             getLogState(true);
-            _storeData(data);
+            getSubState(data);
+            await storeDataUser(data);
             navigation.navigate("TabNavigator", { screen: 'Catalogue', params: { userName: data }, merge: true, });
         } catch (error) {
             alert(error.response.data)

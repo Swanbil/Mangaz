@@ -13,7 +13,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import Settings from '../screens/Settings';
 
 const Stack = createNativeStackNavigator();
-const AppNavigator = ({ isLogedIn, getLogState, userCredentials }) => {
+const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, getSubState }) => {
     return (
         <Stack.Navigator
             initialRouteName={isLogedIn ? 'Catalogue' : 'Login'}
@@ -23,13 +23,13 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials }) => {
                 cardStyle: { backgroundColor: 'red' },
             }}>
             <Stack.Screen name="TabNavigator" options={{ headerShown: false }}>
-                {(props) => <TabNavigator {...props} isLog={isLogedIn} userCredentials={userCredentials} getLogState={getLogState} />}
+                {(props) => <TabNavigator {...props} isLog={isLogedIn} userCredentials={userCredentials} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState}/>}
             </Stack.Screen>
             <Stack.Screen name="Login" options={({ navigation }) => ({
                 headerShown: false
             })}>
 
-                {(props) => <Login {...props} getLogState={getLogState} />}
+                {(props) => <Login {...props} getLogState={getLogState} getSubState={getSubState}/>}
             </Stack.Screen>
             <Stack.Screen name="Register" component={Register}
                 options={({ navigation }) => ({

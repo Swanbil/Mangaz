@@ -4,21 +4,27 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './components/AppNavigator';
 import * as SplashScreen from 'expo-splash-screen';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getDataUser } from './utilities/localStorage';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const [isLogedIn, setIsLogedIn] = useState(false);
+  const [isSubscribe, setIsSubscribe] = useState(false)
 
   useEffect(() => {
     async function prepare() {
       try {
-        const userInfos = await AsyncStorage.getItem('@username');
-        console.log("USER CRED", userInfos);
-        if (userInfos) {
+        let userData = await getDataUser();
+        console.log("USER CRED", userData);
+        if (userData) {
           setIsLogedIn(true);
+          setSubState(userData);
+          // if (userData.endedDateSubscription && new Date(userData.endedDateSubscription).valueOf() > dateNow.valueOf()) {
+          //   console.log(new Date(userData.endedDateSubscription).valueOf(), dateNow.valueOf())
+          //   setIsSubscribe(true);
+          // }
         }
 
       } catch (e) {
@@ -34,15 +40,29 @@ export default function App() {
   const getLogState = (data) => {
     setIsLogedIn(data);
   }
- 
+
+  const setSubState = (data) => {
+    if(!data){
+      setIsSubscribe(false);
+      return;
+    }
+    let dateNow = new Date();
+    if (data.endedDateSubscription && new Date(data.endedDateSubscription).valueOf() > dateNow.valueOf()) {
+      console.log(new Date(data.endedDateSubscription).valueOf(), dateNow.valueOf())
+      setIsSubscribe(true);
+      return
+    }
+    setIsSubscribe(false);
+  }
+
 
   if (!appIsReady) {
     return null;
   }
   return (
-      <NavigationContainer>
-        <AppNavigator isLogedIn={isLogedIn} getLogState={getLogState} />
-      </NavigationContainer>
+    <NavigationContainer>
+      <AppNavigator isLogedIn={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={setSubState} />
+    </NavigationContainer>
   );
 }
 

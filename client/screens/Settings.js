@@ -2,28 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Feather, AntDesign } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { removeDataUser } from '../utilities/localStorage';
 
 export default function Settings({ navigation, isLog, getLogState }) {
     const [userName, setUserName] = useState("");
 
-    const _retrieveData = async () => {
-        try {
-            const value = await AsyncStorage.getItem('@username');
-            if (value !== null) {
-                setUserName(value)
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     const logout = async () => {
         getLogState(false);
-        await AsyncStorage.removeItem('@username')
+        await removeDataUser();
     }
-    useEffect(() => {
-        //_retrieveData();
-    })
+
     if (isLog) {
         return (
             <View style={styles.container}>

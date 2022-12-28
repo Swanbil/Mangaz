@@ -11,7 +11,7 @@ import { IconButton } from 'react-native-paper';
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = ({ getLogState, isLog }) => {
+const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
     return (
         <Tab.Navigator
             screenOptions={({ navigation, route }) => ({
@@ -49,7 +49,7 @@ const Tabs = ({ getLogState, isLog }) => {
                             {(props) => <Favoris {...props} isLog={isLog} />}
                         </Tab.Screen>
                         <Tab.Screen name="Profile">
-                            {(props) => <ProfilePage {...props} isLog={isLog} getLogState={getLogState} />}
+                            {(props) => <ProfilePage {...props} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState}/>}
                         </Tab.Screen>
                     </>
 
