@@ -12,8 +12,8 @@ export default function MenuProfile({ isLog, userInfos, navigation }) {
                     <Text style={styles.menuTextButton}>Wallet</Text>
                 </View>
                 <View style={styles.menuButton}>
-                    <Icon name={"heart"} color={"#333"} size={40} onPress={() => navigation.navigate('Favoris')} />
-                    <Text style={styles.menuTextButton}>Favoris</Text>
+                    <Icon name={"coins"} color={"#333"} size={40} onPress={() => navigation.navigate('Subscribe')} />
+                    <Text style={styles.menuTextButton}>Subscription</Text>
                 </View>
             </View>
             <View style={styles.menuProfileRow}>

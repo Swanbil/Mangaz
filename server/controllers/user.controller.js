@@ -44,7 +44,6 @@ exports.login = async (req, res) => {
         }
         const passwordHash = result.rows[0].password;
         const endedDateSub = await isUserSubscribe(user.pseudo);
-        console.log("sub", endedDateSub)
         if (await bcrypt.compare(user.password, passwordHash)) {
             res.status(200).json({ userPseudo: user.pseudo, endedDateSubscription: endedDateSub });
         }
@@ -235,7 +234,7 @@ exports.subscribe = async (req, res) => {
             res.status(404).send({ message: "An error occurred during the subscription" });
             return;
         }
-        res.status(200).send({ message: "Your premium subscription is ended " + endedDate + " !" });
+        res.status(200).send({ message: "Your premium subscription is ended " + endedDate + " !", endedDate : endedDate});
         return;
     })
 }
@@ -253,7 +252,8 @@ exports.getUserSubscribeValid = async (req, res) => {
             res.status(404).send({ message: "An error occurred during the subscription" });
             return;
         }
-        res.status(200).send({ subscription: result.rows[0] });
+        const subscription =( result.rows.length !== 0) ? result.rows[0] : {}
+        res.status(200).send({ subscription: subscription });
         return;
     })
 }

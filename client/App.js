@@ -21,10 +21,6 @@ export default function App() {
         if (userData) {
           setIsLogedIn(true);
           setSubState(userData);
-          // if (userData.endedDateSubscription && new Date(userData.endedDateSubscription).valueOf() > dateNow.valueOf()) {
-          //   console.log(new Date(userData.endedDateSubscription).valueOf(), dateNow.valueOf())
-          //   setIsSubscribe(true);
-          // }
         }
 
       } catch (e) {
@@ -42,13 +38,8 @@ export default function App() {
   }
 
   const setSubState = (data) => {
-    if(!data){
-      setIsSubscribe(false);
-      return;
-    }
     let dateNow = new Date();
-    if (data.endedDateSubscription && new Date(data.endedDateSubscription).valueOf() > dateNow.valueOf()) {
-      console.log(new Date(data.endedDateSubscription).valueOf(), dateNow.valueOf())
+    if ((data.endedDateSubscription && new Date(data.endedDateSubscription).valueOf() > dateNow.valueOf()) || data === true) {
       setIsSubscribe(true);
       return
     }

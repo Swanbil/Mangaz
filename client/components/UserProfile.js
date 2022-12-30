@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image } from "react-native";
 import { Badge } from 'react-native-paper'
 
-export default function UserProfile({ isLog, userInfos, isSubscribe }) {
+export default function UserProfile({ isLog, userInfos, isSubscribe, navigation }) {
 
     return (
         <View style={[styles.userProfileContainer]}>

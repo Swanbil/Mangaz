@@ -11,6 +11,7 @@ import Chapter from './Chapter';
 import MenuProfile from './MenuProfile';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import Settings from '../screens/Settings';
+import Subscribe from '../screens/Subscribe';
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, getSubState }) => {
@@ -71,6 +72,11 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, ge
                 headerShown: false
             })} >
                 {(props) => <History {...props} />}
+            </Stack.Screen>
+            <Stack.Screen name="Subscribe" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <Subscribe {...props} isSubscribe={isSubscribe} getSubState={getSubState}/>}
             </Stack.Screen>
         </Stack.Navigator>
 

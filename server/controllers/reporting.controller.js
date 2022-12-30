@@ -18,3 +18,16 @@ exports.getUserHistoryMangaRead = async (req, res) => {
     })
 
 }
+
+exports.getSubscriptionsPlan = async (req, res) => {
+    const sql = 'SELECT * FROM subscription';
+    await db.query(sql, (err, result) => {
+        if(err){
+            console.log(err);
+            res.status(404).send({message : "An error occured"});
+            return;
+        }
+        res.status(200).send({subscriptionsPlan: result.rows});
+        return;
+    })
+}

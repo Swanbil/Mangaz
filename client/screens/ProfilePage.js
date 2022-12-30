@@ -36,10 +36,10 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
     return (
         <View style={styles.container}>
             <View style={styles.blockUser}>
-                <UserProfile isLog={isLog} userInfos={userInfos} isSubscribe={isSubscribe}/>
+                <UserProfile isLog={isLog} userInfos={userInfos} isSubscribe={isSubscribe} navigation={navigation}/>
             </View>
             <View style={styles.menu}>
-                <MenuProfile navigation={navigation} userInfos={userInfos} />
+                <MenuProfile navigation={navigation} userInfos={userInfos}/>
             </View>
             <View>
                 <TouchableOpacity

@@ -32,7 +32,6 @@ export default function Home({ navigation, route, isLog }) {
       } finally {
         setLoading(false);
       }
-
     }
 
   }
