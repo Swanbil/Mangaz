@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { Icon } from 'react-native-paper';
+import RNPickerSelect from 'react-native-picker-select';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { AntDesign } from '@expo/vector-icons';
 import axios from "axios";
@@ -8,6 +10,7 @@ import { getDataUser } from '../utilities/localStorage';
 
 export default function Chapter({ route, navigation }) {
   const [pages, setPages] = useState([]);
+  const [selectPageItems, setSelectPageItems] = useState([]);
   const [currentPage, setCurrentPage] = useState({});
   const [numberPageRead, setNumberPageRead] = useState(0);
   const [isUserHistorySaved, setUserHistorySaved] = useState(false);
@@ -21,11 +24,12 @@ export default function Chapter({ route, navigation }) {
   const getPagesOfChapter = async () => {
     const response = await axios.get(API_URL + `/manga/${mangaTitle}/chapter/${chapterNumber}`);
     setPages(response.data.pages);
+    setSelectPageItems(response.data.pages.map((page, index) => {return {label : 'Page ' + page.pageNumber, value : index }}));
     setCurrentPage(response.data.pages[0]);
   }
 
   const saveUserHistoryChapterRead = async () => {
-    const {userPseudo} = await getDataUser();
+    const { userPseudo } = await getDataUser();
     const payload = {
       userPseudo: userPseudo, //store user pseudo
       chapterNumber: chapterNumber,
@@ -52,6 +56,9 @@ export default function Chapter({ route, navigation }) {
       await saveUserHistoryChapterRead();
     }
   }
+  const changePange = (value) => {
+    setCurrentPage(pages[value]);
+  }
   return (
     <View>
       <TouchableOpacity
@@ -62,7 +69,7 @@ export default function Chapter({ route, navigation }) {
       </TouchableOpacity>
 
       <View style={styles.container}>
-        <Image source={{ uri: currentPage.source }} style={{ width: 320, height: 530 }} />
+        <Image source={{ uri: currentPage?.source }} style={{ width: 320, height: 530 }} />
         <View style={{
           flexDirection: "row",
           marginTop: 10,
@@ -70,19 +77,32 @@ export default function Chapter({ route, navigation }) {
         }}>
           <TouchableOpacity
             underlayColor='#fff'
-            style={{ marginRight: 100, opacity: ((currentPage.pageNumber === "1") ? 0.5 : 1) }}
+            style={{ marginRight: 80, opacity: ((currentPage?.pageNumber === "1") ? 0.5 : 1) }}
             onPress={goPreviousPage}
-            disabled={currentPage.pageNumber === "1"}
+            disabled={currentPage?.pageNumber === "1"}
           >
             <Ionicons name="ios-arrow-back-circle" color="#C0A6F7" size={36} />
           </TouchableOpacity>
-          <Text style={{ fontWeight: "bold" }}>Page {currentPage.pageNumber}</Text>
+
+          <RNPickerSelect
+            onValueChange={(value) => changePange(value)}
+            items={selectPageItems}
+            placeholder={{ label: "Select page", value: null }}
+            style={{...pickerSelectStyles, iconContainer: {
+              top: 10,
+              right: 12,
+            }}}
+            useNativeAndroidPickerStyle={false}
+            Icon={() => {
+              return <Ionicons name="chevron-down-outline" size={16} color="black" />;
+            }}
+          />
 
           <TouchableOpacity
             underlayColor='#fff'
-            style={{ marginLeft: 100, opacity: ((parseInt(currentPage.pageNumber) === pages.length) ? 0.5 : 1) }}
+            style={{ marginLeft: 80, opacity: ((parseInt(currentPage?.pageNumber) === pages.length) ? 0.5 : 1) }}
             onPress={goNextPage}
-            disabled={(parseInt(currentPage.pageNumber) === pages.length)}
+            disabled={(parseInt(currentPage?.pageNumber) === pages.length)}
           >
             <Ionicons name="ios-arrow-forward-circle" color="#C0A6F7" size={36} />
           </TouchableOpacity>
@@ -115,4 +135,31 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10
   }
+});
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 14,
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#DEDEDE',
+    borderRadius: 4,
+    color: '#B7B7B7',
+    fontStyle:'italic',
+    textAlign:'center',
+    paddingRight: 30,
+  },
+  inputAndroid: {
+    fontSize: 14,
+    paddingVertical: 7,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#DEDEDE',
+    borderRadius: 4,
+    color: '#B7B7B7',
+    fontStyle:'italic',
+    textAlign:'center',
+    paddingRight: 30,
+  },
 });
