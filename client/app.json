@@ -2,6 +2,7 @@
   "expo": {
     "name": "Mangaz",
     "slug": "Mangaz",
+    "scheme" : "mangaz",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

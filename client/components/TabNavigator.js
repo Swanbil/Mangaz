@@ -1,8 +1,8 @@
 import React from 'react';
-import Home from '../screens/Home';
+import Home from '../screens/HomeScreen';
 import HeaderNavigator from './HeaderNavigator';
-import ProfilePage from '../screens/ProfilePage';
-import Favoris from '../screens/Favoris';
+import ProfilePage from '../screens/ProfileScreen';
+import Favoris from '../screens/FavorisScreen';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getHeaderTitle } from '@react-navigation/elements';

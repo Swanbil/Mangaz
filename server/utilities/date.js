@@ -10,10 +10,10 @@ const getDateInOneMonth = () => {
         nextMonth = '01'
         year = dateNow.getFullYear() + 1;
     } else {
-        nextMonth = ('0' + (dateNow.getMonth() + 1)).slice(-2)
+        nextMonth = ('0' + (dateNow.getMonth() + 2)).slice(-2)
         year = dateNow.getFullYear()
     }
-    return year + '-' + nextMonth + '-' + dateNow.getDate();
+    return year + '-' + nextMonth + '-' + (dateNow.getDate() <= 9 ? ('0' + dateNow.getDate()) : dateNow.getDate());
 }
 
 module.exports = {

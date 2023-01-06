@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from '../screens/Login';
-import Register from '../screens/Register';
-import MangaPage from '../screens/MangaPage';
-import History from '../screens/History';
-import Wallet from '../screens/Wallet';
+import Login from '../screens/LoginScreen';
+import Register from '../screens/RegisterScreen';
+import MangaPage from '../screens/MangaScreen';
+import History from '../screens/HistoryScreen';
+import Wallet from '../screens/WalletScreen';
 import TabNavigator from './TabNavigator';
 import Chapter from './Chapter';
 import MenuProfile from './MenuProfile';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import Settings from '../screens/Settings';
-import Subscribe from '../screens/Subscribe';
+import Settings from '../screens/SettingsScreen';
+import Subscribe from '../screens/SubscribeScreen';
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, getSubState }) => {
