@@ -65,20 +65,18 @@ const Login = ({ navigation, getLogState, getSubState }) => {
                 <Text style={styles.textButton}>Register</Text>
             </TouchableOpacity>
             {!connector.connected && (
-            <TouchableOpacity onPress={connectWallet} style={styles.buttonStyle}>
+            <TouchableOpacity onPress={connectWallet} style={styles.button}>
             <Text style={styles.buttonTextStyle}>Connect a Wallet</Text>
             </TouchableOpacity>
             )}
             {!!connector.connected && (
             <>
                 <Text>{(connector.accounts[0])}</Text>
-                <TouchableOpacity onPress={killSession} style={styles.buttonStyle}>
+                <TouchableOpacity onPress={killSession} style={styles.button}>
                 <Text style={styles.buttonTextStyle}>Log out</Text>
                 </TouchableOpacity>
             </>
             )}
-
-
         </View>
 
     );
