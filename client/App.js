@@ -6,6 +6,8 @@ import AppNavigator from './components/AppNavigator';
 import * as SplashScreen from 'expo-splash-screen';
 import { getDataUser } from './utilities/localStorage';
 
+global.Buffer = require('buffer').Buffer;
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {

@@ -1,4 +1,5 @@
 import { Platform, LogBox } from "react-native";
+import { Buffer } from "buffer";
 
 const global = {};
 
@@ -17,9 +18,9 @@ if (Platform.OS !== "web") {
 global.btoa = global.btoa || require('base-64').encode;
 global.atob = global.atob || require('base-64').decode;
 
-global.Buffer = require('buffer').Buffer
+global.Buffer = require('buffer').Buffer;
 
-global.process = require('process')
+global.process = require('process');
 global.process.env.NODE_ENV = __DEV__ ? 'development' : 'production';
 global.process.version = 'v9.40';
   

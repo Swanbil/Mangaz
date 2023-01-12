@@ -3,10 +3,22 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'reac
 import { storeDataUser } from '../utilities/localStorage';
 import axios from 'axios';
 import { API_URL } from '@env';
+import { useWalletConnect } from '@walletconnect/react-native-dapp';
+
 
 const Login = ({ navigation, getLogState, getSubState }) => {
     const [pseudo, setPseudo] = useState("");
     const [password, setPassWord] = useState("");
+
+    const connector = useWalletConnect();
+
+    const connectWallet = React.useCallback(() => {
+        return connector.connect();
+    }, [connector]);
+
+    const killSession = React.useCallback(() => {
+        return connector.killSession();
+      }, [connector]);
 
 
     const login = async () => {
@@ -52,6 +64,19 @@ const Login = ({ navigation, getLogState, getSubState }) => {
             >
                 <Text style={styles.textButton}>Register</Text>
             </TouchableOpacity>
+            {!connector.connected && (
+            <TouchableOpacity onPress={connectWallet} style={styles.buttonStyle}>
+            <Text style={styles.buttonTextStyle}>Connect a Wallet</Text>
+            </TouchableOpacity>
+            )}
+            {!!connector.connected && (
+            <>
+                <Text>{(connector.accounts[0])}</Text>
+                <TouchableOpacity onPress={killSession} style={styles.buttonStyle}>
+                <Text style={styles.buttonTextStyle}>Log out</Text>
+                </TouchableOpacity>
+            </>
+            )}
 
 
         </View>
