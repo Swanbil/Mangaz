@@ -17,7 +17,7 @@ const Stack = createNativeStackNavigator();
 const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, getSubState }) => {
     return (
         <Stack.Navigator
-            initialRouteName={isLogedIn ? 'Catalogue' : 'Login'}
+            initialRouteName={'Catalogue'}
             screenOptions={{
                 cardStyle: { backgroundColor: 'white' },
                 headerStyle: { backgroundColor: '#F6F6F6' },

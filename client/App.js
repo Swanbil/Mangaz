@@ -16,12 +16,13 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
-        let userData = await getDataUser();
-        console.log("USER CRED", userData);
-        if (userData) {
-          setIsLogedIn(true);
-          setSubState(userData);
-        }
+        // let userData = await getDataUser();
+        // console.log("USER CRED", userData);
+        // if (userData) {
+        //   setIsLogedIn(true);
+        //   setSubState(userData);
+        //}
+        setAppIsReady(true);
 
       } catch (e) {
         console.warn(e);
@@ -45,7 +46,6 @@ export default function App() {
     }
     setIsSubscribe(false);
   }
-
 
   if (!appIsReady) {
     return null;

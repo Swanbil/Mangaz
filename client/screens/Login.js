@@ -11,13 +11,14 @@ const Login = ({ navigation, getLogState, getSubState }) => {
 
     const login = async () => {
         const user = { "pseudo": pseudo, "password": password };
+        
         try {
             const response = await axios.post(API_URL + '/login', user);
             const data = response.data;
             getLogState(true);
             getSubState(data);
-            await storeDataUser(data);
             navigation.navigate("TabNavigator", { screen: 'Catalogue', params: { userName: data }, merge: true, });
+            await storeDataUser(data);
         } catch (error) {
             alert(error.response.data)
         }
