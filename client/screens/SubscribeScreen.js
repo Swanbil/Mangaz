@@ -9,6 +9,7 @@ import { API_URL } from '@env';
 import SubscriptionPlan from '../components/SubscriptionPlan';
 import { ActivityIndicator } from 'react-native-paper';
 
+
 export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, navigation }) {
     const [subscription, setSubscription] = useState();
     const [subscriptionsPlan, setSubscriptionsPlan] = useState([]);
@@ -47,6 +48,7 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
     }
 
     return (
+
         <View style={styles.container}>
             <TouchableOpacity
                 style={{ margin: 20 }}
@@ -96,7 +98,7 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
                                             <View style={{ padding: 8 }}>
                                                 {subscriptionsPlan.map((subscriptionPlan, index) => {
                                                     return (
-                                                        <SubscriptionPlan key={index} subscriptionPlan={subscriptionPlan} subscribeToPlan={subscribeToPlan} />
+                                                        <SubscriptionPlan key={index} subscriptionPlan={subscriptionPlan} subscribeToPlan={subscribeToPlan} navigation={navigation}/>
 
                                                     )
                                                 })}

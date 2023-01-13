@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import { AntDesign } from '@expo/vector-icons';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default function SubscriptionPlan({ subscriptionPlan, subscribeToPlan }) {
-
+export default function SubscriptionPlan({ subscriptionPlan, subscribeToPlan, navigation}) {
+ 
     return (
         <View style={styles.subPlanContainer}>
             <Text style={{fontSize:20, color:'white', fontWeight:'bold', textAlign:'center'}}>Premium</Text>
@@ -17,7 +15,7 @@ export default function SubscriptionPlan({ subscriptionPlan, subscribeToPlan }) 
                 <Text style={styles.subText}>{subscriptionPlan?.price}</Text>
             </View>
 
-            <TouchableOpacity style={styles.subButton} onPress={() => subscribeToPlan(subscriptionPlan.idSubscription)}>
+            <TouchableOpacity style={styles.subButton} onPress={() => navigation.navigate('Payment', {subscriptionPlan})}>
                 <Text style={[styles.text, { fontWeight: '500', textAlign: 'center' }]}>Pay</Text>
             </TouchableOpacity>
         </View>
