@@ -13,11 +13,13 @@ app.use(cors());
 const mangaRoutes = require('./routes/manga.routes');
 const userRoutes = require('./routes/user.routes');
 const reportingRoutes = require('./routes/reporting.routes');
+const paymentRoutes = require('./routes/payment.routes');
 
 
 app.use(mangaRoutes);
 app.use(userRoutes);
-app.use(reportingRoutes)
+app.use(reportingRoutes);
+app.use(paymentRoutes)
 
 app.listen(port, () => {
     console.log('Server app listening on port ' + port);

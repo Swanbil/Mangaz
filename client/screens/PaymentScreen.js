@@ -1,17 +1,79 @@
-import { StripeProvider, CardForm } from '@stripe/stripe-react-native';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { StripeProvider, CardForm, useConfirmPayment } from '@stripe/stripe-react-native';
+import { View, StyleSheet, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import React, { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { API_URL } from '@env';
+import axios from 'axios';
+import { getDataUser, storeDataUser } from '../utilities/localStorage';
 
-export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, navigation, route }) {
+export default function Subscribe({ isLog, isSubscribe, getSubState, navigation, route }) {
     const [card, setCard] = useState();
+    const { confirmPayment, loading } = useConfirmPayment();
+    const [responsePayment, setResponsePayment] = useState();
 
     const { subscriptionPlan } = route.params;
 
+    const fetchPaymentIntentClientSecret = async () => {
+        const response = await axios.post(`${API_URL}/create-payment-intent`, { items: card });
+        const { clientSecret } = response.data;
+        return clientSecret;
+    }
+
+    const subscribeToPlan = async (userPseudo) => {
+        const response = await axios.post(`${API_URL}/user/subscribe`, {
+            userPseudo: userPseudo,
+            idSubscription: subscriptionPlan.idSubscription
+        });
+        await storeDataUser({
+            userPseudo: userPseudo,
+            endedDateSubscription: response.data.endedDate
+        })
+        getSubState(true);
+    }
+
+    const handlePayment = async () => {
+        if (!card) {
+            return;
+        }
+        setResponsePayment({})
+        const { userPseudo } = await getDataUser();
+        const billingDetails = {
+            email: `${userPseudo}@example.com`,
+            name : userPseudo
+        };
+
+        const clientSecret = await fetchPaymentIntentClientSecret();
+        const { paymentIntent, error } = await confirmPayment(clientSecret, {
+            paymentMethodType: 'Card',
+            paymentMethodData: {
+                billingDetails,
+            },
+        });
+
+        if (error) {
+            setResponsePayment({
+                status : "Error",
+                message : error.message
+            });
+        } else if (paymentIntent) {
+            if (paymentIntent.status === "Succeeded") {
+                //subscribe user
+                await subscribeToPlan(userPseudo);
+                setResponsePayment({
+                    status : paymentIntent.status,
+                    message : `Payment ${paymentIntent.status}. You will be redirected to the home page`
+                })
+                setTimeout(() => {
+                    navigation.navigate('Catalogue')
+                }, 6000);
+            }
+        }
+    }
+
     return (
         <StripeProvider
-            publishableKey="pk_test_oKhSR5nslBRnBZpjO6KuzZeX"
+            publishableKey="pk_test_51MPrQLBqDvJIyvrbqGQz47alpefgi82vpf8hY5cu6TLHq9cmgoVnuoPBfyWtgiiFoETfMwm9IRU6CkfgRURF0XZl00Qg0jnIyi"
             urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
             merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
         >
@@ -55,14 +117,15 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
                             style={{ height: 200, marginVertical: 15 }}
                         />
 
-                        <TouchableOpacity style={styles.subButton} onPress={() => console.log(card)}>
-                            <Text style={[styles.text, { fontWeight: '500', textAlign: 'center' }]}>Pay</Text>
-                        </TouchableOpacity>
-
+                        {loading
+                            ? (<ActivityIndicator style={{ flex: 1 }} />)
+                            : (<TouchableOpacity style={{ ...styles.subButton, ...{ opacity: (loading || !card) ? 0.3 : 1 } }} onPress={handlePayment} disabled={loading || !card}>
+                                <Text style={[styles.text, { fontWeight: '500', textAlign: 'center' }]}>Pay</Text>
+                            </TouchableOpacity>)
+                        }
                     </View>
-
-
                 </View>
+                <Text style={{ color: responsePayment?.status === "Succeeded" ? "#C0E78D" : "#F5817F" , fontWeight: '500', textAlign:'center' }}>{responsePayment?.message}</Text>
             </View>
 
         </StripeProvider>
@@ -112,8 +175,8 @@ const styles = StyleSheet.create({
     },
     subRow: {
         marginTop: 8,
-        backgroundColor:"#fff",
-        padding:5,
-        borderRadius:10
+        backgroundColor: "#fff",
+        padding: 5,
+        borderRadius: 10
     },
 });

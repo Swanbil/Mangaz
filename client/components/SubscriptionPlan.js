@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
-export default function SubscriptionPlan({ subscriptionPlan, subscribeToPlan, navigation}) {
+export default function SubscriptionPlan({ subscriptionPlan, navigation}) {
  
     return (
         <View style={styles.subPlanContainer}>

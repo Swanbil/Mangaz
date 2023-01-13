@@ -31,21 +31,6 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
         setSubscriptionsPlan(response.data.subscriptionsPlan);
     }
 
-    const subscribeToPlan = async (idSubscription) => {
-        const { userPseudo } = await getDataUser();
-        console.log("Subscrie to plan", userPseudo, idSubscription)
-        setIsLoading(true);
-        const response = await axios.post(`${API_URL}/user/subscribe`, {
-            userPseudo: userPseudo,
-            idSubscription: idSubscription
-        });
-        await storeDataUser({
-            userPseudo: userPseudo,
-            endedDateSubscription: response.data.endedDate
-        })
-        getSubState(true);
-        setIsLoading(false);
-    }
 
     return (
 
@@ -98,7 +83,7 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
                                             <View style={{ padding: 8 }}>
                                                 {subscriptionsPlan.map((subscriptionPlan, index) => {
                                                     return (
-                                                        <SubscriptionPlan key={index} subscriptionPlan={subscriptionPlan} subscribeToPlan={subscribeToPlan} navigation={navigation}/>
+                                                        <SubscriptionPlan key={index} subscriptionPlan={subscriptionPlan} navigation={navigation}/>
 
                                                     )
                                                 })}
