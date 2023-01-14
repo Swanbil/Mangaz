@@ -1,5 +1,5 @@
 const db = require('../config/database');
-const stripe = require("stripe")('sk_test_51MPrQLBqDvJIyvrbo2uyIBeIxKYU79YS5o7JTl3LqkpgS8p7aJqxIqPPmhNrCzaGhj4gLe4PBusChPwcixok9HYi00WVNDxBUn');
+const stripe = require("stripe")(process.env.STRIPE_SK_KEY_TEST);
 
 const calculateOrderAmount = (items) => {
     //getAmount

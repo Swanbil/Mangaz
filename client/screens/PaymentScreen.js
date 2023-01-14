@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text, ActivityIndicator } from 'rea
 import React, { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { API_URL } from '@env';
+import { API_URL, STRIPE_PUB_KEY_TEST} from '@env';
 import axios from 'axios';
 import { getDataUser, storeDataUser } from '../utilities/localStorage';
 
@@ -73,7 +73,7 @@ export default function Subscribe({ isLog, isSubscribe, getSubState, navigation,
 
     return (
         <StripeProvider
-            publishableKey="pk_test_51MPrQLBqDvJIyvrbqGQz47alpefgi82vpf8hY5cu6TLHq9cmgoVnuoPBfyWtgiiFoETfMwm9IRU6CkfgRURF0XZl00Qg0jnIyi"
+            publishableKey={STRIPE_PUB_KEY_TEST}
             urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
             merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
         >
