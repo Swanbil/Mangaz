@@ -2,8 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 
+
+
+// Import the required shims
+import '@ethersproject/shims';
+// Import the ethers library
+import { ethers } from 'ethers';
+import { contractABI, contractAddress } from '../Utils/constants';
 
 export default function Wallet({navigation }) {
 
@@ -14,12 +22,29 @@ export default function Wallet({navigation }) {
         return connector.connect();
     }, window.connector = [connector]);
 
-
     const killSession = React.useCallback(() => {
         return connector.killSession();
         
       }, [connector]);
 
+      
+      const [balance, setBalance] = useState(0);
+
+      const getBalance = React.useCallback(async () => {
+          const provider = new ethers.providers.InfuraProvider('goerli');
+          // Créer un contrat à partir de l'ABI et de l'adresse du contrat
+          let contract = new ethers.Contract(contractAddress, contractABI, provider);
+          // Utiliser la fonction de lecture "balanceOf" pour obtenir la balance de jetons pour une adresse spécifique
+          let balance = await contract.balanceOf(connector.accounts[0]);
+          setBalance(balance);
+        }, [connector]);
+      
+      if(!!connector.connected){
+          getBalance();
+        }
+        
+      
+     
 
     return (
         <View style={styles.container}>
@@ -47,6 +72,8 @@ export default function Wallet({navigation }) {
                 <TouchableOpacity onPress={killSession} style={styles.button}>
                 <Text style={styles.buttonTextStyle}>Log out</Text>
                 </TouchableOpacity>
+
+                <Text>{`balance : ${balance} ZC`}</Text>
             </>
             )}
 

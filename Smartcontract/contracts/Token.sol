@@ -10,6 +10,7 @@ contract Token {
     // Some string type variables to identify the token.
     string public name = "ZenCash";
     string public symbol = "ZC";
+    
 
     // The fixed amount of tokens, stored in an unsigned integer type variable.
     uint256 public totalSupply = 100000000000000;
