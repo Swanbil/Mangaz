@@ -4,9 +4,6 @@ import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
-
-
-
 // Import the required shims
 import '@ethersproject/shims';
 // Import the ethers library
@@ -15,6 +12,7 @@ import { contractABI, contractAddress } from '../Utils/constants';
 
 export default function Wallet({navigation }) {
 
+    //Wallet Connect 
     const connector = useWalletConnect();
 
     const connectWallet = React.useCallback(() => {
@@ -28,23 +26,40 @@ export default function Wallet({navigation }) {
       }, [connector]);
 
       
-      const [balance, setBalance] = useState(0);
+    // Get the balance of the connected wallet
+    const [balance, setBalance] = useState(0);
 
-      const getBalance = React.useCallback(async () => {
-          const provider = new ethers.providers.InfuraProvider('goerli');
-          // Créer un contrat à partir de l'ABI et de l'adresse du contrat
-          let contract = new ethers.Contract(contractAddress, contractABI, provider);
-          // Utiliser la fonction de lecture "balanceOf" pour obtenir la balance de jetons pour une adresse spécifique
-          let balance = await contract.balanceOf(connector.accounts[0]);
-          setBalance(balance);
-        }, [connector]);
-      
-      if(!!connector.connected){
-          getBalance();
-        }
-        
-      
-     
+    const getBalance = React.useCallback(async () => {
+        const provider = new ethers.providers.InfuraProvider('goerli');
+        // Créer un contrat à partir de l'ABI et de l'adresse du contrat
+        let contract = new ethers.Contract(contractAddress, contractABI, provider);
+        // Utiliser la fonction de lecture "balanceOf" pour obtenir la balance de jetons pour une adresse spécifique
+        let balance = await contract.balanceOf(connector.accounts[0]);
+        setBalance(balance);
+    },[connector]);    
+        getBalance();
+    
+
+    const exchangeTokens = React.useCallback(async () => {
+        let tokenAddress = "0x7b2F269a95863002B9174Cc1C2EeF478c61530D3";
+        let fromAddress = "0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64";
+        let toAddress = "0x7424b8bfD8dB7d8Ed37cd7751a3C9F31f7467940"; 
+        let amount = ethers.utils.parseUnits("1", "ether");
+
+        const provider = new ethers.providers.Web3Provider();
+        // Autorisez l'application à accéder à votre adresse Ethereum
+        await window.ethereum.enable();
+        // Obtenir le contrat à partir de l'ABI et de l'adresse
+        let contract = new ethers.Contract(tokenAddress, contractABI, provider);
+        // Obtenir un signataire pour l'adresse fromAddress
+        const signer = provider.getSigner();
+        let gasPrice = ethers.utils.parseUnits("20", "gwei");
+        // Utiliser la fonction "transfer" pour transférer des tokens de l'adresse fromAddress à l'adresse toAddress
+        let tx = await contract.transfer(toAddress, amount, { gasLimit: 21000, gasPrice});
+        // Envoyer la transaction en utilisant le signataire
+        let receipt = await tx.wait();
+        console.log(`Transaction mined: ${receipt.transactionHash}`);
+    },[connector]);
 
     return (
         <View style={styles.container}>
@@ -68,12 +83,15 @@ export default function Wallet({navigation }) {
             )}
             {!!connector.connected && (
             <>
-                <Text>{('Your adresse on the ether chain is ' + connector.accounts[0])}</Text>
+                <Text>{('Your adresse on the Ether chain is ' + connector.accounts[0])}</Text>
                 <TouchableOpacity onPress={killSession} style={styles.button}>
                 <Text style={styles.buttonTextStyle}>Log out</Text>
                 </TouchableOpacity>
+                <Text>{`Your balance : ${balance} ZC`}</Text>
 
-                <Text>{`balance : ${balance} ZC`}</Text>
+                <TouchableOpacity onPress={exchangeTokens} style={styles.button}>
+                <Text style={styles.buttonTextStyle}>exchange</Text>
+                </TouchableOpacity>
             </>
             )}
 
