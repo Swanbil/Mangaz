@@ -7,6 +7,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getHeaderTitle } from '@react-navigation/elements';
 import { IconButton } from 'react-native-paper';
+import Wallet from '../screens/Wallet';
 
 
 const Tab = createBottomTabNavigator();
@@ -40,7 +41,7 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
             })}
         >
             <Tab.Screen name="Catalogue">
-                {(props) => <Home {...props} isLog={isLog} />}
+                {(props) => <Wallet {...props} isLog={isLog} />}
             </Tab.Screen>
             {isLog
                 ? (

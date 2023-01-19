@@ -9,7 +9,7 @@ import Wallet from '../screens/Wallet';
 import TabNavigator from './TabNavigator';
 import Chapter from './Chapter';
 import MenuProfile from './MenuProfile';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Settings from '../screens/Settings';
 import Subscribe from '../screens/Subscribe';
 
