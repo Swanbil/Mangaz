@@ -41,7 +41,7 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
             })}
         >
             <Tab.Screen name="Catalogue">
-                {(props) => <Wallet {...props} isLog={isLog} />}
+                {(props) => <Home {...props} isLog={isLog} />}
             </Tab.Screen>
             {isLog
                 ? (

@@ -44,12 +44,21 @@ const Login = ({ navigation, getLogState, getSubState }) => {
                 underlayColor='#fff'>
                 <Text style={styles.textButton}>Login</Text>
             </TouchableOpacity>
+            
             <TouchableOpacity
                 style={styles.buttonRegister}
                 onPress={() => navigation.navigate('Register')}
                 underlayColor='#fff'
             >
                 <Text style={styles.textButton}>Register</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={styles.buttonRegister}
+                onPress={() => navigation.navigate('Wallet')}
+                underlayColor='#fff'
+            >
+                <Text style={styles.textButton}>Go Wallet</Text>
             </TouchableOpacity>
             
         </View>
