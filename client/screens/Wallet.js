@@ -83,7 +83,7 @@ export default function Wallet({navigation }) {
             )}
             {!!connector.connected && (
             <>
-                <Text>{('Your adresse on the Ether chain is ' + connector.accounts[0])}</Text>
+                <Text>{('Your address on the Ether chain is ' + connector.accounts[0])}</Text>
                 <TouchableOpacity onPress={killSession} style={styles.button}>
                 <Text style={styles.buttonTextStyle}>Log out</Text>
                 </TouchableOpacity>
