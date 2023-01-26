@@ -46,16 +46,19 @@ export default function Wallet({navigation }) {
         let toAddress = "0x7424b8bfD8dB7d8Ed37cd7751a3C9F31f7467940"; 
         let amount = ethers.utils.parseUnits("1", "ether");
 
-        const provider = new ethers.providers.Web3Provider();
-        // Autorisez l'application à accéder à votre adresse Ethereum
-        await window.ethereum.enable();
-        // Obtenir le contrat à partir de l'ABI et de l'adresse
-        let contract = new ethers.Contract(tokenAddress, contractABI, provider);
+        const provider = new ethers.providers.WebSocketProvider("wss://goerli.infura.io/ws/v3/2b640fd22f294a509d4273f19ce6fd25");
+
         // Obtenir un signataire pour l'adresse fromAddress
         const signer = provider.getSigner();
+
+        // Obtenir le contrat à partir de l'ABI et de l'adresse
+        let contract = new ethers.Contract(tokenAddress, contractABI, signer);
+        
         let gasPrice = ethers.utils.parseUnits("20", "gwei");
+
         // Utiliser la fonction "transfer" pour transférer des tokens de l'adresse fromAddress à l'adresse toAddress
         let tx = await contract.transfer(toAddress, amount, { gasLimit: 21000, gasPrice});
+        
         // Envoyer la transaction en utilisant le signataire
         let receipt = await tx.wait();
         console.log(`Transaction mined: ${receipt.transactionHash}`);
