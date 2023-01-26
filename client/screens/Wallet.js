@@ -78,9 +78,9 @@ export default function Wallet({navigation }) {
         let tokenAddress = "0x7b2F269a95863002B9174Cc1C2EeF478c61530D3";
         let fromAddress = "0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64";
         let toAddress = "0x7424b8bfD8dB7d8Ed37cd7751a3C9F31f7467940"; 
-        let amount = ethers.utils.parseUnits("1", "ether");
+        let amount = 10;
 
-        /// Set the Infura endpoint and your API key
+        // / Set the Infura endpoint and your API key
         const endpoint = 'https://goerli.infura.io/v3/8846dcd958a74362bd06d7b4eae341c7';
 
         // Create a new instance of the ethers.js provider
@@ -92,25 +92,29 @@ export default function Wallet({navigation }) {
         // Create a new instance of the ethers.js Wallet using the private key
         const wallet = new ethers.Wallet(privateKey, provider);
 
-        // Set the details of the transaction
-        const data = amount;
-        const to = toAddress;
+        const contract = new ethers.Contract(tokenAddress, contractABI, wallet);
 
-        // Set the gas price and gas limit
-        const gasPrice = ethers.utils.parseUnits('20', 'gwei');
+         // Set the function to call and any parameters required
+        const functionToCall = "transfer";
+        const functionParams = [toAddress, amount];
+
+        // // Set the gas price and gas limit
+        const gasPrice = ethers.utils.parseUnits('10', 'gwei');
         const gasLimit =200000;
 
-        // Build the transaction object
+        // // Build the transaction object
         const transaction = {
-            to: to,
-            data: data,
+            to: tokenAddress,
+            data: contract.interface.encodeFunctionData(functionToCall, functionParams),
             gasPrice: gasPrice,
             gasLimit: gasLimit,
             nonce: await wallet.getTransactionCount()
         };
 
-        // Send the transaction
+        // Sign the transaction
         const signedTransaction = await wallet.signTransaction(transaction);
+
+        //Send the transaction
         const response = await wallet.provider.sendTransaction(signedTransaction);
         console.log(response);
     }
