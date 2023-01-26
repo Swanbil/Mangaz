@@ -44,24 +44,34 @@ export default function Wallet({navigation }) {
         let tokenAddress = "0x7b2F269a95863002B9174Cc1C2EeF478c61530D3";
         let fromAddress = "0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64";
         let toAddress = "0x7424b8bfD8dB7d8Ed37cd7751a3C9F31f7467940"; 
-        let amount = ethers.utils.parseUnits("1", "ether");
+        let amount = ethers.utils.parseUnits("0.001", "ether");
+        
 
-        const provider = new ethers.providers.WebSocketProvider("wss://goerli.infura.io/ws/v3/2b640fd22f294a509d4273f19ce6fd25");
+        const provider = new ethers.providers.JsonRpcProvider("https://omniscient-flashy-layer.ethereum-goerli.discover.quiknode.pro/a06de7d234dbfe96a709e679c390cf879c2f015b/");
+
+        let gasPrice = provider.getGasPrice();
+        console.log(gasPrice);
+
+        const wallet = ethers.Wallet.fromMnemonic('base hospital door cart crime hospital various quarter film ginger tip direct');
 
         // Obtenir un signataire pour l'adresse fromAddress
-        const signer = provider.getSigner();
-
+        const signer = wallet.connect(provider);
+        
         // Obtenir le contrat à partir de l'ABI et de l'adresse
-        let contract = new ethers.Contract(tokenAddress, contractABI, signer);
+        //let contract = new ethers.Contract(tokenAddress, contractABI, signer);
         
-        let gasPrice = ethers.utils.parseUnits("20", "gwei");
-
         // Utiliser la fonction "transfer" pour transférer des tokens de l'adresse fromAddress à l'adresse toAddress
-        let tx = await contract.transfer(toAddress, amount, { gasLimit: 21000, gasPrice});
-        
-        // Envoyer la transaction en utilisant le signataire
-        let receipt = await tx.wait();
-        console.log(`Transaction mined: ${receipt.transactionHash}`);
+        let tx = {
+            from : wallet.address,
+            to : toAddress,
+            value : amount,
+            gasPrice : gasPrice,
+            gasLimit : ethers.utils.hexlify(100000),
+            //none : provider.getTransactionCount(wallet.address, 'latest')  
+        };
+
+        const transaction = await signer.sendTransaction(tx);
+        console.log(transaction);
     },[connector]);
 
     return (
