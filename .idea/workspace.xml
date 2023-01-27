@@ -4,8 +4,6 @@
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/web3.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/web3.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +39,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1674812585246</updated>
-      <workItem from="1674812586711" duration="11117000" />
+      <workItem from="1674812586711" duration="11494000" />
     </task>
     <servers />
   </component>

@@ -32,7 +32,13 @@ exports.getPrivateKey = async (req, res) => {
         let encryptedPrivateKey = result.rows[0].private_key;
         console.log(encryptedPrivateKey);
 
-        // Déchiffrement de la clé privée à l'aide de la clé de chiffrement symétrique
+        //If private key don't exist in BDD
+        if(encryptedPrivateKey == null){
+            res.send("Private key don't exist");
+            return;
+        }
+
+        // Decrypt process
         const decipher = crypto.createDecipheriv(algorithm, cryptoEncryptedKey, iv);
 
         // Updating encrypted text
@@ -55,10 +61,10 @@ exports.postPrivateKey = async (req, res) => {
         return;
     }
 
-    // Chiffrement de la clé privée à l'aide de la clé de chiffrement symétrique
+    // Crypt process
     const cipher = crypto.createCipheriv(algorithm, cryptoEncryptedKey, iv);
 
-    // Encrypt the text
+    // Encrypt the private key
     let encryptedPrivateKey = cipher.update(privateKey, 'utf8', 'hex');
     encryptedPrivateKey += cipher.final('hex');
 
