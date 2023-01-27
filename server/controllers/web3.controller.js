@@ -1,6 +1,17 @@
 const db = require('../config/database');
-const bcrypt = require('bcryptjs');
 const {getUserIdFromPseudo} = require("./user.controller");
+const crypto = require('crypto');
+
+// Defining password
+const password = 'cnouswesh';
+
+// Defining key
+const cryptoEncryptedKey = crypto.scryptSync(password, 'GfG', 24);
+
+const algorithm = 'aes-192-cbc';
+
+// Defininf iv
+const iv = Buffer.alloc(16, 0);
 
 
 exports.getPrivateKey = async (req, res) => {
@@ -18,12 +29,18 @@ exports.getPrivateKey = async (req, res) => {
             return
         }
 
-        if (result.rows[0].private_key == null ) {
-            res.status(400).json("null");
-            return
-        }
+        let encryptedPrivateKey = result.rows[0].private_key;
+        console.log(encryptedPrivateKey);
 
-        res.send("private key is " + result.rows[0].private_key) ;
+        // Déchiffrement de la clé privée à l'aide de la clé de chiffrement symétrique
+        const decipher = crypto.createDecipheriv(algorithm, cryptoEncryptedKey, iv);
+
+        // Updating encrypted text
+        let privateKey = decipher.update(encryptedPrivateKey, "hex", "utf8");
+        privateKey += decipher.final('utf8');
+
+        res.send("private key is " + privateKey.toString() );
+
 
     });
 }
@@ -38,15 +55,23 @@ exports.postPrivateKey = async (req, res) => {
         return;
     }
 
+    // Chiffrement de la clé privée à l'aide de la clé de chiffrement symétrique
+    const cipher = crypto.createCipheriv(algorithm, cryptoEncryptedKey, iv);
+
+    // Encrypt the text
+    let encryptedPrivateKey = cipher.update(privateKey, 'utf8', 'hex');
+    encryptedPrivateKey += cipher.final('hex');
+
+
     let sql = 'Update users SET private_key = $1 WHERE pseudo = $2';
 
-    await db.query(sql, [privateKey, userPseudo], (err, result) => {
+    await db.query(sql, [encryptedPrivateKey, userPseudo], (err, result) => {
         if (err) {
             console.error('Error executing query', err.stack);
-            res.status(404).send({ message: "An error occured by adding to favoris this manga" });
+            res.status(404).send({ message: "An error occured by adding private key to user" });
             return;
         }
-        res.status(200).send({ message: "private key add " });
+        res.status(200).send({ message: "private key add " + encryptedPrivateKey});
         return;
     });
 }
