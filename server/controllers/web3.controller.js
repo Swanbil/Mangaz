@@ -36,7 +36,7 @@ exports.getPrivateKey = async (req, res) => {
 
         //If private key don't exist in BDD
         if(encryptedPrivateKey == null){
-            res.send("Private key don't exist");
+            res.send(null);
             return;
         }
 

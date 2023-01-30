@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
 import { API_URL } from '@env';
 import axios from 'axios';
 
@@ -18,9 +17,13 @@ export default function Wallet({navigation }) {
     
     const [pseudo, setPseudo] = useState("");
 
-
     //Wallet Connect 
     const connector = useWalletConnect();
+    // Get the balance of the connected wallet
+    const [balance, setBalance] = useState(0);
+
+    const [privateKeyInput, setPrivateKeyInput] = useState('');
+    
 
     const connectWallet = React.useCallback(() => {
         navigation.navigate("TabNavigator", { screen: 'Wallet' });
@@ -32,10 +35,6 @@ export default function Wallet({navigation }) {
         
     }, [connector]);
 
-      
-    // Get the balance of the connected wallet
-    const [balance, setBalance] = useState(0);
-
     const getBalance = React.useCallback(async () => {
         const provider = new ethers.providers.InfuraProvider('goerli');
         // Créer un contrat à partir de l'ABI et de l'adresse du contrat
@@ -45,8 +44,6 @@ export default function Wallet({navigation }) {
         setBalance(balance);
     },[connector]);    
     
-    getBalance();
-
     async function exchangeTokens () {
         let tokenAddress = "0x7b2F269a95863002B9174Cc1C2EeF478c61530D3";
         let fromAddress = "0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64";
@@ -94,18 +91,47 @@ export default function Wallet({navigation }) {
         console.log(response);
     }
 
-
     //API call to get Private Key of user
     const getPrivateKey = async () => {
         const user = { "userPseudo" : "U" };
-        
-        try {
-            const response = await axios.get(API_URL + '/web3/getPrivateKey/' + user.userPseudo);
-            console.log(response.data);
-        } catch (error) {
-            alert(error.response.data)
+        const response = await axios.get(API_URL + '/web3/getPrivateKey/' + user.userPseudo);
+        console.log("data : " + response.data + "");
+        return (response.data);
+    }
+
+    //API call to post Private Key of user
+    const postPrivateKey = async () => {
+        const user = { "userPseudo" : "U", "privateKey" : privateKeyInput };
+
+        if(user.privateKey == "") {
+            alert("Veuillez entrer une clé privée");
+            return;
+        }
+        try{
+            const response = await axios.post(API_URL + '/web3/postPrivateKey/', user);
+            alert("Clé privée enregistrée");
+            return (response.data);
+        }catch
+        {
+            alert("Erreur lors de l'enregistrement de la clé privée");
         }
     }
+
+    
+    const checkPrivateKey = async () => {
+        const response = await getPrivateKey();
+        if (response.data == "") {
+            console.log("data not detect");
+        } else {
+            console.log("data detect"); 
+        }
+      };
+
+      
+    useEffect( () => {
+        checkPrivateKey();
+        getBalance();
+        }, []);
 
 
     return (
@@ -141,11 +167,15 @@ export default function Wallet({navigation }) {
                 </TouchableOpacity>
             </>
             )}
-            <TouchableOpacity onPress={getPrivateKey} style={styles.button}>
-            <Text style={styles.buttonTextStyle}>get private key</Text>
+            <Text>{('Your private key is ' + getPrivateKey() )}</Text>
+            <TextInput
+                placeholder="Enter private key"
+                value={privateKeyInput}
+                onChangeText={text => setPrivateKeyInput(text)}
+            />
+            <TouchableOpacity onPress={postPrivateKey} style={styles.button}>
+            <Text style={styles.buttonTextStyle}>post private key</Text>
             </TouchableOpacity>
-            
-
         </View>
     )
 
