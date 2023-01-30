@@ -8,13 +8,15 @@ const password = 'cnouswesh';
 // Defining key
 const cryptoEncryptedKey = crypto.scryptSync(password, 'GfG', 24);
 
+//Defining algorithm
 const algorithm = 'aes-192-cbc';
 
-// Defininf iv
+// Defining iv
 const iv = Buffer.alloc(16, 0);
 
 
 exports.getPrivateKey = async (req, res) => {
+    
     const user = req.params.userPseudo;
 
     const sql = "SELECT private_key FROM users WHERE pseudo=$1";
@@ -45,7 +47,7 @@ exports.getPrivateKey = async (req, res) => {
         let privateKey = decipher.update(encryptedPrivateKey, "hex", "utf8");
         privateKey += decipher.final('utf8');
 
-        res.send("private key is " + privateKey.toString() );
+        res.send(privateKey.toString());
 
 
     });

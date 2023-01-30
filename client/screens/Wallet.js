@@ -3,6 +3,10 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
+import { API_URL } from '@env';
+import axios from 'axios';
+
+
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 // Import the required shims
 import '@ethersproject/shims';
@@ -11,6 +15,9 @@ import { ethers } from 'ethers';
 import { contractABI, contractAddress } from '../Utils/constants';
 
 export default function Wallet({navigation }) {
+    
+    const [pseudo, setPseudo] = useState("");
+
 
     //Wallet Connect 
     const connector = useWalletConnect();
@@ -39,7 +46,6 @@ export default function Wallet({navigation }) {
     },[connector]);    
     
     getBalance();
-    
 
     async function exchangeTokens () {
         let tokenAddress = "0x7b2F269a95863002B9174Cc1C2EeF478c61530D3";
@@ -89,6 +95,19 @@ export default function Wallet({navigation }) {
     }
 
 
+    //API call to get Private Key of user
+    const getPrivateKey = async () => {
+        const user = { "userPseudo" : "U" };
+        
+        try {
+            const response = await axios.get(API_URL + '/web3/getPrivateKey/' + user.userPseudo);
+            console.log(response.data);
+        } catch (error) {
+            alert(error.response.data)
+        }
+    }
+
+
     return (
         <View style={styles.container}>
             <TouchableOpacity
@@ -122,6 +141,10 @@ export default function Wallet({navigation }) {
                 </TouchableOpacity>
             </>
             )}
+            <TouchableOpacity onPress={getPrivateKey} style={styles.button}>
+            <Text style={styles.buttonTextStyle}>get private key</Text>
+            </TouchableOpacity>
+            
 
         </View>
     )
@@ -156,4 +179,5 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#fff'
     },
+    
 })
