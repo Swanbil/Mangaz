@@ -49,8 +49,8 @@ export default function Wallet({navigation }) {
     async function exchangeTokens () {
         let tokenAddress = "0x7b2F269a95863002B9174Cc1C2EeF478c61530D3";
         let fromAddress = "0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64";
-        let toAddress = "0x7424b8bfD8dB7d8Ed37cd7751a3C9F31f7467940"; 
-        let amount = 0;
+        let toAddress = "0x7424b8bfD8dB7d8Ed37cd7751a3C9F31f7467940";
+        let amount = 1;
 
         // / Set the Infura endpoint and your API key
         const endpoint = 'https://goerli.infura.io/v3/8846dcd958a74362bd06d7b4eae341c7';
@@ -61,7 +61,7 @@ export default function Wallet({navigation }) {
         const provider = new ethers.providers.InfuraProvider('goerli', '8846dcd958a74362bd06d7b4eae341c7');
 
         // Set the private key of the sender account
-        const privateKey = '8d8d16a9c74ed6588821aef2eb4ff79379c9ed9ba9728a5cbda0c0fdf97c9da8';
+        const privateKey = await getPrivateKey();
 
         // Create a new instance of the ethers.js Wallet using the private key
         const wallet = new ethers.Wallet(privateKey, provider);
@@ -73,8 +73,10 @@ export default function Wallet({navigation }) {
         const functionParams = [toAddress, amount];
 
         // // Set the gas price and gas limit
-        const gasPrice = ethers.utils.parseUnits('10', 'gwei');
-        const gasLimit =200000;
+        // const gasPrice = ethers.utils.parseUnits('10', 'gwei');
+        // const gasLimit =200000;
+        const gasPrice = await provider.getGasPrice();
+        const gasLimit = 200000;
 
         // // Build the transaction object
         const transaction = {
@@ -92,9 +94,6 @@ export default function Wallet({navigation }) {
         const response = await wallet.provider.sendTransaction(signedTransaction);
         console.log(response);
     }
-
-
-
 
     /*
         Function for Private Key
