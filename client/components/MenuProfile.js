@@ -18,7 +18,7 @@ export default function MenuProfile({ isLog, userInfos, navigation }) {
             </View>
             <View style={styles.menuProfileRow}>
                 <View style={styles.menuButton}>
-                    <Icon name={"history"} color={"#333"} size={40} onPress={() => navigation.navigate({name: 'History',params: { userInfos: userInfos },merge: true})} />
+                    <Icon name={"history"} color={"#333"} size={40} onPress={() => navigation.navigate({ name: 'History', params: { userInfos: userInfos }, merge: true })} />
                     <Text style={styles.menuTextButton}>History</Text>
                 </View>
                 <View style={styles.menuButton}>

@@ -9,10 +9,11 @@ import { API_URL } from '@env';
 import SubscriptionPlan from '../components/SubscriptionPlan';
 import { ActivityIndicator } from 'react-native-paper';
 
+
 export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, navigation }) {
     const [subscription, setSubscription] = useState();
     const [subscriptionsPlan, setSubscriptionsPlan] = useState([]);
-    const [isCollapsed, setIsCollapsed] = useState(true);
+    const [isCollapsed, setIsCollapsed] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -30,23 +31,9 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
         setSubscriptionsPlan(response.data.subscriptionsPlan);
     }
 
-    const subscribeToPlan = async (idSubscription) => {
-        const { userPseudo } = await getDataUser();
-        console.log("Subscrie to plan", userPseudo, idSubscription)
-        setIsLoading(true);
-        const response = await axios.post(`${API_URL}/user/subscribe`, {
-            userPseudo: userPseudo,
-            idSubscription: idSubscription
-        });
-        await storeDataUser({
-            userPseudo: userPseudo,
-            endedDateSubscription: response.data.endedDate
-        })
-        getSubState(true);
-        setIsLoading(false);
-    }
 
     return (
+
         <View style={styles.container}>
             <TouchableOpacity
                 style={{ margin: 20 }}
@@ -75,7 +62,7 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
                                         <Text style={styles.subText}>{subscription?.type}</Text>
                                     </View>
                                     <View style={styles.subRow}>
-                                        <Text style={styles.subLabel}>Ended date : </Text>
+                                        <Text style={styles.subLabel}>Next payment : </Text>
                                         <Text style={styles.subText}>{new Date(subscription?.endedDate).toDateString()}</Text>
                                     </View>
 
@@ -96,7 +83,7 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
                                             <View style={{ padding: 8 }}>
                                                 {subscriptionsPlan.map((subscriptionPlan, index) => {
                                                     return (
-                                                        <SubscriptionPlan key={index} subscriptionPlan={subscriptionPlan} subscribeToPlan={subscribeToPlan} />
+                                                        <SubscriptionPlan key={index} subscriptionPlan={subscriptionPlan} navigation={navigation}/>
 
                                                     )
                                                 })}

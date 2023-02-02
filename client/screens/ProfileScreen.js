@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Linking } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserProfile from '../components/UserProfile';
 import MenuProfile from '../components/MenuProfile';
@@ -33,15 +33,32 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
         navigation.navigate('Login');
     }
 
+    const handlePress = async () => {
+        const url = 'https://discord.gg/qgYxvS2j';
+        try {
+            const supported = await Linking.canOpenURL(url);
+            if (supported) {
+                await Linking.openURL(url);
+            } else {
+                console.log(`Lien non valide: ${url}`);
+            }
+        } catch (error) {
+            console.log(`Une erreur s'est produite: ${error}`);
+        }
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.blockUser}>
-                <UserProfile isLog={isLog} userInfos={userInfos} isSubscribe={isSubscribe} navigation={navigation}/>
+                <UserProfile isLog={isLog} userInfos={userInfos} isSubscribe={isSubscribe} navigation={navigation} />
             </View>
             <View style={styles.menu}>
-                <MenuProfile navigation={navigation} userInfos={userInfos}/>
+                <MenuProfile navigation={navigation} userInfos={userInfos} />
             </View>
             <View>
+                <TouchableOpacity onPress={handlePress} style={{ ...styles.logoutBtn, backgroundColor: '#5865F2'}}>
+                    <Text style={styles.textButton}>Discord</Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.logoutBtn}
                     onPress={logout}
@@ -71,7 +88,7 @@ const styles = StyleSheet.create({
     logoutBtn: {
         marginRight: 40,
         marginLeft: 40,
-        marginTop: 10,
+        marginTop: 3,
         padding: 10,
         backgroundColor: '#EA5F5F',
         borderRadius: 10,
@@ -82,6 +99,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+        fontWeight:'bold'
     }
 })
