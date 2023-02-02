@@ -10,7 +10,7 @@ import { useWalletConnect } from '@walletconnect/react-native-dapp';
 import '@ethersproject/shims';
 // Import the ethers library
 import { ethers } from 'ethers';
-import { contractABI, contractAddress, constTokenAddress } from '../Utils/constants';
+import { contractABI, constTokenAddress } from '../Utils/constants';
 
 export default function Wallet({navigation }) {
     
@@ -18,16 +18,21 @@ export default function Wallet({navigation }) {
 
     //Wallet Connect 
     const connector = useWalletConnect();
+
     // Get the balance of the connected wallet
     const [balance, setBalance] = useState(0);
 
+    // Get the private key of the connected wallet
     const [privateKeyInput, setPrivateKeyInput] = useState('');
 
+    // Modal
     const [isModal, setIsModal] = useState(false);
 
+    // Amount
     const [amountInput, setAmountInput ] = useState(0);
-    const [toAddressInput, setToAddressInput ] = useState('');
 
+    // To Address
+    const [toAddressInput, setToAddressInput ] = useState('');
 
     const connectWallet = React.useCallback(() => {
         navigation.navigate("TabNavigator", { screen: 'Wallet' });
@@ -41,10 +46,13 @@ export default function Wallet({navigation }) {
 
     const getBalance = React.useCallback(async () => {
         const provider = new ethers.providers.InfuraProvider('goerli');
+
         // Créer un contrat à partir de l'ABI et de l'adresse du contrat
-        let contract = new ethers.Contract(contractAddress, contractABI, provider);
+        let contract = new ethers.Contract(constTokenAddress, contractABI, provider);
+
         // Utiliser la fonction de lecture "balanceOf" pour obtenir la balance de jetons pour une adresse spécifique
         let balance = await contract.balanceOf(connector.accounts[0]);
+
         setBalance(balance);
     },[connector]);    
     
@@ -53,13 +61,17 @@ export default function Wallet({navigation }) {
         let toAddress = toAddressInput ;
         let amount = amountInput;
 
+
+        //Appeler getPrivateKey pour récup la clé privé du receveur avec en entré le pseudo ecirt en input par l'envoyeur
+        const privateKeyReceiver = await getPrivateKey();
+        const walletReceiver = new ethers.Wallet(privateKeyReceiver);
+        const addressReceiver = walletReceiver.address;
+
+
         if(amount == 0 || toAddress == "") {
             alert("Veuillez entrer une adresse et un montant");
             return;
         }
-
-        // / Set the Infura endpoint and your API key
-        const endpoint = 'https://goerli.infura.io/v3/8846dcd958a74362bd06d7b4eae341c7';
 
         // Create a new instance of the ethers.js provider
         const provider = new ethers.providers.InfuraProvider('goerli', '8846dcd958a74362bd06d7b4eae341c7');
@@ -70,6 +82,7 @@ export default function Wallet({navigation }) {
         // Create a new instance of the ethers.js Wallet using the private key
         const wallet = new ethers.Wallet(privateKey, provider);
 
+        // Create a new instance of the ethers.js Contract using the ABI and the address of the contract
         const contract = new ethers.Contract(tokenAddress, contractABI, wallet);
 
          // Set the function to call and any parameters required
