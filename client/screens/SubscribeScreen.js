@@ -13,7 +13,7 @@ import { ActivityIndicator } from 'react-native-paper';
 export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, navigation }) {
     const [subscription, setSubscription] = useState();
     const [subscriptionsPlan, setSubscriptionsPlan] = useState([]);
-    const [isCollapsed, setIsCollapsed] = useState(true);
+    const [isCollapsed, setIsCollapsed] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -62,7 +62,7 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
                                         <Text style={styles.subText}>{subscription?.type}</Text>
                                     </View>
                                     <View style={styles.subRow}>
-                                        <Text style={styles.subLabel}>Ended date : </Text>
+                                        <Text style={styles.subLabel}>Next payment : </Text>
                                         <Text style={styles.subText}>{new Date(subscription?.endedDate).toDateString()}</Text>
                                     </View>
 

@@ -39,7 +39,7 @@ export default function UserProfile({ isLog, userInfos, isSubscribe, navigation 
                     </View>
                 </View>
                 <View style={styles.blockTextInfos}>
-                    <Badge style={{ color: "white", fontWeight: "bold", backgroundColor: (isSubscribe ? "#C7F8A7" : "#FFCA68")}}>{isSubscribe ? "Premium" : "Freemium"}</Badge>
+                    <Badge style={{ color: "white", fontWeight: "bold", backgroundColor: (isSubscribe ? "#9CE594" : "#FFCA68")}}>{isSubscribe ? "Premium" : "Free"}</Badge>
                 </View>
 
             </View>

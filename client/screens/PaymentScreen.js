@@ -1,9 +1,9 @@
-import { StripeProvider, CardForm, useConfirmPayment } from '@stripe/stripe-react-native';
+import { StripeProvider, CardForm, useConfirmPayment, createPaymentMethod } from '@stripe/stripe-react-native';
 import { View, StyleSheet, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import React, { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { API_URL, STRIPE_PUB_KEY_TEST} from '@env';
+import { API_URL, STRIPE_PUB_KEY_TEST } from '@env';
 import axios from 'axios';
 import { getDataUser, storeDataUser } from '../utilities/localStorage';
 
@@ -32,6 +32,44 @@ export default function Subscribe({ isLog, isSubscribe, getSubState, navigation,
         getSubState(true);
     }
 
+    const handleSubscription = async () => {
+        if (!card) {
+            return;
+        }
+        setResponsePayment({})
+        const { userPseudo } = await getDataUser();
+        const paymentMethod = await createPaymentMethod({
+            paymentMethodType: 'Card',
+            card: card
+        });
+
+        const response = await axios.post(`${API_URL}/create-subscription`, {
+            email: `${userPseudo}@example.com`,
+            name: userPseudo,
+            paymentMethod: paymentMethod
+        });
+        console.log("RESPONSE SUB", response.data)
+        const { clientSecret, status } = response.data;
+        if (status === "succeeded") {
+            await subscribeToPlan(userPseudo);
+            setResponsePayment({
+                status: status,
+                message: `Payment ${status}. You will be redirected to the home page`
+            })
+            setTimeout(() => {
+                navigation.navigate('Catalogue')
+            }, 6000);
+
+        }
+        else{
+            setResponsePayment({
+                status: "Error",
+                message: "An erro occurs during the payment"
+            });
+        }
+
+    }
+
     const handlePayment = async () => {
         if (!card) {
             return;
@@ -40,7 +78,7 @@ export default function Subscribe({ isLog, isSubscribe, getSubState, navigation,
         const { userPseudo } = await getDataUser();
         const billingDetails = {
             email: `${userPseudo}@example.com`,
-            name : userPseudo
+            name: userPseudo
         };
 
         const clientSecret = await fetchPaymentIntentClientSecret();
@@ -53,16 +91,16 @@ export default function Subscribe({ isLog, isSubscribe, getSubState, navigation,
 
         if (error) {
             setResponsePayment({
-                status : "Error",
-                message : error.message
+                status: "Error",
+                message: error.message
             });
         } else if (paymentIntent) {
             if (paymentIntent.status === "Succeeded") {
                 //subscribe user
                 await subscribeToPlan(userPseudo);
                 setResponsePayment({
-                    status : paymentIntent.status,
-                    message : `Payment ${paymentIntent.status}. You will be redirected to the home page`
+                    status: paymentIntent.status,
+                    message: `Payment ${paymentIntent.status}. You will be redirected to the home page`
                 })
                 setTimeout(() => {
                     navigation.navigate('Catalogue')
@@ -119,13 +157,13 @@ export default function Subscribe({ isLog, isSubscribe, getSubState, navigation,
 
                         {loading
                             ? (<ActivityIndicator style={{ flex: 1 }} />)
-                            : (<TouchableOpacity style={{ ...styles.subButton, ...{ opacity: (loading || !card) ? 0.3 : 1 } }} onPress={handlePayment} disabled={loading || !card}>
+                            : (<TouchableOpacity style={{ ...styles.subButton, ...{ opacity: (loading || !card) ? 0.3 : 1 } }} onPress={handleSubscription} disabled={loading || !card}>
                                 <Text style={[styles.text, { fontWeight: '500', textAlign: 'center' }]}>Pay</Text>
                             </TouchableOpacity>)
                         }
                     </View>
                 </View>
-                <Text style={{ color: responsePayment?.status === "Succeeded" ? "#C0E78D" : "#F5817F" , fontWeight: '500', textAlign:'center' }}>{responsePayment?.message}</Text>
+                <Text style={{ color: responsePayment?.status === "succeeded" ? "#9CE594" : "#F5817F", fontWeight: '500', textAlign: 'center' }}>{responsePayment?.message}</Text>
             </View>
 
         </StripeProvider>
