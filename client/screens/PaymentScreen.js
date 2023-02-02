@@ -11,6 +11,7 @@ export default function Subscribe({ isLog, isSubscribe, getSubState, navigation,
     const [card, setCard] = useState();
     const { confirmPayment, loading } = useConfirmPayment();
     const [responsePayment, setResponsePayment] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     const { subscriptionPlan } = route.params;
 
@@ -42,14 +43,16 @@ export default function Subscribe({ isLog, isSubscribe, getSubState, navigation,
             paymentMethodType: 'Card',
             card: card
         });
-
+        setIsLoading(true);
         const response = await axios.post(`${API_URL}/create-subscription`, {
             email: `${userPseudo}@example.com`,
             name: userPseudo,
             paymentMethod: paymentMethod
         });
+        setIsLoading(false);
         console.log("RESPONSE SUB", response.data)
         const { clientSecret, status } = response.data;
+
         if (status === "succeeded") {
             await subscribeToPlan(userPseudo);
             setResponsePayment({
@@ -155,8 +158,8 @@ export default function Subscribe({ isLog, isSubscribe, getSubState, navigation,
                             style={{ height: 200, marginVertical: 15 }}
                         />
 
-                        {loading
-                            ? (<ActivityIndicator style={{ flex: 1 }} />)
+                        {isLoading
+                            ? (<ActivityIndicator style={{ flex: 1, color:'black' }} />)
                             : (<TouchableOpacity style={{ ...styles.subButton, ...{ opacity: (loading || !card) ? 0.3 : 1 } }} onPress={handleSubscription} disabled={loading || !card}>
                                 <Text style={[styles.text, { fontWeight: '500', textAlign: 'center' }]}>Pay</Text>
                             </TouchableOpacity>)
