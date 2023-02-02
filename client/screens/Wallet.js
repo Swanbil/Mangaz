@@ -31,8 +31,7 @@ export default function Wallet({navigation }) {
     // Amount
     const [amountInput, setAmountInput ] = useState(0);
 
-    // To Address
-    const [toAddressInput, setToAddressInput ] = useState('');
+    const [pseudoReceiver, setPseudoReceiver] = useState('');
 
     const connectWallet = React.useCallback(() => {
         navigation.navigate("TabNavigator", { screen: 'Wallet' });
@@ -45,7 +44,7 @@ export default function Wallet({navigation }) {
     }, [connector]);
 
     const getBalance = React.useCallback(async () => {
-        const provider = new ethers.providers.InfuraProvider('goerli');
+        const provider = new ethers.providers.InfuraProvider('goerli','8846dcd958a74362bd06d7b4eae341c7');
 
         // Créer un contrat à partir de l'ABI et de l'adresse du contrat
         let contract = new ethers.Contract(constTokenAddress, contractABI, provider);
@@ -58,18 +57,22 @@ export default function Wallet({navigation }) {
     
     async function exchangeTokens () {
         let tokenAddress = constTokenAddress;
-        let toAddress = toAddressInput ;
         let amount = amountInput;
 
+        if(pseudoReceiver == ""){
+            alert("Veuillez entrer un pseudo");
+            return;
+        }
 
         //Appeler getPrivateKey pour récup la clé privé du receveur avec en entré le pseudo ecirt en input par l'envoyeur
-        const privateKeyReceiver = await getPrivateKey();
+        const privateKeyReceiver = await getPrivateKey(pseudoReceiver);
+        console.log("private key receiver " + privateKeyReceiver)
         const walletReceiver = new ethers.Wallet(privateKeyReceiver);
-        const addressReceiver = walletReceiver.address;
+        const toAddress = walletReceiver.address;
 
 
-        if(amount == 0 || toAddress == "") {
-            alert("Veuillez entrer une adresse et un montant");
+        if(amount == 0 || amount == null || isNaN(amount) || amount == undefined || amount == ""){
+            alert("Veuillez entrer un pseudo et un montant");
             return;
         }
 
@@ -77,7 +80,7 @@ export default function Wallet({navigation }) {
         const provider = new ethers.providers.InfuraProvider('goerli', '8846dcd958a74362bd06d7b4eae341c7');
 
         // Set the private key of the sender account
-        const privateKey = await getPrivateKey();
+        const privateKey = await getPrivateKey('U');
 
         // Create a new instance of the ethers.js Wallet using the private key
         const wallet = new ethers.Wallet(privateKey, provider);
@@ -91,7 +94,7 @@ export default function Wallet({navigation }) {
 
         // // Set the gas price and gas limit
         const gasPrice = await provider.getGasPrice();
-        const gasLimit = 200000;
+        const gasLimit =  ethers.utils.hexlify(ethers.BigNumber.from(200000));
 
         // // Build the transaction object
         const transaction = {
@@ -120,8 +123,8 @@ export default function Wallet({navigation }) {
     /*
         Function for Private Key
      */
-    const getPrivateKey = async () => {
-        const user = { "userPseudo" : "U" };
+    const getPrivateKey = async (_pseudo) => {
+        const user = { "userPseudo" : _pseudo };
         const response = await axios.get(API_URL + '/web3/getPrivateKey/' + user.userPseudo);
         console.log("data in get function : " + response.data + "");
         return (response.data);
@@ -148,7 +151,7 @@ export default function Wallet({navigation }) {
 
     }
     const checkPrivateKey = async () => {
-        const response = await getPrivateKey();
+        const response = await getPrivateKey("U");
         console.log("data in check function : " + response + "")
         if (response == null || response == "") {
             console.log("data not detect");
@@ -157,14 +160,14 @@ export default function Wallet({navigation }) {
             console.log("data detect");
             setIsModal(false);
         }
-      };
+    };
 
+   getBalance();
 
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
     useEffect( () => {
         checkPrivateKey();
-        getBalance();
-        }, []);
+    }, []);
 
 
     return (
@@ -197,9 +200,9 @@ export default function Wallet({navigation }) {
 
 
                 <TextInput
-                    placeholder="Enter address"
-                    value={toAddressInput}
-                    onChangeText={text => setToAddressInput(text)}
+                    placeholder="Enter pseudo of the receiver"
+                    value={pseudoReceiver}
+                    onChangeText={text => setPseudoReceiver(text)}
                 />
                 <TextInput
                     placeholder="Enter amount"
