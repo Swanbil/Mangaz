@@ -10,7 +10,7 @@ import { useWalletConnect } from '@walletconnect/react-native-dapp';
 import '@ethersproject/shims';
 // Import the ethers library
 import { ethers } from 'ethers';
-import { contractABI, contractAddress } from '../Utils/constants';
+import { contractABI, contractAddress, constTokenAddress } from '../Utils/constants';
 
 export default function Wallet({navigation }) {
     
@@ -25,6 +25,8 @@ export default function Wallet({navigation }) {
 
     const [isModal, setIsModal] = useState(false);
 
+    const [amountInput, setAmountInput ] = useState(0);
+    const [toAddressInput, setToAddressInput ] = useState('');
 
 
     const connectWallet = React.useCallback(() => {
@@ -47,17 +49,19 @@ export default function Wallet({navigation }) {
     },[connector]);    
     
     async function exchangeTokens () {
-        let tokenAddress = "0x7b2F269a95863002B9174Cc1C2EeF478c61530D3";
-        let fromAddress = "0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64";
-        let toAddress = "0x7424b8bfD8dB7d8Ed37cd7751a3C9F31f7467940";
-        let amount = 1;
+        let tokenAddress = constTokenAddress;
+        let toAddress = toAddressInput ;
+        let amount = amountInput;
+
+        if(amount == 0 || toAddress == "") {
+            alert("Veuillez entrer une adresse et un montant");
+            return;
+        }
 
         // / Set the Infura endpoint and your API key
         const endpoint = 'https://goerli.infura.io/v3/8846dcd958a74362bd06d7b4eae341c7';
 
         // Create a new instance of the ethers.js provider
-        //const provider = new ethers.providers.JsonRpcProvider(endpoint);
-        
         const provider = new ethers.providers.InfuraProvider('goerli', '8846dcd958a74362bd06d7b4eae341c7');
 
         // Set the private key of the sender account
@@ -73,8 +77,6 @@ export default function Wallet({navigation }) {
         const functionParams = [toAddress, amount];
 
         // // Set the gas price and gas limit
-        // const gasPrice = ethers.utils.parseUnits('10', 'gwei');
-        // const gasLimit =200000;
         const gasPrice = await provider.getGasPrice();
         const gasLimit = 200000;
 
@@ -93,6 +95,13 @@ export default function Wallet({navigation }) {
         //Send the transaction
         const response = await wallet.provider.sendTransaction(signedTransaction);
         console.log(response);
+
+        alert("Transaction envoyée");
+
+        //Refresh the page
+        navigation.navigate('Login');
+        navigation.navigate('Wallet');
+
     }
 
     /*
@@ -173,6 +182,18 @@ export default function Wallet({navigation }) {
                 </TouchableOpacity>
                 <Text>{`Your balance : ${balance} ZC`}</Text>
 
+
+                <TextInput
+                    placeholder="Enter address"
+                    value={toAddressInput}
+                    onChangeText={text => setToAddressInput(text)}
+                />
+                <TextInput
+                    placeholder="Enter amount"
+                    keyboardType={'numeric'}
+                    value={amountInput}
+                    onChangeText={text => setAmountInput(parseInt(text))}
+                />
                 <TouchableOpacity onPress={exchangeTokens} style={styles.button}>
                 <Text style={styles.buttonTextStyle}>exchange</Text>
                 </TouchableOpacity>
