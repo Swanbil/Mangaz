@@ -48,8 +48,6 @@ exports.getPrivateKey = async (req, res) => {
         privateKey += decipher.final('utf8');
 
         res.send(privateKey.toString());
-
-
     });
 }
 

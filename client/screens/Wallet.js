@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { API_URL } from '@env';
 import axios from 'axios';
 
-
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 // Import the required shims
 import '@ethersproject/shims';
@@ -23,7 +22,10 @@ export default function Wallet({navigation }) {
     const [balance, setBalance] = useState(0);
 
     const [privateKeyInput, setPrivateKeyInput] = useState('');
-    
+
+    const [isModal, setIsModal] = useState(false);
+
+
 
     const connectWallet = React.useCallback(() => {
         navigation.navigate("TabNavigator", { screen: 'Wallet' });
@@ -91,15 +93,18 @@ export default function Wallet({navigation }) {
         console.log(response);
     }
 
-    //API call to get Private Key of user
+
+
+
+    /*
+        Function for Private Key
+     */
     const getPrivateKey = async () => {
         const user = { "userPseudo" : "U" };
         const response = await axios.get(API_URL + '/web3/getPrivateKey/' + user.userPseudo);
-        console.log("data : " + response.data + "");
+        console.log("data in get function : " + response.data + "");
         return (response.data);
     }
-
-    //API call to post Private Key of user
     const postPrivateKey = async () => {
         const user = { "userPseudo" : "U", "privateKey" : privateKeyInput };
 
@@ -110,24 +115,31 @@ export default function Wallet({navigation }) {
         try{
             const response = await axios.post(API_URL + '/web3/postPrivateKey/', user);
             alert("Clé privée enregistrée");
+            //Refresh the page
+            navigation.navigate('Login');
+            navigation.navigate('Wallet');
+
             return (response.data);
         }catch
         {
             alert("Erreur lors de l'enregistrement de la clé privée");
         }
-    }
 
-    
+    }
     const checkPrivateKey = async () => {
         const response = await getPrivateKey();
-        if (response.data == "") {
+        console.log("data in check function : " + response + "")
+        if (response == null || response == "") {
             console.log("data not detect");
+            setIsModal(true);
         } else {
-            console.log("data detect"); 
+            console.log("data detect");
+            setIsModal(false);
         }
       };
 
-      
+
+    // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
     useEffect( () => {
         checkPrivateKey();
         getBalance();
@@ -167,15 +179,19 @@ export default function Wallet({navigation }) {
                 </TouchableOpacity>
             </>
             )}
-            <Text>{('Your private key is ' + getPrivateKey() )}</Text>
-            <TextInput
-                placeholder="Enter private key"
-                value={privateKeyInput}
-                onChangeText={text => setPrivateKeyInput(text)}
-            />
-            <TouchableOpacity onPress={postPrivateKey} style={styles.button}>
-            <Text style={styles.buttonTextStyle}>post private key</Text>
-            </TouchableOpacity>
+            <View>
+                <Modal visible={isModal}>
+                    <Text>Modal is open!</Text>
+                    <TextInput
+                        placeholder="Enter private key"
+                        value={privateKeyInput}
+                        onChangeText={text => setPrivateKeyInput(text)}
+                    />
+                    <TouchableOpacity onPress={postPrivateKey} style={styles.button}>
+                        <Text style={styles.buttonTextStyle}>post private key</Text>
+                    </TouchableOpacity>
+                </Modal>
+            </View>
         </View>
     )
 

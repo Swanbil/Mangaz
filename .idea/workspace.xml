@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/screens/Wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Wallet.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/web3.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/web3.controller.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,7 +31,12 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "D:/Efrei paris/EngineringProject/Mangaz",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -40,6 +49,8 @@
       <option name="presentableId" value="Default" />
       <updated>1674812585246</updated>
       <workItem from="1674812586711" duration="11858000" />
+      <workItem from="1675363251971" duration="258000" />
+      <workItem from="1675363520738" duration="3610000" />
     </task>
     <servers />
   </component>
@@ -51,7 +62,6 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/controllers/web3.controller.js</url>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
