@@ -10,13 +10,13 @@ import { useWalletConnect } from '@walletconnect/react-native-dapp';
 import '@ethersproject/shims';
 // Import the ethers library
 import { ethers } from 'ethers';
-import { contractABI, constTokenAddress } from '../Utils/constants';
+import { contractTokenABI, constTokenAddress, constNftAddress, contractNftABI } from '../Utils/constants';
 
 export default function Wallet({navigation }) {
-    
+
     const [pseudo, setPseudo] = useState("");
 
-    //Wallet Connect 
+    //Wallet Connect
     const connector = useWalletConnect();
 
     // Get the balance of the connected wallet
@@ -47,7 +47,7 @@ export default function Wallet({navigation }) {
         const provider = new ethers.providers.InfuraProvider('goerli','8846dcd958a74362bd06d7b4eae341c7');
 
         // Créer un contrat à partir de l'ABI et de l'adresse du contrat
-        let contract = new ethers.Contract(constTokenAddress, contractABI, provider);
+        let contract = new ethers.Contract(constTokenAddress, contractTokenABI, provider);
 
         // Utiliser la fonction de lecture "balanceOf" pour obtenir la balance de jetons pour une adresse spécifique
         let balance = await contract.balanceOf(connector.accounts[0]);
@@ -86,7 +86,7 @@ export default function Wallet({navigation }) {
         const wallet = new ethers.Wallet(privateKey, provider);
 
         // Create a new instance of the ethers.js Contract using the ABI and the address of the contract
-        const contract = new ethers.Contract(tokenAddress, contractABI, wallet);
+        const contract = new ethers.Contract(tokenAddress, contractTokenABI, wallet);
 
          // Set the function to call and any parameters required
         const functionToCall = "transfer";
@@ -161,6 +161,24 @@ export default function Wallet({navigation }) {
             setIsModal(false);
         }
     };
+
+
+    /*
+        Exchange nft
+     */
+    async function exchangeNft () {
+    }
+
+    const OpenPack = async () => {
+        // Echange du token contre le NFT
+
+        // Echange du NFT
+    }
+
+    const TradeNft = async () => {
+
+    }
+
 
    getBalance();
 
@@ -261,5 +279,4 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#fff'
     },
-    
 })

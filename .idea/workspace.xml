@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Smartcontract/contracts/NftCard.sol" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/Utils/NftCard.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Smartcontract/artifacts/build-info/6682ad52b91f91c78fef55b6d5386a99.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Smartcontract/artifacts/contracts/Token.sol/Token.dbg.json" beforeDir="false" afterPath="$PROJECT_DIR$/Smartcontract/artifacts/contracts/Token.sol/Token.dbg.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Smartcontract/artifacts/contracts/Token.sol/Token.json" beforeDir="false" afterPath="$PROJECT_DIR$/Smartcontract/artifacts/contracts/Token.sol/Token.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Smartcontract/cache/solidity-files-cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/Smartcontract/cache/solidity-files-cache.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Smartcontract/scripts/deploy.js" beforeDir="false" afterPath="$PROJECT_DIR$/Smartcontract/scripts/deploy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/Utils/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/Utils/constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/screens/Wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Wallet.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,7 +37,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Efrei paris/EngineringProject/Mangaz",
+    "last_opened_file_path": "D:/Efrei paris/EngineringProject/Mangaz/client/Utils",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -39,6 +47,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\Utils" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -49,7 +62,10 @@
       <updated>1674812585246</updated>
       <workItem from="1674812586711" duration="11858000" />
       <workItem from="1675363251971" duration="258000" />
-      <workItem from="1675363520738" duration="13315000" />
+      <workItem from="1675363520738" duration="15004000" />
+      <workItem from="1675412416107" duration="3449000" />
+      <workItem from="1675955325339" duration="629000" />
+      <workItem from="1675955974951" duration="6523000" />
     </task>
     <servers />
   </component>

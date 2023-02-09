@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\Efrei paris\\EngineringProject\\Mangaz\\Smartcontract\\contracts\\Token.sol": {
-      "lastModificationDate": 1674145357519,
-      "contentHash": "5a2959262017ac5c7bc7c7f1459d0d11",
+      "lastModificationDate": 1674146614081,
+      "contentHash": "104ef9c659cbb8bf88c0b9ea2715dc78",
       "sourceName": "contracts/Token.sol",
       "solcConfig": {
         "version": "0.8.17",
@@ -34,6 +34,41 @@
       ],
       "artifacts": [
         "Token"
+      ]
+    },
+    "D:\\Efrei paris\\EngineringProject\\Mangaz\\Smartcontract\\contracts\\NftCard.sol": {
+      "lastModificationDate": 1675964127652,
+      "contentHash": "1a1bc0c775c782b673895979952decd4",
+      "sourceName": "contracts/NftCard.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.17"
+      ],
+      "artifacts": [
+        "NftCard"
       ]
     }
   }

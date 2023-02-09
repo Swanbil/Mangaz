@@ -5,10 +5,10 @@ async function main() {
   
     console.log("Account balance:", (await deployer.getBalance()).toString());
   
-    const Token = await ethers.getContractFactory("Token");
-    const token = await Token.deploy();
+    const NftCard = await ethers.getContractFactory("NftCard");
+    const nftCard = await NftCard.deploy();
   
-    console.log("Token address:", token.address);
+    console.log("Token address:", nftCard.address);
   }
   
   main()
