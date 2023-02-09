@@ -8,5 +8,6 @@ router.get('/manga/catalogue/:userPseudo', mangaController.getCatalogueWithUserF
 router.get('/manga/:mangaName/chapters', mangaController.getChapters);
 router.post('/manga/add/favoris', mangaController.addMangaToFavoris);
 router.post('/manga/remove/favoris', mangaController.removeMangaFromFavoris);
+router.post('/manga/rating', mangaController.rateManga);
 
 module.exports = router;

@@ -115,3 +115,24 @@ exports.removeMangaFromFavoris = async (req, res) => {
         return;
     });
 }
+
+exports.rateManga = async (req, res) => {
+    const { idManga, userPseudo, starRating } = req.body;
+    const idUser = await getUserIdFromPseudo(userPseudo);
+    if (idUser === null) {
+        res.status(404).send({ message: "No user corresponding to this pseudo" });
+        return;
+    }
+    let sql = 'INSERT INTO rates_manga ("idUser", "idManga", rate) VALUES ($1, $2, $3)';
+    console.log('rates', [starRating, idManga, userPseudo])
+    await db.query(sql, [idUser, idManga, starRating], async (err, result) => {
+        if (err) {
+            console.error('Error executing query', err.stack);
+            res.status(404).send({ message: "An error occured by rating this manga" });
+            return;
+        }
+        res.status(200).send({ message: `Manga rated to ${starRating}` });
+        return;
+    });
+
+}
