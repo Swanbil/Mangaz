@@ -10,8 +10,9 @@ contract NftCard {
     string public description;
     string public rarity;
 
-    // L'identifiant unique de la carte
-    uint256 public tokenId;
+    // L'identifiant de la carte
+    address public tokenId;
+
 
     // L'adresse du propriétaire actuel de la carte
     address public owner;
@@ -22,7 +23,8 @@ contract NftCard {
     }
 
     // Transfère la propriété de la carte à un autre utilisateur
-    function transfer(address _to) public {
+    function transfer(address _to, uint256 _tokenId) public {
+        // Vérifie que l'utilisateur est bien le propriétaire de la carte
         require(msg.sender == owner, "Seul le proprietaire peut transferer la carte");
         owner = _to;
     }

@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Smartcontract/contracts/NftCard.sol" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/Utils/NftCard.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smartcontract/artifacts/build-info/6682ad52b91f91c78fef55b6d5386a99.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smartcontract/artifacts/contracts/Token.sol/Token.dbg.json" beforeDir="false" afterPath="$PROJECT_DIR$/Smartcontract/artifacts/contracts/Token.sol/Token.dbg.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smartcontract/artifacts/contracts/Token.sol/Token.json" beforeDir="false" afterPath="$PROJECT_DIR$/Smartcontract/artifacts/contracts/Token.sol/Token.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smartcontract/cache/solidity-files-cache.json" beforeDir="false" afterPath="$PROJECT_DIR$/Smartcontract/cache/solidity-files-cache.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smartcontract/scripts/deploy.js" beforeDir="false" afterPath="$PROJECT_DIR$/Smartcontract/scripts/deploy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Smartcontract/contracts/NftCard.sol" beforeDir="false" afterPath="$PROJECT_DIR$/Smartcontract/contracts/NftCard.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/Utils/NftCard.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/Utils/NftCard.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/Utils/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/Utils/constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/screens/Wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Wallet.js" afterDir="false" />
     </list>
@@ -65,7 +60,7 @@
       <workItem from="1675363520738" duration="15004000" />
       <workItem from="1675412416107" duration="3449000" />
       <workItem from="1675955325339" duration="629000" />
-      <workItem from="1675955974951" duration="6523000" />
+      <workItem from="1675955974951" duration="13762000" />
     </task>
     <servers />
   </component>
@@ -78,6 +73,18 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/controllers/web3.controller.js</url>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/client/screens/Wallet.js</url>
+          <line>57</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/client/screens/Wallet.js</url>
+          <line>157</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

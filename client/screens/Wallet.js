@@ -59,17 +59,8 @@ export default function Wallet({navigation }) {
         let tokenAddress = constTokenAddress;
         let amount = amountInput;
 
-        if(pseudoReceiver == ""){
-            alert("Veuillez entrer un pseudo");
-            return;
-        }
-
         //Appeler getPrivateKey pour récup la clé privé du receveur avec en entré le pseudo ecirt en input par l'envoyeur
-        const privateKeyReceiver = await getPrivateKey(pseudoReceiver);
-        console.log("private key receiver " + privateKeyReceiver)
-        const walletReceiver = new ethers.Wallet(privateKeyReceiver);
-        const toAddress = walletReceiver.address;
-
+        const toAddress = getAdress(pseudoReceiver);
 
         if(amount == 0 || amount == null || isNaN(amount) || amount == undefined || amount == ""){
             alert("Veuillez entrer un pseudo et un montant");
@@ -163,10 +154,73 @@ export default function Wallet({navigation }) {
     };
 
 
+    //Get the adresse wallet of User
+    const getAdress = async (_pseudoUser) => {
+        if(_pseudoUser == ""){
+            alert("Veuillez entrer un pseudo");
+            return;
+        }
+        //Appeler getPrivateKey pour récup la clé privé du receveur avec en entré le pseudo ecirt en input par l'envoyeur
+        const privateKeyReceiver = await getPrivateKey(_pseudoUser);
+        console.log("private key receiver " + privateKeyReceiver)
+        const walletReceiver = new ethers.Wallet(privateKeyReceiver);
+        const toAddress = walletReceiver.address;
+        return toAddress;
+    }
+
     /*
         Exchange nft
      */
-    async function exchangeNft () {
+    async function exchangeNft (_idNft, _pseudoUserReceiver, _pseudoUserSender) {
+
+        let fromAdress = "0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64";  //Get the adress of the user
+        let toAdress = "0x7424b8bfD8dB7d8Ed37cd7751a3C9F31f7467940";  //Get the adress of the user
+        let idNft = "47207795330190881274327680827850103091474162599286694417711015245746905546762";          //Get the id of the nft
+        let amount = 0;              //Get the amount of nft
+
+        // Create a new instance of the ethers.js provider
+        const provider = new ethers.providers.InfuraProvider('goerli', '8846dcd958a74362bd06d7b4eae341c7');
+
+        const contractAddress = '0xf4910c763ed4e47a585e2d34baa9a4b611ae448c';
+
+        // Set the private key of the sender account
+        const privateKey = await getPrivateKey('U');
+
+        // Create a new instance of the ethers.js Wallet using the private key
+        const wallet = new ethers.Wallet(privateKey, provider);
+
+        // Create a new instance of the ethers.js Contract using the ABI and the address of the contract
+        const contract = new ethers.Contract(contractAddress, contractNftABI, wallet);
+
+        // Set the function to call and any parameters required
+        const functionToCall = "safeTransferFrom";
+        const functionParams = [fromAdress, toAdress, idNft,amount, "0x6e6f6f70206c6f676f206f75c3a9206f75c3a9"];
+
+        // // Set the gas price and gas limit
+        const gasPrice = await provider.getGasPrice();
+        const gasLimit =  ethers.utils.hexlify(ethers.BigNumber.from(200000));
+
+        // // Build the transaction object
+        const transaction = {
+            to: contractAddress,
+            data: contract.interface.encodeFunctionData(functionToCall, functionParams),
+            gasPrice: gasPrice,
+            gasLimit: gasLimit,
+            nonce: await wallet.getTransactionCount()
+        };
+
+        // Sign the transaction
+        const signedTransaction = await wallet.signTransaction(transaction);
+
+        //Send the transaction
+        const response = await wallet.provider.sendTransaction(signedTransaction);
+        console.log(response);
+
+        alert("Transaction envoyée");
+
+        //Refresh the page
+        navigation.navigate('Login');
+        navigation.navigate('Wallet');
     }
 
     const OpenPack = async () => {
@@ -185,6 +239,7 @@ export default function Wallet({navigation }) {
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
     useEffect( () => {
         checkPrivateKey();
+        exchangeNft();
     }, []);
 
 
@@ -246,6 +301,12 @@ export default function Wallet({navigation }) {
                     </TouchableOpacity>
                 </Modal>
             </View>
+            <TouchableOpacity
+                onPress={() => exchangeNft('47207795330190881274327680827850103091474162599286694417711015245746905546762', "Test", "U")}
+                style={styles.button}
+            >
+                <Text style={styles.buttonTextStyle}>send nft</Text>
+            </TouchableOpacity>
         </View>
     )
 
