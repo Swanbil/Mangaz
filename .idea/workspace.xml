@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smartcontract/contracts/NftCard.sol" beforeDir="false" afterPath="$PROJECT_DIR$/Smartcontract/contracts/NftCard.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/Utils/NftCard.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/Utils/NftCard.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/Utils/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/Utils/constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/screens/Wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Wallet.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,7 +57,7 @@
       <workItem from="1675363520738" duration="15004000" />
       <workItem from="1675412416107" duration="3449000" />
       <workItem from="1675955325339" duration="629000" />
-      <workItem from="1675955974951" duration="13762000" />
+      <workItem from="1675955974951" duration="18379000" />
     </task>
     <servers />
   </component>

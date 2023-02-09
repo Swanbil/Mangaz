@@ -176,7 +176,8 @@ export default function Wallet({navigation }) {
         let fromAdress = "0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64";  //Get the adress of the user
         let toAdress = "0x7424b8bfD8dB7d8Ed37cd7751a3C9F31f7467940";  //Get the adress of the user
         let idNft = "47207795330190881274327680827850103091474162599286694417711015245746905546762";          //Get the id of the nft
-        let amount = 0;              //Get the amount of nft
+        let amount = 1;              //Get the amount of nft
+        let data = "0x00";             //Get the data of the nft
 
         // Create a new instance of the ethers.js provider
         const provider = new ethers.providers.InfuraProvider('goerli', '8846dcd958a74362bd06d7b4eae341c7');
@@ -193,8 +194,8 @@ export default function Wallet({navigation }) {
         const contract = new ethers.Contract(contractAddress, contractNftABI, wallet);
 
         // Set the function to call and any parameters required
-        const functionToCall = "safeTransferFrom";
-        const functionParams = [fromAdress, toAdress, idNft,amount, "0x6e6f6f70206c6f676f206f75c3a9206f75c3a9"];
+        const functionToCall = "0xf242432a";
+        const functionParams = [fromAdress, toAdress, idNft, amount, data];
 
         // // Set the gas price and gas limit
         const gasPrice = await provider.getGasPrice();
@@ -239,7 +240,6 @@ export default function Wallet({navigation }) {
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
     useEffect( () => {
         checkPrivateKey();
-        exchangeNft();
     }, []);
 
 
