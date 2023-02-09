@@ -24,18 +24,29 @@ exports.getCatalogueWithUserFavoris = async (req, res) => {
 
         sql = 'SELECT m."technicalName" FROM users_favoris uf INNER JOIN manga m ON m."idManga" = uf."idManga" INNER JOIN users u ON u."idUser" = uf."idUser"\
               WHERE u.pseudo = $1';
-        await db.query(sql, [userPseudo], (err, result) => {
+        await db.query(sql, [userPseudo], async(err, result) => {
             if (err) {
                 return console.error('Error executing query', err.stack)
             }
             const mangaFavoris = result.rows;
-            const catalogueWithFavoris = catalogue.map((manga) => {
-                manga.isFavoris = (mangaFavoris.find(m => m.technicalName === manga.technicalName)) !== undefined ? true : false;
-                return manga;
-            });
-            res.status(200).send(catalogueWithFavoris);
-            return;
-        })
+
+            sql = 'SELECT m."technicalName" FROM rates_manga rm INNER JOIN manga m ON m."idManga" = rm."idManga" INNER JOIN users u ON u."idUser" = rm."idUser"\
+            WHERE u.pseudo = $1'
+            await db.query(sql, [userPseudo], (err, result) => {
+                if (err) {
+                    return console.error('Error executing query', err.stack)
+                }
+                const ratedManga = result.rows;
+                const catalogueWithFavoris = catalogue.map((manga) => {
+                    manga.isFavoris = (mangaFavoris.find(m => m.technicalName === manga.technicalName)) !== undefined ? true : false;
+                    manga.isRated = (ratedManga.find(m => m.technicalName === manga.technicalName)) !== undefined ? true : false;
+                    return manga;
+                });
+                res.status(200).send(catalogueWithFavoris);
+                return;
+
+            })
+        });
     });
 }
 

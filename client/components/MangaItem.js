@@ -99,9 +99,9 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
                     <Card.Title
                         title={mangaItem.titleName}
                         subtitle={(mangaItem.createdDate !== null) ? mangaItem.createdDate.split('-')[0] : ''}
-                        right={(props) => <View style={{display:'flex', flexDirection:'row', gap:0}}>
+                        right={(props) => <View style={{ display: 'flex', flexDirection: 'row', gap: 0 }}>
                             <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={28} />
-                            <IconButton {...props} icon={"star-box"} color={"#D7D7D7"} onPress={() => onShowModal()} size={28} />
+                            {!mangaItem.isRated ? (<IconButton {...props} icon={"star-box"} color={"#D7D7D7"} onPress={() => onShowModal()} size={28} />) : ''}
                         </View>}
                     />
                     <Card.Cover source={{ uri: mangaItem.coverImage }} style={{ width: cardWidth, height: 300, backgroundColor: 'white' }} resizeMode="contain" />
