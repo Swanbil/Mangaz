@@ -1,32 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Paragraph, IconButton, Avatar } from 'react-native-paper';
-import { View, ScrollView, Text, StyleSheet, Image } from "react-native";
+import React, { useState } from 'react';
+import { Card, Paragraph, IconButton } from 'react-native-paper';
+import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import axios from 'axios';
 import { getDataUser } from '../utilities/localStorage';
 import { API_URL } from '@env';
-import { RatingButton } from './RatingButton';
+import { RatingModal } from './RatingModal';
 
 const MangaItem = ({ navigation, manga, width, chapters }) => {
     const [cardWidth, setCardWidth] = useState(width == "xlarge" ? "100%" : "30%");
     const [mangaItem, setMangaItem] = useState(manga);
-    const [rating, setRating] = useState(5);
-    const [responseMessage, setResponseMessage] = useState('')
+    const [responseMessage, setResponseMessage] = useState('');
+    const [isModalVisible, setModalVisible] = useState(false);
 
     const rateManga = async (starRating) => {
         const { userPseudo } = await getDataUser();
         console.log("N STARS : ", starRating)
         const payload = {
-            userPseudo : userPseudo,
-            idManga : mangaItem.idManga,
-            starRating : starRating
+            userPseudo: userPseudo,
+            idManga: mangaItem.idManga,
+            starRating: starRating
         }
-        try{
+        try {
             await axios.post(`${API_URL}/manga/rating`, payload);
-            setResponseMessage("Thanks for the feedback !")
+            setResponseMessage("Thanks for the feedback !");
+            setTimeout(() => {
+                setModalVisible(false)
+            }, 2000);
         }
-        catch(error){
+        catch (error) {
             console.log(error)
         }
+    }
+
+    const onShowModal = () => {
+        setResponseMessage('');
+        setModalVisible(true)
     }
     const goToMangaPage = () => {
         navigation.navigate('MangaPage', { manga: mangaItem, width: "xlarge" })
@@ -91,7 +99,10 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
                     <Card.Title
                         title={mangaItem.titleName}
                         subtitle={(mangaItem.createdDate !== null) ? mangaItem.createdDate.split('-')[0] : ''}
-                        right={(props) => <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={28} />}
+                        right={(props) => <View style={{display:'flex', flexDirection:'row', gap:0}}>
+                            <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={28} />
+                            <IconButton {...props} icon={"star-box"} color={"#D7D7D7"} onPress={() => onShowModal()} size={28} />
+                        </View>}
                     />
                     <Card.Cover source={{ uri: mangaItem.coverImage }} style={{ width: cardWidth, height: 300, backgroundColor: 'white' }} resizeMode="contain" />
                     <Card.Content>
@@ -107,9 +118,8 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
                                 )
                             })}
                         </View>
+                        <RatingModal onValidate={rateManga} isModalVisible={isModalVisible} setModalVisible={setModalVisible} mangaName={mangaItem.titleName} responseMessage={responseMessage} />
 
-                        <RatingButton onValidate={rateManga} />
-                        <Text>{responseMessage}</Text>
                     </Card.Content>
                 </Card>
             </ScrollView>
