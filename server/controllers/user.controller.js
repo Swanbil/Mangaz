@@ -1,29 +1,36 @@
 const db = require('../config/database');
 const bcrypt = require('bcryptjs');
 const { getCurrentDate, getDateInOneMonth } = require('../utilities/date');
+const stripe = require("stripe")(process.env.STRIPE_SK_KEY_TEST);
 
 const isUserSubscribe = async (userPseudo) => {
     const currentDate = getCurrentDate();
-    const sql = 'SELECT s."idSubscription", "pseudo", "endedDate", "price", "type" FROM subscribe s\
-    INNER JOIN subscription on subscription."idSubscription" = s."idSubscription"\
-    INNER JOIN users u on u."idUser" = s."idUser"\
-    WHERE u.pseudo = $1 and "endedDate" >= $2';
+    const sql = 'SELECT stripe_id FROM subscribe s INNER JOIN users u ON u."idUser" = s."idUser" WHERE u."pseudo" = $1 and s."startedDate" <= $2 and s."endedDate" >= $2';
     return new Promise((resolve, reject) => {
         setTimeout(async () => {
-            await db.query(sql, [userPseudo, currentDate], (err, result) => {
+            await db.query(sql, [userPseudo, currentDate], async (err, result) => {
                 if (err) {
                     console.log(err);
-                    resolve(null);
+                    resolve(false);
                     return
                 }
-                if (result.rows.length < 1) {
-                    resolve(null);
+                let stripeId = result.rows[result.rows.length -1]?.stripe_id;
+                if (!stripeId) {
+                    resolve(false);
                     return
+
                 }
-                resolve(result.rows[0].endedDate);
+                const subscription = await stripe.subscriptions.retrieve(stripeId);
+                const subscriptionActive = (subscription.status === "active");
+                resolve(subscriptionActive);
+                return;
             })
         }, 100)
     });
+
+
+
+
 
 }
 
@@ -43,9 +50,9 @@ exports.login = async (req, res) => {
             return
         }
         const passwordHash = result.rows[0].password;
-        const endedDateSub = await isUserSubscribe(user.pseudo);
+        const isSubscribe = await isUserSubscribe(user.pseudo);
         if (await bcrypt.compare(user.password, passwordHash)) {
-            res.status(200).json({ userPseudo: user.pseudo, endedDateSubscription: endedDateSub });
+            res.status(200).json({ userPseudo: user.pseudo, isSubscribe: isSubscribe });
         }
         else {
             res.status(401).json('Mot de passe inconu');
@@ -221,20 +228,19 @@ exports.getUserInfos = async (req, res) => {
 }
 
 exports.subscribe = async (req, res) => {
-    const userPseudo = req.body.userPseudo;
+    const { userPseudo, idSubscription, idSubscriptionStripe } = req.body;
     const idUser = await getUserId(userPseudo);
-    const idSubscription = req.body.idSubscription;
     const startedDate = getCurrentDate();
     const endedDate = getDateInOneMonth(); //sub for 1 month
 
-    const sql = 'INSERT INTO subscribe ("idSubscription", "startedDate", "endedDate", "idUser") VALUES ($1,$2,$3,$4)';
-    await db.query(sql, [idSubscription, startedDate, endedDate, idUser], (err, result) => {
+    const sql = 'INSERT INTO subscribe ("idSubscription", "startedDate", "endedDate", "idUser", stripe_id) VALUES ($1,$2,$3,$4,$5)';
+    await db.query(sql, [idSubscription, startedDate, endedDate, idUser, idSubscriptionStripe], (err, result) => {
         if (err) {
             console.log(err);
             res.status(404).send({ message: "An error occurred during the subscription" });
             return;
         }
-        res.status(200).send({ message: "Your premium subscription is ended " + endedDate + " !", endedDate : endedDate});
+        res.status(200).send({ message: "Your premium subscription is ended " + endedDate + " !", endedDate: endedDate });
         return;
     })
 }
@@ -252,7 +258,7 @@ exports.getUserSubscribeValid = async (req, res) => {
             res.status(404).send({ message: "An error occurred during the subscription" });
             return;
         }
-        const subscription =( result.rows.length !== 0) ? result.rows[0] : {}
+        const subscription = (result.rows.length !== 0) ? result.rows[0] : {}
         res.status(200).send({ subscription: subscription });
         return;
     })
@@ -272,5 +278,14 @@ exports.getMangasRated = async (req, res) => {
         res.status(200).send({ mangaRated: mangaRated });
         return;
     })
+}
+
+exports.getSubscriptionUserStripe = async (req, res) => {
+    const { userPseudo } = req.params;
+
+    const isSubscribe = await isUserSubscribe(userPseudo);
+    res.status(200).send({ active: isSubscribe });
+    return;
+
 
 }

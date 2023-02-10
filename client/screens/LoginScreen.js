@@ -15,7 +15,7 @@ const Login = ({ navigation, getLogState, getSubState }) => {
             const response = await axios.post(API_URL + '/login', user);
             const data = response.data;
             getLogState(true);
-            getSubState(data);
+            getSubState(data.isSubscribe);
             await storeDataUser(data);
             navigation.navigate("TabNavigator", { screen: 'Catalogue', params: { userName: data }, merge: true, });
         } catch (error) {

@@ -43,11 +43,14 @@ exports.createSubscription = async (req, res) => {
         expand: ['latest_invoice.payment_intent']
     });
 
+    
+
     console.log("SUBSCRIPTION", subscription.id, subscription.latest_invoice.payment_intent.status)
     // return the client secret and subscription id
     res.status(200).send({
         clientSecret: subscription.latest_invoice.payment_intent.client_secret,
-        status: subscription.latest_invoice.payment_intent.status
+        status: subscription.latest_invoice.payment_intent.status,
+        idSubscriptionStripe : subscription.id
     });
 }
 

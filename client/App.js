@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './components/AppNavigator';
 import * as SplashScreen from 'expo-splash-screen';
 import { getDataUser } from './utilities/localStorage';
+import { API_URL } from '@env';
+import axios from 'axios';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -19,8 +21,9 @@ export default function App() {
         let userData = await getDataUser();
         console.log("USER CRED", userData);
         if (userData) {
+          const response = await axios.get(`${API_URL}/user/${userData.userPseudo}/subscription/me`);
           setIsLogedIn(true);
-          setSubState(userData);
+          setIsSubscribe(response.data.active)
         }
 
       } catch (e) {
@@ -37,22 +40,12 @@ export default function App() {
     setIsLogedIn(data);
   }
 
-  const setSubState = (data) => {
-    let dateNow = new Date();
-    if ((data.endedDateSubscription && new Date(data.endedDateSubscription).valueOf() > dateNow.valueOf()) || data === true) {
-      setIsSubscribe(true);
-      return
-    }
-    setIsSubscribe(false);
-  }
-
-
   if (!appIsReady) {
     return null;
   }
   return (
     <NavigationContainer>
-      <AppNavigator isLogedIn={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={setSubState} />
+      <AppNavigator isLogedIn={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={setIsSubscribe} />
     </NavigationContainer>
   );
 }

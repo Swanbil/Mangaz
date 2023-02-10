@@ -7,7 +7,7 @@ import { API_URL, STRIPE_PUB_KEY_TEST } from '@env';
 import axios from 'axios';
 import { getDataUser, storeDataUser } from '../utilities/localStorage';
 
-export default function Subscribe({ isLog, isSubscribe, getSubState, navigation, route }) {
+export default function Subscribe({ getSubState, navigation, route }) {
     const [card, setCard] = useState();
     const { confirmPayment, loading } = useConfirmPayment();
     const [responsePayment, setResponsePayment] = useState();
@@ -21,10 +21,11 @@ export default function Subscribe({ isLog, isSubscribe, getSubState, navigation,
         return clientSecret;
     }
 
-    const subscribeToPlan = async (userPseudo) => {
+    const subscribeToPlan = async (userPseudo, idSubscriptionStripe) => {
         const response = await axios.post(`${API_URL}/user/subscribe`, {
             userPseudo: userPseudo,
-            idSubscription: subscriptionPlan.idSubscription
+            idSubscription: subscriptionPlan.idSubscription,
+            idSubscriptionStripe : idSubscriptionStripe
         });
         await storeDataUser({
             userPseudo: userPseudo,
@@ -54,7 +55,7 @@ export default function Subscribe({ isLog, isSubscribe, getSubState, navigation,
         const { clientSecret, status } = response.data;
 
         if (status === "succeeded") {
-            await subscribeToPlan(userPseudo);
+            await subscribeToPlan(userPseudo, response.data.idSubscriptionStripe);
             setResponsePayment({
                 status: status,
                 message: `Payment ${status}. You will be redirected to the home page`
