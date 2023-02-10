@@ -132,13 +132,10 @@ exports.rateManga = async (req, res) => {
             res.status(404).send({ message: "An error occured by rating this manga" });
             return;
         }
-        console.log(result.rows)
         if (result.rows.length > 0) {
-            console.log('UPDATE')
             sql = 'UPDATE rates_manga SET rate = $3 WHERE "idUser" = $1 and "idManga" = $2 ';
         }
         else {
-            console.log('INSERT')
             sql = 'INSERT INTO rates_manga ("idUser", "idManga", rate) VALUES ($1, $2, $3)';
         }
         await db.query(sql, [idUser, idManga, starRating], async (err, result) => {
