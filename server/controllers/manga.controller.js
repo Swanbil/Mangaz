@@ -21,7 +21,6 @@ exports.getCatalogueWithUserFavoris = async (req, res) => {
             return console.error('Error executing query', err.stack)
         }
         let catalogue = result.rows;
-
         sql = 'SELECT m."technicalName" FROM users_favoris uf INNER JOIN manga m ON m."idManga" = uf."idManga" INNER JOIN users u ON u."idUser" = uf."idUser"\
               WHERE u.pseudo = $1';
         await db.query(sql, [userPseudo], async (err, result) => {
@@ -29,14 +28,24 @@ exports.getCatalogueWithUserFavoris = async (req, res) => {
                 return console.error('Error executing query', err.stack)
             }
             const mangaFavoris = result.rows;
-            const catalogueWithFavoris = catalogue.map((manga) => {
-                manga.isFavoris = (mangaFavoris.find(m => m.technicalName === manga.technicalName)) !== undefined ? true : false;
-                return manga;
-            });
-            res.status(200).send(catalogueWithFavoris);
-            return;
+            sql = 'SELECT m."technicalName", ROUND(AVG(rate), 0) as rate from rates_manga rm INNER JOIN manga m ON m."idManga" = rm."idManga"\
+            GROUP BY "technicalName"';
+            await db.query(sql, [], (err, result) => {
+                if (err) {
+                    return console.error('Error executing query', err.stack)
+                }
+                const mangaRates = result.rows;
+                
+                const catalogueWithFavoris = catalogue.map((manga) => {
+                    manga.isFavoris = (mangaFavoris.find(m => m.technicalName === manga.technicalName)) !== undefined ? true : false;
+                    manga.rate = (mangaRates.find(m => m.technicalName === manga.technicalName)) !== undefined ? mangaRates.find(m => m.technicalName === manga.technicalName).rate : null;
+                    return manga;
+                });
+                res.status(200).send(catalogueWithFavoris);
+                return;
 
-        })
+            })
+        });
     });
 }
 
@@ -147,8 +156,6 @@ exports.rateManga = async (req, res) => {
             res.status(200).send({ message: `Manga rated to ${starRating}` });
             return;
         });
-
-
     });
 
 }

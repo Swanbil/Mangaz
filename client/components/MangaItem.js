@@ -14,15 +14,14 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
 
     const rateManga = async (starRating) => {
         const { userPseudo } = await getDataUser();
-        console.log("N STARS : ", starRating)
         const payload = {
             userPseudo: userPseudo,
             idManga: mangaItem.idManga,
             starRating: starRating
         }
         try {
-            await axios.post(`${API_URL}/manga/rating`, payload);
-            setResponseMessage("Thanks for the feedback !");
+            const response = await axios.post(`${API_URL}/manga/rating`, payload);
+            setResponseMessage(response.data.message);
             setTimeout(() => {
                 setModalVisible(false)
             }, 2000);
@@ -67,7 +66,7 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
                 <Card onPress={goToMangaPage} borderRadius={10} mode="contained">
                     <Card.Title
                         title={mangaItem.titleName} titleStyle={{ fontSize: 8 }}
-                        subtitle={(mangaItem.createdDate !== null) ? mangaItem.createdDate.split('-')[0] : ''} subtitleStyle={{ fontSize: 6 }}
+                        subtitle={(mangaItem.rate !== null) ?  mangaItem.rate + '⭐' : '-'} subtitleStyle={{ fontSize: 8 }}
                         right={(props) => <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={20} />}
                     />
                     <Card.Cover width={"100%"} source={{ uri: mangaItem.coverImage }} />
@@ -98,7 +97,7 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
                 <Card style={{ marginRight: 20, marginLeft: 20 }}>
                     <Card.Title
                         title={mangaItem.titleName}
-                        subtitle={(mangaItem.createdDate !== null) ? mangaItem.createdDate.split('-')[0] : ''}
+                        subtitle={(mangaItem.rate !== null) ?  mangaItem.rate + '⭐' : '-'} subtitleStyle={{ fontSize: 10 }}
                         right={(props) => <View style={{ display: 'flex', flexDirection: 'row', gap: 0 }}>
                             <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={28} />
                             <IconButton {...props} icon={"star-box"} color={"#D7D7D7"} onPress={() => onShowModal()} size={28} />
