@@ -257,3 +257,20 @@ exports.getUserSubscribeValid = async (req, res) => {
         return;
     })
 }
+
+exports.getMangasRated = async (req, res) => {
+    const userPseudo = req.params.userPseudo;
+    sql = 'SELECT u.pseudo, m."technicalName", m."titleName", rm.rate, m."coverImage", m.description, m."createdDate", m."idManga" from rates_manga rm\
+    INNER JOIN manga m on m."idManga" = rm."idManga"\
+    INNER JOIN users u on u."idUser" = rm."idUser"\
+    WHERE u.pseudo = $1';
+    await db.query(sql, [userPseudo], (err, result) => {
+        if (err) {
+            return console.error('Error executing query', err.stack)
+        }
+        let mangaRated = result.rows;
+        res.status(200).send({ mangaRated: mangaRated });
+        return;
+    })
+
+}

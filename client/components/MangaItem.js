@@ -97,7 +97,7 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
                 <Card style={{ marginRight: 20, marginLeft: 20 }}>
                     <Card.Title
                         title={mangaItem.titleName}
-                        subtitle={(mangaItem.rate !== null) ?  mangaItem.rate + '⭐' : '-'} subtitleStyle={{ fontSize: 10 }}
+                        subtitle={(mangaItem.rate !== null) ?  mangaItem.rate + '⭐' : '-'} subtitleStyle={{ fontSize: 12 }}
                         right={(props) => <View style={{ display: 'flex', flexDirection: 'row', gap: 0 }}>
                             <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={28} />
                             <IconButton {...props} icon={"star-box"} color={"#D7D7D7"} onPress={() => onShowModal()} size={28} />
