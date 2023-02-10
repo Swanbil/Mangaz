@@ -1,4 +1,5 @@
 const db = require('../config/database');
+const { getUserIdFromPseudo } = require('./user.controller');
 const stripe = require("stripe")(process.env.STRIPE_SK_KEY_TEST);
 
 const calculateOrderAmount = (items) => {
@@ -48,4 +49,33 @@ exports.createSubscription = async (req, res) => {
         clientSecret: subscription.latest_invoice.payment_intent.client_secret,
         status: subscription.latest_invoice.payment_intent.status
     });
+}
+
+exports.manageEventStripe = async (req, res) => {
+    const event = req.body;
+    console.log(event)
+    // Handle the event
+    switch (event.type) {
+        case 'customer.subscription.deleted':
+            
+            const subscriptionEvent = event.data.object;
+            //console.log("WEBHOOK", subscriptionEvent)
+            const customerId = subscriptionEvent.customer;
+            //get customer
+            const customer = await stripe.customers.retrieve(customerId);
+            console.log(event.type + " : " +customer.name)
+
+            //request to db get user
+            const idUser = await getUserIdFromPseudo(customer.name);
+            sql = "DELETE "
+            //remove subscribe
+            
+            break;
+        default:
+            //console.log(`Unhandled event type ${event.type}`);
+    }
+
+    // Return a response to acknowledge receipt of the event
+    res.json({ received: true });
+
 }

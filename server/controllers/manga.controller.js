@@ -21,25 +21,24 @@ exports.getCatalogueWithUserFavoris = async (req, res) => {
             return console.error('Error executing query', err.stack)
         }
         let catalogue = result.rows;
-
         sql = 'SELECT m."technicalName" FROM users_favoris uf INNER JOIN manga m ON m."idManga" = uf."idManga" INNER JOIN users u ON u."idUser" = uf."idUser"\
               WHERE u.pseudo = $1';
-        await db.query(sql, [userPseudo], async(err, result) => {
+        await db.query(sql, [userPseudo], async (err, result) => {
             if (err) {
                 return console.error('Error executing query', err.stack)
             }
             const mangaFavoris = result.rows;
-
-            sql = 'SELECT m."technicalName" FROM rates_manga rm INNER JOIN manga m ON m."idManga" = rm."idManga" INNER JOIN users u ON u."idUser" = rm."idUser"\
-            WHERE u.pseudo = $1'
-            await db.query(sql, [userPseudo], (err, result) => {
+            sql = 'SELECT m."technicalName", ROUND(AVG(rate), 0) as rate from rates_manga rm INNER JOIN manga m ON m."idManga" = rm."idManga"\
+            GROUP BY "technicalName"';
+            await db.query(sql, [], (err, result) => {
                 if (err) {
                     return console.error('Error executing query', err.stack)
                 }
-                const ratedManga = result.rows;
+                const mangaRates = result.rows;
+                
                 const catalogueWithFavoris = catalogue.map((manga) => {
                     manga.isFavoris = (mangaFavoris.find(m => m.technicalName === manga.technicalName)) !== undefined ? true : false;
-                    manga.isRated = (ratedManga.find(m => m.technicalName === manga.technicalName)) !== undefined ? true : false;
+                    manga.rate = (mangaRates.find(m => m.technicalName === manga.technicalName)) !== undefined ? mangaRates.find(m => m.technicalName === manga.technicalName).rate : null;
                     return manga;
                 });
                 res.status(200).send(catalogueWithFavoris);
@@ -134,16 +133,29 @@ exports.rateManga = async (req, res) => {
         res.status(404).send({ message: "No user corresponding to this pseudo" });
         return;
     }
-    let sql = 'INSERT INTO rates_manga ("idUser", "idManga", rate) VALUES ($1, $2, $3)';
+    let sql = 'SELECT * from rates_manga where "idUser" = $1 and "idManga" = $2';
     console.log('rates', [starRating, idManga, userPseudo])
-    await db.query(sql, [idUser, idManga, starRating], async (err, result) => {
+    await db.query(sql, [idUser, idManga], async (err, result) => {
         if (err) {
             console.error('Error executing query', err.stack);
             res.status(404).send({ message: "An error occured by rating this manga" });
             return;
         }
-        res.status(200).send({ message: `Manga rated to ${starRating}` });
-        return;
+        if (result.rows.length > 0) {
+            sql = 'UPDATE rates_manga SET rate = $3 WHERE "idUser" = $1 and "idManga" = $2 ';
+        }
+        else {
+            sql = 'INSERT INTO rates_manga ("idUser", "idManga", rate) VALUES ($1, $2, $3)';
+        }
+        await db.query(sql, [idUser, idManga, starRating], async (err, result) => {
+            if (err) {
+                console.error('Error executing query', err.stack);
+                res.status(404).send({ message: "An error occured by rating this manga" });
+                return;
+            }
+            res.status(200).send({ message: `Manga rated to ${starRating}` });
+            return;
+        });
     });
 
 }

@@ -24,7 +24,6 @@ export const RatingModal = ({ onValidate, isModalVisible, setModalVisible, manga
                         <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Rate <Text style={{ color: '#C0A6F7' }}>{mangaName}</Text> !</Text>
                         <View style={{ marginVertical: 10 }}>
                             <RatingButton onChange={(stars) => setStarRating(stars)} starRating={starRating}/>
-                            
                         </View>
                         <Text style={{textAlign:'center', marginBottom:8, fontSize:14, fontWeight:'bold'}}>{responseMessage}</Text>
 
