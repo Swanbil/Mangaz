@@ -53,7 +53,7 @@ exports.createSubscription = async (req, res) => {
 
 exports.manageEventStripe = async (req, res) => {
     const event = req.body;
-
+    console.log(event)
     // Handle the event
     switch (event.type) {
         case 'customer.subscription.deleted':
