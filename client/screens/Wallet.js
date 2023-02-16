@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button, FlatList, Image } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { API_URL } from '@env';
@@ -36,6 +36,7 @@ export default function Wallet({navigation }) {
     const [pseudoClient, setPseudoClient] = useState('');
     const [pseudoSeller, setPseudoSeller] = useState('');
     const [idNft, setIdNft] = useState('');
+    const [cards, setCards] = useState([]);
 
     const connectWallet = React.useCallback(() => {
         navigation.navigate("TabNavigator", { screen: 'Wallet' });
@@ -266,9 +267,28 @@ export default function Wallet({navigation }) {
     const TradeNft = async () => {
 
     }
-    const retrieveAllNft = async () => {
+    const retrieveAllNftUser = async (_pseudo) => {
+        try{
+            const addressWallet = { "addressWallet" : await getAdress(_pseudo) };
+            const response = await axios.get(API_URL + '/web3/OpenSea/getNFTsUser/' + '0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64')
+            const data =response.data;
+            setCards(data.assets);
+            console.log("data : " + data.assets);
+        }catch (e) {
+            console.log(e);
+        }
 
     }
+
+    const renderItem = ({ item }) => (
+        <View style={styles.card}>
+            <Image source={{ uri: item.image_thumbnail_url }} style={styles.cardImage} />
+            <Text style={styles.cardTitle}>{item.name}</Text>
+            <Text style={styles.cardDescription}>{item.description}</Text>
+            <Text style={styles.cardDescription}>{item.collection.name}</Text>
+            <Text style={styles.cardDescription}>{item.traits[0].value}</Text>
+        </View>
+    );
     const retrieveNft = async () => {
 
     }
@@ -279,6 +299,7 @@ export default function Wallet({navigation }) {
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
     useEffect( () => {
         checkPrivateKey();
+        retrieveAllNftUser("U");
     }, []);
 
 
@@ -367,9 +388,14 @@ export default function Wallet({navigation }) {
                 />
                 <Button title="Acheter le nft" onPress={() => buyNFT(pseudoClient, pseudoSeller, idNft, amountInput)} />
             </View>
-
-
+            <FlatList
+                data={cards}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id.toString()}
+                style={styles.container}
+            />
         </View>
+
     )
 
 }
@@ -401,5 +427,30 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#fff'
+    },
+    card: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 10,
+        marginHorizontal: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        backgroundColor: '#f5f5f5',
+        borderRadius: 10,
+    },
+    cardImage: {
+        height: 100,
+        width: 100,
+        resizeMode: 'contain',
+    },
+    cardTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginVertical: 10,
+    },
+    cardDescription: {
+        fontSize: 16,
+        textAlign: 'center',
     },
 })

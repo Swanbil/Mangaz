@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/screens/Wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Wallet.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/web3.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/web3.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/web3.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/web3.routes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +61,7 @@
       <workItem from="1675955325339" duration="629000" />
       <workItem from="1675955974951" duration="21395000" />
       <workItem from="1676020936928" duration="1348000" />
-      <workItem from="1676559833755" duration="15835000" />
+      <workItem from="1676559833755" duration="19233000" />
     </task>
     <servers />
   </component>
@@ -76,6 +74,12 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/controllers/web3.controller.js</url>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/controllers/web3.controller.js</url>
+          <line>143</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

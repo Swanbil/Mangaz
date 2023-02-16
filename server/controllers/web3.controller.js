@@ -84,10 +84,16 @@ exports.postPrivateKey = async (req, res) => {
 }
 
 exports.getNftsUser = async (req, res) => {
+
     const {userAddress} = req.params;
     const url = `https://testnets-api.opensea.io/api/v1/assets?owner=${userAddress}&order_direction=desc&offset=0&limit=20&include_orders=false`;
     try {
-        const response = await axios.get(url);
+        const response = await axios.get(url,{
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
         res.json(response.data);
     } catch (error) {
         console.error(error);
