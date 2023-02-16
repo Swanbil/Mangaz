@@ -36,6 +36,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\Efrei paris\\EngineringProject\\Mangaz\\client\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -57,7 +58,9 @@
       <workItem from="1675363520738" duration="15004000" />
       <workItem from="1675412416107" duration="3449000" />
       <workItem from="1675955325339" duration="629000" />
-      <workItem from="1675955974951" duration="18379000" />
+      <workItem from="1675955974951" duration="21395000" />
+      <workItem from="1676020936928" duration="1348000" />
+      <workItem from="1676559833755" duration="5531000" />
     </task>
     <servers />
   </component>
@@ -73,15 +76,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/client/screens/Wallet.js</url>
-          <line>57</line>
-          <properties lambdaOrdinal="-1" />
+          <line>61</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/client/screens/Wallet.js</url>
-          <line>157</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

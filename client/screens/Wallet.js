@@ -14,6 +14,7 @@ import { contractTokenABI, constTokenAddress, constNftAddress, contractNftABI } 
 
 export default function Wallet({navigation }) {
 
+    //Current user
     const [pseudo, setPseudo] = useState("");
 
     //Wallet Connect
@@ -31,7 +32,10 @@ export default function Wallet({navigation }) {
     // Amount
     const [amountInput, setAmountInput ] = useState(0);
 
-    const [pseudoReceiver, setPseudoReceiver] = useState('');
+    //For nft
+    const [pseudoClient, setPseudoClient] = useState('');
+    const [pseudoSeller, setPseudoSeller] = useState('');
+    const [idNft, setIdNft] = useState('');
 
     const connectWallet = React.useCallback(() => {
         navigation.navigate("TabNavigator", { screen: 'Wallet' });
@@ -60,7 +64,7 @@ export default function Wallet({navigation }) {
         let amount = amountInput;
 
         //Appeler getPrivateKey pour récup la clé privé du receveur avec en entré le pseudo ecirt en input par l'envoyeur
-        const toAddress = getAdress(pseudoReceiver);
+        const toAddress = getAdress(pseudoClient);
 
         if(amount == 0 || amount == null || isNaN(amount) || amount == undefined || amount == ""){
             alert("Veuillez entrer un pseudo et un montant");
@@ -161,67 +165,78 @@ export default function Wallet({navigation }) {
             return;
         }
         //Appeler getPrivateKey pour récup la clé privé du receveur avec en entré le pseudo ecirt en input par l'envoyeur
-        const privateKeyReceiver = await getPrivateKey(_pseudoUser);
-        console.log("private key receiver " + privateKeyReceiver)
-        const walletReceiver = new ethers.Wallet(privateKeyReceiver);
-        const toAddress = walletReceiver.address;
+        const privateKey = await getPrivateKey(_pseudoUser);
+        console.log("private key " + privateKey)
+        const walletReceiver = new ethers.Wallet(privateKey);
+        const toAddress = await walletReceiver.getAddress();
+        console.log("toAddress : " + toAddress);
         return toAddress;
     }
 
     /*
         Exchange nft
      */
-    async function exchangeNft (_idNft, _pseudoUserReceiver, _pseudoUserSender) {
 
-        let fromAdress = "0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64";  //Get the adress of the user
-        let toAdress = "0x7424b8bfD8dB7d8Ed37cd7751a3C9F31f7467940";  //Get the adress of the user
-        let idNft = "47207795330190881274327680827850103091474162599286694417711015245746905546762";          //Get the id of the nft
-        let amount = 1;              //Get the amount of nft
-        let data = "0x00";             //Get the data of the nft
 
-        // Create a new instance of the ethers.js provider
-        const provider = new ethers.providers.InfuraProvider('goerli', '8846dcd958a74362bd06d7b4eae341c7');
+    //User click on button buy NFT
+    async function  buyNFT(_idNft, _pseudoUserClient, _pseudoUserSeller) {
+        let fromAdress = await getAdress(_pseudoUserClient);  //Get the adress of the user
+        let toAdress = await getAdress(_pseudoUserSeller);  //Get the adress of the user
+        let idNft = _idNft;//Get the id of the nft
+        let amount = 1; //Get the amount of nft
+        let data = "0x00"; //Get the data of the nft
 
-        const contractAddress = '0xf4910c763ed4e47a585e2d34baa9a4b611ae448c';
+        console.log("fromAdress : " + fromAdress);
+        console.log("toAdress : " + toAdress);
 
-        // Set the private key of the sender account
-        const privateKey = await getPrivateKey('U');
+        try{
+            // Create a new instance of the ethers.js provider
+            const provider = new ethers.providers.InfuraProvider('goerli', '8846dcd958a74362bd06d7b4eae341c7');
 
-        // Create a new instance of the ethers.js Wallet using the private key
-        const wallet = new ethers.Wallet(privateKey, provider);
+            const contractAddress = '0xf4910c763ed4e47a585e2d34baa9a4b611ae448c';
 
-        // Create a new instance of the ethers.js Contract using the ABI and the address of the contract
-        const contract = new ethers.Contract(contractAddress, contractNftABI, wallet);
+            // Set the private key of the sender account
+            const privateKey = await getPrivateKey(_pseudoUserClient);
 
-        // Set the function to call and any parameters required
-        const functionToCall = "0xf242432a";
-        const functionParams = [fromAdress, toAdress, idNft, amount, data];
+            // Create a new instance of the ethers.js Wallet using the private key
+            const wallet = new ethers.Wallet(privateKey, provider);
 
-        // // Set the gas price and gas limit
-        const gasPrice = await provider.getGasPrice();
-        const gasLimit =  ethers.utils.hexlify(ethers.BigNumber.from(200000));
+            // Create a new instance of the ethers.js Contract using the ABI and the address of the contract
+            const contract = new ethers.Contract(contractAddress, contractNftABI, wallet);
 
-        // // Build the transaction object
-        const transaction = {
-            to: contractAddress,
-            data: contract.interface.encodeFunctionData(functionToCall, functionParams),
-            gasPrice: gasPrice,
-            gasLimit: gasLimit,
-            nonce: await wallet.getTransactionCount()
-        };
+            // Set the function to call and any parameters required
+            const functionToCall = "0xf242432a";
+            const functionParams = [fromAdress, toAdress, idNft, amount, data];
 
-        // Sign the transaction
-        const signedTransaction = await wallet.signTransaction(transaction);
+            // // Set the gas price and gas limit
+            const gasPrice = await provider.getGasPrice();
+            const gasLimit =  ethers.utils.hexlify(ethers.BigNumber.from(200000));
 
-        //Send the transaction
-        const response = await wallet.provider.sendTransaction(signedTransaction);
-        console.log(response);
+            // // Build the transaction object
+            const transaction = {
+                to: contractAddress,
+                data: contract.interface.encodeFunctionData(functionToCall, functionParams),
+                gasPrice: gasPrice,
+                gasLimit: gasLimit,
+                nonce: await wallet.getTransactionCount()
+            };
 
-        alert("Transaction envoyée");
+            // Sign the transaction
+            const signedTransaction = await wallet.signTransaction(transaction);
 
-        //Refresh the page
-        navigation.navigate('Login');
-        navigation.navigate('Wallet');
+            //Send the transaction
+            const response = await wallet.provider.sendTransaction(signedTransaction);
+            console.log(response);
+
+            alert("Nft envoyé");
+
+            //Refresh the page
+            navigation.navigate('Login');
+            navigation.navigate('Wallet');
+        }catch (e) {
+            console.log(e);
+            alert("Erreur lors de l'envoi du NFT");
+        }
     }
 
     const OpenPack = async () => {
@@ -230,7 +245,15 @@ export default function Wallet({navigation }) {
         // Echange du NFT
     }
 
+
+
     const TradeNft = async () => {
+
+    }
+    const retrieveAllNft = async () => {
+
+    }
+    const retrieveNft = async () => {
 
     }
 
@@ -274,8 +297,8 @@ export default function Wallet({navigation }) {
 
                 <TextInput
                     placeholder="Enter pseudo of the receiver"
-                    value={pseudoReceiver}
-                    onChangeText={text => setPseudoReceiver(text)}
+                    value={pseudoClient}
+                    onChangeText={text => setPseudoClient(text)}
                 />
                 <TextInput
                     placeholder="Enter amount"
@@ -301,12 +324,27 @@ export default function Wallet({navigation }) {
                     </TouchableOpacity>
                 </Modal>
             </View>
-            <TouchableOpacity
-                onPress={() => exchangeNft('47207795330190881274327680827850103091474162599286694417711015245746905546762', "Test", "U")}
-                style={styles.button}
-            >
-                <Text style={styles.buttonTextStyle}>send nft</Text>
-            </TouchableOpacity>
+            <View>
+                <Text>ID nft :</Text>
+                <TextInput
+                value={idNft}
+                onChangeText={(text) => setIdNft(text)}
+                />
+
+                <Text>Pseudo expéditeur :</Text>
+                <TextInput
+                    value={pseudoClient}
+                    onChangeText={text => setPseudoClient(text)}
+                />
+                <Text>Pseudo destinataire :</Text>
+                <TextInput
+                    value={pseudoSeller}
+                    onChangeText={(text) => setPseudoSeller(text)}
+                />
+                <Button title="Envoyer" onPress={() => buyNFT(idNft, pseudoClient, pseudoSeller)} />
+            </View>
+
+
         </View>
     )
 
