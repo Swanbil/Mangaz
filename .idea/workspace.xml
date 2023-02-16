@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/screens/Wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Wallet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/web3.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/web3.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/web3.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/web3.routes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +63,7 @@
       <workItem from="1675955325339" duration="629000" />
       <workItem from="1675955974951" duration="21395000" />
       <workItem from="1676020936928" duration="1348000" />
-      <workItem from="1676559833755" duration="10457000" />
+      <workItem from="1676559833755" duration="15835000" />
     </task>
     <servers />
   </component>

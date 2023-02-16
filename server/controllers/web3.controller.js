@@ -1,6 +1,7 @@
 const db = require('../config/database');
 const {getUserIdFromPseudo} = require("./user.controller");
 const crypto = require('crypto');
+const axios = require('axios');
 
 // Defining password
 const password = 'cnouswesh';
@@ -81,3 +82,78 @@ exports.postPrivateKey = async (req, res) => {
         return;
     });
 }
+
+exports.getNftsUser = async (req, res) => {
+    const {userAddress} = req.params;
+    const url = `https://testnets-api.opensea.io/api/v1/assets?owner=${userAddress}&order_direction=desc&offset=0&limit=20&include_orders=false`;
+    try {
+        const response = await axios.get(url);
+        res.json(response.data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Une erreur est survenue lors de la récupération des informations des actif.' });
+    }
+
+}
+
+exports.getNft = async (req, res) => {
+    const {asset_contract, idToken} = req.params;
+    const url = `https://testnets-api.opensea.io/api/v1/asset/${asset_contract}/${idToken}/`;
+
+    try {
+        const response = await axios.get(url);
+        res.json(response.data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Une erreur est survenue lors de la récupération des informations de l\'actif.' });
+    }
+}
+
+exports.getCollection = async (req, res) => {
+    const {nameCollection} = req.params;
+    const url = `https://testnets-api.opensea.io/api/v1/collection/${nameCollection}`;
+    try {
+        const response = await axios.get(url);
+        res.json(response.data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Une erreur est survenue lors de la récupération des informations des actif.' });
+    }
+}
+
+//Get all collections where user had at least one NFT in it
+exports.getCollections = async (req, res) => {
+    const {asset_collection} = req.params;
+    const url = `https://testnets-api.opensea.io/api/v1/collections/?asset_owner=${asset_collection}&offset=0&limit=20`;
+    try {
+        const response = await axios.get(url);
+        res.json(response.data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Une erreur est survenue lors de la récupération des informations des actif.' });
+    }
+
+}
+
+exports.getNftsFromCollection = async (req, res) => {
+    const {name_collection} = req.params;
+    const url = `https://testnets-api.opensea.io/api/v1/assets?order_direction=desc&offset=0&limit=20&collection=${name_collection}&include_orders=false`;
+
+    try {
+        const response = await axios.get(url);
+        res.json(response.data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Une erreur est survenue lors de la récupération des informations des actif.' });
+    }
+}
+
+exports.postOffer = async (req, res) => {
+
+}
+
+exports.getOffers = async (req, res) => {
+
+}
+
+
