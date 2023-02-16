@@ -180,8 +180,8 @@ export default function Wallet({navigation }) {
 
     //User click on button buy NFT
     async function  buyNFT(_idNft, _pseudoUserClient, _pseudoUserSeller) {
-        let fromAdress = await getAdress(_pseudoUserClient);  //Get the adress of the user
-        let toAdress = await getAdress(_pseudoUserSeller);  //Get the adress of the user
+        let fromAdress = await getAdress(_pseudoUserSeller);  //Get the adress of the user
+        let toAdress = await getAdress(_pseudoUserClient);  //Get the adress of the user
         let idNft = _idNft;//Get the id of the nft
         let amount = 1; //Get the amount of nft
         let data = "0x00"; //Get the data of the nft
@@ -196,7 +196,7 @@ export default function Wallet({navigation }) {
             const contractAddress = '0xf4910c763ed4e47a585e2d34baa9a4b611ae448c';
 
             // Set the private key of the sender account
-            const privateKey = await getPrivateKey(_pseudoUserClient);
+            const privateKey = await getPrivateKey(_pseudoUserSeller);
 
             // Create a new instance of the ethers.js Wallet using the private key
             const wallet = new ethers.Wallet(privateKey, provider);
@@ -333,13 +333,13 @@ export default function Wallet({navigation }) {
 
                 <Text>Pseudo expéditeur :</Text>
                 <TextInput
-                    value={pseudoClient}
-                    onChangeText={text => setPseudoClient(text)}
+                    value={pseudoSeller}
+                    onChangeText={text => setPseudoSeller(text)}
                 />
                 <Text>Pseudo destinataire :</Text>
                 <TextInput
-                    value={pseudoSeller}
-                    onChangeText={(text) => setPseudoSeller(text)}
+                    value={pseudoClient}
+                    onChangeText={(text) => setPseudoClient(text)}
                 />
                 <Button title="Envoyer" onPress={() => buyNFT(idNft, pseudoClient, pseudoSeller)} />
             </View>
