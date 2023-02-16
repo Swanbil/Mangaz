@@ -25,7 +25,6 @@ exports.getCatalogueRecommandation = async (req, res) => {
             return console.error('Error executing query', err.stack)
         }
         const users = result.rows;
-        console.log("userId", users)
         var mangasRatedByUser = {}
 
         const queryMangaRates = 'SELECT DISTINCT manga."titleName", rates_manga."rate", rates_manga."idUser" FROM rates_manga JOIN manga ON rates_manga."idManga"= manga."idManga"';
@@ -34,7 +33,6 @@ exports.getCatalogueRecommandation = async (req, res) => {
                 return console.error('Error executing query', err.stack)
             }
             const mangasRated = result.rows;
-            console.log("mangasRated", mangasRated);
             users.forEach((user) => {
                 mangasRatedByUser[user.idUser] = {};
                 mangasRated.forEach((mangaRated) => {
@@ -44,15 +42,12 @@ exports.getCatalogueRecommandation = async (req, res) => {
                 });
             });
 
-            console.log("mangasRatedByUser", mangasRatedByUser);
             const recommandations = recommande(idUser, mangasRatedByUser)
             console.log("recommandations", recommandations);
-
             const catalogueRecommandations = [];
             
             for (var i = 0; i < recommandations.length; i++) {
                 const recommandation = recommandations[i];
-                console.log(recommandation)
                 const queryCatalogue =  await db.query('SELECT * from manga WHERE manga."titleName" = $1', [recommandation[0]]);
                 catalogueRecommandations.push(queryCatalogue.rows[0])
             }
