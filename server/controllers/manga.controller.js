@@ -1,5 +1,6 @@
 const db = require('../config/database');
 const { getUserIdFromPseudo } = require('../controllers/user.controller');
+const { recommande } = require('../utilities/recommandation');
 
 exports.getCatalogue = async (req, res) => {
     let sql = "SELECT * from manga";
@@ -11,6 +12,54 @@ exports.getCatalogue = async (req, res) => {
         res.status(200).send(catalogue);
         return
     })
+}
+
+exports.getCatalogueRecommandation = async (req, res) => {
+    const { userPseudo } = req.params;
+    const idUser = await getUserIdFromPseudo(userPseudo);
+
+    //get Ids user
+    let sql = 'SELECT distinct "idUser" from rates_manga';
+    await db.query(sql, async (err, result) => {
+        if (err) {
+            return console.error('Error executing query', err.stack)
+        }
+        const users = result.rows;
+        console.log("userId", users)
+        var mangasRatedByUser = {}
+
+        const queryMangaRates = 'SELECT DISTINCT manga."titleName", rates_manga."rate", rates_manga."idUser" FROM rates_manga JOIN manga ON rates_manga."idManga"= manga."idManga"';
+        await db.query(queryMangaRates, async (err, result) => {
+            if (err) {
+                return console.error('Error executing query', err.stack)
+            }
+            const mangasRated = result.rows;
+            console.log("mangasRated", mangasRated);
+            users.forEach((user) => {
+                mangasRatedByUser[user.idUser] = {};
+                mangasRated.forEach((mangaRated) => {
+                    if (mangaRated.idUser === user.idUser) {
+                        mangasRatedByUser[user.idUser][mangaRated.titleName] = mangaRated.rate;
+                    }
+                });
+            });
+
+            console.log("mangasRatedByUser", mangasRatedByUser);
+            const recommandations = recommande(idUser, mangasRatedByUser)
+            console.log("recommandations", recommandations);
+
+            const catalogueRecommandations = [];
+            
+            for (var i = 0; i < recommandations.length; i++) {
+                const recommandation = recommandations[i];
+                console.log(recommandation)
+                const queryCatalogue =  await db.query('SELECT * from manga WHERE manga."titleName" = $1', [recommandation[0]]);
+                catalogueRecommandations.push(queryCatalogue.rows[0])
+            }
+           
+            res.status(200).json(catalogueRecommandations);
+        });
+    });
 }
 
 exports.getCatalogueWithUserFavoris = async (req, res) => {
@@ -35,7 +84,7 @@ exports.getCatalogueWithUserFavoris = async (req, res) => {
                     return console.error('Error executing query', err.stack)
                 }
                 const mangaRates = result.rows;
-                
+
                 const catalogueWithFavoris = catalogue.map((manga) => {
                     manga.isFavoris = (mangaFavoris.find(m => m.technicalName === manga.technicalName)) !== undefined ? true : false;
                     manga.rate = (mangaRates.find(m => m.technicalName === manga.technicalName)) !== undefined ? mangaRates.find(m => m.technicalName === manga.technicalName).rate : null;
