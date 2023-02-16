@@ -31,6 +31,8 @@ export default function Wallet({navigation }) {
 
     const [cards, setCards] = useState([]);
 
+    const [loading, setLoading] = useState(false);
+
     const connectWallet = React.useCallback(() => {
         navigation.navigate("TabNavigator", { screen: 'Wallet' });
         return connector.connect();
@@ -266,6 +268,7 @@ export default function Wallet({navigation }) {
 
     const OpenPackAllCards = async () => {
 
+        setLoading(true);
         const addressWallet = { "addressWallet" : '0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64' };
         const response = await axios.get(API_URL + '/web3/OpenSea/getNFTsUser/' + addressWallet.addressWallet);
         const data =response.data;
@@ -282,9 +285,21 @@ export default function Wallet({navigation }) {
 
         //Call buyNFT
         await buyNFT("Test", "U", cardID, 1);
+        setLoading(false);
 
     }
 
+    function wait(ms) {
+        return new Promise(resolve => {
+            setTimeout(resolve, ms);
+        });
+    }
+
+    async function example() {
+        setLoading(true);
+        await wait(5000); // Attendre 2 secondes
+        setLoading(false);
+    }
     const OpenPackByCollection = async (_collection_name) => {
 
     }
@@ -352,9 +367,20 @@ export default function Wallet({navigation }) {
                 keyExtractor={(item) => item.id.toString()}
                 style={styles.container}
             />
-            <TouchableOpacity onPress={OpenPackAllCards} style={styles.button}>
-                <Text style={styles.buttonTextStyle}>Open the general pack</Text>
-            </TouchableOpacity>
+
+            <View style={styles.containerLoad}>
+                {loading ? (
+                    <View style={styles.loadingContainer}>
+                        <Image source={require('../assets/konosuba-dance.gif')} style={styles.image} />
+                        <Text style={styles.text}>Loading...</Text>
+                    </View>
+                ): (
+                    // Votre contenu d'application ici
+                    <TouchableOpacity onPress={example} style={styles.button}>
+                        <Text style={styles.buttonTextStyle}>Open the general pack</Text>
+                    </TouchableOpacity>
+                )}
+            </View>
 
         </View>
 
@@ -415,4 +441,26 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'center',
     },
+
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom : 0
+    },
+    image: {
+        width: 200,
+        height: 200,
+        marginBottom: 600,
+    },
+    containerLoad: {
+        backgroundColor: 'rgba(255, 255, 255, 0)',
+        position: 'absolute',
+        top:700 ,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 })

@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/client/assets/astolfo-fate(1).gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/assets/konosuba-dance.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/screens/Wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Wallet.js" afterDir="false" />
     </list>
@@ -44,6 +46,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\Utils" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\assets" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -60,7 +65,7 @@
       <workItem from="1675955325339" duration="629000" />
       <workItem from="1675955974951" duration="21395000" />
       <workItem from="1676020936928" duration="1348000" />
-      <workItem from="1676559833755" duration="24666000" />
+      <workItem from="1676559833755" duration="28456000" />
     </task>
     <servers />
   </component>
