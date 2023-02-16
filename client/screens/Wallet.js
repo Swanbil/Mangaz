@@ -29,13 +29,6 @@ export default function Wallet({navigation }) {
     // Modal
     const [isModal, setIsModal] = useState(false);
 
-    // Amount
-    const [amountInput, setAmountInput ] = useState(0);
-
-    //For nft
-    const [pseudoClient, setPseudoClient] = useState('');
-    const [pseudoSeller, setPseudoSeller] = useState('');
-    const [idNft, setIdNft] = useState('');
     const [cards, setCards] = useState([]);
 
     const connectWallet = React.useCallback(() => {
@@ -66,6 +59,8 @@ export default function Wallet({navigation }) {
         let amount = _amountInput;
 
 
+        console.log("pseudoClient", _pseudoClient);
+        console.log("pseudoSeller", _pseudoSeller);
         //Appeler getPrivateKey pour récup la clé privé du receveur avec en entré le pseudo ecirt en input par l'envoyeur
         const toAddress = await getAdress(_pseudoSeller);
         console.log("toAddres in excahnges", toAddress);
@@ -118,7 +113,6 @@ export default function Wallet({navigation }) {
     const getPrivateKey = async (_pseudo) => {
         const user = { "userPseudo" : _pseudo };
         const response = await axios.get(API_URL + '/web3/getPrivateKey/' + user.userPseudo);
-        console.log("data in get function : " + response.data + "");
         return (response.data);
     }
     const postPrivateKey = async () => {
@@ -146,10 +140,8 @@ export default function Wallet({navigation }) {
         const response = await getPrivateKey("U");
         console.log("data in check function : " + response + "")
         if (response == null || response == "") {
-            console.log("data not detect");
             setIsModal(true);
         } else {
-            console.log("data detect");
             setIsModal(false);
         }
     };
@@ -162,10 +154,8 @@ export default function Wallet({navigation }) {
         }
         //Appeler getPrivateKey pour récup la clé privé du receveur avec en entré le pseudo ecirt en input par l'envoyeur
         const privateKey = await getPrivateKey(_pseudoUser);
-        console.log("private key " + privateKey)
         const walletReceiver = new ethers.Wallet(privateKey);
         const toAddress = await walletReceiver.getAddress();
-        console.log("toAddress : " + toAddress);
         return toAddress;
     }
 
@@ -180,10 +170,6 @@ export default function Wallet({navigation }) {
         let idNft = _idNft;//Get the id of the nft
         let amount = 1; //Get the amount of nft
         let data = "0x00"; //Get the data of the nft
-
-        console.log("fromAdress : " + fromAdress);
-        console.log("toAdress : " + toAdress);
-
 
             // Create a new instance of the ethers.js provider
             const provider = new ethers.providers.InfuraProvider('goerli', '8846dcd958a74362bd06d7b4eae341c7');
@@ -231,11 +217,13 @@ export default function Wallet({navigation }) {
             console.log(response);
     }
 
-    async function buyNFT (pseudoUserClient, pseudoUserSeller, idNft, amountInput) {
+    async function buyNFT (_pseudoUserClient, _pseudoUserSeller, _idNft, _amountInput) {
         try{
-            await exchangeTokens(pseudoClient, pseudoSeller, amountInput);
+            console.log("_pseudoUserClientbuynft : " + _pseudoUserClient);
+            console.log("pseudoUserSellerbuynft : " + _pseudoUserSeller);
+            await exchangeTokens(_pseudoUserClient, _pseudoUserSeller, _amountInput);
             try{
-                await exchangeNFT(idNft, pseudoClient, pseudoSeller);
+                await exchangeNFT(_idNft, _pseudoUserClient, _pseudoUserSeller);
                 alert("Nft échangé");
 
                 //Refresh the page
@@ -245,32 +233,18 @@ export default function Wallet({navigation }) {
             }catch (e) {
                 console.log(e);
                 alert("Erreur lors de l'échange des NFT");
-                await exchangeTokens(pseudoSeller, pseudoClient, amountInput);
+                await exchangeTokens(_pseudoUserSeller, _pseudoUserClient, _amountInput);
             }
         }catch (e){
             console.log(e);
             alert("Erreur lors de l'échange des tokens");
         }
-
-
-
-
-
-    }
-    const OpenPack = async () => {
-        // Echange du token contre le NFT
-
-        // Echange du NFT
     }
 
-
-    const TradeNft = async () => {
-
-    }
     const retrieveAllNftUser = async (_pseudo) => {
         try{
             const addressWallet = { "addressWallet" : await getAdress(_pseudo) };
-            const response = await axios.get(API_URL + '/web3/OpenSea/getNFTsUser/' + addressWallet.addressWallet)
+            const response = await axios.get(API_URL + '/web3/OpenSea/getNFTsUser/' + addressWallet.addressWallet);
             const data =response.data;
             setCards(data.assets);
             console.log("data : " + data.assets);
@@ -289,10 +263,36 @@ export default function Wallet({navigation }) {
             <Text>{item.traits && item.traits.length > 0 ? item.traits[0].value : ''}</Text>
         </View>
     );
-    const retrieveNft = async () => {
+
+    const OpenPackAllCards = async () => {
+
+        const addressWallet = { "addressWallet" : '0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64' };
+        const response = await axios.get(API_URL + '/web3/OpenSea/getNFTsUser/' + addressWallet.addressWallet);
+        const data =response.data;
+
+        //Randomise the number of NFT id
+        const numberOfCards = data.assets.length;
+        console.log("numberOfCards : " + numberOfCards);
+        const randomId = Math.floor(Math.random() * numberOfCards);
+        console.log("randomId : " + randomId);
+
+        //Get the right card id
+        const cardID = data.assets[randomId].token_id;
+        console.log("cardID : " + cardID);
+
+        //Call buyNFT
+        await buyNFT("Test", "U", cardID, 1);
 
     }
 
+    const OpenPackByCollection = async (_collection_name) => {
+
+    }
+
+
+    const TradeNft = async () => {
+
+    }
 
    getBalance();
 
@@ -330,24 +330,6 @@ export default function Wallet({navigation }) {
                 <Text style={styles.buttonTextStyle}>Log out</Text>
                 </TouchableOpacity>
                 <Text>{`Your balance : ${balance} ZC`}</Text>
-
-                <TextInput
-                    placeholder="Enter Expéditeur"
-                    value={pseudoSeller}
-                    onChangeText={text => setPseudoSeller(text)}
-                />
-                <TextInput
-                    placeholder="Enter pseudo receiver"
-                    value={pseudoClient}
-                    onChangeText={text => setPseudoClient(text)}
-                />
-                <TextInput
-                    placeholder="Enter amount"
-                    keyboardType={'numeric'}
-                    value={amountInput}
-                    onChangeText={text => setAmountInput(parseInt(text))}
-                />
-                <Button title="Envoie token" onPress={() => exchangeTokens(pseudoClient, pseudoSeller, amountInput)} />
             </>
             )}
             <View>
@@ -363,37 +345,17 @@ export default function Wallet({navigation }) {
                     </TouchableOpacity>
                 </Modal>
             </View>
-            <View>
-                <Text>ID nft :</Text>
-                <TextInput
-                value={idNft}
-                onChangeText={(text) => setIdNft(text)}
-                />
 
-                <Text>Pseudo expéditeur :</Text>
-                <TextInput
-                    value={pseudoSeller}
-                    onChangeText={text => setPseudoSeller(text)}
-                />
-                <Text>Pseudo destinataire :</Text>
-                <TextInput
-                    value={pseudoClient}
-                    onChangeText={(text) => setPseudoClient(text)}
-                />
-                <TextInput
-                    placeholder="Enter amount"
-                    keyboardType={'numeric'}
-                    value={amountInput}
-                    onChangeText={text => setAmountInput(parseInt(text))}
-                />
-                <Button title="Acheter le nft" onPress={() => buyNFT(pseudoClient, pseudoSeller, idNft, amountInput)} />
-            </View>
             <FlatList
                 data={cards}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id.toString()}
                 style={styles.container}
             />
+            <TouchableOpacity onPress={OpenPackAllCards} style={styles.button}>
+                <Text style={styles.buttonTextStyle}>Open the general pack</Text>
+            </TouchableOpacity>
+
         </View>
 
     )
