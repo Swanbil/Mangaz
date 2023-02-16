@@ -59,12 +59,14 @@ export default function Wallet({navigation }) {
         setBalance(balance);
     },[connector]);    
     
-    async function exchangeTokens () {
+    async function exchangeTokens (pseudoClient,  pseudoSeller, amountInput) {
         let tokenAddress = constTokenAddress;
         let amount = amountInput;
 
+
         //Appeler getPrivateKey pour récup la clé privé du receveur avec en entré le pseudo ecirt en input par l'envoyeur
-        const toAddress = getAdress(pseudoClient);
+        const toAddress = await getAdress(pseudoSeller);
+        console.log("toAddres in excahnges", toAddress);
 
         if(amount == 0 || amount == null || isNaN(amount) || amount == undefined || amount == ""){
             alert("Veuillez entrer un pseudo et un montant");
@@ -75,7 +77,7 @@ export default function Wallet({navigation }) {
         const provider = new ethers.providers.InfuraProvider('goerli', '8846dcd958a74362bd06d7b4eae341c7');
 
         // Set the private key of the sender account
-        const privateKey = await getPrivateKey('U');
+        const privateKey = await getPrivateKey(pseudoClient);
 
         // Create a new instance of the ethers.js Wallet using the private key
         const wallet = new ethers.Wallet(privateKey, provider);
@@ -87,7 +89,7 @@ export default function Wallet({navigation }) {
         const functionToCall = "transfer";
         const functionParams = [toAddress, amount];
 
-        // // Set the gas price and gas limit
+        // Set the gas price and gas limit
         const gasPrice = await provider.getGasPrice();
         const gasLimit =  ethers.utils.hexlify(ethers.BigNumber.from(200000));
 
@@ -106,13 +108,6 @@ export default function Wallet({navigation }) {
         //Send the transaction
         const response = await wallet.provider.sendTransaction(signedTransaction);
         console.log(response);
-
-        alert("Transaction envoyée");
-
-        //Refresh the page
-        navigation.navigate('Login');
-        navigation.navigate('Wallet');
-
     }
 
     /*
@@ -157,7 +152,6 @@ export default function Wallet({navigation }) {
         }
     };
 
-
     //Get the adresse wallet of User
     const getAdress = async (_pseudoUser) => {
         if(_pseudoUser == ""){
@@ -176,10 +170,9 @@ export default function Wallet({navigation }) {
     /*
         Exchange nft
      */
-
-
+    
     //User click on button buy NFT
-    async function  buyNFT(_idNft, _pseudoUserClient, _pseudoUserSeller) {
+    async function  exchangeNFT(_idNft, _pseudoUserClient, _pseudoUserSeller) {
         let fromAdress = await getAdress(_pseudoUserSeller);  //Get the adress of the user
         let toAdress = await getAdress(_pseudoUserClient);  //Get the adress of the user
         let idNft = _idNft;//Get the id of the nft
@@ -189,7 +182,7 @@ export default function Wallet({navigation }) {
         console.log("fromAdress : " + fromAdress);
         console.log("toAdress : " + toAdress);
 
-        try{
+
             // Create a new instance of the ethers.js provider
             const provider = new ethers.providers.InfuraProvider('goerli', '8846dcd958a74362bd06d7b4eae341c7');
 
@@ -208,15 +201,22 @@ export default function Wallet({navigation }) {
             const functionToCall = "0xf242432a";
             const functionParams = [fromAdress, toAdress, idNft, amount, data];
 
-            // // Set the gas price and gas limit
+            // Set the gas price and gas limit
             const gasPrice = await provider.getGasPrice();
             const gasLimit =  ethers.utils.hexlify(ethers.BigNumber.from(200000));
+
+        // Calculate the replacement gas cost
+        const replacementGasCost = gasPrice.mul(ethers.BigNumber.from(100));
+
+        // Calculate the total gas cost
+        const totalGasCost = gasPrice.mul(gasLimit).add(replacementGasCost);
+
 
             // // Build the transaction object
             const transaction = {
                 to: contractAddress,
                 data: contract.interface.encodeFunctionData(functionToCall, functionParams),
-                gasPrice: gasPrice,
+                gasPrice: gasPrice.add(replacementGasCost),
                 gasLimit: gasLimit,
                 nonce: await wallet.getTransactionCount()
             };
@@ -227,24 +227,39 @@ export default function Wallet({navigation }) {
             //Send the transaction
             const response = await wallet.provider.sendTransaction(signedTransaction);
             console.log(response);
-
-            alert("Nft envoyé");
-
-            //Refresh the page
-            navigation.navigate('Login');
-            navigation.navigate('Wallet');
-        }catch (e) {
-            console.log(e);
-            alert("Erreur lors de l'envoi du NFT");
-        }
     }
 
+
+    async function buyNFT (pseudoUserClient, pseudoUserSeller, idNft, amountInput) {
+        try{
+            await exchangeTokens(pseudoClient, pseudoSeller, amountInput);
+            try{
+                await exchangeNFT(idNft, pseudoClient, pseudoSeller);
+                alert("Nft échangé");
+
+                //Refresh the page
+                navigation.navigate('Login');
+                navigation.navigate('Wallet');
+
+            }catch (e) {
+                console.log(e);
+                alert("Erreur lors de l'échange des NFT");
+            }
+        }catch (e){
+            console.log(e);
+            alert("Erreur lors de l'échange des tokens");
+        }
+
+
+
+
+
+    }
     const OpenPack = async () => {
         // Echange du token contre le NFT
 
         // Echange du NFT
     }
-
 
 
     const TradeNft = async () => {
@@ -294,9 +309,13 @@ export default function Wallet({navigation }) {
                 </TouchableOpacity>
                 <Text>{`Your balance : ${balance} ZC`}</Text>
 
-
                 <TextInput
-                    placeholder="Enter pseudo of the receiver"
+                    placeholder="Enter Expéditeur"
+                    value={pseudoSeller}
+                    onChangeText={text => setPseudoSeller(text)}
+                />
+                <TextInput
+                    placeholder="Enter pseudo receiver"
                     value={pseudoClient}
                     onChangeText={text => setPseudoClient(text)}
                 />
@@ -306,9 +325,7 @@ export default function Wallet({navigation }) {
                     value={amountInput}
                     onChangeText={text => setAmountInput(parseInt(text))}
                 />
-                <TouchableOpacity onPress={exchangeTokens} style={styles.button}>
-                <Text style={styles.buttonTextStyle}>exchange</Text>
-                </TouchableOpacity>
+                <Button title="Envoie token" onPress={() => exchangeTokens(pseudoClient, pseudoSeller, amountInput)} />
             </>
             )}
             <View>
@@ -341,7 +358,13 @@ export default function Wallet({navigation }) {
                     value={pseudoClient}
                     onChangeText={(text) => setPseudoClient(text)}
                 />
-                <Button title="Envoyer" onPress={() => buyNFT(idNft, pseudoClient, pseudoSeller)} />
+                <TextInput
+                    placeholder="Enter amount"
+                    keyboardType={'numeric'}
+                    value={amountInput}
+                    onChangeText={text => setAmountInput(parseInt(text))}
+                />
+                <Button title="Acheter le nft" onPress={() => buyNFT(pseudoClient, pseudoSeller, idNft, amountInput)} />
             </View>
 
 
