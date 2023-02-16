@@ -60,7 +60,7 @@
       <workItem from="1675955325339" duration="629000" />
       <workItem from="1675955974951" duration="21395000" />
       <workItem from="1676020936928" duration="1348000" />
-      <workItem from="1676559833755" duration="9711000" />
+      <workItem from="1676559833755" duration="10457000" />
     </task>
     <servers />
   </component>
@@ -73,12 +73,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/controllers/web3.controller.js</url>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/client/screens/Wallet.js</url>
-          <line>174</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

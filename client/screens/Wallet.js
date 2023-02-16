@@ -59,13 +59,14 @@ export default function Wallet({navigation }) {
         setBalance(balance);
     },[connector]);    
     
-    async function exchangeTokens (pseudoClient,  pseudoSeller, amountInput) {
+    async function exchangeTokens (_pseudoClient,  _pseudoSeller, _amountInput) {
+
         let tokenAddress = constTokenAddress;
-        let amount = amountInput;
+        let amount = _amountInput;
 
 
         //Appeler getPrivateKey pour récup la clé privé du receveur avec en entré le pseudo ecirt en input par l'envoyeur
-        const toAddress = await getAdress(pseudoSeller);
+        const toAddress = await getAdress(_pseudoSeller);
         console.log("toAddres in excahnges", toAddress);
 
         if(amount == 0 || amount == null || isNaN(amount) || amount == undefined || amount == ""){
@@ -77,7 +78,7 @@ export default function Wallet({navigation }) {
         const provider = new ethers.providers.InfuraProvider('goerli', '8846dcd958a74362bd06d7b4eae341c7');
 
         // Set the private key of the sender account
-        const privateKey = await getPrivateKey(pseudoClient);
+        const privateKey = await getPrivateKey(_pseudoClient);
 
         // Create a new instance of the ethers.js Wallet using the private key
         const wallet = new ethers.Wallet(privateKey, provider);
@@ -229,7 +230,6 @@ export default function Wallet({navigation }) {
             console.log(response);
     }
 
-
     async function buyNFT (pseudoUserClient, pseudoUserSeller, idNft, amountInput) {
         try{
             await exchangeTokens(pseudoClient, pseudoSeller, amountInput);
@@ -244,6 +244,7 @@ export default function Wallet({navigation }) {
             }catch (e) {
                 console.log(e);
                 alert("Erreur lors de l'échange des NFT");
+                await exchangeTokens(pseudoSeller, pseudoClient, amountInput);
             }
         }catch (e){
             console.log(e);
