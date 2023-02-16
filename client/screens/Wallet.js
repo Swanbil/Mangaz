@@ -270,7 +270,7 @@ export default function Wallet({navigation }) {
     const retrieveAllNftUser = async (_pseudo) => {
         try{
             const addressWallet = { "addressWallet" : await getAdress(_pseudo) };
-            const response = await axios.get(API_URL + '/web3/OpenSea/getNFTsUser/' + '0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64')
+            const response = await axios.get(API_URL + '/web3/OpenSea/getNFTsUser/' + addressWallet.addressWallet)
             const data =response.data;
             setCards(data.assets);
             console.log("data : " + data.assets);
@@ -286,7 +286,7 @@ export default function Wallet({navigation }) {
             <Text style={styles.cardTitle}>{item.name}</Text>
             <Text style={styles.cardDescription}>{item.description}</Text>
             <Text style={styles.cardDescription}>{item.collection.name}</Text>
-            <Text style={styles.cardDescription}>{item.traits[0].value}</Text>
+            <Text>{item.traits && item.traits.length > 0 ? item.traits[0].value : ''}</Text>
         </View>
     );
     const retrieveNft = async () => {
@@ -299,7 +299,7 @@ export default function Wallet({navigation }) {
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
     useEffect( () => {
         checkPrivateKey();
-        retrieveAllNftUser("U");
+        retrieveAllNftUser("Test");
     }, []);
 
 
