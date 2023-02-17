@@ -7,12 +7,16 @@ import { useFocusEffect } from '@react-navigation/native';
 import { getDataUser } from '../utilities/localStorage';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Searchbar } from 'react-native-paper';
+import RNPickerSelect from 'react-native-picker-select';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function Home({ navigation, route, isLog }) {
   const [catalogue, setCatalogue] = useState([]);
   const [recommandations, setRecommandations] = useState([]);
   const [filteredCatalogue, setFilteredCatalogue] = useState([])
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState();
+  const [genres, setGenres] = useState([{ label: "Action", value: 1 }, { label: "Adventure", value: 2 }]);
 
   const [isLoading, setLoading] = useState(false);
 
@@ -71,6 +75,16 @@ export default function Home({ navigation, route, isLog }) {
     setFilteredCatalogue(catalogue.filter((manga) => manga.titleName.toLowerCase().includes(valueLowerCase) || manga.technicalName.toLowerCase().includes(valueLowerCase)));
   }
 
+  const onSelectGenre = (value) => {
+    if (!value) {
+      setFilteredCatalogue(catalogue);  //if no more thant two char in text search => reset catalogue to all mangas
+      return;
+    }
+    const valueLowerCase = genres.find((genre) => genre.value === value).label.toLowerCase();
+    console.log(valueLowerCase)
+    setFilteredCatalogue(catalogue.filter((manga) => manga.genre?.toLowerCase().includes(valueLowerCase)));
+  }
+
   if (isLog) {
     return (
       <View style={styles.container}>
@@ -79,13 +93,29 @@ export default function Home({ navigation, route, isLog }) {
             ? <ActivityIndicator style={{ flex: 1 }} />
             : (
               <>
-                <View style={{ alignItems: 'flex-end', marginTop: 10, paddingRight: 8 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginTop: 10, paddingRight: 8 }}>
                   <Searchbar
                     placeholder="Search"
                     onChangeText={(value) => onSearchingManga(value)}
                     value={searchQuery}
                     style={{ width: 170, height: 25 }}
                     iconColor='#333'
+                  />
+                  <RNPickerSelect
+                    onValueChange={(value) => onSelectGenre(value)}
+                    items={genres}
+                    value={selectedGenre}
+                    placeholder={{ label: "Sort", value: null }}
+                    style={{
+                      ...pickerSelectStyles, iconContainer: {
+                        top: 5,
+                        right: 12,
+                      }
+                    }}
+                    useNativeAndroidPickerStyle={false}
+                    Icon={() => {
+                      return <Ionicons name="chevron-down-outline" size={16} color="black" />;
+                    }}
                   />
                 </View>
                 <View style={{ padding: 8 }}>
@@ -178,4 +208,33 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10
   }
+});
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 14,
+    paddingVertical:5,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#DEDEDE',
+    borderRadius: 4,
+    color: '#B7B7B7',
+    fontStyle: 'italic',
+    textAlign: 'center',
+    paddingRight: 30,
+    height: 25
+  },
+  inputAndroid: {
+    fontSize: 14,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#DEDEDE',
+    borderRadius: 4,
+    color: '#B7B7B7',
+    fontStyle: 'italic',
+    textAlign: 'center',
+    paddingRight: 30,
+    height: 25,
+  },
 });
