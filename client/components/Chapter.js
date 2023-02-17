@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { AntDesign } from '@expo/vector-icons';
@@ -30,6 +30,7 @@ export default function Chapter({ route, navigation }) {
     setCurrentPage(response.data.pages[0]);
   }
 
+  
   const isUserHistoryCanBeSaved = () => {
     if (numberPageRead > NUMBER_PAGE_TO_READ && !isUserHistorySaved) {
       return true
@@ -56,8 +57,8 @@ export default function Chapter({ route, navigation }) {
     setCurrentPage(pages[value]);
   }
   const swipePage = (value) => {
-    setCurrentIndex(value)
     setCurrentPage(pages[value]);
+    setCurrentIndex(value)
     if (value > numberPageRead) {
       setNumberPageRead(prevState => prevState + 1);
     }
@@ -88,7 +89,7 @@ export default function Chapter({ route, navigation }) {
                 justifyContent: 'center',
               }}
             >
-              <Image source={{ uri: currentPage?.source }} style={{ width: 320, height: 530 }} />
+              <Image source={{ uri: pages[index]?.source }} style={{ width: 320, height: 530 }} />
             </View>
           )}
         />

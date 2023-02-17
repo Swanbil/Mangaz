@@ -93,7 +93,7 @@ export default function Home({ navigation, route, isLog }) {
             ? <ActivityIndicator style={{ flex: 1 }} />
             : (
               <>
-                <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginTop: 10, paddingRight: 8 }}>
+                <View style={{ alignItems: 'flex-end', marginTop: 10, paddingRight: 8 }}>
                   <Searchbar
                     placeholder="Search"
                     onChangeText={(value) => onSearchingManga(value)}
@@ -101,7 +101,7 @@ export default function Home({ navigation, route, isLog }) {
                     style={{ width: 170, height: 25 }}
                     iconColor='#333'
                   />
-                  <RNPickerSelect
+                  {/* <RNPickerSelect
                     onValueChange={(value) => onSelectGenre(value)}
                     items={genres}
                     value={selectedGenre}
@@ -116,7 +116,7 @@ export default function Home({ navigation, route, isLog }) {
                     Icon={() => {
                       return <Ionicons name="chevron-down-outline" size={16} color="black" />;
                     }}
-                  />
+                  /> */}
                 </View>
                 <View style={{ padding: 8 }}>
                   <View style={styles.pageTitleContainer}>
