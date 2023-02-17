@@ -62,11 +62,11 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
 
     if (width == "large") {
         return (
-            <View style={{ width: "45%", marginBottom: 20, boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px" }}>
+            <View style={{ width: 180, marginBottom: 20, boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px", marginRight:10 }}>
                 <Card onPress={goToMangaPage} borderRadius={10} mode="contained">
                     <Card.Title
-                        title={mangaItem.titleName} titleStyle={{ fontSize: 8 }}
-                        subtitle={(mangaItem.rate !== null) ?  mangaItem.rate + '⭐' : '-'} subtitleStyle={{ fontSize: 8 }}
+                        title={mangaItem.titleName} titleStyle={{ fontSize: 10}}
+                        subtitle={(mangaItem.rate) ?  mangaItem.rate + '⭐' : ''} subtitleStyle={{ fontSize: 8 }}
                         right={(props) => <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={20} />}
                     />
                     <Card.Cover width={"100%"} source={{ uri: mangaItem.coverImage }} />

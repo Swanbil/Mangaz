@@ -1,19 +1,22 @@
 import axios from 'axios';
 import React, { useCallback, useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
 import Catalogue from "../components/Catalogue";
 import { API_URL } from '@env';
 import { useFocusEffect } from '@react-navigation/native';
 import { getDataUser } from '../utilities/localStorage';
-
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default function Home({ navigation, route, isLog }) {
   const [catalogue, setCatalogue] = useState([]);
+  const [recommandations, setRecommandations] = useState([]);
+
   const [isLoading, setLoading] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
       getCatalogue();
+      getRecommandations()
     }, [])
   );
 
@@ -35,17 +38,59 @@ export default function Home({ navigation, route, isLog }) {
     }
 
   }
+  const getRecommandations = async () => {
+    setLoading(true);
+    const userData = await getDataUser();
+    if (userData) {
+      const userPseudo = userData.userPseudo;
+      try {
+        const response = await axios.get(API_URL + `/manga/catalogue/${userPseudo}/recommandations`);
+        const data = response.data;
+        setRecommandations(data);
+      }
+      catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+  }
 
   if (isLog) {
     return (
       <View style={styles.container}>
-        <View style={{ flex: '1', justifyContent: 'center' }}>
+        <ScrollView >
           {isLoading
             ? <ActivityIndicator style={{ flex: 1 }} />
-            : <Catalogue navigation={navigation} catalogue={catalogue} pageName="Home" widthMangaItem="large" />
+            : (
+              <>
+                <View style={{ marginTop: 20, padding: 8 }}>
+                  <View style={styles.pageTitleContainer}>
+                    <Icon name={"hand-holding-heart"} color={"#333"} size={20} />
+                    <Text style={styles.pageTitle}>For you</Text>
+                  </View>
+                  <View style={{ backgroundColor: '#FAFAFA', marginTop: 5 }}>
+                    <Catalogue navigation={navigation} catalogue={recommandations} pageName="Home" widthMangaItem="large" />
+                  </View>
+                </View>
+                <View style={{ marginTop: 20, padding: 8 }}>
+                  <View style={styles.pageTitleContainer}>
+                    <Icon name={"book-open"} color={"#333"} size={20} />
+                    <Text style={styles.pageTitle}>Catalogue</Text>
+                  </View>
+                  <View style={{ backgroundColor: '#FAFAFA', marginTop: 5 }}>
+                    <Catalogue navigation={navigation} catalogue={catalogue} pageName="Home" widthMangaItem="large" />
+                  </View>
+
+                </View>
+
+              </>
+
+            )
           }
 
-        </View>
+        </ScrollView>
       </View>
 
     );
@@ -81,6 +126,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: "center"
+  },
+  pageTitleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderBottomColor: "#C0A6F7",
+    borderBottomWidth: 3,
+    width: "48%",
+    paddingBottom: 6
+  },
+  pageTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginLeft: 5
   },
   button: {
     marginRight: 40,
