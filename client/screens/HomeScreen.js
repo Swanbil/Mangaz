@@ -6,10 +6,13 @@ import { API_URL } from '@env';
 import { useFocusEffect } from '@react-navigation/native';
 import { getDataUser } from '../utilities/localStorage';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { Searchbar } from 'react-native-paper';
 
 export default function Home({ navigation, route, isLog }) {
   const [catalogue, setCatalogue] = useState([]);
   const [recommandations, setRecommandations] = useState([]);
+  const [filteredCatalogue, setFilteredCatalogue] = useState([])
+  const [searchQuery, setSearchQuery] = useState('');
 
   const [isLoading, setLoading] = useState(false);
 
@@ -29,6 +32,7 @@ export default function Home({ navigation, route, isLog }) {
         const response = await axios.get(API_URL + `/manga/catalogue/${userPseudo}`);
         const data = response.data;
         setCatalogue(data);
+        setFilteredCatalogue(data);
       }
       catch (error) {
         console.error(error);
@@ -57,6 +61,16 @@ export default function Home({ navigation, route, isLog }) {
 
   }
 
+  const onSearchingManga = (value) => {
+    const valueLowerCase = value.toLowerCase();
+    setSearchQuery(value);
+    if (value.length < 2) {
+      setFilteredCatalogue(catalogue);  //if no more thant two char in text search => reset catalogue to all mangas
+      return;
+    }
+    setFilteredCatalogue(catalogue.filter((manga) => manga.titleName.toLowerCase().includes(valueLowerCase) || manga.technicalName.toLowerCase().includes(valueLowerCase)));
+  }
+
   if (isLog) {
     return (
       <View style={styles.container}>
@@ -65,7 +79,26 @@ export default function Home({ navigation, route, isLog }) {
             ? <ActivityIndicator style={{ flex: 1 }} />
             : (
               <>
-                <View style={{ marginTop: 20, padding: 8 }}>
+                <View style={{ alignItems: 'flex-end', marginTop: 10, paddingRight: 8 }}>
+                  <Searchbar
+                    placeholder="Search"
+                    onChangeText={(value) => onSearchingManga(value)}
+                    value={searchQuery}
+                    style={{ width: 170, height: 25 }}
+                    iconColor='#333'
+                  />
+                </View>
+                <View style={{ padding: 8 }}>
+                  <View style={styles.pageTitleContainer}>
+                    <Icon name={"book-open"} color={"#333"} size={20} />
+                    <Text style={styles.pageTitle}>Catalogue</Text>
+                  </View>
+                  <View style={{ backgroundColor: '#FAFAFA', marginTop: 5 }}>
+                    <Catalogue navigation={navigation} catalogue={filteredCatalogue} pageName="Home" widthMangaItem="large" />
+                  </View>
+
+                </View>
+                <View style={{ marginTop: 8, padding: 8 }}>
                   <View style={styles.pageTitleContainer}>
                     <Icon name={"hand-holding-heart"} color={"#333"} size={20} />
                     <Text style={styles.pageTitle}>For you</Text>
@@ -73,16 +106,6 @@ export default function Home({ navigation, route, isLog }) {
                   <View style={{ backgroundColor: '#FAFAFA', marginTop: 5 }}>
                     <Catalogue navigation={navigation} catalogue={recommandations} pageName="Home" widthMangaItem="large" />
                   </View>
-                </View>
-                <View style={{ marginTop: 20, padding: 8 }}>
-                  <View style={styles.pageTitleContainer}>
-                    <Icon name={"book-open"} color={"#333"} size={20} />
-                    <Text style={styles.pageTitle}>Catalogue</Text>
-                  </View>
-                  <View style={{ backgroundColor: '#FAFAFA', marginTop: 5 }}>
-                    <Catalogue navigation={navigation} catalogue={catalogue} pageName="Home" widthMangaItem="large" />
-                  </View>
-
                 </View>
 
               </>
@@ -119,7 +142,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
   },
   container2: {
     flex: 1,
