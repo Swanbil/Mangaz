@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
 import Catalogue from "../components/Catalogue";
 import { API_URL } from '@env';
@@ -9,8 +9,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Searchbar } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import UserProfile from '../components/UserProfile';
 
-export default function Home({ navigation, route, isLog }) {
+export default function Home({ navigation, route, isLog, isSubscribe }) {
   const [catalogue, setCatalogue] = useState([]);
   const [recommandations, setRecommandations] = useState([]);
   const [filteredCatalogue, setFilteredCatalogue] = useState([])
@@ -19,6 +20,7 @@ export default function Home({ navigation, route, isLog }) {
   const [genres, setGenres] = useState([{ label: "Action", value: 1 }, { label: "Adventure", value: 2 }]);
 
   const [isLoading, setLoading] = useState(false);
+  const [userInfos, setUserInfos] = useState();
 
   useFocusEffect(
     useCallback(() => {
@@ -26,6 +28,23 @@ export default function Home({ navigation, route, isLog }) {
       getRecommandations()
     }, [])
   );
+
+  useEffect(() => {
+    getUserInfos();
+  }, []);
+
+  const getUserInfos = async () => {
+    const { userPseudo } = await getDataUser();
+    if (userPseudo) {
+      try {
+        const response = await axios.get(`${API_URL}/user/${userPseudo}`);
+        setUserInfos(response.data.userInfos);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
 
   const getCatalogue = async () => {
     setLoading(true);
@@ -93,7 +112,8 @@ export default function Home({ navigation, route, isLog }) {
             ? <ActivityIndicator style={{ flex: 1 }} />
             : (
               <>
-                <View style={{ alignItems: 'flex-end', marginTop: 10, paddingRight: 8 }}>
+                <UserProfile userInfos={userInfos} navigation={navigation} isSubscribe={isSubscribe}/>
+                {/* <View style={{ alignItems: 'flex-end', marginTop: 10, paddingRight: 8 }}>
                   <Searchbar
                     placeholder="Search"
                     onChangeText={(value) => onSearchingManga(value)}
@@ -101,7 +121,7 @@ export default function Home({ navigation, route, isLog }) {
                     style={{ width: 170, height: 25 }}
                     iconColor='#333'
                   />
-                  {/* <RNPickerSelect
+                  <RNPickerSelect
                     onValueChange={(value) => onSelectGenre(value)}
                     items={genres}
                     value={selectedGenre}
@@ -116,8 +136,8 @@ export default function Home({ navigation, route, isLog }) {
                     Icon={() => {
                       return <Ionicons name="chevron-down-outline" size={16} color="black" />;
                     }}
-                  /> */}
-                </View>
+                  />
+                </View> */}
                 <View style={{ padding: 8 }}>
                   <View style={styles.pageTitleContainer}>
                     <Icon name={"book-open"} color={"#333"} size={20} />
@@ -172,6 +192,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingTop:10
   },
   container2: {
     flex: 1,
@@ -213,7 +234,7 @@ const styles = StyleSheet.create({
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
     fontSize: 14,
-    paddingVertical:5,
+    paddingVertical: 5,
     paddingHorizontal: 10,
     borderWidth: 1,
     borderColor: '#DEDEDE',

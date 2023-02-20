@@ -17,7 +17,7 @@ const Login = ({ navigation, getLogState, getSubState }) => {
             getLogState(true);
             getSubState(data.isSubscribe);
             await storeDataUser(data);
-            navigation.navigate("TabNavigator", { screen: 'Catalogue', params: { userName: data }, merge: true, });
+            navigation.navigate("TabNavigator", { screen: 'Home', params: { userName: data }, merge: true, });
         } catch (error) {
             alert(error.response.data)
         }

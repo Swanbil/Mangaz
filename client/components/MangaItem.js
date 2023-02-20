@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Paragraph, IconButton } from 'react-native-paper';
-import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity, ImageBackground, TouchableWithoutFeedback } from "react-native";
 import axios from 'axios';
 import { getDataUser } from '../utilities/localStorage';
 import { API_URL } from '@env';
@@ -36,7 +36,8 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
         setModalVisible(true)
     }
     const goToMangaPage = () => {
-        navigation.navigate('MangaPage', { manga: mangaItem, width: "xlarge" })
+        console.log(manga)
+        navigation.navigate('MangaPage', { manga: manga, width: "xlarge" })
     }
 
     const goToChapter = (chapterNumber) => {
@@ -62,15 +63,29 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
 
     if (width == "large") {
         return (
-            <View style={{ width: 180, marginBottom: 20, boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px", marginRight:10 }}>
-                <Card onPress={goToMangaPage} borderRadius={10} mode="contained">
+            <View style={{ marginBottom: 20, boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px", marginRight: 10 }}>
+                {/* <Card onPress={goToMangaPage} borderRadius={10} mode="contained">
                     <Card.Title
                         title={mangaItem.titleName} titleStyle={{ fontSize: 10}}
                         subtitle={(mangaItem.rate) ?  mangaItem.rate + '⭐' : ''} subtitleStyle={{ fontSize: 8 }}
                         right={(props) => <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={20} />}
                     />
                     <Card.Cover width={"100%"} source={{ uri: mangaItem.coverImage }} />
-                </Card>
+                </Card> */}
+                <TouchableWithoutFeedback onPress={goToMangaPage}>
+                    <ImageBackground source={{ uri: mangaItem.coverImage }} style={{ width: 270, height: 200 }} imageStyle={{ borderRadius: 12 }} resizeMode='cover' blurRadius={0.5}>
+                        <View style={{ position: 'absolute', left: 10, bottom: 10 }}>
+                            <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }} onPress={goToMangaPage}>{mangaItem.titleName}</Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <IconButton icon="star" color="yellow" size={24} />
+                                <Text style={{ fontWeight: '500', fontSize: 13, color: 'white' }}>{mangaItem.rate}</Text>
+
+                            </View>
+                        </View>
+                    </ImageBackground>
+
+                </TouchableWithoutFeedback>
+
             </View>
 
         )
@@ -97,7 +112,7 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
                 <Card style={{ marginRight: 20, marginLeft: 20 }}>
                     <Card.Title
                         title={mangaItem.titleName}
-                        subtitle={(mangaItem.rate !== null) ?  mangaItem.rate + '⭐' : '-'} subtitleStyle={{ fontSize: 12 }}
+                        subtitle={(mangaItem.rate !== null) ? mangaItem.rate + '⭐' : '-'} subtitleStyle={{ fontSize: 12 }}
                         right={(props) => <View style={{ display: 'flex', flexDirection: 'row', gap: 0 }}>
                             <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={28} />
                             <IconButton {...props} icon={"star-box"} color={"#D7D7D7"} onPress={() => onShowModal()} size={28} />

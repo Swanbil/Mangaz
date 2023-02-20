@@ -18,20 +18,24 @@ const Stack = createNativeStackNavigator();
 const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, getSubState }) => {
     return (
         <Stack.Navigator
-            initialRouteName={isLogedIn ? 'Catalogue' : 'Login'}
+            initialRouteName={isLogedIn ? 'Home' : 'Login'}
             screenOptions={{
                 cardStyle: { backgroundColor: 'white' },
                 headerStyle: { backgroundColor: '#F6F6F6' },
                 cardStyle: { backgroundColor: 'red' },
             }}>
-            <Stack.Screen name="TabNavigator" options={{ headerShown: false }}>
-                {(props) => <TabNavigator {...props} isLog={isLogedIn} userCredentials={userCredentials} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState}/>}
-            </Stack.Screen>
+            {isLogedIn
+                ?
+                <Stack.Screen name="TabNavigator" options={{ headerShown: false }}>
+                    {(props) => <TabNavigator {...props} isLog={isLogedIn} userCredentials={userCredentials} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
+                </Stack.Screen>
+                : <></>
+            }
             <Stack.Screen name="Login" options={({ navigation }) => ({
                 headerShown: false
             })}>
 
-                {(props) => <Login {...props} getLogState={getLogState} getSubState={getSubState}/>}
+                {(props) => <Login {...props} getLogState={getLogState} getSubState={getSubState} />}
             </Stack.Screen>
             <Stack.Screen name="Register" component={Register}
                 options={({ navigation }) => ({
@@ -42,7 +46,7 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, ge
                             <MaterialIcons name="cancel" color="#C0A6F7" size={24} />
                         </TouchableOpacity>
                     )
-                    
+
                 })} />
             <Stack.Screen name="MangaPage" options={({ navigation }) => ({
                 headerShown: false
@@ -77,12 +81,12 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, ge
             <Stack.Screen name="Subscribe" options={({ navigation }) => ({
                 headerShown: false
             })} >
-                {(props) => <Subscribe {...props} isSubscribe={isSubscribe} getSubState={getSubState}/>}
+                {(props) => <Subscribe {...props} isSubscribe={isSubscribe} getSubState={getSubState} />}
             </Stack.Screen>
             <Stack.Screen name="Payment" options={({ navigation }) => ({
                 headerShown: false
             })} >
-                {(props) => <Payment {...props} isSubscribe={isSubscribe} getSubState={getSubState}/>}
+                {(props) => <Payment {...props} isSubscribe={isSubscribe} getSubState={getSubState} />}
             </Stack.Screen>
         </Stack.Navigator>
 
