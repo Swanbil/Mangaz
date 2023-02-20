@@ -4,11 +4,12 @@ import { TouchableOpacity, Text, View, StyleSheet, Image, ImageBackground } from
 import { AntDesign } from '@expo/vector-icons';
 import axios from "axios";
 import { API_URL } from '@env';
-import { Badge, Searchbar } from 'react-native-paper';
+import { Badge, Searchbar, IconButton } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
 import { getDataUser } from '../utilities/localStorage';
 import { ScrollView } from 'react-native-gesture-handler';
 import Catalogue from '../components/Catalogue';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
 const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
@@ -105,7 +106,10 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                                     <View style={{ flexDirection: 'column', marginLeft: 20 }}>
                                         <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
                                             <Text style={{ fontWeight: '700', fontSize: 16, letterSpacing: -0.33, color: 'white' }}>{recommandations[0]?.titleName}</Text>
-                                            <Text style={{ fontWeight: '500', fontSize: 12, letterSpacing: -0.33, color: 'white', marginLeft: 20 }}>5.5⭐</Text>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft:20 }}>
+                                                <Icon name={"star"} color={"yellow"} size={22}  />
+                                                <Text style={{ fontWeight: '500', fontSize: 12, letterSpacing: -0.33, color: 'white', marginLeft: 5 }}>{recommandations[0]?.rate}</Text>
+                                            </View>
                                         </View>
                                         <View style={{ flexDirection: 'row' }}>
                                             <Text style={{ fontWeight: '300', fontSize: 13, letterSpacing: -0.33, color: 'white' }}>{recommandations[0]?.genre}</Text>

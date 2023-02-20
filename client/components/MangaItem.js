@@ -74,13 +74,16 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
                 </Card> */}
                 <TouchableWithoutFeedback onPress={goToMangaPage}>
                     <ImageBackground source={{ uri: mangaItem.coverImage }} style={{ width: 270, height: 200 }} imageStyle={{ borderRadius: 12 }} resizeMode='cover' blurRadius={0.5}>
-                        <View style={{ position: 'absolute', left: 10, bottom: 10 }}>
-                            <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }} onPress={goToMangaPage}>{mangaItem.titleName}</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <IconButton icon="star" color="yellow" size={24} />
-                                <Text style={{ fontWeight: '500', fontSize: 13, color: 'white' }}>{mangaItem.rate}</Text>
+                        <View style={{flex: 1, backgroundColor: 'rgba(0,0,0, 0.20)', borderRadius: 12}}>
+                            <View style={{ position: 'absolute', left: 10, bottom: 10 }}>
+                                <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }} onPress={goToMangaPage}>{mangaItem.titleName}</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <IconButton icon="star" color="yellow" size={24} />
+                                    <Text style={{ fontWeight: '500', fontSize: 13, color: 'white' }}>{mangaItem.rate}</Text>
 
+                                </View>
                             </View>
+
                         </View>
                     </ImageBackground>
 

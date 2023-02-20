@@ -45,14 +45,31 @@ exports.getCatalogueRecommandation = async (req, res) => {
             const recommandations = recommande(idUser, mangasRatedByUser)
             console.log("recommandations", recommandations);
             const catalogueRecommandations = [];
-            
+
             for (var i = 0; i < recommandations.length; i++) {
                 const recommandation = recommandations[i];
-                const queryCatalogue =  await db.query('SELECT * from manga WHERE manga."titleName" = $1', [recommandation[0]]);
+                const queryCatalogue = await db.query('SELECT * from manga WHERE manga."titleName" = $1', [recommandation[0]]);
                 catalogueRecommandations.push(queryCatalogue.rows[0])
             }
-           
-            res.status(200).json(catalogueRecommandations);
+            const mangaFavoris = result.rows;
+
+            sql = 'SELECT m."technicalName", ROUND(AVG(rate), 0) as rate from rates_manga rm INNER JOIN manga m ON m."idManga" = rm."idManga"\
+            GROUP BY "technicalName"';
+            await db.query(sql, [], (err, result) => {
+                if (err) {
+                    return console.error('Error executing query', err.stack)
+                }
+                const mangaRates = result.rows;
+
+                const catalogueWithRates = catalogueRecommandations.map((manga) => {
+                    manga.rate = (mangaRates.find(m => m.technicalName === manga.technicalName)) !== undefined ? mangaRates.find(m => m.technicalName === manga.technicalName).rate : null;
+                    return manga;
+                });
+                res.status(200).json(catalogueWithRates);
+                return
+            });
+
+
         });
     });
 }
