@@ -64,7 +64,7 @@ export default function Chapter({ route, navigation }) {
     }
   }
   return (
-    <View>
+    <View style={{flex:1, backgroundColor:'black' }}>
       <TouchableOpacity
         style={{ margin: 20 }}
         underlayColor='#fff' onPress={() => navigation.goBack()}

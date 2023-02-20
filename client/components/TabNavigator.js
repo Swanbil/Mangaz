@@ -41,25 +41,23 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                 },
                 tabBarActiveTintColor: '#C0A6F7',
                 tabBarInactiveTintColor: 'gray',
-                headerShown:false
+                headerShown: false
             })}
         >
 
             {isLog
                 ? (
                     <>
-                        <Tab.Screen name="Favoris">
-                            {(props) => <Favoris {...props} isLog={isLog} />}
-                        </Tab.Screen>
                         <Tab.Screen name="MangaHome">
                             {(props) => <MangaHomePage {...props} isLog={isLog} isSubscribe={isSubscribe} />}
                         </Tab.Screen>
                         <Tab.Screen name="Home">
-                            {(props) => <Home {...props} isLog={isLog} isSubscribe={isSubscribe}/>}
+                            {(props) => <Home {...props} isLog={isLog} isSubscribe={isSubscribe} getLogState={getLogState} getSubState={getSubState} />}
                         </Tab.Screen>
-                        <Tab.Screen name="Profile">
-                            {(props) => <ProfilePage {...props} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
+                        <Tab.Screen name="Favoris">
+                            {(props) => <Favoris {...props} isLog={isLog} />}
                         </Tab.Screen>
+                        
                     </>
 
                 )

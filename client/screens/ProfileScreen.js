@@ -6,6 +6,7 @@ import MenuProfile from '../components/MenuProfile';
 import axios from 'axios';
 import { API_URL } from '@env';
 import { getDataUser, removeDataUser } from '../utilities/localStorage';
+import { AntDesign } from '@expo/vector-icons';
 
 export default function ProfilePage({ navigation, isLog, getLogState, isSubscribe, getSubState }) {
     const [userInfos, setUserInfos] = useState();
@@ -49,14 +50,17 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
 
     return (
         <View style={styles.container}>
-            <View style={styles.blockUser}>
-                <UserProfile isLog={isLog} userInfos={userInfos} isSubscribe={isSubscribe} navigation={navigation} />
-            </View>
+            <TouchableOpacity
+                style={{ margin: 20 }}
+                underlayColor='#fff' onPress={() => navigation.navigate("TabNavigator", { screen: 'Home', merge: true})}
+            >
+                <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
+            </TouchableOpacity>
             <View style={styles.menu}>
                 <MenuProfile navigation={navigation} userInfos={userInfos} />
             </View>
             <View>
-                <TouchableOpacity onPress={handlePress} style={{ ...styles.logoutBtn, backgroundColor: '#5865F2'}}>
+                <TouchableOpacity onPress={handlePress} style={{ ...styles.logoutBtn, backgroundColor: '#5865F2' }}>
                     <Text style={styles.textButton}>Discord</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -100,6 +104,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingLeft: 10,
         paddingRight: 10,
-        fontWeight:'bold'
+        fontWeight: 'bold'
     }
 })

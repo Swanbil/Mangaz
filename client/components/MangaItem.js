@@ -36,7 +36,6 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
         setModalVisible(true)
     }
     const goToMangaPage = () => {
-        console.log(manga)
         navigation.navigate('MangaPage', { manga: manga, width: "xlarge" })
     }
 
@@ -64,22 +63,14 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
     if (width == "large") {
         return (
             <View style={{ marginBottom: 20, boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px", marginRight: 10 }}>
-                {/* <Card onPress={goToMangaPage} borderRadius={10} mode="contained">
-                    <Card.Title
-                        title={mangaItem.titleName} titleStyle={{ fontSize: 10}}
-                        subtitle={(mangaItem.rate) ?  mangaItem.rate + '⭐' : ''} subtitleStyle={{ fontSize: 8 }}
-                        right={(props) => <IconButton {...props} icon={mangaItem.isFavoris ? "heart-circle" : "heart-circle-outline"} color={mangaItem.isFavoris ? "#EFA8FF" : "#D7D7D7"} onPress={toogleMangaToFavoris.bind(this, mangaItem)} size={20} />}
-                    />
-                    <Card.Cover width={"100%"} source={{ uri: mangaItem.coverImage }} />
-                </Card> */}
                 <TouchableWithoutFeedback onPress={goToMangaPage}>
-                    <ImageBackground source={{ uri: mangaItem.coverImage }} style={{ width: 270, height: 200 }} imageStyle={{ borderRadius: 12 }} resizeMode='cover' blurRadius={0.5}>
+                    <ImageBackground source={{ uri: manga.coverImage }} style={{ width: 270, height: 200 }} imageStyle={{ borderRadius: 12 }} resizeMode='cover' blurRadius={0.5}>
                         <View style={{flex: 1, backgroundColor: 'rgba(0,0,0, 0.20)', borderRadius: 12}}>
                             <View style={{ position: 'absolute', left: 10, bottom: 10 }}>
-                                <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }} onPress={goToMangaPage}>{mangaItem.titleName}</Text>
+                                <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }} onPress={goToMangaPage}>{manga.titleName}</Text>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <IconButton icon="star" color="yellow" size={24} />
-                                    <Text style={{ fontWeight: '500', fontSize: 13, color: 'white' }}>{mangaItem.rate}</Text>
+                                    <Text style={{ fontWeight: '500', fontSize: 13, color: 'white' }}>{manga.rate}</Text>
 
                                 </View>
                             </View>

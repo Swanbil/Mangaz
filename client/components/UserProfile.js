@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image } from "react-native";
 import { Badge } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default function UserProfile({ isLog, userInfos, isSubscribe, navigation }) {
+export default function UserProfile({ isLog, userInfos, isSubscribe, navigation, getLogState, getSubState }) {
 
     return (
         <View style={[styles.userProfileContainer]}>
@@ -29,7 +29,7 @@ export default function UserProfile({ isLog, userInfos, isSubscribe, navigation 
             </View>
 
             <View style={styles.menuButton}>
-                <Icon name={"list-alt"} color={"#333"} size={22} onPress={() => navigation.navigate('Settings')} />
+                <Icon name={"list-alt"} color={"#333"} size={22} onPress={() => navigation.navigate('Profile')} />
             </View>
 
 
