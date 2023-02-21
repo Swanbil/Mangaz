@@ -6,7 +6,7 @@ import { getDataUser } from '../utilities/localStorage';
 import { API_URL } from '@env';
 import { RatingModal } from './RatingModal';
 
-const MangaItem = ({ navigation, manga, width, chapters }) => {
+const MangaItem = ({ navigation, manga, width, chapters, subTitle}) => {
     const [cardWidth, setCardWidth] = useState(width == "xlarge" ? "100%" : "30%");
     const [mangaItem, setMangaItem] = useState(manga);
     const [responseMessage, setResponseMessage] = useState('');
@@ -49,7 +49,6 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
             userPseudo: userPseudo,
             idManga: mangaItem.idManga
         };
-        console.log(payload)
         if (mangaItem.isFavoris) {
             setMangaItem((prevState) => ({ ...prevState, isFavoris: false }))
             await axios.post(`${API_URL}/manga/remove/favoris`, payload)
@@ -68,11 +67,14 @@ const MangaItem = ({ navigation, manga, width, chapters }) => {
                         <View style={{flex: 1, backgroundColor: 'rgba(0,0,0, 0.20)', borderRadius: 12}}>
                             <View style={{ position: 'absolute', left: 10, bottom: 10 }}>
                                 <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }} onPress={goToMangaPage}>{manga.titleName}</Text>
-                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                {manga.title 
+                                ? <Text style={{ fontWeight: '500', fontSize: 16, color: 'white' }} onPress={goToMangaPage}>{manga.number} - {manga.title}</Text>
+                                : <></>}
+                                {manga.rate ?(<View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <IconButton icon="star" color="yellow" size={24} />
                                     <Text style={{ fontWeight: '500', fontSize: 13, color: 'white' }}>{manga.rate}</Text>
 
-                                </View>
+                                </View>):<></>}
                             </View>
 
                         </View>

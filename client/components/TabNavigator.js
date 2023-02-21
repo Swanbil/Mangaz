@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getHeaderTitle } from '@react-navigation/elements';
 import { IconButton } from 'react-native-paper';
 import MangaHomePage from '../screens/MangaHomeScreen';
+import Wallet from '../screens/WalletScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -29,8 +30,8 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                     } else if (route.name === 'Profile') {
                         iconName = focused ? 'account-circle' : 'account-circle-outline';
                     }
-                    else if (route.name === 'Favoris') {
-                        iconName = focused ? 'heart-circle' : 'heart-circle-outline';
+                    else if (route.name === 'Wallet') {
+                        iconName = focused ? 'wallet' : 'wallet';
                     }
                     else if (route.name === 'MangaHome') {
                         iconName = focused ? 'book-open-page-variant' : 'book-open-variant';
@@ -54,8 +55,8 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                         <Tab.Screen name="Home">
                             {(props) => <Home {...props} isLog={isLog} isSubscribe={isSubscribe} getLogState={getLogState} getSubState={getSubState} />}
                         </Tab.Screen>
-                        <Tab.Screen name="Favoris">
-                            {(props) => <Favoris {...props} isLog={isLog} />}
+                        <Tab.Screen name="Wallet">
+                            {(props) => <Wallet {...props} isLog={isLog} isSubscribe={isSubscribe} />}
                         </Tab.Screen>
                         
                     </>

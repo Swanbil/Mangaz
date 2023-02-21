@@ -11,7 +11,7 @@ const Catalogue = ({ navigation, catalogue, pageName, widthMangaItem }) => {
                 : (
                     <View className="catalogue" style={{ flexGrow: 1, flexDirection: 'row', flexWrap:'wrap' }}>
                         {catalogue?.map((manga, idx) => (
-                            <MangaItem manga={manga} key={manga.idManga} navigation={navigation} width={widthMangaItem}/>
+                            <MangaItem manga={manga} key={manga?.title || manga.idManga} navigation={navigation} width={widthMangaItem} subTitle={manga?.title}/>
                         )
                         )}
                     </View>
