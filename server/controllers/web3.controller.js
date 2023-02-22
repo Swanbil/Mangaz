@@ -103,8 +103,8 @@ exports.getNftsUser = async (req, res) => {
 }
 
 exports.getNft = async (req, res) => {
-    const {asset_contract, idToken} = req.params;
-    const url = `https://testnets-api.opensea.io/api/v1/asset/${asset_contract}/${idToken}/`;
+    const {asset_contract, idToken, addressUser} = req.params;
+    const url = `https://testnets-api.opensea.io/api/v1/asset/${asset_contract}/${idToken}/?account_address=${addressUser}`;
 
     try {
         const response = await axios.get(url);

@@ -29,7 +29,11 @@ export default function Wallet({navigation }) {
     // Modal
     const [isModal, setIsModal] = useState(false);
 
-    const [cards, setCards] = useState([]);
+    const [galleryCard, setGalleryCard] = useState([]);
+
+    const [nftCard, setNftCard] = useState([]);
+
+
 
     const [loading, setLoading] = useState(false);
 
@@ -40,7 +44,7 @@ export default function Wallet({navigation }) {
 
     const killSession = React.useCallback(() => {
         return connector.killSession();
-        
+
     }, [connector]);
 
     const getBalance = React.useCallback(async () => {
@@ -53,8 +57,8 @@ export default function Wallet({navigation }) {
         let balance = await contract.balanceOf(connector.accounts[0]);
 
         setBalance(balance);
-    },[connector]);    
-    
+    },[connector]);
+
     async function exchangeTokens (_pseudoClient,  _pseudoSeller, _amountInput) {
 
         let tokenAddress = constTokenAddress;
@@ -164,7 +168,7 @@ export default function Wallet({navigation }) {
     /*
         Exchange nft
      */
-    
+
     //User click on button buy NFT
     async function  exchangeNFT(_idNft, _pseudoUserClient, _pseudoUserSeller) {
         let fromAdress = await getAdress(_pseudoUserSeller);  //Get the adress of the user
@@ -248,23 +252,35 @@ export default function Wallet({navigation }) {
             const addressWallet = { "addressWallet" : await getAdress(_pseudo) };
             const response = await axios.get(API_URL + '/web3/OpenSea/getNFTsUser/' + addressWallet.addressWallet);
             const data =response.data;
-            setCards(data.assets);
-            console.log("data : " + data.assets);
+            setGalleryCard(data.assets);
         }catch (e) {
             console.log(e);
         }
 
     }
+    const  retrieveNftUser = async (_contractAddress, _idNft, _addressUser) => {
+        try{
+            const response = await axios.get(API_URL + '/web3/OpenSea/getNFT/' + _contractAddress + '/' + _idNft + '/' + _addressUser);
 
-    const renderItem = ({ item }) => (
+            const data =response.data;
+            setNftCard(data);
+        }catch (e) {
+            console.log(e);
+        }
+    }
+
+    const renderGalleryCard = ({ item, nftCard }) => (
         <View style={styles.card}>
             <Image source={{ uri: item.image_thumbnail_url }} style={styles.cardImage} />
             <Text style={styles.cardTitle}>{item.name}</Text>
             <Text style={styles.cardDescription}>{item.description}</Text>
             <Text style={styles.cardDescription}>{item.collection.name}</Text>
+            <Text style={styles.cardDescription}>{nftCard.ownership.quantity}</Text>
             <Text>{item.traits && item.traits.length > 0 ? item.traits[0].value : ''}</Text>
         </View>
     );
+
+
 
     const OpenPackAllCards = async () => {
 
@@ -300,22 +316,18 @@ export default function Wallet({navigation }) {
         await wait(5000); // Attendre 2 secondes
         setLoading(false);
     }
-    const OpenPackByCollection = async (_collection_name) => {
-
-    }
-
-
-    const TradeNft = async () => {
-
-    }
-
-   getBalance();
 
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
     useEffect( () => {
+        getBalance();
         checkPrivateKey();
         retrieveAllNftUser("Test");
+        retrieveNftUser("0xf4910C763eD4e47A585E2D34baA9A4b611aE448C", "52533172023506293915391019623418931016068562095263527016541014978744895406085", "0x7424b8bfD8dB7d8Ed37cd7751a3C9F31f7467940");
     }, []);
+
+
+
+
 
 
     return (
@@ -362,8 +374,8 @@ export default function Wallet({navigation }) {
             </View>
 
             <FlatList
-                data={cards}
-                renderItem={renderItem}
+                data={galleryCard}
+                renderItem={({ item }) => renderGalleryCard({ item, nftCard })}
                 keyExtractor={(item) => item.id.toString()}
                 style={styles.container}
             />
