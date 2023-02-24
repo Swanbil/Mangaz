@@ -5,13 +5,14 @@ import Login from '../screens/Login';
 import Register from '../screens/Register';
 import MangaPage from '../screens/MangaPage';
 import History from '../screens/History';
-import Wallet from '../screens/Wallet';
+import Wallet from '../utilities/Wallet';
 import TabNavigator from './TabNavigator';
 import Chapter from './Chapter';
 import MenuProfile from './MenuProfile';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Settings from '../screens/Settings';
 import Subscribe from '../screens/Subscribe';
+import Web3Home from "../screens/Web3Home";
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, getSubState }) => {
@@ -77,6 +78,11 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, ge
                 headerShown: false
             })} >
                 {(props) => <Subscribe {...props} isSubscribe={isSubscribe} getSubState={getSubState}/>}
+            </Stack.Screen>
+            <Stack.Screen name="Web3Home" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <Web3Home {...props} />}
             </Stack.Screen>
         </Stack.Navigator>
 

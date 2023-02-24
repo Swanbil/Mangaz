@@ -7,7 +7,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getHeaderTitle } from '@react-navigation/elements';
 import { IconButton } from 'react-native-paper';
-import Wallet from '../screens/Wallet';
+import Wallet from '../utilities/Wallet';
 
 
 const Tab = createBottomTabNavigator();

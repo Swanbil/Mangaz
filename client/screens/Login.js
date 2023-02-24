@@ -55,7 +55,7 @@ const Login = ({ navigation, getLogState, getSubState }) => {
 
             <TouchableOpacity
                 style={styles.buttonRegister}
-                onPress={() => navigation.navigate('Wallet')}
+                onPress={() => navigation.navigate('Web3Home')}
                 underlayColor='#fff'
             >
                 <Text style={styles.textButton}>Go Wallet</Text>

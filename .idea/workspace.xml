@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/client/screens/Web3Home.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/utilities/Wallet.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/screens/Wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Wallet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/web3.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/web3.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/web3.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/web3.routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/Utils/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/Utils/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/components/AppNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/components/AppNavigator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/components/TabNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/components/TabNavigator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/screens/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/screens/Wallet.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +53,7 @@
       <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\Utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\utilities" />
       <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\assets" />
     </key>
   </component>
@@ -66,7 +73,10 @@
       <workItem from="1675955974951" duration="21395000" />
       <workItem from="1676020936928" duration="1348000" />
       <workItem from="1676559833755" duration="28757000" />
-      <workItem from="1677088945060" duration="6457000" />
+      <workItem from="1677088945060" duration="15599000" />
+      <workItem from="1677106893141" duration="498000" />
+      <workItem from="1677107408426" duration="969000" />
+      <workItem from="1677270280279" duration="12335000" />
     </task>
     <servers />
   </component>
@@ -79,11 +89,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/controllers/web3.controller.js</url>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/controllers/web3.controller.js</url>
-          <line>143</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
