@@ -184,39 +184,65 @@ export default function Web3Home({ navigation }) {
             </TouchableOpacity>
         </View>*/
 
-        <View style={styles.header}>
-            <View style={styles.header.profile}>
-                <View style={styles.header.profile.profilePicture}>
-                    <Image source={require('../assets/konosuba-dance.gif')} style={styles.header.profile.image} />
+        <View style={styles.backgroundCollabDark}>
+            <View style={styles.header}>
+                <View style={styles.header.profile}>
+                    <View style={styles.header.profile.profilePicture}>
+                        <Image source={require('../assets/konosuba-dance.gif')} style={styles.header.profile.image} />
+                    </View>
+                    <View style={styles.header.profile.profileInformations}>
+                        <Text style={styles.header.profile.profileInformations.pseudo}>{pseudo}</Text>
+                        <Text style={styles.header.profile.profileInformations.address}>{address.slice(0,5) + "..." + address.slice(-4)}</Text>
+                        <Text style={styles.header.profile.profileInformations.numberNft}>Nft possedés : {listNft.length}</Text>
+                    </View>
                 </View>
-                <View style={styles.header.profile.profileInformations}>
-                    <Text style={styles.header.profile.profileInformations.pseudo}>{pseudo}</Text>
-                    <Text style={styles.header.profile.profileInformations.address}>{address.slice(0,5) + "..." + address.slice(-4)}</Text>
-                    <Text style={styles.header.profile.profileInformations.numberNft}>Nft possedés : {listNft.length}</Text>
+
+                <View style={styles.header.zenCash}>
+                    <View style={styles.header.zenCash.backgroundZ}>
+                        <View style={styles.header.zenCash.picture}>
+                            <Image source={require('../assets/konosuba-dance.gif')} style={styles.header.profile.image}/>
+                        </View>
+                        <Text style={styles.header.zenCash.balance}>{balance.toLocaleString()}</Text>
+                    </View>
+
                 </View>
             </View>
-
-
         </View>
+
+
 
     );
 }
 
 
 const styles = StyleSheet.create({
+
+    backgroundCollabDark : {
+        position: 'absolute',
+        width: 430.58,
+        height: 406,
+        left: -13.4,
+        top: -4,
+        backgroundColor: 'rgba(0, 0, 0, 0.26)',
+    },
+
     header: {
+        position: 'relative',
+        display: 'flex',
+
+
+
+
         profile : {
             marginLeft : '8%',
             marginTop : '10%',
-            position: 'absolute',
+            position: 'relative',
             width: 200,
             height: 83,
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center', // add this line
-            backgroundColor: '#1A1A1A',
-
 
             profilePicture : {
                 width: 100,
@@ -277,10 +303,52 @@ const styles = StyleSheet.create({
         },
 
         zenCash : {
-            picture : {
+            position: 'relative',
+            width: 80,
+            height: 36.02,
+            left: -10,
 
+            display: 'flex',
+            flexDirection: 'row',
+            alignContent: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+
+
+
+
+            backgroundZ : {
+                position: 'relative',
+                width: 65,
+                height: 27,
+                left: 292,
+                top: 65,
+                backgroundColor: '#FFFFFF',
+                shadowColor: '#FDFDFD',
+                shadowOffset: {
+                    width: 1,
+                    height: 4,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: -1,
+                borderRadius: 17,
+            },
+
+            picture : {
+                position: 'relative',
+                left : '-50%',
+                width: 50,
+                height: 50,
             },
             balance : {
+                position: 'relative',
+                fontFamily: 'Ubuntu',
+                fontStyle: 'normal',
+                fontWeight: '400',
+                fontSize: 13,
+                lineHeight: 15,
+                textAlign: 'center',
+                color: '#EDEDED',
 
             },
             button : {
