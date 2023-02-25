@@ -16,6 +16,7 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
 
   const [isLoading, setLoading] = useState(false);
   const [userInfos, setUserInfos] = useState();
+  const [userStats, setUserStats] = useState(null);
 
   useFocusEffect(
     useCallback(() => {
@@ -25,6 +26,7 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
 
   useEffect(() => {
     getUserInfos();
+    getUserStats()
   }, []);
 
   const getUserInfos = async () => {
@@ -37,6 +39,19 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
         console.log(error);
       }
     }
+  }
+
+  const getUserStats = async () => {
+    const { userPseudo } = await getDataUser();
+    if (userPseudo) {
+      try {
+        const response = await axios.get(`${API_URL}/user/${userPseudo}/stats`);
+        setUserStats(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
   }
 
   const getHistoryReadChapters = async () => {
@@ -54,7 +69,6 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
         setLoading(false);
       }
     }
-
   }
 
   if (isLog) {
@@ -65,7 +79,7 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
             ? <ActivityIndicator style={{ flex: 1 }} />
             : (
               <>
-                <UserProfile userInfos={userInfos} navigation={navigation} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState}/>
+                <UserProfile userInfos={userInfos} navigation={navigation} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} stats={userStats}/>
                 <View style={{ padding: 15 }}>
 
                   <View style={{ ...styles.shadowProp, ...styles.blockHome, ...{ backgroundColor: "#D1F1FF" } }}>

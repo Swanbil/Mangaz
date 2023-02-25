@@ -286,6 +286,25 @@ exports.getSubscriptionUserStripe = async (req, res) => {
     const isSubscribe = await isUserSubscribe(userPseudo);
     res.status(200).send({ active: isSubscribe });
     return;
+}
 
+exports.getUserStats = async (req, res) => {
+    const { userPseudo } = req.params;
 
+    const sql = 'SELECT COUNT(*) as mangasRead from history_read_chapter hm\
+    INNER JOIN users u on hm."idUser" = u."idUser"\
+    INNER JOIN chapter ON chapter."idChapter"=hm."idChapter"\
+    INNER JOIN manga ON manga."idManga"=chapter."idManga"\
+    where u.pseudo = $1';
+    await db.query(sql, [userPseudo], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(404).send({ message: "An error occurred during the fetching" });
+            return;
+        }
+        const mangasRead = result.rows[0].mangasread;
+        //TODO : get number nft of users
+        res.status(200).send({ mangasRead : mangasRead, nfts : 3 });
+        return;
+    })
 }

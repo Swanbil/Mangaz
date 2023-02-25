@@ -8,6 +8,7 @@ router.post('/chapter/history/save', userController.saveChapterRead);
 router.get('/user/:userPseudo/mangas/favoris', userController.getMangasFavoris);
 router.get('/user/:userPseudo/mangas/rated', userController.getMangasRated);
 router.get('/user/:userPseudo', userController.getUserInfos);
+router.get('/user/:userPseudo/stats', userController.getUserStats);
 router.post('/user/subscribe', userController.subscribe);
 router.get('/user/:userPseudo/subscribe', userController.getUserSubscribeValid);
 router.get('/user/:userPseudo/subscription/me', userController.getSubscriptionUserStripe)

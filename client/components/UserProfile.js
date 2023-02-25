@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Linking } from "react-
 import { Badge } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default function UserProfile({ isLog, userInfos, isSubscribe, navigation, getLogState, getSubState }) {
+export default function UserProfile({ isLog, userInfos, isSubscribe, navigation, getLogState, getSubState, stats }) {
 
     const handlePress = async () => {
         const url = 'https://discord.gg/qgYxvS2j';
@@ -36,11 +36,11 @@ export default function UserProfile({ isLog, userInfos, isSubscribe, navigation,
                 </View>
                 <View style={styles.blockTextInfos}>
                     <Text style={styles.textLabel}>Mangas read: </Text>
-                    <Text style={styles.textInfos}>120</Text>
+                    <Text style={styles.textInfos}>{stats?.mangasRead}</Text>
                 </View>
                 <View style={styles.blockTextInfos}>
                     <Text style={styles.textLabel}>Nfts:  </Text>
-                    <Text style={styles.textInfos}>3</Text>
+                    <Text style={styles.textInfos}>{stats?.nfts}</Text>
                 </View>
             </View>
 
