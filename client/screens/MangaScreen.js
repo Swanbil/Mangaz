@@ -17,7 +17,6 @@ const MangaPage = ({ route, navigation }) => {
 
     useEffect(() => {
         getChapters();
-        console.log(manga, mangaItem)
     }, [manga]);
 
     const getChapters = async () => {

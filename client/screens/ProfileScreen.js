@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Linking, ImageBackground, ImageBackgroundBase, Image } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import UserProfile from '../components/UserProfile';
-import MenuProfile from '../components/MenuProfile';
 import axios from 'axios';
 import { API_URL } from '@env';
 import { getDataUser, removeDataUser } from '../utilities/localStorage';
@@ -11,6 +8,7 @@ import { Badge } from 'react-native-paper';
 import Catalogue from '../components/Catalogue';
 import { useFocusEffect } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/Feather';
 
 export default function ProfilePage({ navigation, isLog, getLogState, isSubscribe, getSubState }) {
     const [userInfos, setUserInfos] = useState();
@@ -61,23 +59,8 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
         navigation.navigate('Login');
     }
 
-    const handlePress = async () => {
-        const url = 'https://discord.gg/qgYxvS2j';
-        try {
-            const supported = await Linking.canOpenURL(url);
-            if (supported) {
-                await Linking.openURL(url);
-            } else {
-                console.log(`Lien non valide: ${url}`);
-            }
-        } catch (error) {
-            console.log(`Une erreur s'est produite: ${error}`);
-        }
-    };
-
     return (
         <View style={styles.container}>
-
             <ScrollView>
                 <View>
                     <ImageBackground source={{ uri: "https://c4.wallpaperflare.com/wallpaper/965/883/624/manga-one-piece-wallpaper-preview.jpg" }} resizeMode='cover' style={{ height: 164 }}>
@@ -95,8 +78,12 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
                             </View>
                         </View>
                     </ImageBackground>
+
                     <View style={{ padding: 8 }}>
-                        <View style={{ alignItems: 'flex-end' }}>
+                        <View style={{flexDirection:'row', alignItems: 'center', justifyContent:'flex-end' }}>
+                            <View style={styles.menuButton}>
+                                <Icon name={"settings"} color={"#333"} size={22} onPress={() => navigation.navigate('Settings')} />
+                            </View>
                             <TouchableOpacity style={{ borderRadius: 25, padding: 6, backgroundColor: '#F2BB13', width: 96 }} onPress={() => navigation.navigate('Subscribe')}>
                                 <Text style={{ color: 'white', fontSize: 10, fontWeight: '700' }}>{isSubscribe ? "My subscription" : "Become Premium"}</Text>
                             </TouchableOpacity>
@@ -123,11 +110,8 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
 
 
                 </View>
-                
+
                 <View>
-                    <TouchableOpacity onPress={handlePress} style={{ ...styles.logoutBtn, backgroundColor: '#5865F2' }}>
-                        <Text style={styles.textButton}>Discord</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.logoutBtn}
                         onPress={logout}
@@ -173,5 +157,16 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         fontWeight: 'bold'
+    },
+    menuButton: {
+        marginRight: 30,
+        padding: 5,
+        borderWidth: 2,
+        borderColor: '#FFFFFF',
+        borderRadius: 15,
+        shadowOffset: { width: 1, height: 2 },
+        shadowRadius: 2,
+        shadowColor: '#333',
+        shadowOpacity: 0.1,
     }
 })
