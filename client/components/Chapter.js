@@ -20,6 +20,7 @@ export default function Chapter({ route, navigation }) {
   const NUMBER_PAGE_TO_READ = 10;
 
   useEffect(() => {
+    setCurrentIndex(0)
     getPagesOfChapter();
   }, [chapterNumber]);
 
@@ -30,7 +31,7 @@ export default function Chapter({ route, navigation }) {
     setCurrentPage(response.data.pages[0]);
   }
 
-  
+
   const isUserHistoryCanBeSaved = () => {
     if (numberPageRead > NUMBER_PAGE_TO_READ && !isUserHistorySaved) {
       return true
@@ -63,8 +64,15 @@ export default function Chapter({ route, navigation }) {
       setNumberPageRead(prevState => prevState + 1);
     }
   }
+
+  const goToNextChapter = () => {
+    navigation.navigate('Chapter', { chapterNumber: chapterNumber + 1, mangaTitle: mangaTitle });
+  }
+  const goToPreviousChapter = () => {
+    navigation.navigate('Chapter', { chapterNumber: chapterNumber - 1, mangaTitle: mangaTitle });
+  }
   return (
-    <View style={{flex:1, backgroundColor:'black' }}>
+    <View style={{ flex: 1, backgroundColor: 'black' }}>
       <TouchableOpacity
         style={{ margin: 20 }}
         underlayColor='#fff' onPress={() => navigation.goBack()}
@@ -98,7 +106,18 @@ export default function Chapter({ route, navigation }) {
           flexDirection: "row",
           marginTop: 10,
           alignItems: "center",
+          justifyContent: 'space-between'
         }}>
+          {chapterNumber - 1 > 0
+            ? (<TouchableOpacity
+              style={{ padding: 5, borderWidth: 2, borderColor: "#C0A6F7", borderRadius: 15, marginHorizontal: 25 }}
+              underlayColor='#fff' onPress={goToPreviousChapter}
+            >
+              <Text style={{ color: 'white' }}>{chapterNumber - 1 > 0 ? "Chapt. " + (chapterNumber - 1) : ""}</Text>
+            </TouchableOpacity>)
+            : (<TouchableOpacity style={{ padding: 5, borderWidth: 2, borderRadius: 15, marginHorizontal: 25 }}><Text>{"Chapt. " + (chapterNumber - 1)}</Text></TouchableOpacity>)
+          }
+
 
           <RNPickerSelect
             onValueChange={(value) => selectPage(value)}
@@ -116,6 +135,12 @@ export default function Chapter({ route, navigation }) {
               return <Ionicons name="chevron-down-outline" size={16} color="black" />;
             }}
           />
+          <TouchableOpacity
+            style={{ padding: 5, borderWidth: 2, borderColor: "#C0A6F7", borderRadius: 15, marginHorizontal: 25 }}
+            underlayColor='#fff' onPress={goToNextChapter}
+          >
+            <Text style={{ color: 'white' }}>Chapt. {chapterNumber + 1}</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
