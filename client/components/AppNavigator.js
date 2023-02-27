@@ -14,6 +14,7 @@ import Settings from '../screens/SettingsScreen';
 import Subscribe from '../screens/SubscribeScreen';
 import Payment from '../screens/PaymentScreen';
 import ProfilePage from '../screens/ProfileScreen';
+import SearchScreen from '../screens/SearchScreen';
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, getSubState }) => {
@@ -89,6 +90,11 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, ge
                 headerShown: false
             })} >
                 {(props) => <ProfilePage {...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
+            </Stack.Screen>
+            <Stack.Screen name="Search" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <SearchScreen {...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
             </Stack.Screen>
         </Stack.Navigator>
 

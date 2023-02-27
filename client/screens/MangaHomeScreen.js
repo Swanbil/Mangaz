@@ -15,8 +15,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
     const [catalogue, setCatalogue] = useState([]);
     const [recommandations, setRecommandations] = useState([]);
-    const [filteredCatalogue, setFilteredCatalogue] = useState([])
-    const [searchQuery, setSearchQuery] = useState('');
     const [isLoading, setLoading] = useState(false);
 
     useFocusEffect(
@@ -35,7 +33,6 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                 const response = await axios.get(API_URL + `/manga/catalogue/${userPseudo}`);
                 const data = response.data;
                 setCatalogue(data);
-                setFilteredCatalogue(data);
             }
             catch (error) {
                 console.error(error);
@@ -62,31 +59,19 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                 setLoading(false);
             }
         }
+    }
 
-    }
-    const onSearchingManga = (value) => {
-        const valueLowerCase = value.toLowerCase();
-        setSearchQuery(value);
-        if (value.length < 2) {
-            setFilteredCatalogue(catalogue);  //if no more thant two char in text search => reset catalogue to all mangas
-            return;
-        }
-        setFilteredCatalogue(catalogue.filter((manga) => manga.titleName.toLowerCase().includes(valueLowerCase) || manga.technicalName.toLowerCase().includes(valueLowerCase)));
-    }
     return (
         <View style={styles.container}>
             <ScrollView>
                 <View>
                     <ImageBackground source={{ uri: "https://leclaireur.fnac.com/wp-content/uploads/2023/01/jujutsu-header.jpg" }} resizeMode="cover" blurRadius={10} >
                         <View style={{ padding: 20 }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Searchbar
-                                    placeholder="Search a manga"
-                                    onChangeText={(value) => onSearchingManga(value)}
-                                    value={searchQuery}
-                                    style={{ width: 252, height: 45, borderRadius: 25, backgroundColor: '#EDEDED' }}
-                                    iconColor='#333'
-                                />
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                <TouchableOpacity style={{padding:8, backgroundColor:'#EEEEEE', borderRadius:25, flexDirection:'row', alignItems:'center'}} onPress={() => navigation.navigate('Search')}>
+                                    <Icon name={"search"} size={18} color={''} />
+                                    <Text style={{marginLeft:5}}>Search Mangas</Text>
+                                </TouchableOpacity>
                                 <View style={{ marginLeft: 10 }}>
                                     <Image source={{ uri: "https://img.wattpad.com/6d13c0a6090e0e3b8851180426edf247b461205f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f376a68464955746e42735a3750773d3d2d3937393137353136322e313634356663326464396631393063383933353132383638303036322e6a7067?s=fit&w=720&h=720" }}
                                         style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
@@ -106,8 +91,8 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                                     <View style={{ flexDirection: 'column', marginLeft: 20 }}>
                                         <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
                                             <Text style={{ fontWeight: '700', fontSize: 16, letterSpacing: -0.33, color: 'white' }}>{recommandations[0]?.titleName}</Text>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft:20 }}>
-                                                <Icon name={"star"} color={"yellow"} size={22}  />
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20 }}>
+                                                <Icon name={"star"} color={"yellow"} size={22} />
                                                 <Text style={{ fontWeight: '500', fontSize: 12, letterSpacing: -0.33, color: 'white', marginLeft: 5 }}>{recommandations[0]?.rate}</Text>
                                             </View>
                                         </View>
@@ -127,14 +112,14 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                 <View style={{ padding: 20 }}>
                     <View>
                         <Text style={{ fontWeight: '700', fontSize: 22 }}>Catalogue</Text>
-                        <View style={{ marginTop: 5 }}>
-                            <Catalogue navigation={navigation} catalogue={filteredCatalogue} pageName="Home" widthMangaItem="large" />
+                        <View style={{ marginTop: 15 }}>
+                            <Catalogue navigation={navigation} catalogue={catalogue} pageName="Home" widthMangaItem="large" />
                         </View>
 
                     </View>
-                    <View>
+                    <View style={{ marginTop: 15 }}>
                         <Text style={{ fontWeight: '700', fontSize: 22 }}>Recommandations</Text>
-                        <View style={{ marginTop: 5 }}>
+                        <View style={{ marginTop: 15 }}>
                             <Catalogue navigation={navigation} catalogue={recommandations} pageName="Home" widthMangaItem="large" />
                         </View>
                     </View>
