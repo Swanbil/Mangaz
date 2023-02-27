@@ -31,33 +31,10 @@ const MangaItem = ({ navigation, manga, width, chapters, subTitle }) => {
         }
     }
 
-    const onShowModal = () => {
-        setResponseMessage('');
-        setModalVisible(true)
-    }
     const goToMangaPage = () => {
         navigation.navigate('MangaPage', { manga: manga, width: "xlarge" })
     }
 
-    const goToChapter = (chapterNumber) => {
-        navigation.navigate('Chapter', { chapterNumber: chapterNumber, mangaTitle: mangaItem.technicalName });
-    }
-
-    const toogleMangaToFavoris = async (manga) => {
-        const { userPseudo } = await getDataUser();
-        const payload = {
-            userPseudo: userPseudo,
-            idManga: mangaItem.idManga
-        };
-        if (mangaItem.isFavoris) {
-            setMangaItem((prevState) => ({ ...prevState, isFavoris: false }))
-            await axios.post(`${API_URL}/manga/remove/favoris`, payload)
-        }
-        else {
-            setMangaItem((prevState) => ({ ...prevState, isFavoris: true }))
-            await axios.post(`${API_URL}/manga/add/favoris`, payload)
-        }
-    }
 
     if (width == "large") {
         return (
@@ -90,7 +67,7 @@ const MangaItem = ({ navigation, manga, width, chapters, subTitle }) => {
         return (
             <View style={{ marginBottom: 20, boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px", marginRight: 10 }}>
                 <TouchableWithoutFeedback onPress={goToMangaPage}>
-                    <ImageBackground source={{ uri: manga.coverImage }} style={{ width: 334, height: 122 }} imageStyle={{ borderRadius: 12 }} resizeMode='cover' blurRadius={1}>
+                    <ImageBackground source={{ uri: manga.coverImage_large }} style={{ width: 334, height: 122 }} imageStyle={{ borderRadius: 12 }} resizeMode='cover' blurRadius={1}>
                         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0, 0.20)', borderRadius: 12, justifyContent:'center' }}>
                             <View style={{ position: 'absolute', flexDirection:'row', alignItems:'center', padding:12 }}>
                                 <View>

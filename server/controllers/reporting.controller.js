@@ -4,7 +4,7 @@ const { getRateOfManga } = require('../utilities/global-functions');
 exports.getUserHistoryMangaRead = async (req, res) => {
     const userPseudo = req.params.userPseudo;
 
-    const sql = 'SELECT m."idManga", hc."readDate", u.pseudo, c."number", c."title", m."titleName", m."technicalName", m."coverImage", m.description FROM history_read_chapter hc INNER JOIN chapter c on c."idChapter" = hc."idChapter"\
+    const sql = 'SELECT m."idManga", hc."readDate", u.pseudo, c."number", c."title", m."titleName", m."technicalName", m."coverImage",m."coverImage_large", m.description FROM history_read_chapter hc INNER JOIN chapter c on c."idChapter" = hc."idChapter"\
     INNER JOIN manga m ON m."idManga" = c."idManga" INNER JOIN users u ON hc."idUser" = u."idUser" WHERE u.pseudo = $1';
 
     await db.query(sql, [userPseudo], async (err, result) => {

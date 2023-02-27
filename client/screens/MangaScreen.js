@@ -107,7 +107,7 @@ const MangaPage = ({ route, navigation }) => {
                         {chapters.map((chapter) => {
                             return (
                                 <View key={chapter.number} style={{ height: 95, marginTop: 10 }}>
-                                    <ImageBackground source={{ uri: manga?.coverImage }} resizeMode='cover' blurRadius={1} imageStyle={{ borderRadius: 15 }}>
+                                    <ImageBackground source={{ uri: manga?.coverImage_large }} resizeMode='cover' blurRadius={1} imageStyle={{ borderRadius: 15 }}>
                                         <View style={{ backgroundColor: 'rgba(0,0,0, 0.20)', borderRadius: 12 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', padding: 5 }}>
                                                 <Image source={{ uri: "https://lh4.googleusercontent.com/p5iZUn5MyFNbRFzX9YDnqy5sTY463N3QqDqgdt6_ZWlXAWuv8Kr3-HLipWUrqieUdhE1Yv5dK9n4RnwSvnYEdTqBiFzKaOOg4_rSLKWoGo9gqsARU-Ei_d3cqiL3uy2oMWoYseuXeOKXK_aY_OisCoI" }}
