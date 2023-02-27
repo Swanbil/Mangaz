@@ -65,13 +65,13 @@ const MangaItem = ({ navigation, manga, width, chapters, subTitle}) => {
                 <TouchableWithoutFeedback onPress={goToMangaPage}>
                     <ImageBackground source={{ uri: manga.coverImage }} style={{ width: 270, height: 200 }} imageStyle={{ borderRadius: 12 }} resizeMode='cover' blurRadius={0.5}>
                         <View style={{flex: 1, backgroundColor: 'rgba(0,0,0, 0.20)', borderRadius: 12}}>
-                            <View style={{ position: 'absolute', left: 10, bottom: 10 }}>
-                                <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }} onPress={goToMangaPage}>{manga.titleName}</Text>
+                            <View style={{ position: 'absolute', left: 10, bottom: 10, }}>
+                                <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }} onPress={manga.title ? () => null : goToMangaPage}>{manga.titleName}</Text>
                                 {manga.title 
-                                ? <Text style={{ fontWeight: '500', fontSize: 16, color: 'white' }} onPress={goToMangaPage}>{manga.number} - {manga.title}</Text>
+                                ? <Text style={{ fontWeight: '500', fontSize: 16, color: 'white' }} >{manga.number} - {manga.title}</Text>
                                 : <></>}
                                 {manga.rate ?(<View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <IconButton icon="star" color="yellow" size={24} />
+                                    <IconButton icon="star" color="yellow" size={24}/>
                                     <Text style={{ fontWeight: '500', fontSize: 13, color: 'white' }}>{manga.rate}</Text>
 
                                 </View>):<></>}

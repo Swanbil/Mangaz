@@ -1,6 +1,7 @@
 const db = require('../config/database');
 const bcrypt = require('bcryptjs');
 const { getCurrentDate, getDateInOneMonth } = require('../utilities/date');
+const { getRateOfManga } = require('../utilities/global-functions');
 const stripe = require("stripe")(process.env.STRIPE_SK_KEY_TEST);
 
 const isUserSubscribe = async (userPseudo) => {
@@ -14,7 +15,7 @@ const isUserSubscribe = async (userPseudo) => {
                     resolve(false);
                     return
                 }
-                let stripeId = result.rows[result.rows.length -1]?.stripe_id;
+                let stripeId = result.rows[result.rows.length - 1]?.stripe_id;
                 if (!stripeId) {
                     resolve(false);
                     return
@@ -157,15 +158,17 @@ exports.getMangasFavoris = async (req, res) => {
     sql = 'SELECT m."coverImage", m."createdDate", m.description, m.genre, m."idManga", m."popularityRank", m."technicalName", m."titleName"\
            FROM users_favoris uf INNER JOIN manga m ON m."idManga" = uf."idManga" INNER JOIN users u ON u."idUser" = uf."idUser"\
            WHERE u.pseudo = $1';
-    await db.query(sql, [userPseudo], (err, result) => {
+    await db.query(sql, [userPseudo], async (err, result) => {
         if (err) {
             return console.error('Error executing query', err.stack)
         }
         let mangaFavoris = result.rows;
-        mangaFavoris = mangaFavoris.map((manga) => {
-            manga.isFavoris = true;
-            return manga;
-        });
+        let newMangaFavoris = [];
+        for (var i = 0; i < result.rows.length; i++) {
+            result.rows[i].isFavoris = true;
+            result.rows[i].rate = await getRateOfManga(result.rows[i].idManga);
+            newMangaFavoris.push(result.rows[i])
+        }
         res.status(200).send({ mangaFavoris: mangaFavoris });
         return;
     })
@@ -304,7 +307,7 @@ exports.getUserStats = async (req, res) => {
         }
         const mangasRead = result.rows[0].mangasread;
         //TODO : get number nft of users
-        res.status(200).send({ mangasRead : mangasRead, nfts : 3 });
+        res.status(200).send({ mangasRead: mangasRead, nfts: 3 });
         return;
     })
 }
