@@ -3,7 +3,7 @@ import Home from '../screens/HomeScreen';
 import HeaderNavigator from './HeaderNavigator';
 import ProfilePage from '../screens/ProfileScreen';
 import Favoris from '../screens/FavorisScreen';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getHeaderTitle } from '@react-navigation/elements';
 import { IconButton } from 'react-native-paper';
@@ -38,11 +38,13 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                     }
 
                     // You can return any component that you like here!
-                    return <IconButton icon={iconName} size={size} color={color} />;
+                    return <IconButton icon={iconName} size={32} color={color} />;
                 },
-                tabBarActiveTintColor: '#C0A6F7',
-                tabBarInactiveTintColor: 'gray',
-                headerShown: false
+                tabBarActiveTintColor: '#333',
+                tabBarInactiveTintColor: 'white',
+                headerShown: false,
+                tabBarStyle : {position:'absolute', bottom:10, marginHorizontal:30, backgroundColor:'#CFB2E1', borderRadius:32, height:60, opacity:0.95}
+                
             })}
         >
 
@@ -58,7 +60,7 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                         <Tab.Screen name="Wallet">
                             {(props) => <Wallet {...props} isLog={isLog} isSubscribe={isSubscribe} />}
                         </Tab.Screen>
-                        
+
                     </>
 
                 )
