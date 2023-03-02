@@ -17,6 +17,8 @@ import { contractTokenABI, constTokenAddress, constNftAddress, contractNftABI, c
 //Import Wallet.js
 import * as walletUtils from '../utilities/Wallet.js';
 
+
+
 export default function Web3Home({ navigation }) {
 
     /* ---------------------- */
@@ -25,13 +27,13 @@ export default function Web3Home({ navigation }) {
     const [pseudo, setPseudo] = useState("");
 
     //Current address
-    let [address, setAddress] = useState("");
+    const [address, setAddress] = useState("");
 
     //Wallet Connect
     const connector = useWalletConnect();
 
     // Get the balance of the connected wallet
-    let [balance, setBalance] = useState(0);
+    const [balance, setBalance] = useState(0);
 
     // Get the private key of the connected wallet
     const [privateKeyInput, setPrivateKeyInput] = useState('');
@@ -40,13 +42,14 @@ export default function Web3Home({ navigation }) {
     const [isModal, setIsModal] = useState(false);
 
     // list of NFT
-    let [listNft, setListNft] = useState([]);
+    const [listNft, setListNft] = useState([]);
 
     // NFT
-    let [nfts, setNfts] = useState([]);
+    const [nfts, setNfts] = useState([]);
 
     // Loading
     const [loading, setLoading] = useState(false);
+
 
 
 /*  ------ Link with Metamask------
@@ -64,37 +67,43 @@ export default function Web3Home({ navigation }) {
 */
 
 
+
     /* ---------------------- */
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
     useEffect(() => {
-        setPseudo("U");
+
         const fetchData = async () => {
-            // Get the address of the connected wallet
-            await walletUtils.getAddress("U").then((address) => {
-                setAddress(address);
-            });
 
-            // Get the balance of the connected wallet
-            await walletUtils.getBalance("U").then((balance) => {
-                setBalance(balance);
-            });
+            setPseudo("Test");
 
-            await walletUtils.getAllNftUser("0x7424b8bfD8dB7d8Ed37cd7751a3C9F31f7467940").then((listIdNft) => {
-                setListNft(listIdNft);
-            });
-
-            // //Get the list of nfts of the user
-            /*
-                for (let i = 0; i < listNft.length; i++) {
-                    console.log("listIdNft[i].id : " + listNft[i].token_id);
-                    await walletUtils.getNftUser(contractNftOpenSeaAddress, listNft[i].token_id.justifyContent, address).then(r =>
-                    setNfts(nfts => [...nfts, r]));
+            let userAddress = address;
+                if (!userAddress) {
+                    userAddress = await walletUtils.getAddress(pseudo);
+                    setAddress(userAddress);
                 }
-             */
 
-        }
-        fetchData()
-    }, [])
+                // Get the balance of the connected wallet
+                await walletUtils.getBalance(pseudo).then((balance) => {
+                    setBalance(balance)
+                });
+
+                if (userAddress) {
+                    await walletUtils.getAllNftUser(userAddress).then((listIdNft) => {
+                        setListNft(listIdNft);
+                    });
+                }
+
+                // //Get the list of nfts of the user
+                /*
+                    for (let i = 0; i < listNft.length; i++) {
+                        console.log("listIdNft[i].id : " + listNft[i].token_id);
+                        await walletUtils.getNftUser(contractNftOpenSeaAddress, listNft[i].token_id.justifyContent, address).then(r =>
+                        setNfts(nfts => [...nfts, r]));
+                    }
+                 */
+            }
+        fetchData();
+    }, [address, pseudo]);
 
     const renderGalleryCard = ({ item }) => (
         <View style={styles.card}>
@@ -198,11 +207,18 @@ export default function Web3Home({ navigation }) {
                 </View>
 
                 <View style={styles.header.zenCash}>
+                    <View style={styles.header.zenCash.picture}>
+                        <Image source={require('../assets/Web3/logoZenCash.png')} style={styles.header.profile.image}/>
+                    </View>
                     <View style={styles.header.zenCash.backgroundZ}>
-                        <View style={styles.header.zenCash.picture}>
-                            <Image source={require('../assets/konosuba-dance.gif')} style={styles.header.profile.image}/>
-                        </View>
-                        <Text style={styles.header.zenCash.balance}>{balance.toLocaleString()}</Text>
+                        {balance.toString().length > 5 ?
+                            <Text style={styles.header.zenCash.balance}>{balance.toLocaleString().slice(0,1) + ".." + balance.toLocaleString().slice((-3))} ZC</Text>
+                            :
+                            <Text style={styles.header.zenCash.balance}>{balance.toLocaleString()} ZC</Text>
+                        }
+                    </View>
+                    <View style={styles.header.zenCash.addTokenButton}>
+                        <Image source={require('../assets/Web3/AddToken.png')} style={styles.header.zenCash.imageAddTokenButton}/>
                     </View>
 
                 </View>
@@ -303,26 +319,26 @@ const styles = StyleSheet.create({
         },
 
         zenCash : {
+            marginTop: '-13%',
+            marginLeft: '65%',
             position: 'relative',
             width: 80,
             height: 36.02,
-            left: -10,
-
-            display: 'flex',
-            flexDirection: 'row',
-            alignContent: 'center',
-            alignItems: 'center',
-            justifyContent: 'center',
-
-
-
+            right: "-3%",
+            top: "-28%",
 
             backgroundZ : {
+                display : 'flex',
+                flexWrap : 'wrap',
+                overflow : 'scroll',
+                zIndex: 0,
+                justifyContent: 'center',
+
                 position: 'relative',
-                width: 65,
-                height: 27,
-                left: 292,
-                top: 65,
+                width: '110%',
+                height: "70%",
+                right: '0%',
+                top: '0%',
                 backgroundColor: '#FFFFFF',
                 shadowColor: '#FDFDFD',
                 shadowOffset: {
@@ -335,25 +351,37 @@ const styles = StyleSheet.create({
             },
 
             picture : {
+                zIndex: 1,
                 position: 'relative',
-                left : '-50%',
-                width: 50,
-                height: 50,
+                right : '20%',
+                top : '79%',
+                width: 34,
+                height: 34,
             },
             balance : {
-                position: 'relative',
-                fontFamily: 'Ubuntu',
-                fontStyle: 'normal',
-                fontWeight: '400',
+                flex: 1,
+                marginLeft: '22%',
+                marginTop: '2%',
+
                 fontSize: 13,
-                lineHeight: 15,
-                textAlign: 'center',
-                color: '#EDEDED',
+                fontFamily: 'Ubuntu',
 
             },
-            button : {
+            addTokenButton : {
+                position: 'relative',
+                zIndex: 1,
+                top: '-95%',
+                right : '-97%',
+                width: "23%",
+                height: "55%",
+                borderRadius: 100,
+                overflow: 'hidden',
+            },
 
-            }
+            imageAddTokenButton : {
+                width: '100%',
+                height: '100%',
+            },
         }
     }
 });

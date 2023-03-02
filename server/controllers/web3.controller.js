@@ -17,10 +17,11 @@ const iv = Buffer.alloc(16, 0);
 
 
 exports.getPrivateKey = async (req, res) => {
-    
+
+    console.log("enter function");
     const user = req.params.userPseudo;
 
-    const sql = "SELECT private_key FROM users WHERE pseudo=$1";
+    const sql = "SELECT pk_wallet FROM users WHERE pseudo=$1";
 
     db.query(sql, [user], async (err, result) => {
         if (err) {
@@ -32,7 +33,7 @@ exports.getPrivateKey = async (req, res) => {
             return
         }
 
-        let encryptedPrivateKey = result.rows[0].private_key;
+        let encryptedPrivateKey = result.rows[0].pk_wallet;
         console.log(encryptedPrivateKey);
 
         //If private key don't exist in BDD
@@ -70,7 +71,7 @@ exports.postPrivateKey = async (req, res) => {
     encryptedPrivateKey += cipher.final('hex');
 
 
-    let sql = 'Update users SET private_key = $1 WHERE pseudo = $2';
+    let sql = 'Update users SET pk_wallet = $1 WHERE pseudo = $2';
 
     await db.query(sql, [encryptedPrivateKey, userPseudo], (err, result) => {
         if (err) {

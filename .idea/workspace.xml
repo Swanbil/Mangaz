@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/client/assets/Web3/AddToken.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/assets/Web3/logoZenCash.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/screens/Web3Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Web3Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/web3.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/web3.controller.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,29 +27,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Efrei paris/EngineringProject/Mangaz/client/Utils&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\Efrei paris\\EngineringProject\\Mangaz\\client\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Efrei paris/EngineringProject/Mangaz/client/assets/Web3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\Efrei paris\\EngineringProject\\Mangaz\\client\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\assets\Web3" />
+      <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\assets" />
       <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\Utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\utilities" />
+      <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\assets\Web3" />
       <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\assets" />
+      <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\utilities" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -68,7 +74,8 @@
       <workItem from="1677088945060" duration="15599000" />
       <workItem from="1677106893141" duration="498000" />
       <workItem from="1677107408426" duration="969000" />
-      <workItem from="1677270280279" duration="14364000" />
+      <workItem from="1677270280279" duration="14422000" />
+      <workItem from="1677771225596" duration="11649000" />
     </task>
     <servers />
   </component>
