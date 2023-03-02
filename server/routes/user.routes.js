@@ -9,5 +9,7 @@ router.get('/user/:userPseudo/mangas/favoris', userController.getMangasFavoris);
 router.get('/user/:userPseudo', userController.getUserInfos);
 router.post('/user/subscribe', userController.subscribe);
 router.get('/user/:userPseudo/subscribe', userController.getUserSubscribeValid);
+router.get('/user/getProfilePicture/:userPseudo', userController.getProfilePicture);
+
 
 module.exports = router;

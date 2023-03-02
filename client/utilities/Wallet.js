@@ -239,6 +239,37 @@ import { contractTokenABI, constTokenAddress, constNftAddress, contractNftABI, c
         }
     };
 
+     export async function getCollections (_address)  {
+        try {
+            const response = await axios.get(API_URL + '/web3/OpenSea/getCollections/' + _address);
+            const data =response.data;
+            return data;
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+     export async function getCollection (_nameCollection)  {
+        try {
+            const response = await axios.get(API_URL + '/web3/OpenSea/getCollection/' + _nameCollection);
+            const data =response.data;
+            return data;
+        } catch (e) {
+            console.log(e);
+        }
+     }
+     export async function getNftsFromCollection (_nameCollection){
+        try {
+            const response = await axios.get(API_URL + '/web3/OpenSea/getNFTsFromCollection/' + _nameCollection);
+            const data =response.data;
+            return data;
+        } catch (e) {
+            console.log(e);
+        }
+     }
+
+
+
      export async function OpenPackAllCards () {
         setLoading(true);
         const addressWallet = { "addressWallet" : '0x685EAa4fFDCa637EE8b3c2AC454E7Dbd4EFd2d64' };

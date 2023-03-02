@@ -50,6 +50,8 @@ export default function Web3Home({ navigation }) {
     // Loading
     const [loading, setLoading] = useState(false);
 
+    const [profilePicture, setProfilePicture] = useState("");
+
 
 
 /*  ------ Link with Metamask------
@@ -66,7 +68,11 @@ export default function Web3Home({ navigation }) {
 
 */
 
-
+    async function getProfilePicture (_pseudo) {
+        const user = { "userPseudo" : _pseudo };
+        const response = await axios.get(API_URL + '/user/getProfilePicture/' + user.userPseudo);
+        return (response.data);
+    };
 
     /* ---------------------- */
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
@@ -75,6 +81,10 @@ export default function Web3Home({ navigation }) {
         const fetchData = async () => {
 
             setPseudo("Test");
+
+            await getProfilePicture(pseudo).then((picture) => {
+                setProfilePicture(picture);
+            });
 
             let userAddress = address;
                 if (!userAddress) {
@@ -103,6 +113,7 @@ export default function Web3Home({ navigation }) {
                  */
             }
         fetchData();
+
     }, [address, pseudo]);
 
     const renderGalleryCard = ({ item }) => (
@@ -197,7 +208,7 @@ export default function Web3Home({ navigation }) {
             <View style={styles.header}>
                 <View style={styles.header.profile}>
                     <View style={styles.header.profile.profilePicture}>
-                        <Image source={require('../assets/konosuba-dance.gif')} style={styles.header.profile.image} />
+                        <Image source={{uri : profilePicture.profilePicture}} style={styles.header.profile.image} />
                     </View>
                     <View style={styles.header.profile.profileInformations}>
                         <Text style={styles.header.profile.profileInformations.pseudo}>{pseudo}</Text>

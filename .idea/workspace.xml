@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/assets/Web3/AddToken.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/assets/Web3/logoZenCash.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/screens/Web3Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Web3Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/web3.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/web3.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/utilities/Wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/utilities/Wallet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/user.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/user.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/user.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.routes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +75,7 @@
       <workItem from="1677106893141" duration="498000" />
       <workItem from="1677107408426" duration="969000" />
       <workItem from="1677270280279" duration="14422000" />
-      <workItem from="1677771225596" duration="11649000" />
+      <workItem from="1677771225596" duration="15391000" />
     </task>
     <servers />
   </component>
