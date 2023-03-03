@@ -82,7 +82,7 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
                                 <Icon name={"settings"} color={"#333"} size={22} onPress={() => navigation.navigate('Settings')} />
                             </View>
                             <TouchableOpacity style={{ borderRadius: 25, padding: 6, backgroundColor: '#F2BB13', width: 96 }} onPress={() => navigation.navigate('Subscribe')}>
-                                <Text style={{ color: 'white', fontSize: 10, fontWeight: '700' }}>{isSubscribe ? "My subscription" : "Become Premium"}</Text>
+                                <Text style={{ color: 'white', fontSize: 10, fontWeight: '700', textAlign:'center' }}>{isSubscribe ? "My subscription" : "Become Premium"}</Text>
                             </TouchableOpacity>
 
                         </View>

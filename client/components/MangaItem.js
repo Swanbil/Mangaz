@@ -47,6 +47,9 @@ const MangaItem = ({ navigation, manga, width, chapters, subTitle }) => {
                                 {manga.title
                                     ? <Text style={{ fontWeight: '500', fontSize: 16, color: 'white' }} >{manga.number} - {manga.title}</Text>
                                     : <></>}
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Text style={{ fontWeight: '300', fontSize: 13, letterSpacing: -0.33, color: 'white' }}>{manga?.genre}</Text>
+                                </View>
                                 {manga.rate ? (<View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <IconButton icon="star" color="yellow" size={24} />
                                     <Text style={{ fontWeight: '500', fontSize: 13, color: 'white' }}>{manga.rate}</Text>
@@ -68,16 +71,16 @@ const MangaItem = ({ navigation, manga, width, chapters, subTitle }) => {
             <View style={{ marginBottom: 20, boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px", marginRight: 10 }}>
                 <TouchableWithoutFeedback onPress={goToMangaPage}>
                     <ImageBackground source={{ uri: manga.coverImage_large }} style={{ width: 334, height: 122 }} imageStyle={{ borderRadius: 12 }} resizeMode='cover' blurRadius={1}>
-                        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0, 0.20)', borderRadius: 12, justifyContent:'center' }}>
-                            <View style={{ position: 'absolute', flexDirection:'row', alignItems:'center', padding:12 }}>
+                        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0, 0.20)', borderRadius: 12, justifyContent: 'center' }}>
+                            <View style={{ position: 'absolute', flexDirection: 'row', alignItems: 'center', padding: 12 }}>
                                 <View>
-                                    <Image source={{uri : manga.coverImage}}  style={{ width: 94, height: 107 }}/>
+                                    <Image source={{ uri: manga.coverImage }} style={{ width: 94, height: 107 }} />
                                 </View>
-                                <View style={{marginLeft:10}}>
+                                <View style={{ marginLeft: 10 }}>
                                     <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }} onPress={manga.title ? () => null : goToMangaPage}>{manga.titleName}</Text>
                                     {manga.title
-                                    ? <Text style={{ fontWeight: '500', fontSize: 16, color: 'white' }} >{manga.number} - {manga.title}</Text>
-                                    : <></>}
+                                        ? <Text style={{ fontWeight: '500', fontSize: 16, color: 'white' }} >{manga.number} - {manga.title}</Text>
+                                        : <></>}
                                     {manga.rate ? (<View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <IconButton icon="star" color="yellow" size={24} />
                                         <Text style={{ fontWeight: '500', fontSize: 13, color: 'white' }}>{manga.rate}</Text>

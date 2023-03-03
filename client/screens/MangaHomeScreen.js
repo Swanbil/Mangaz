@@ -96,7 +96,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                                                 <View style={{ flexDirection: 'row' }}>
                                                     {recommandations?.map((recommandation) => (
 
-                                                        <View key={recommandation.idManga} style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, marginRight: 20 }}>
+                                                        <View key={recommandation.idManga} style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, marginRight: 37 }}>
                                                             <View>
                                                                 <Image source={{ uri: recommandation?.coverImage }} style={{ width: 132, height: 175, borderRadius: 12 }} />
                                                             </View>
@@ -122,11 +122,8 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                                         </>
                                     )
                                     : (<></>)
-
                                 }
-
                             </View>
-
                         </View>
 
                     </ImageBackground>
