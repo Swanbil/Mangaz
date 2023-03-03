@@ -9,17 +9,24 @@ import Catalogue from '../components/Catalogue';
 import { getDataUser } from '../utilities/localStorage';
 
 
-const SearchScreen = ({  navigation }) => {
+const SearchScreen = ({ route, navigation }) => {
 
     const [catalogue, setCatalogue] = useState([]);
     const [filteredCatalogue, setFilteredCatalogue] = useState([])
     const [searchQuery, setSearchQuery] = useState('');
 
+    
     useFocusEffect(
         useCallback(() => {
             getCatalogue();
         }, [])
     );
+
+    useEffect(() => {
+        if(route?.params?.filter){
+            onSelectGenre(route?.params.filter);
+        }
+    }, [route?.params?.filter, catalogue])
 
     const getCatalogue = async () => {
         const userData = await getDataUser();
@@ -47,6 +54,16 @@ const SearchScreen = ({  navigation }) => {
         setFilteredCatalogue(catalogue.filter((manga) => manga.titleName.toLowerCase().includes(valueLowerCase) || manga.technicalName.toLowerCase().includes(valueLowerCase)));
     }
 
+    const onSelectGenre = (value) => {
+        if (!value) {
+          setFilteredCatalogue(catalogue);
+          return;
+        }
+        const valueLowerCase = value.toLowerCase();
+        //console.log(valueLowerCase, catalogue.filter((manga) => manga.genre?.toLowerCase().includes(valueLowerCase)))
+        setFilteredCatalogue(catalogue.filter((manga) => manga.genre?.toLowerCase().includes(valueLowerCase)));
+      }
+
     return (
         <View style={{ flex: 1, backgroundColor: '#FFF' }}>
             <ScrollView style={{ flex: 1 }}>
@@ -68,9 +85,9 @@ const SearchScreen = ({  navigation }) => {
                     />
                 </View>
 
-                <View style={{padding: 20}}>
+                <View style={{ padding: 20 }}>
                     <Text style={{ fontWeight: '700', fontSize: 22 }}>Catalogue</Text>
-                    <View style={{ marginTop: 20}}>
+                    <View style={{ marginTop: 20 }}>
                         <Catalogue navigation={navigation} catalogue={filteredCatalogue} pageName="Home" direction={"vertical"} widthMangaItem="small" />
                     </View>
 
