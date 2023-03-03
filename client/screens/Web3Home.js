@@ -12,10 +12,18 @@ import '@ethersproject/shims';
 
 // Import the ethers library
 import { ethers } from 'ethers';
-import { contractTokenABI, constTokenAddress, constNftAddress, contractNftABI, contractNftOpenSeaAddress} from '../Utils/constants';
+import {
+    contractTokenABI,
+    constTokenAddress,
+    constNftAddress,
+    contractNftABI,
+    contractNftOpenSeaAddress,
+    mangaZAddress
+} from '../Utils/constants';
 
 //Import Wallet.js
 import * as walletUtils from '../utilities/Wallet.js';
+import {getNftsFromCollection} from "../utilities/Wallet.js";
 
 
 
@@ -42,7 +50,7 @@ export default function Web3Home({ navigation }) {
     const [isModal, setIsModal] = useState(false);
 
     // list of NFT
-    const [listNft, setListNft] = useState([]);
+    const [listNftUser, setListNftUser] = useState([]);
 
     // NFT
     const [nfts, setNfts] = useState([]);
@@ -51,6 +59,12 @@ export default function Web3Home({ navigation }) {
     const [loading, setLoading] = useState(false);
 
     const [profilePicture, setProfilePicture] = useState("");
+    
+    const [collections, setCollections] = useState([]);
+    
+    const [collection, setCollection] = useState([]);
+    
+    const [listNftCollection, setListNftCollection] = useState([]);
 
 
 
@@ -78,7 +92,7 @@ export default function Web3Home({ navigation }) {
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
     useEffect(() => {
 
-        const fetchData = async () => {
+         const  fetchData = async () => {
 
             setPseudo("Test");
 
@@ -99,21 +113,51 @@ export default function Web3Home({ navigation }) {
 
                 if (userAddress) {
                     await walletUtils.getAllNftUser(userAddress).then((listIdNft) => {
-                        setListNft(listIdNft);
+                        setListNftUser(listIdNft);
                     });
                 }
 
                 // //Get the list of nfts of the user
                 /*
-                    for (let i = 0; i < listNft.length; i++) {
-                        console.log("listIdNft[i].id : " + listNft[i].token_id);
-                        await walletUtils.getNftUser(contractNftOpenSeaAddress, listNft[i].token_id.justifyContent, address).then(r =>
+                    for (let i = 0; i < listNftUser.length; i++) {
+                        console.log("listIdNft[i].id : " + listNftUser[i].token_id);
+                        await walletUtils.getNftUser(contractNftOpenSeaAddress, listNftUser[i].token_id.justifyContent, address).then(r =>
                         setNfts(nfts => [...nfts, r]));
                     }
                  */
-            }
-        fetchData();
 
+
+                /*
+                -------------------------------------------------------------------------------------
+                 */
+
+             //Retrieve the list of collections and each collection
+             await walletUtils.getCollections(mangaZAddress)
+                 .then((collections) => {
+                     setCollections(collections);
+                 })
+                 .catch((error) => {
+                     // gérer l'erreur
+                 })
+                 .finally(() => {
+                     // faire quelque chose après l'exécution de la fonction asynchrone, comme une autre fonction ou une autre action
+                     //Get the 3 more recent collections
+                     for (let i = 0; i < 3; i++) {
+                         console.log("collections["+ i +"].slug : " + collections[i]['slug']);
+                         walletUtils.getCollection(collections[i].slug).then((collection) => {
+                             console.log("collection : " + collection);
+                             setCollection(prevCollection => [...prevCollection, collection]);
+                         })
+                     }
+                 })
+
+             //Get the list of nfts of the collection
+             await walletUtils.getNftsFromCollection(collection.slug).then((listNftCollection) => {
+                 setListNftCollection(listNftCollection);
+             } );
+        }
+
+        fetchData();
     }, [address, pseudo]);
 
     const renderGalleryCard = ({ item }) => (
@@ -204,195 +248,236 @@ export default function Web3Home({ navigation }) {
             </TouchableOpacity>
         </View>*/
 
-        <View style={styles.backgroundCollabDark}>
-            <View style={styles.header}>
-                <View style={styles.header.profile}>
-                    <View style={styles.header.profile.profilePicture}>
-                        <Image source={{uri : profilePicture.profilePicture}} style={styles.header.profile.image} />
-                    </View>
-                    <View style={styles.header.profile.profileInformations}>
-                        <Text style={styles.header.profile.profileInformations.pseudo}>{pseudo}</Text>
-                        <Text style={styles.header.profile.profileInformations.address}>{address.slice(0,5) + "..." + address.slice(-4)}</Text>
-                        <Text style={styles.header.profile.profileInformations.numberNft}>Nft possedés : {listNft.length}</Text>
-                    </View>
-                </View>
 
-                <View style={styles.header.zenCash}>
-                    <View style={styles.header.zenCash.picture}>
-                        <Image source={require('../assets/Web3/logoZenCash.png')} style={styles.header.profile.image}/>
+        <View style={styles.container}>
+            <View style={styles.container.backgroundCollabDark}>
+                <View style={styles.container.header}>
+                    <View style={styles.container.header.profile}>
+                        <View style={styles.container.header.profile.profilePicture}>
+                            <Image source={{uri : profilePicture.profilePicture}} style={styles.container.header.profile.image} />
+                        </View>
+                        <View style={styles.container.header.profile.profileInformations}>
+                            <Text style={styles.container.header.profile.profileInformations.pseudo}>{pseudo}</Text>
+                            <Text style={styles.container.header.profile.profileInformations.address}>{address.slice(0,5) + "..." + address.slice(-4)}</Text>
+                            <Text style={styles.container.header.profile.profileInformations.numberNft}>Nft possedés : {listNftUser.length}</Text>
+                        </View>
                     </View>
-                    <View style={styles.header.zenCash.backgroundZ}>
-                        {balance.toString().length > 5 ?
-                            <Text style={styles.header.zenCash.balance}>{balance.toLocaleString().slice(0,1) + ".." + balance.toLocaleString().slice((-3))} ZC</Text>
-                            :
-                            <Text style={styles.header.zenCash.balance}>{balance.toLocaleString()} ZC</Text>
-                        }
+                    <View style={styles.container.header.zenCash}>
+                        <View style={styles.container.header.zenCash.picture}>
+                            <Image source={require('../assets/Web3/logoZenCash.png')} style={styles.container.header.profile.image}/>
+                        </View>
+                        <View style={styles.container.header.zenCash.backgroundZ}>
+                            {balance.toString().length > 5 ?
+                                <Text style={styles.container.header.zenCash.balance}>{balance.toLocaleString().slice(0,1) + ".." + balance.toLocaleString().slice((-3))} ZC</Text>
+                                :
+                                <Text style={styles.container.header.zenCash.balance}>{balance.toLocaleString()} ZC</Text>
+                            }
+                        </View>
+                        <View style={styles.container.header.zenCash.addTokenButton}>
+                            <Image source={require('../assets/Web3/AddToken.png')} style={styles.container.header.zenCash.imageAddTokenButton}/>
+                        </View>
                     </View>
-                    <View style={styles.header.zenCash.addTokenButton}>
-                        <Image source={require('../assets/Web3/AddToken.png')} style={styles.header.zenCash.imageAddTokenButton}/>
-                    </View>
-
                 </View>
             </View>
+
+            <View style={styles.container.containerButtonNavigation}>
+                <TouchableOpacity
+                    style={styles.container.button}
+                    onPress={() => navigation.navigate('Web3Home')}
+                    underlayColor='#fff'
+                >
+                    <Image source={require('../assets/Web3/Echange de carte buton-1.png')} style={styles.container.button.image}/>
+                </TouchableOpacity>
+
+            </View>
+
         </View>
-
-
-
     );
 }
 
-
 const styles = StyleSheet.create({
-
-    backgroundCollabDark : {
-        position: 'absolute',
-        width: 430.58,
-        height: 406,
-        left: -13.4,
-        top: -4,
-        backgroundColor: 'rgba(0, 0, 0, 0.26)',
+    image: {
+        width: "100%",
+        height: "100%",
+        // style de l'image
     },
 
-    header: {
-        position: 'relative',
-        display: 'flex',
+    container: {
 
-
-
-
-        profile : {
-            marginLeft : '8%',
-            marginTop : '10%',
-            position: 'relative',
-            width: 200,
-            height: 83,
-            display: 'flex',
-            flexDirection: 'row',
+        containerButtonNavigation: {
+            marginTop : '115%',
+            flex : 1,
+            flexDirection : 'row',
+            position: 'absolute',
+            //backgroundColor: '#3D3D3D',
+            width: '100%',
+            height : 160,
             alignItems: 'center',
-            justifyContent: 'center', // add this line
+            alignContent: 'center',
+            justifyContent: 'space-around', // add this line
 
-            profilePicture : {
-                width: 100,
-                height: 100,
-                borderRadius: 50,
-                borderWidth: 2,
-                borderColor: 'black',
-                overflow: 'hidden',
-            },
-
-            image : {
-                width: '100%',
-                height: '100%',
-            },
-
-            profileInformations : {
-                marginLeft: '10%',
-                position: 'relative',
-                width: 105,
-                height: 50,
-                display: 'flex',
-                flexDirection: 'column',
-                textAlign : 'left',
-                alignItems: 'flex-start',
-
-                pseudo : {
-                    /* H5 */
-                    fontfamily: 'Ubuntu',
-                    fontstyle: 'normal',
-                    fontweight: 400,
-                    fontsize: 16,
-                    lineheight: 18,
-                    textalign: 'center',
-
-                    /* Color 1 */
-                    color: '#EDEDED',
-                },
-                address : {
-                    fontFamily: 'Ubuntu',
-                    fontStyle: 'normal',
-                    fontWeight: '400',
-                    fontSize: 13,
-                    lineHeight: 15,
-                    textAlign: 'center',
-                    color: '#EDEDED',
-                },
-                numberNft : {
-                    fontFamily: 'Ubuntu',
-                    fontStyle: 'normal',
-                    fontWeight: '400',
-                    fontSize: 13,
-                    lineHeight: 15,
-                    textAlign: 'center',
-                    color: '#EDEDED',
-
-                }
-            }
         },
 
-        zenCash : {
-            marginTop: '-13%',
-            marginLeft: '65%',
+        button : {
+            width: 150,
+            height: 150,
+            //backgroundColor: '#3D3D3D',
+            borderRadius: 10,
+        },
+
+
+        backgroundCollabDark : {
+            position: 'absolute',
+            width: 430.58,
+            height: 406,
+            left: -13.4,
+            top: -4,
+            backgroundColor: 'rgba(0, 0, 0, 0.26)',
+        },
+
+        header: {
             position: 'relative',
-            width: 80,
-            height: 36.02,
-            right: "-3%",
-            top: "-28%",
+            display: 'flex',
 
-            backgroundZ : {
-                display : 'flex',
-                flexWrap : 'wrap',
-                overflow : 'scroll',
-                zIndex: 0,
-                justifyContent: 'center',
 
+
+
+            profile : {
+                marginLeft : '8%',
+                marginTop : '10%',
                 position: 'relative',
-                width: '110%',
-                height: "70%",
-                right: '0%',
-                top: '0%',
-                backgroundColor: '#FFFFFF',
-                shadowColor: '#FDFDFD',
-                shadowOffset: {
-                    width: 1,
-                    height: 4,
+                width: 200,
+                height: 83,
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center', // add this line
+
+                profilePicture : {
+                    width: 100,
+                    height: 100,
+                    borderRadius: 50,
+                    borderWidth: 2,
+                    borderColor: 'black',
+                    overflow: 'hidden',
                 },
-                shadowOpacity: 0.25,
-                shadowRadius: -1,
-                borderRadius: 17,
+
+                image : {
+                    width: '100%',
+                    height: '100%',
+                },
+
+                profileInformations : {
+                    marginLeft: '10%',
+                    position: 'relative',
+                    width: 105,
+                    height: 50,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    textAlign : 'left',
+                    alignItems: 'flex-start',
+
+                    pseudo : {
+                        /* H5 */
+                        fontfamily: 'Ubuntu',
+                        fontstyle: 'normal',
+                        fontweight: 400,
+                        fontsize: 16,
+                        lineheight: 18,
+                        textalign: 'center',
+
+                        /* Color 1 */
+                        color: '#EDEDED',
+                    },
+                    address : {
+                        fontFamily: 'Ubuntu',
+                        fontStyle: 'normal',
+                        fontWeight: '400',
+                        fontSize: 13,
+                        lineHeight: 15,
+                        textAlign: 'center',
+                        color: '#EDEDED',
+                    },
+                    numberNft : {
+                        fontFamily: 'Ubuntu',
+                        fontStyle: 'normal',
+                        fontWeight: '400',
+                        fontSize: 13,
+                        lineHeight: 15,
+                        textAlign: 'center',
+                        color: '#EDEDED',
+
+                    }
+                }
             },
 
-            picture : {
-                zIndex: 1,
+            zenCash : {
+                marginTop: '-13%',
+                marginLeft: '65%',
                 position: 'relative',
-                right : '20%',
-                top : '79%',
-                width: 34,
-                height: 34,
-            },
-            balance : {
-                flex: 1,
-                marginLeft: '22%',
-                marginTop: '2%',
+                width: 80,
+                height: 36.02,
+                right: "-3%",
+                top: "-28%",
 
-                fontSize: 13,
-                fontFamily: 'Ubuntu',
+                backgroundZ : {
+                    display : 'flex',
+                    flexWrap : 'wrap',
+                    overflow : 'scroll',
+                    zIndex: 0,
+                    justifyContent: 'center',
 
-            },
-            addTokenButton : {
-                position: 'relative',
-                zIndex: 1,
-                top: '-95%',
-                right : '-97%',
-                width: "23%",
-                height: "55%",
-                borderRadius: 100,
-                overflow: 'hidden',
-            },
+                    position: 'relative',
+                    width: '110%',
+                    height: "70%",
+                    right: '0%',
+                    top: '0%',
+                    backgroundColor: '#FFFFFF',
+                    shadowColor: '#FDFDFD',
+                    shadowOffset: {
+                        width: 1,
+                        height: 4,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: -1,
+                    borderRadius: 17,
+                },
 
-            imageAddTokenButton : {
-                width: '100%',
-                height: '100%',
-            },
+                picture : {
+                    zIndex: 1,
+                    position: 'relative',
+                    right : '20%',
+                    top : '79%',
+                    width: 34,
+                    height: 34,
+                },
+                balance : {
+                    flex: 1,
+                    marginLeft: '22%',
+                    marginTop: '2%',
+
+                    fontSize: 13,
+                    fontFamily: 'Ubuntu',
+
+                },
+                addTokenButton : {
+                    position: 'relative',
+                    zIndex: 1,
+                    top: '-95%',
+                    right : '-97%',
+                    width: "23%",
+                    height: "55%",
+                    borderRadius: 100,
+                    overflow: 'hidden',
+                },
+
+                imageAddTokenButton : {
+                    width: '100%',
+                    height: '100%',
+                },
+            }
         }
     }
+
+
 });
