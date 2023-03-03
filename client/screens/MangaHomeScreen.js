@@ -87,26 +87,33 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                                     ? (
                                         <>
                                             <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>Recommandation</Text>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-                                                <View>
-                                                    <Image source={{ uri: recommandations[0]?.coverImage }} style={{ width: 132, height: 175, borderRadius: 12 }} />
-                                                </View>
-                                                <View style={{ flexDirection: 'column', marginLeft: 20 }}>
-                                                    <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-                                                        <TouchableOpacity onPress={() => navigation.navigate('MangaPage', { manga: recommandations[0], width: "xlarge" })}>
-                                                            <Text style={{ fontWeight: '700', fontSize: 16, letterSpacing: -0.33, color: 'white' }}>{recommandations[0]?.titleName}</Text>
-                                                        </TouchableOpacity>
-                                                        <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20 }}>
-                                                            <Icon name={"star"} color={"yellow"} size={22} />
-                                                            <Text style={{ fontWeight: '500', fontSize: 12, letterSpacing: -0.33, color: 'white', marginLeft: 5 }}>{recommandations[0]?.rate}</Text>
-                                                        </View>
-                                                    </View>
-                                                    <View style={{ flexDirection: 'row' }}>
-                                                        <Text style={{ fontWeight: '300', fontSize: 13, letterSpacing: -0.33, color: 'white' }}>{recommandations[0]?.genre}</Text>
-                                                    </View>
+                                            <ScrollView horizontal={true}>
+                                                <View style={{ flexDirection: 'row' }}>
+                                                    {recommandations?.map((recommandation) => (
 
+                                                        <View key={recommandation.idManga} style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, marginRight: 20 }}>
+                                                            <View>
+                                                                <Image source={{ uri: recommandation?.coverImage }} style={{ width: 132, height: 175, borderRadius: 12 }} />
+                                                            </View>
+                                                            <View style={{ flexDirection: 'column', marginLeft: 20 }}>
+                                                                <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
+                                                                    <TouchableOpacity onPress={() => navigation.navigate('MangaPage', { manga: recommandation, width: "xlarge" })}>
+                                                                        <Text style={{ fontWeight: '700', fontSize: 16, letterSpacing: -0.33, color: 'white' }}>{recommandation?.titleName}</Text>
+                                                                    </TouchableOpacity>
+                                                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20 }}>
+                                                                        <Icon name={"star"} color={"yellow"} size={22} />
+                                                                        <Text style={{ fontWeight: '500', fontSize: 12, letterSpacing: -0.33, color: 'white', marginLeft: 5 }}>{recommandation?.rate}</Text>
+                                                                    </View>
+                                                                </View>
+                                                                <View style={{ flexDirection: 'row' }}>
+                                                                    <Text style={{ fontWeight: '300', fontSize: 13, letterSpacing: -0.33, color: 'white' }}>{recommandation?.genre}</Text>
+                                                                </View>
+
+                                                            </View>
+                                                        </View>
+                                                    ))}
                                                 </View>
-                                            </View>
+                                            </ScrollView>
                                         </>
                                     )
                                     : (<></>)
@@ -129,7 +136,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
 
                     </View>
                     <View style={{ marginTop: 15 }}>
-                        <Text style={{ fontWeight: '700', fontSize: 22 }}>Recommandations</Text>
+                        <Text style={{ fontWeight: '700', fontSize: 22 }}>Most popular</Text>
                         <View style={{ marginTop: 15 }}>
                             <Catalogue navigation={navigation} catalogue={recommandations} pageName="Home" widthMangaItem="large" />
                         </View>
