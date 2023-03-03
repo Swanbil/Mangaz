@@ -38,7 +38,7 @@ const Favoris = ({ navigation, isLog}) => {
         <View style={styles.container}>
             {isLoading
                 ? <ActivityIndicator style={{ flex: 1, color :'black' }} />
-                : <Catalogue navigation={navigation} catalogue={mangaFavoris} pageName="Favoris" widthMangaItem={"small"} />
+                : <Catalogue navigation={navigation} catalogue={mangaFavoris} pageName="Favoris" widthMangaItem={"small"}/>
             }
         </View>
     )

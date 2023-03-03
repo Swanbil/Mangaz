@@ -3,10 +3,12 @@ import Home from '../screens/HomeScreen';
 import HeaderNavigator from './HeaderNavigator';
 import ProfilePage from '../screens/ProfileScreen';
 import Favoris from '../screens/FavorisScreen';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getHeaderTitle } from '@react-navigation/elements';
 import { IconButton } from 'react-native-paper';
+import MangaHomePage from '../screens/MangaHomeScreen';
+import Wallet from '../screens/WalletScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -21,36 +23,44 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                 },
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
-                    if (route.name === 'Catalogue') {
+                    if (route.name === 'Home') {
                         iconName = focused
                             ? 'home-circle'
                             : 'home-circle-outline';
                     } else if (route.name === 'Profile') {
                         iconName = focused ? 'account-circle' : 'account-circle-outline';
                     }
-                    else if (route.name === 'Favoris') {
-                        iconName = focused ? 'heart-circle' : 'heart-circle-outline';
+                    else if (route.name === 'Wallet') {
+                        iconName = focused ? 'wallet' : 'wallet';
+                    }
+                    else if (route.name === 'MangaHome') {
+                        iconName = focused ? 'book-open-page-variant' : 'book-open-variant';
                     }
 
                     // You can return any component that you like here!
-                    return <IconButton icon={iconName} size={size} color={color} />;
+                    return <IconButton icon={iconName} size={32} color={color} />;
                 },
-                tabBarActiveTintColor: '#C0A6F7',
-                tabBarInactiveTintColor: 'gray',
+                tabBarActiveTintColor: '#333',
+                tabBarInactiveTintColor: 'white',
+                headerShown: false,
+                tabBarStyle : {position:'absolute', bottom:10, marginHorizontal:30, backgroundColor:'#CFB2E1', borderRadius:32, height:60, opacity:0.95}
+                
             })}
         >
-            <Tab.Screen name="Catalogue">
-                {(props) => <Home {...props} isLog={isLog} />}
-            </Tab.Screen>
+
             {isLog
                 ? (
                     <>
-                        <Tab.Screen name="Favoris">
-                            {(props) => <Favoris {...props} isLog={isLog} />}
+                        <Tab.Screen name="MangaHome">
+                            {(props) => <MangaHomePage {...props} isLog={isLog} isSubscribe={isSubscribe} />}
                         </Tab.Screen>
-                        <Tab.Screen name="Profile">
-                            {(props) => <ProfilePage {...props} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState}/>}
+                        <Tab.Screen name="Home">
+                            {(props) => <Home {...props} isLog={isLog} isSubscribe={isSubscribe} getLogState={getLogState} getSubState={getSubState} />}
                         </Tab.Screen>
+                        <Tab.Screen name="Wallet">
+                            {(props) => <Wallet {...props} isLog={isLog} isSubscribe={isSubscribe} />}
+                        </Tab.Screen>
+
                     </>
 
                 )

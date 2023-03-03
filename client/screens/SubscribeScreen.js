@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, ImageBackground, TouchableOpacity, Image } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Collapsible from 'react-native-collapsible';
@@ -7,7 +7,7 @@ import { getDataUser, storeDataUser } from '../utilities/localStorage';
 import axios from 'axios';
 import { API_URL } from '@env';
 import SubscriptionPlan from '../components/SubscriptionPlan';
-import { ActivityIndicator } from 'react-native-paper';
+import { ActivityIndicator, Badge } from 'react-native-paper';
 
 
 export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, navigation }) {
@@ -34,25 +34,25 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
 
     return (
 
-        <View style={styles.container}>
-            <TouchableOpacity
-                style={{ margin: 20 }}
-                underlayColor='#fff' onPress={() => navigation.goBack()}
-            >
-                <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
-            </TouchableOpacity>
+        <View >
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <TouchableOpacity
+                    style={{ margin: 20 }}
+                    underlayColor='#fff' onPress={() => navigation.goBack()}
+                >
+                    <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
+                </TouchableOpacity>
+                <Text style={{ textAlign: 'center', fontSize: 28, fontWeight: '600' }}>{isSubscribe ? "Premium status 🔥":"Pass to Premium 🚀"}</Text>
+            </View>
 
-            <View style={styles.subContainer}>
-                <View style={styles.pageTitleContainer}>
-                    <Icon name={"coins"} color={"#333"} size={20} />
-                    <Text style={styles.pageTitle}>Subscription</Text>
-                </View>
+
+            <View >
                 {isLoading
                     ? <ActivityIndicator style={{ flex: 1 }} />
                     : (
-                        <View style={styles.subContent}>
+                        <View>
                             {isSubscribe
-                                ? (<>
+                                ? (<View style={styles.subContainer}>
                                     <View style={[styles.subRow, { flexDirection: 'row', alignItems: 'center' }]}>
                                         <Text style={styles.subLabel}>State : </Text>
                                         <Icon name="check-circle" size={26} color="#95D47F" />
@@ -66,32 +66,53 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
                                         <Text style={styles.subText}>{new Date(subscription?.endedDate).toDateString()}</Text>
                                     </View>
 
-                                </>)
-                                : <>
-                                    <View style={[styles.subRow, { flexDirection: 'row', alignItems: 'center' }]}>
-                                        <Text style={styles.subLabel}>State : </Text>
-                                        <Icon name="times-circle" size={26} color="#FF6868" />
-                                    </View>
-
-                                    <TouchableOpacity style={styles.subCollapseButton} onPress={() => setIsCollapsed(prevState => !prevState)}>
-                                        <Text style={styles.text}>Subscriptions Plan</Text>
-                                        <Icon name={isCollapsed ? "caret-square-down" : "caret-square-up"} size={16} color="#333" style={{ marginLeft: 7 }} />
-                                    </TouchableOpacity>
-
-                                    <Collapsible collapsed={isCollapsed} align="center" >
-                                        <View style={styles.collapsedContainer}>
-                                            <View style={{ padding: 8 }}>
-                                                {subscriptionsPlan.map((subscriptionPlan, index) => {
-                                                    return (
-                                                        <SubscriptionPlan key={index} subscriptionPlan={subscriptionPlan} navigation={navigation}/>
-
-                                                    )
-                                                })}
+                                </View>)
+                                : <View style={styles.container}>
+                                    <ImageBackground source={{ uri: "https://otakukart.com/wp-content/uploads/2022/06/best-action-manga-to-read-in-2022.jpg" }} style={{ width: 361, height: 530 }} imageStyle={{ borderRadius: 36 }} resizeMode='cover' blurRadius={8}>
+                                        <Text style={{ color: 'white', fontWeight: '700', textAlign: 'center', fontSize: 24, marginTop: 5 }}>Services</Text>
+                                        <View style={{ flexDirection: 'column' }}>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
+                                                <View style={styles.userProfileImage}>
+                                                    <Image source={{ uri: "https://img.wattpad.com/6d13c0a6090e0e3b8851180426edf247b461205f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f376a68464955746e42735a3750773d3d2d3937393137353136322e313634356663326464396631393063383933353132383638303036322e6a7067?s=fit&w=720&h=720" }}
+                                                        style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
+                                                    <View style={{ position: 'absolute', left: 70, top: 10 }}>
+                                                        <Badge style={{ color: "white", fontWeight: "bold", backgroundColor: "#9CE594" }}>V</Badge>
+                                                    </View>
+                                                </View>
+                                                <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Premium badge</Text>
+                                            </View>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
+                                                <View style={styles.userProfileImage}>
+                                                    <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/234/234635.png" }}
+                                                        style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
+                                                </View>
+                                                <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Unlimited reading</Text>
+                                            </View>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
+                                                <View style={styles.userProfileImage}>
+                                                    <Image source={{ uri: "https://thumbs.dreamstime.com/b/no-ads-sign-web-browser-red-crossed-round-button-adblock-prohibited-forbidden-ad-icon-remove-advertisement-symbol-bl-block-265285657.jpg" }}
+                                                        style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
+                                                </View>
+                                                <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>No ads during reading</Text>
+                                            </View>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
+                                                <View style={styles.userProfileImage}>
+                                                    <Image source={{ uri: "https://img.freepik.com/premium-vector/modern-badge-discord-icon_578229-169.jpg?w=2000" }}
+                                                        style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
+                                                </View>
+                                                <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>New roles + channels</Text>
                                             </View>
 
                                         </View>
-                                    </Collapsible>
-                                </>
+                                    </ImageBackground>
+                                    <View style={{ marginTop: 30, alignItems: 'center', justifyContent: 'center' }}>
+                                        <TouchableOpacity style={{ backgroundColor: '#A2B2FC', padding: 5, borderRadius: 25, width: 133, height:43}}  onPress={() => navigation.navigate('Payment', { subscriptionPlan : subscriptionsPlan[0] })}>
+                                            <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 12 }}>Premium</Text>
+                                            <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 12 }}>For 5$ /month</Text>
+
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
                             }
                         </View>
 
@@ -110,6 +131,7 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: 'center',
         backgroundColor: '#fff',
     },
     subContainer: {
@@ -172,5 +194,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop: 6
 
-    }
+    },
+    userProfileImage: {
+        padding: 10,
+    },
 });

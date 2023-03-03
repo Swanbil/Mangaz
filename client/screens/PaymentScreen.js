@@ -61,7 +61,7 @@ export default function Subscribe({ getSubState, navigation, route }) {
                 message: `Payment ${status}. You will be redirected to the home page`
             })
             setTimeout(() => {
-                navigation.navigate('Catalogue')
+                navigation.navigate('Home')
             }, 6000);
 
         }
@@ -107,7 +107,7 @@ export default function Subscribe({ getSubState, navigation, route }) {
                     message: `Payment ${paymentIntent.status}. You will be redirected to the home page`
                 })
                 setTimeout(() => {
-                    navigation.navigate('Catalogue')
+                    navigation.navigate('Home')
                 }, 6000);
             }
         }
