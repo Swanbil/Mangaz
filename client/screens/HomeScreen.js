@@ -76,7 +76,7 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
       <View style={styles.container}>
         <ScrollView >
           {isLoading
-            ? <ActivityIndicator style={{ flex: 1 }} />
+            ? <ActivityIndicator style={{ flex: 1, justifyContent:'center', alignItems:'center' }} />
             : (
               <>
                 <UserProfile userInfos={userInfos} navigation={navigation} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} stats={userStats}/>

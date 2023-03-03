@@ -4,12 +4,14 @@ import { Feather, AntDesign } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { removeDataUser } from '../utilities/localStorage';
 
-export default function Settings({ navigation, isLog, getLogState }) {
+export default function Settings({ navigation, isLog, getLogState, getSubState }) {
     const [userName, setUserName] = useState("");
 
     const logout = async () => {
-        getLogState(false);
         await removeDataUser();
+        getLogState(false);
+        getSubState(false)
+        navigation.navigate('Login');
     }
 
     if (isLog) {
@@ -21,26 +23,6 @@ export default function Settings({ navigation, isLog, getLogState }) {
                 >
                     <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
                 </TouchableOpacity>
-                <View style={styles.settingBlock}>
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                        <AntDesign name="user" size={24} color="#C0A6F7" style={{ marginRight: 10 }} />
-                        <Text style={styles.settingTitle}>User informations</Text>
-                    </View>
-                    <Text style={styles.settingInfo}>Username : {userName}</Text>
-                </View>
-                <View style={styles.settingBlock}>
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                        <Feather name="user-plus" size={24} color="#C0A6F7" style={{ marginRight: 10 }} />
-                        <Text style={styles.settingTitle}>Premium</Text>
-                    </View>
-                    <Text style={styles.settingInfo}>Premium : No </Text>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => navigation.navigate('Login')}
-                        underlayColor='#fff'>
-                        <Text style={styles.textButton}>Subscribe Premium Account </Text>
-                    </TouchableOpacity>
-                </View>
                 <View style={styles.settingBlock}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <AntDesign name="playcircleo" size={24} color="#C0A6F7" style={{ marginRight: 10 }} />

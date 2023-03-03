@@ -4,7 +4,7 @@ import axios from 'axios';
 import { API_URL } from '@env';
 import { getDataUser, removeDataUser } from '../utilities/localStorage';
 import { AntDesign } from '@expo/vector-icons';
-import { Badge } from 'react-native-paper';
+import { ActivityIndicator, Badge } from 'react-native-paper';
 import Catalogue from '../components/Catalogue';
 import { useFocusEffect } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -31,9 +31,11 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
         setIsLoading(false);
     }
     const getHistoryReadChapters = async () => {
+        setIsLoading(true);
         const { userPseudo } = await getDataUser();
         const response = await axios.get(`${API_URL}/reporting/user/${userPseudo}/history/manga`);
         setHistoryReadChapters(response.data.historyUser);
+        setIsLoading(false);
     }
 
     useEffect(() => {
@@ -52,12 +54,7 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
         }
     }
 
-    const logout = async () => {
-        await removeDataUser();
-        getLogState(false);
-        getSubState(false)
-        navigation.navigate('Login');
-    }
+
 
     return (
         <View style={styles.container}>
@@ -80,7 +77,7 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
                     </ImageBackground>
 
                     <View style={{ padding: 8 }}>
-                        <View style={{flexDirection:'row', alignItems: 'center', justifyContent:'flex-end' }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                             <View style={styles.menuButton}>
                                 <Icon name={"settings"} color={"#333"} size={22} onPress={() => navigation.navigate('Settings')} />
                             </View>
@@ -93,7 +90,12 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
                         <View style={{ marginTop: 35 }}>
                             <Text style={{ fontWeight: '700', fontSize: 22 }}>Your favorites</Text>
                             <View style={{ marginTop: 15 }}>
-                                <Catalogue navigation={navigation} catalogue={mangaFavoris} pageName="Home" widthMangaItem="large" />
+                                {
+                                    isLoading
+                                        ? (<ActivityIndicator style={{ flex: 1 }} />)
+                                        : (<Catalogue navigation={navigation} catalogue={mangaFavoris} pageName="Home" widthMangaItem="large" />)
+                                }
+
                             </View>
 
                         </View>
@@ -101,7 +103,12 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
                         <View style={{ marginTop: 35 }}>
                             <Text style={{ fontWeight: '700', fontSize: 22 }}>History</Text>
                             <View style={{ marginTop: 15 }}>
-                                <Catalogue navigation={navigation} catalogue={historyReadChapters} pageName="Home" widthMangaItem="large" />
+                                {
+                                    isLoading
+                                        ? (<ActivityIndicator style={{ flex: 1 }} />)
+                                        : (<Catalogue navigation={navigation} catalogue={historyReadChapters} pageName="Home" widthMangaItem="large" />)
+                                }
+                                
                             </View>
 
                         </View>
@@ -109,15 +116,6 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
                     </View>
 
 
-                </View>
-
-                <View>
-                    <TouchableOpacity
-                        style={styles.logoutBtn}
-                        onPress={logout}
-                        underlayColor='#fff'>
-                        <Text style={styles.textButton}>Logout </Text>
-                    </TouchableOpacity>
                 </View>
 
             </ScrollView>

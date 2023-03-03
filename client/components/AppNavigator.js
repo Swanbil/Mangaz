@@ -63,7 +63,7 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, ge
             <Stack.Screen name="Settings" options={({ navigation }) => ({
                 headerShown: false
             })} >
-                {(props) => <Settings {...props} />}
+                {(props) => <Settings {...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState}/>}
             </Stack.Screen>
             <Stack.Screen name="MenuProfile" options={({ navigation }) => ({
                 headerShown: false
