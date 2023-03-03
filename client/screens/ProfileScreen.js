@@ -106,7 +106,7 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
                                 {
                                     isLoading
                                         ? (<ActivityIndicator style={{ flex: 1 }} />)
-                                        : (<Catalogue navigation={navigation} catalogue={historyReadChapters} pageName="Home" widthMangaItem="large" />)
+                                        : (<Catalogue navigation={navigation} catalogue={historyReadChapters} pageName="Home" widthMangaItem="small" direction={"vertical"}/>)
                                 }
                                 
                             </View>

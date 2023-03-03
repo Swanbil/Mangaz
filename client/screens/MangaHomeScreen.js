@@ -16,6 +16,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
     const [catalogue, setCatalogue] = useState([]);
     const [recommandations, setRecommandations] = useState([]);
     const [isLoading, setLoading] = useState(false);
+    const genres = ['Action', 'Aventure', 'Drame', 'Fun', 'Romance'];
 
     useFocusEffect(
         useCallback(() => {
@@ -135,50 +136,17 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                     <View>
                         <ScrollView horizontal={true}>
                             <View style={{ marginTop: 15, flexDirection: 'row' }}>
+                                {genres.map((genre, index) => (
+                                    <ImageBackground key={index} source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10}
+                                        style={{ width: 124, height: 54, marginRight: 8, justifyContent: 'center', alignItems: 'center' }} imageStyle={{ borderRadius: 31 }}>
+                                        <TouchableOpacity onPress={() => goToFilterByGenre(genre)}>
+                                            <View style={{ borderBottomWidth: 3, borderBottomColor: "#C5B1F2" }}>
+                                                <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>{genre}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </ImageBackground>
 
-                                <ImageBackground source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10}
-                                    style={{ width: 124, height: 54, marginRight: 8, justifyContent: 'center', alignItems: 'center' }} imageStyle={{ borderRadius: 31 }}>
-                                    <TouchableOpacity onPress={() => goToFilterByGenre('Aventure')}>
-                                        <View style={{ borderBottomWidth: 3, borderBottomColor: "#C5B1F2" }}>
-                                            <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>Aventure</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </ImageBackground>
-
-                                <ImageBackground source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10}
-                                    style={{ width: 124, height: 54, marginRight: 8, justifyContent: 'center', alignItems: 'center' }} imageStyle={{ borderRadius: 31 }}>
-                                    <TouchableOpacity onPress={() => goToFilterByGenre('Action')}>
-                                        <View style={{ borderBottomWidth: 3, borderBottomColor: "#C5B1F2" }}>
-                                            <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>Action</Text>
-                                        </View>
-                                    </TouchableOpacity>
-
-                                </ImageBackground>
-                                <ImageBackground source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10}
-                                    style={{ width: 124, height: 54, marginRight: 8, justifyContent: 'center', alignItems: 'center' }} imageStyle={{ borderRadius: 31 }}>
-                                    <TouchableOpacity onPress={() => goToFilterByGenre('Fun')}>
-                                        <View style={{ borderBottomWidth: 3, borderBottomColor: "#C5B1F2" }}>
-                                            <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>Fun</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </ImageBackground>
-                                <ImageBackground source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10}
-                                    style={{ width: 124, height: 54, marginRight: 8, justifyContent: 'center', alignItems: 'center' }} imageStyle={{ borderRadius: 31 }}>
-                                    <TouchableOpacity onPress={() => goToFilterByGenre('Romance')}>
-                                        <View style={{ borderBottomWidth: 3, borderBottomColor: "#C5B1F2" }}>
-                                            <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>Romance</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </ImageBackground>
-                                <ImageBackground source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10}
-                                    style={{ width: 124, height: 54, marginRight: 8, justifyContent: 'center', alignItems: 'center' }} imageStyle={{ borderRadius: 31 }}>
-                                    <TouchableOpacity onPress={() => goToFilterByGenre('Drame')}>
-                                        <View style={{ borderBottomWidth: 3, borderBottomColor: "#C5B1F2" }}>
-                                            <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>Drame</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </ImageBackground>
-
+                                ))}
                             </View>
 
                         </ScrollView>
