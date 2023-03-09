@@ -26,7 +26,6 @@ import * as walletUtils from '../utilities/Wallet.js';
 import {getNftsFromCollection} from "../utilities/Wallet.js";
 
 
-
 export default function Web3Home({ navigation }) {
 
     /* ---------------------- */
@@ -172,8 +171,6 @@ export default function Web3Home({ navigation }) {
     );
 
 
-
-
     /* ---------------------- */
     return (
         /*<View style={styles.container}>
@@ -286,7 +283,15 @@ export default function Web3Home({ navigation }) {
                     onPress={() => navigation.navigate('Web3Home')}
                     underlayColor='#fff'
                 >
-                    <Image source={require('../assets/Web3/Echange_de_carte_buton.png')} style={styles.container.button.image}/>
+                    <Image source={require('../assets/Web3/EchangeCartes.jpeg')} style={styles.container.button}/>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.container.button}
+                    onPress={() => navigation.navigate('Web3Home')}
+                    underlayColor='#fff'
+                >
+                    <Image source={require('../assets/Web3/bakuman.jpeg')} style={styles.container.button}/>
                 </TouchableOpacity>
 
             </View>
@@ -296,6 +301,7 @@ export default function Web3Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+
     image: {
         width: "100%",
         height: "100%",
@@ -303,63 +309,65 @@ const styles = StyleSheet.create({
     },
 
     container: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
 
         containerButtonNavigation: {
-            marginTop : '115%',
-            flex : 1,
-            flexDirection : 'row',
             position: 'absolute',
-            //backgroundColor: '#3D3D3D',
+            top : '50%',
             width: '100%',
-            height : 160,
+            height: 200,
+            display: 'flex',
+            flexDirection: 'row',
             alignItems: 'center',
-            alignContent: 'center',
-            justifyContent: 'space-around', // add this line
+            justifyContent: 'center', // add this line
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
 
         },
 
-        button : {
-            width: 150,
-            height: 150,
-            //backgroundColor: '#3D3D3D',
+        button: {
+            width: 130,
+            height: 130,
             borderRadius: 10,
+            marginLeft : 10,
+            marginRight : 15
         },
 
 
         backgroundCollabDark : {
             position: 'absolute',
-            width: 430.58,
-            height: 406,
-            left: -13.4,
-            top: -4,
+            width: '100%',
+            height: '45%',
             backgroundColor: 'rgba(0, 0, 0, 0.26)',
         },
 
         header: {
-            position: 'relative',
-            display: 'flex',
-
-
+            backgroundColor: 'rgba(0, 0, 0, 0.26)',
+            position: 'absolute',
+            width: '100%',
+            height: '40%',
 
 
             profile : {
-                marginLeft : '8%',
+                backgroundColor: 'rgba(0, 0, 0, 0.26)',
+                marginLeft : '5%',
                 marginTop : '10%',
-                position: 'relative',
-                width: 200,
-                height: 83,
+                width: 250,
+                height: 100,
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center', // add this line
 
                 profilePicture : {
-                    width: 100,
-                    height: 100,
+                    width: '39%',
+                    height: '100%',
                     borderRadius: 50,
                     borderWidth: 2,
                     borderColor: 'black',
                     overflow: 'hidden',
+                    left : '8%'
                 },
 
                 image : {
@@ -370,12 +378,13 @@ const styles = StyleSheet.create({
                 profileInformations : {
                     marginLeft: '10%',
                     position: 'relative',
-                    width: 105,
-                    height: 50,
+                    width: '70%',
+                    height: '30%',
                     display: 'flex',
                     flexDirection: 'column',
                     textAlign : 'left',
                     alignItems: 'flex-start',
+                    justifyContent: 'center',
 
                     pseudo : {
                         /* H5 */
@@ -412,25 +421,25 @@ const styles = StyleSheet.create({
             },
 
             zenCash : {
-                marginTop: '-5%',
-                marginLeft: '63%',
-                position: 'relative',
-                width: '16%',
-                height: '20%',
-                right: "-3%",
-                top: "-28%",
+                backgroundColor: 'rgba(0, 0, 0, 0.26)',
+                width: '30%',
+                height: '40%',
+
+                right : '5%',
+                top : '40%',
+                position: 'absolute',
+
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                overflow: 'visible',
+
 
                 backgroundZ : {
-                    display : 'flex',
-                    flexWrap : 'wrap',
-                    overflow : 'scroll',
                     zIndex: 0,
-                    justifyContent: 'center',
-                    position: 'relative',
-                    width: '110%',
-                    height: "70%",
-                    right: '0%',
-                    top: '0%',
+                    left : '-25%',
+                    width: '75%',
+                    height: "50%",
                     backgroundColor: '#FFFFFF',
                     shadowColor: '#FDFDFD',
                     shadowOffset: {
@@ -440,32 +449,33 @@ const styles = StyleSheet.create({
                     shadowOpacity: 0.25,
                     shadowRadius: -1,
                     borderRadius: 17,
+
                 },
 
                 picture : {
                     zIndex: 1,
-                    position: 'relative',
-                    right : '30%',
-                    top : '80%',
-                    width: 34,
-                    height: 34,
+                    width: '35%',
+                    height: '75%',
+                    overflow: 'hidden',
+
+
+
                 },
                 balance : {
                     flex: 1,
                     marginLeft: '22%',
                     marginTop: '2%',
-
                     fontSize: 13,
                     fontFamily: 'Ubuntu',
+                    top : '5%'
 
                 },
                 addTokenButton : {
-                    position: 'relative',
                     zIndex: 1,
-                    top: '-95%',
-                    right : '-95%',
-                    width: "29%",
-                    height: "57%",
+                    left : '-49%',
+                    top : '-12%',
+                    width: "20%",
+                    height: "34%",
                     borderRadius: 100,
                     overflow: 'hidden',
                 },
@@ -477,6 +487,4 @@ const styles = StyleSheet.create({
             }
         }
     }
-
-
 });

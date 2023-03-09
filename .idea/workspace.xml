@@ -5,14 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/assets/Web3/Echange de carte buton-1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/assets/Web3/Echange de carte buton.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/assets/Web3/Echange_de_carte_buton.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/assets/Web3/Gallery.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/assets/Web3/grid_0 (2).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/assets/Web3/EchangeCartes.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/assets/Web3/bakuman.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/Utils/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/Utils/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/assets/Web3/Echange de carte buton-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/assets/Web3/Echange de carte buton.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/assets/Web3/Echange_de_carte_buton.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/assets/Web3/Gallery.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/assets/Web3/grid_0 (2).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/screens/Web3Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Web3Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,22 +33,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Efrei paris/EngineringProject/Mangaz/client/assets/Web3",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "D:\\Efrei paris\\EngineringProject\\Mangaz\\client\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Efrei paris/EngineringProject/Mangaz/client/assets/Web3&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\Efrei paris\\EngineringProject\\Mangaz\\client\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Efrei paris\EngineringProject\Mangaz\client\assets\Web3" />
@@ -78,7 +81,10 @@
       <workItem from="1677106893141" duration="498000" />
       <workItem from="1677107408426" duration="969000" />
       <workItem from="1677270280279" duration="14422000" />
-      <workItem from="1677771225596" duration="30713000" />
+      <workItem from="1677771225596" duration="30919000" />
+      <workItem from="1678278530427" duration="12000" />
+      <workItem from="1678374949592" duration="117000" />
+      <workItem from="1678375082378" duration="1533000" />
     </task>
     <servers />
   </component>
