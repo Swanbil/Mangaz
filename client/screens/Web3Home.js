@@ -322,7 +322,8 @@ export default function Web3Home({ navigation }) {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.container.newCollab.newCollabInfo}>
-                    <Text> Pack Dragon Ball </Text>
+                    <Text style={styles.container.newCollab.newCollabInfo.newCollabNameCollab}> Pack Dragon Ball </Text>
+                    <Text style={styles.container.newCollab.newCollabInfo.newCollabRarities}> (2 SRR, 4 SR, 4 R )</Text>
                 </View>
             </View>
 
@@ -601,20 +602,37 @@ const styles = StyleSheet.create({
             },
             newCollabInfo : {
                 position: 'absolute',
-                backgroundColor: 'rgba(0, 0, 0, 0.26)',
                 width: '55%',
                 height: '20%',
-                top : '50%',
-                left : '50%',
+                top : '60%',
+                left : '40%',
+
+                display : 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+
 
                 newCollabNameCollab : {
+                    fontStyle: 'normal',
+                    fontWeight: '400',
+                    height: '100%',
+                    fontSize: 16,
+                    lineHeight: 18,
+                    color: 'white',
 
                 },
                 newCollabRarities : {
+                    top : '-70%',
+                    fontStyle: 'normal',
+                    fontWeight: '400',
+                    height: '100%',
+                    fontSize: 14,
+                    lineHeight: 18,
+                    color: 'white',
 
                 },
             }
-
         }
     }
 });

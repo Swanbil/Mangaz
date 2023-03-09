@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/screens/Web3Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Web3Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/utilities/Wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/utilities/Wallet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +76,7 @@
       <workItem from="1678278530427" duration="12000" />
       <workItem from="1678374949592" duration="117000" />
       <workItem from="1678375082378" duration="1533000" />
+      <workItem from="1678395895572" duration="830000" />
     </task>
     <servers />
   </component>
