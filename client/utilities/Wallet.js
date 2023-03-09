@@ -250,13 +250,9 @@ import { contractTokenABI, constTokenAddress, constNftAddress, contractNftABI, c
     };
 
      export async function getCollection (_nameCollection)  {
-        try {
             const response = await axios.get(API_URL + '/web3/OpenSea/getCollection/' + _nameCollection);
             const data =response.data;
             return data;
-        } catch (e) {
-            console.log(e);
-        }
      }
      export async function getNftsFromCollection (_nameCollection){
         try {

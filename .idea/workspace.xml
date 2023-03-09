@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5eb9b980-edf7-44b9-b3fc-f04575105dca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/assets/Web3/EchangeDeCarteButon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/assets/Web3/Gallery.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/assets/Web3/EchangeCartes.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/assets/Web3/bakuman.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/screens/Web3Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/screens/Web3Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/utilities/Wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/utilities/Wallet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

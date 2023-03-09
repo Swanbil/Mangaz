@@ -4,6 +4,8 @@ import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { API_URL } from '@env';
 import axios from 'axios';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 
@@ -130,35 +132,37 @@ export default function Web3Home({ navigation }) {
                 -------------------------------------------------------------------------------------
                  */
 
-             //Retrieve the list of collections and each collection
-             await walletUtils.getCollections(mangaZAddress)
-                 .then((collections) => {
-                     setCollections(collections);
-                 })
-                 .catch((error) => {
-                     // gérer l'erreur
-                        console.log("error : " + error);
-                 })
-                 .finally(() => {
-                     // faire quelque chose après l'exécution de la fonction asynchrone, comme une autre fonction ou une autre action
-                     //Get the 3 more recent collections
-                     for (let i = 0; i < 3; i++) {
-                         console.log("collections["+ i +"].slug : " + collections[i].slug);
-                         setTimeout(() => {
-                         walletUtils.getCollection(collections[i].slug).then((collection) => {
-                             console.log("collection : " + collection.collection.banner_image_url);
-                             setCollection(prevCollection => [...prevCollection, collection]);
-                         });
-                            }, i*4000);
-                     }
-                 })
 
+
+                 //Retrieve the list of collections and each collection
+                 await walletUtils.getCollections(mangaZAddress)
+                     .then((collections) => {
+                         setCollections(collections);
+                     })
+                     .catch((error) => {
+                         // gérer l'erreur
+                         console.log("error : " + error);
+                     })
+                     .finally(() => {
+                         // faire quelque chose après l'exécution de la fonction asynchrone, comme une autre fonction ou une autre action
+                         //Get the 3 more recent collections
+                         for (let i = 0; i < 3; i++) {
+                             console.log("collections["+ i +"].slug : " + collections[i].slug);
+                             setTimeout(() => {
+                                 walletUtils.getCollection(collections[i].slug).then((collection) => {
+                                     console.log("collection coté api : " + collection.collection.name);
+                                     setCollection(prevCollection => [...prevCollection, collection]);
+                                 });
+                             }, i*4000);
+                         };
+
+                     })
              //Get the list of nfts of the collection
              await walletUtils.getNftsFromCollection(collection.slug).then((listNftCollection) => {
+                 console.log("collection coté code " + collection[0].collection.name);
                  setListNftCollection(listNftCollection);
              } );
         }
-
         fetchData();
     }, [address, pseudo]);
 
@@ -296,6 +300,33 @@ export default function Web3Home({ navigation }) {
                 </TouchableOpacity>
             </View>
 
+            <View style={styles.container.titleNewCollab}>
+                <Text style={styles.container.newCollabTitleText}>Nos nouvelles collaborations</Text>
+            </View>
+
+            <View style={styles.container.newCollabBack}>
+                <View style={styles.container.newCollabCardBackground}>
+                    <Image source={{ uri: "https://i.seadn.io/gcs/files/38cf87707737106fdb299f399c1c463f.jpg?w=500&auto=format" }} style={styles.container.newCollabCardBackgroundImage} />
+                </View>
+            </View>
+
+            <View style={styles.container.newCollab}>
+                <View style={styles.container.newCollab.newCollabCardCover}>
+                    <Image source={{ uri: "https://i.seadn.io/gcs/files/ed2395633653dc6518f818e3c48278d3.jpg?w=500&auto=format" }} style={styles.image} />
+                </View>
+                <View style={styles.container.newCollab.newCollabBuyButton}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Web3Home')}
+                    >
+                        <Text> Acheter (25 Zc)</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.container.newCollab.newCollabInfo}>
+                    <Text> Pack Dragon Ball </Text>
+                </View>
+            </View>
+
+
         </View>
     );
 }
@@ -326,7 +357,6 @@ const styles = StyleSheet.create({
 
 
         },
-
         button: {
             width: '45%',
             height: '70%',
@@ -343,16 +373,33 @@ const styles = StyleSheet.create({
 
         },
 
-
-
         backgroundCollabDark : {
+            zIndex: 1,
             position: 'absolute',
             width: '100%',
             height: '45%',
             backgroundColor: 'rgba(0, 0, 0, 0.26)',
         },
 
+        newCollabCardBackground : {
+            zIndex: 0,
+
+
+        },
+        newCollabCardBackgroundImage : {
+            width: '100%',
+            height: '100%',
+        },
+
+        newCollabBack : {
+            zIndex: 0,
+            position: 'absolute',
+            width: '100%',
+            height: '45%',
+        },
+
         header: {
+            zIndex: 1,
             position: 'absolute',
             width: '100%',
             height: '40%',
@@ -489,6 +536,85 @@ const styles = StyleSheet.create({
                     height: '100%',
                 },
             }
+        },
+
+        titleNewCollab : {
+            zIndex: 2,
+            position: 'absolute',
+            top : '18%',
+            left : '3%',
+            display : 'flex',
+            flexDirection: 'row',
+            alignItems: 'baseline',
+        },
+
+        newCollabTitleText : {
+            fontStyle: 'normal',
+            fontWeight: '600',
+            height: '110%',
+            fontSize: 20,
+            lineHeight: 18,
+            textAlign: 'center',
+            color: 'white',
+            overflow: 'visible',
+
+
+        },
+
+
+        newCollab : {
+            zIndex: 1,
+            position: 'absolute',
+            width: '100%',
+            height: '45%',
+
+
+            newCollabCardCover : {
+                position: 'absolute',
+                top : '45%',
+                left : '3%',
+                backgroundColor: 'rgba(0, 0, 0, 1)',
+                width: '35%',
+                height: '53%',
+                borderRadius: 18,
+                alignSelf: 'center',
+                overflow : 'hidden',
+            },
+
+
+            newCollabBuyButton : {
+                position : 'absolute',
+                top : '50%',
+                left : '50%',
+                width: '30%',
+                height: '10%',
+                borderRadius: 31,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor : 'rgba(1, 0, 0, 0.2)',
+                background: 'linear-gradient(314.76deg, #A2B2FC 15.51%, #FFF1BE 137.01%)',
+
+
+            },
+            newCollabNfts : {
+
+            },
+            newCollabInfo : {
+                position: 'absolute',
+                backgroundColor: 'rgba(0, 0, 0, 0.26)',
+                width: '55%',
+                height: '20%',
+                top : '50%',
+                left : '50%',
+
+                newCollabNameCollab : {
+
+                },
+                newCollabRarities : {
+
+                },
+            }
+
         }
     }
 });
