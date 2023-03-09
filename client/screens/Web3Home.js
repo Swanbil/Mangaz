@@ -286,7 +286,7 @@ export default function Web3Home({ navigation }) {
                     onPress={() => navigation.navigate('Web3Home')}
                     underlayColor='#fff'
                 >
-                    <Image source={require('../assets/Web3/Echange de carte buton-1.png')} style={styles.container.button.image}/>
+                    <Image source={require('../assets/Web3/Echange_de_carte_buton.png')} style={styles.container.button.image}/>
                 </TouchableOpacity>
 
             </View>
@@ -412,11 +412,11 @@ const styles = StyleSheet.create({
             },
 
             zenCash : {
-                marginTop: '-13%',
-                marginLeft: '65%',
+                marginTop: '-5%',
+                marginLeft: '63%',
                 position: 'relative',
-                width: 80,
-                height: 36.02,
+                width: '16%',
+                height: '20%',
                 right: "-3%",
                 top: "-28%",
 
@@ -426,7 +426,6 @@ const styles = StyleSheet.create({
                     overflow : 'scroll',
                     zIndex: 0,
                     justifyContent: 'center',
-
                     position: 'relative',
                     width: '110%',
                     height: "70%",
@@ -446,8 +445,8 @@ const styles = StyleSheet.create({
                 picture : {
                     zIndex: 1,
                     position: 'relative',
-                    right : '20%',
-                    top : '79%',
+                    right : '30%',
+                    top : '80%',
                     width: 34,
                     height: 34,
                 },
@@ -464,9 +463,9 @@ const styles = StyleSheet.create({
                     position: 'relative',
                     zIndex: 1,
                     top: '-95%',
-                    right : '-97%',
-                    width: "23%",
-                    height: "55%",
+                    right : '-95%',
+                    width: "29%",
+                    height: "57%",
                     borderRadius: 100,
                     overflow: 'hidden',
                 },
