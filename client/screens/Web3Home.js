@@ -315,23 +315,24 @@ const styles = StyleSheet.create({
 
         containerButtonNavigation: {
             position: 'absolute',
-            top : '50%',
+            top : '47%',
             width: '100%',
-            height: 200,
+            height: '30%',
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center', // add this line
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            justifyContent: 'space-around', // add this line
+            textAlign: 'center', // centrage horizontal
+
 
         },
 
         button: {
-            width: 130,
-            height: 130,
+            width: '65%',
+            height: '80%',
             borderRadius: 10,
-            marginLeft : 10,
-            marginRight : 15
+            alignSelf: 'center', // centrage horizontal
+
         },
 
 
@@ -343,14 +344,12 @@ const styles = StyleSheet.create({
         },
 
         header: {
-            backgroundColor: 'rgba(0, 0, 0, 0.26)',
             position: 'absolute',
             width: '100%',
             height: '40%',
 
 
             profile : {
-                backgroundColor: 'rgba(0, 0, 0, 0.26)',
                 marginLeft : '5%',
                 marginTop : '10%',
                 width: 250,
@@ -421,7 +420,6 @@ const styles = StyleSheet.create({
             },
 
             zenCash : {
-                backgroundColor: 'rgba(0, 0, 0, 0.26)',
                 width: '30%',
                 height: '40%',
 
@@ -454,12 +452,9 @@ const styles = StyleSheet.create({
 
                 picture : {
                     zIndex: 1,
-                    width: '35%',
-                    height: '75%',
+                    width: '40%',
+                    height: '80%',
                     overflow: 'hidden',
-
-
-
                 },
                 balance : {
                     flex: 1,
