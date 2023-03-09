@@ -281,17 +281,15 @@ export default function Web3Home({ navigation }) {
                 <TouchableOpacity
                     style={styles.container.button}
                     onPress={() => navigation.navigate('Web3Home')}
-                    underlayColor='#fff'
                 >
-                    <Image source={require('../assets/Web3/EchangeCartes.jpeg')} style={styles.container.button}/>
+                    <Image source={require('../assets/Web3/EchangeCartes.jpeg')} style={styles.container.button.imageButton}/>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.container.button}
                     onPress={() => navigation.navigate('Web3Home')}
-                    underlayColor='#fff'
                 >
-                    <Image source={require('../assets/Web3/bakuman.jpeg')} style={styles.container.button}/>
+                    <Image source={require('../assets/Web3/bakuman.jpeg')} style={styles.container.button.imageButton}/>
                 </TouchableOpacity>
 
             </View>
@@ -328,12 +326,23 @@ const styles = StyleSheet.create({
         },
 
         button: {
-            width: '65%',
-            height: '80%',
-            borderRadius: 10,
-            alignSelf: 'center', // centrage horizontal
+            width: '50%',
+            height: '50%',
+            borderRadius: '100%',
+            alignSelf: 'center',
+            shadowColor: 'black',
+            shadowOpacity: 0.5,
+            shadowOffset: { width: 0, height: 2 },
+            shadowRadius: 2,
+            backgroundColor: 'black',
+            overflow : 'hidden',
 
+            imageButton: {
+                width: '100%',
+                height: '100%',
+            },
         },
+
 
 
         backgroundCollabDark : {
