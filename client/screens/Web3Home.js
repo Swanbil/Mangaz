@@ -137,16 +137,19 @@ export default function Web3Home({ navigation }) {
                  })
                  .catch((error) => {
                      // gérer l'erreur
+                        console.log("error : " + error);
                  })
                  .finally(() => {
                      // faire quelque chose après l'exécution de la fonction asynchrone, comme une autre fonction ou une autre action
                      //Get the 3 more recent collections
                      for (let i = 0; i < 3; i++) {
-                         console.log("collections["+ i +"].slug : " + collections[i]['slug']);
+                         console.log("collections["+ i +"].slug : " + collections[i].slug);
+                         setTimeout(() => {
                          walletUtils.getCollection(collections[i].slug).then((collection) => {
-                             console.log("collection : " + collection);
+                             console.log("collection : " + collection.collection.banner_image_url);
                              setCollection(prevCollection => [...prevCollection, collection]);
-                         })
+                         });
+                            }, i*4000);
                      }
                  })
 
@@ -282,16 +285,15 @@ export default function Web3Home({ navigation }) {
                     style={styles.container.button}
                     onPress={() => navigation.navigate('Web3Home')}
                 >
-                    <Image source={require('../assets/Web3/EchangeCartes.jpeg')} style={styles.container.button.imageButton}/>
+                    <Image source={require('../assets/Web3/EchangeDeCarteButon.png')} style={styles.container.button.imageButton}/>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.container.button}
                     onPress={() => navigation.navigate('Web3Home')}
                 >
-                    <Image source={require('../assets/Web3/bakuman.jpeg')} style={styles.container.button.imageButton}/>
+                    <Image source={require('../assets/Web3/Gallery.png')} style={styles.container.button.imageButton}/>
                 </TouchableOpacity>
-
             </View>
 
         </View>
@@ -326,21 +328,19 @@ const styles = StyleSheet.create({
         },
 
         button: {
-            width: '50%',
-            height: '50%',
-            borderRadius: '100%',
+            width: '45%',
+            height: '70%',
+            borderRadius: 18,
             alignSelf: 'center',
-            shadowColor: 'black',
-            shadowOpacity: 0.5,
-            shadowOffset: { width: 0, height: 2 },
-            shadowRadius: 2,
-            backgroundColor: 'black',
             overflow : 'hidden',
+
 
             imageButton: {
                 width: '100%',
                 height: '100%',
             },
+
+
         },
 
 
