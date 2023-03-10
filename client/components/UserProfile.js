@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Linking } from "react-
 import { Badge } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default function UserProfile({ isLog, userInfos, isSubscribe, navigation, getLogState, getSubState, stats }) {
+export default function UserProfile({ isLog, userInfos, isSubscribe, navigation, getLogState, getSubState, stats, onClickButton }) {
 
     const handlePress = async () => {
         const url = 'https://discord.gg/qgYxvS2j';
@@ -44,14 +44,20 @@ export default function UserProfile({ isLog, userInfos, isSubscribe, navigation,
                 </View>
             </View>
 
-            <View style={styles.menuButton}>
-                <TouchableOpacity onPress={handlePress}>
-                    <Image source={{ uri: "https://play-lh.googleusercontent.com/fbrWR4LbtB_1Ulgz3_rw8bY3tx_zPU7A9ZOB5WYG_QmqOUUjA6JEzE_20GA4YBDWMx4" }}
-                        style={{ width: 29, height: 29, borderRadius: 50 }} />
-                </TouchableOpacity>
+            <View style={{ flexDirection:'row' }}>
+                <View style={styles.menuButton}>
+                    <TouchableOpacity onPress={onClickButton} >
+                    <Image source={require('../assets/icon_defis.png')}
+                            style={{ width: 29, height: 29, borderRadius: 50 }} />
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.menuButton}>
+                    <TouchableOpacity onPress={handlePress}>
+                        <Image source={{ uri: "https://play-lh.googleusercontent.com/fbrWR4LbtB_1Ulgz3_rw8bY3tx_zPU7A9ZOB5WYG_QmqOUUjA6JEzE_20GA4YBDWMx4" }}
+                            style={{ width: 29, height: 29, borderRadius: 50 }} />
+                    </TouchableOpacity>
+                </View>
             </View>
-
-
         </View>
     )
 
@@ -101,7 +107,7 @@ const styles = StyleSheet.create({
         elevation: 3
     },
     menuButton: {
-        marginRight: 30,
+        marginLeft: 10,
         padding: 5,
         borderWidth: 2,
         borderColor: '#FFFFFF',
