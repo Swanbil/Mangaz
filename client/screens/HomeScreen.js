@@ -5,10 +5,7 @@ import Catalogue from "../components/Catalogue";
 import { API_URL } from '@env';
 import { useFocusEffect } from '@react-navigation/native';
 import { getDataUser } from '../utilities/localStorage';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import { Searchbar } from 'react-native-paper';
-import RNPickerSelect from 'react-native-picker-select';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { DefisModal } from '../components/DefisModal';
 import UserProfile from '../components/UserProfile';
 
 export default function Home({ navigation, route, isLog, isSubscribe, getLogState, getSubState  }) {
@@ -17,6 +14,7 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
   const [isLoading, setLoading] = useState(false);
   const [userInfos, setUserInfos] = useState();
   const [userStats, setUserStats] = useState(null);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -79,7 +77,7 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
             ? <ActivityIndicator style={{ flex: 1, justifyContent:'center', alignItems:'center' }} />
             : (
               <>
-                <UserProfile userInfos={userInfos} navigation={navigation} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} stats={userStats}/>
+                <UserProfile userInfos={userInfos} navigation={navigation} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} stats={userStats} onClickButton={() => setModalVisible(true)}/>
                 <View style={{ padding: 15 }}>
 
                   <View style={{ ...styles.shadowProp, ...styles.blockHome, ...{ backgroundColor: "#D1F1FF" } }}>
@@ -107,7 +105,7 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
               </>
             )
           }
-
+        <DefisModal isModalVisible={isModalVisible} setModalVisible={setModalVisible}/>
         </ScrollView>
       </View>
 

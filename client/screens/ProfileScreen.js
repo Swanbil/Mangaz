@@ -10,6 +10,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Feather';
 
+
 export default function ProfilePage({ navigation, isLog, getLogState, isSubscribe, getSubState }) {
     const [userInfos, setUserInfos] = useState();
     const [mangaFavoris, setMangaFavoris] = useState([]);
@@ -117,9 +118,7 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
 
 
                 </View>
-
-            </ScrollView>
-
+            </ScrollView>            
 
 
         </View>
