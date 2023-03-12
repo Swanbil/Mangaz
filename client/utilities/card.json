@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "image_thumbnail_url": "https://www.stylevore.com/wp-content/uploads/2022/08/bloggerharry-8165978963341761.jpg",
+    "name": "Goku",
+    "description": "Strongest Warrior",
+    "collection": {
+      "name": "DBZ"
+    },
+    "rarity": "LR"
+  },
+  {
+    "id": 2,
+    "image_thumbnail_url": "https://upload.wikimedia.org/wikipedia/en/d/db/TASM_Vol_1_529.jpg",
+    "name": "Spiderman",
+    "description": "Best marvel hero",
+    "collection": {
+      "name": "Marvel"
+    },
+    "rarity": "UR"
+  },
+  {
+    "id": 3,
+    "image_thumbnail_url": "https://image.over-blog.com/U4MLaIvM6dWScqwW1WkuNCoTiIU=/filters:no_upscale()/image%2F3917276%2F20201213%2Fob_25b3c1_uhc03t1.jpg",
+    "name": "CyberKnight",
+    "description": "A future knight",
+    "collection": {
+      "name": "Special"
+    },
+    "rarity": "LR"
+  },
+  {
+    "id": 4,
+    "image_thumbnail_url": "https://i.pinimg.com/564x/71/5e/21/715e2122d5d7e28d3ffb26d13239e499.jpg",
+    "name": "Yamato",
+    "description": "Wano's protector",
+    "collection": {
+      "name": "One Piece"
+    },
+    "rarity": "LR"
+  },
+  {
+    "id": 5,
+    "image_thumbnail_url": "https://www.setaswall.com/wp-content/uploads/2022/06/Naruto-Phone-Wallpaper-43.jpg",
+    "name": "Naruto",
+    "description": "Future Hokage",
+    "collection": {
+      "name": "Naruto"
+    },
+    "rarity": "SR"
+  },
+  {
+    "id": 6,
+    "image_thumbnail_url": "https://mcdn.wallpapersafari.com/medium/50/26/wVMDoI.jpg",
+    "name": "Edward Elric",
+    "description": "Alchemist",
+    "collection": {
+      "name": "Fullmetal Alchemist"
+    },
+    "rarity": "SSR"
+  },
+  {
+    "id": 7,
+    "image_thumbnail_url": "https://qph.cf2.quoracdn.net/main-qimg-d9f5bc70c7bcab9d6efcba606b534ca9-lq",
+    "name": "Shin",
+    "description": "Future great general under the heavens",
+    "collection": {
+      "name": "Kingdom"
+    },
+    "rarity": "UR"
+  },
+  {
+    "id": 8,
+    "image_thumbnail_url": "https://i0.wp.com/ramenswag.com/wp-content/uploads/2019/12/haikyuu-wallpaper-hinata.jpg?w=1080&ssl=1",
+    "name": "Shoyo Hinata",
+    "description": "Volleyball player",
+    "collection": {
+      "name": "Haikyuu!!"
+    },
+    "rarity": "SR"
+  }
+]
