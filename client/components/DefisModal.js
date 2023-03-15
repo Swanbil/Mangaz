@@ -19,7 +19,7 @@ export const DefisModal = ({ isModalVisible, setModalVisible }) => {
                         <Text style={{ fontWeight: '700', fontSize: 17 }}>Your challenges</Text>
                         <View>
                             {defis.map((defi) => (
-                                <View style={{marginVertical:15}}>
+                                <View key={defi.title} style={{marginVertical:15}}>
                                     <ImageBackground source={require('../assets/image_defis.png')} style={{ width: 290, height: 61 }} imageStyle={{ borderRadius: 12 }} resizeMode='cover' blurRadius={0.5}>
                                         <View style={{padding:10}}>
                                             <Text style={{ fontWeight: '500', fontSize: 15, color: 'white', marginBottom:3 }}>{defi.title}</Text>
