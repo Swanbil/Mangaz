@@ -28,9 +28,11 @@ import * as walletUtils from '../utilities/Wallet.js';
 import { getNftsFromCollection } from "../utilities/Wallet.js";
 
 import cardsData from '../utilities/card.json';
+import collectionsData from '../utilities/collections.json';
 import { useFocusEffect } from '@react-navigation/native';
 import { getDataUser } from '../utilities/localStorage';
 import ShopCard from '../components/ShopCard';
+import NewCollections from '../components/NewCollections';
 
 
 export default function Web3Home({ navigation }) {
@@ -261,31 +263,16 @@ export default function Web3Home({ navigation }) {
                                         </View>
                                     </View>
                                 </View>
-                                <View>
-                                    <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>New collaborations</Text>
-                                    <ScrollView horizontal={true}>
-                                        <View style={{ flexDirection: 'row' }}>
-
-                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, marginRight: 37 }}>
-                                                <View>
-                                                    <Image source={{ uri: "https://i.seadn.io/gcs/files/ed2395633653dc6518f818e3c48278d3.jpg?w=500&auto=format" }} style={{ width: 132, height: 175, borderRadius: 12 }} />
-                                                </View>
-                                                <View style={{ flexDirection: 'column', marginLeft: 20 }}>
-                                                    <TouchableOpacity style={{ padding: 8, backgroundColor: '#A2B2FC', borderRadius: 15 }}>
-                                                        <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700' }}>Buy</Text>
-                                                    </TouchableOpacity>
-                                                    <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 5 }}>
-                                                        <Text style={{ fontWeight: '700', fontSize: 16, letterSpacing: -0.33, color: 'white' }}>
-                                                            Pack Dragon Ball
-                                                        </Text>
-                                                        <Text style={{ fontWeight: '300', fontSize: 13, letterSpacing: -0.33, color: 'white' }}>(2 SRR, 4 SR, 4 R )</Text>
-                                                    </View>
-                                                </View>
-                                            </View>
-
-                                        </View>
-                                    </ScrollView>
-                                </View>
+                               <View style={{ marginTop: 20, marginBottom: 40 }}>
+                               <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>New collaborations</Text>
+                                <FlatList
+                                    data={collectionsData}
+                                    renderItem={({ item }) => (<NewCollections element={item} />)}
+                                    keyExtractor={(item) => item.idCollection.toString()}
+                                    horizontal={true}
+                                    showsVerticalScrollIndicator={false}
+                                />
+                               </View>
                             </View>
                         </View>
 
