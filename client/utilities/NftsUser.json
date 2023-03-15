@@ -1,0 +1,109 @@
+[
+  {
+    "idNft": 1,
+    "name": "Kid Goku",
+    "rarity": "SSR",
+    "quantity": 100,
+    "description": "Le meilleur personnage de fiction de l'histoire, durant son enfance.",
+    "image": "https://i.seadn.io/gcs/files/bc5cae506d6402d9aec5b565216f9975.jpg?auto=format&w=1000",
+    "nameCollection": "Dragon Ball by MangaZ",
+    "coverCollection": "https://i.seadn.io/gcs/files/6f330d6aa7db28b5b12fe755fe518c8e.jpg?auto=format&w=256"
+  },
+
+  {
+    "idNft": 4,
+    "name": "Bulma",
+    "rarity": "SSR",
+    "quantity": 75,
+    "description": "La femme la plus intelligente et la plus riche du monde.",
+    "image": "https://i.seadn.io/gcs/files/e5085d769c3f111cf9050377fa7e52aa.jpg?auto=format&w=1000",
+    "nameCollection": "Dragon Ball by MangaZ",
+    "coverCollection": "https://i.seadn.io/gcs/files/6f330d6aa7db28b5b12fe755fe518c8e.jpg?auto=format&w=256"
+  },
+
+  {
+    "idNft": 5,
+    "name": "Saber (Arthoria Pendragron)",
+    "rarity": "SSR",
+    "quantity": 100,
+    "description": "Better known as Arthur Pendragon and King Arthur, who is regarded as a male in history, she is the Once and Future King and a legendary hero of Britain known as the King of Knights (騎士王, Kishi-Ō?). She wielded the sword from the stone, Caliburn, but it was eventually destroyed. She later obtained Excalibur and Avalon from the Lady of the Lake.",
+    "image": "https://i.seadn.io/gcs/files/86659746e9fb92cd2c5ead2ccf2c5020.jpg?auto=format&w=1000",
+    "nameCollection": "Fate by MangaZ",
+    "coverCollection": "https://i.seadn.io/gcs/files/d4019a401093951ee97016bafade09f5.jpg?auto=format&w=256"
+  },
+
+  {
+    "idNft": 7,
+    "name": "Rin tohsaka",
+    "rarity": "SSR",
+    "quantity": 11,
+    "description": "Rin Tohsaka (遠坂 凛, Tōsaka Rin?) is one of the three main heroines of Fate/stay night who acts as the Master of Archer in the Fifth Holy Grail War. She is the current head of the Tohsaka family and the biological older sister of Sakura Matou.",
+    "image": "https://i.seadn.io/gcs/files/423de738763170d80d8d588e67f46c0c.jpg?auto=format&w=1000",
+    "nameCollection": "Fate by MangaZ",
+    "coverCollection": "https://i.seadn.io/gcs/files/d4019a401093951ee97016bafade09f5.jpg?auto=format&w=256"
+  },
+
+  {
+    "idNft": 8,
+    "name": "Astolfo",
+    "rarity": "SR",
+    "quantity": 50,
+    "description": "AstolfoWP (アストルフォWP, Asutorufo?), Class Name Rider of Black (黒のライダー, Kuro no Raidā?), is the Rider-class Servant of Celenike Icecolle Yggdmillennia of the Black Faction in the Great Holy Grail War of Fate/Apocrypha. After the death of Celenike, he forms a contract with Sieg. He is one of the Servants of Ritsuka Fujimaru of the Grand Order conflicts of Fate/Grand Order. He is a part of Hakuno Kishinami's army in Fate/EXTELLA LINK.",
+    "image": "https://i.seadn.io/gcs/files/9e77d9bd63f6b7caa53dba2b93f07b89.jpg?auto=format&w=1000",
+    "nameCollection": "Fate by MangaZ",
+    "coverCollection": "https://i.seadn.io/gcs/files/d4019a401093951ee97016bafade09f5.jpg?auto=format&w=256"
+  },
+
+  {
+    "idNft": 9,
+    "name": "Anna Liebert",
+    "rarity": "SR",
+    "quantity": 20,
+    "description": "Anna Liebert de Monster est un personnage clé de l'histoire, la sœur jumelle de Johan Liebert, dont l'existence est entourée de mystère et de révélations choquantes.",
+    "image": "https://i.seadn.io/gcs/files/ef5d08c9eb9469303a7ddf41c08c198c.jpg?auto=format&w=1000",
+    "nameCollection": "Monster by MangaZ",
+    "coverCollection": "https://i.seadn.io/gcs/files/b5516798009a13cd83f89fed1bc78291.jpg?auto=format&w=256"
+  },
+
+  {
+    "idNft": 11,
+    "name": "Johan Liebert",
+    "rarity": "SSR",
+    "quantity": 10,
+    "description": "Johan Liebert de Monster est un personnage complexe et mystérieux, considéré comme un véritable monstre en raison de son intelligence, de sa manipulation et de sa cruauté.",
+    "image": "https://i.seadn.io/gcs/files/c12c617feae4aedb134dfc4f4d9df277.jpg?auto=format&w=1000",
+    "nameCollection": "Monster by MangaZ",
+    "coverCollection": "https://i.seadn.io/gcs/files/b5516798009a13cd83f89fed1bc78291.jpg?auto=format&w=256"
+  },
+
+  {
+    "idNft": 13,
+    "name": "Aqua",
+    "rarity": "SSR",
+    "quantity": 1,
+    "description": "Aqua (アクア, Akua) is one of the three main deuteragonists in the KonoSuba series. Before life in the Fantasy World, she was a goddess of water who guided humans to the afterlife; within, she is worshipped by the Axis Order.",
+    "image": "https://i.seadn.io/gcs/files/1aa2302e92a9cc6fcf2f53496f0576cb.webp?auto=format&w=1000",
+    "nameCollection": "Konosuba by MangaZ",
+    "coverCollection": "https://i.seadn.io/gcs/files/8758cf651995afd81fb4ddde6269b6cb.jpg?auto=format&w=256"
+  },
+  {
+    "idNft": 14,
+    "name": "Satou Kazuma",
+    "rarity": "SSR",
+    "quantity": 5,
+    "description": "Satou Kazuma (佐藤さとう 和真かずま) (last name Satou, first name Kazuma) is the main protagonist of the KonoSuba series. He was reincarnated into the Fantasy World after dying. He was originally a student from Japan who always skipped out of school in favor of lazing around at home playing video games. Eventually, he died in an accident and was sent flying to the fantasy world alongside the Goddess of Water Aqua in order to defeat the Demon King, who sought to oppress the free peoples of the fantasy world.",
+    "image": "https://i.seadn.io/gcs/files/5758c6ab1391351ffb13906679d9df12.jpg?auto=format&w=1000",
+    "nameCollection": "Konosuba by MangaZ",
+    "coverCollection": "https://i.seadn.io/gcs/files/8758cf651995afd81fb4ddde6269b6cb.jpg?auto=format&w=256"
+  },
+  {
+    "idNft": 15,
+    "name": "Megumin",
+    "rarity": "SSR",
+    "quantity": 200,
+    "description": "L'éternel looser.",
+    "image": "https://i.seadn.io/gcs/files/2da33d022d8e56c6dcc7c76316e6c7ee.jpg?auto=format&w=1000",
+    "nameCollection": "Konosuba by MangaZ",
+    "coverCollection": "https://i.seadn.io/gcs/files/8758cf651995afd81fb4ddde6269b6cb.jpg?auto=format&w=256"
+  }
+]
