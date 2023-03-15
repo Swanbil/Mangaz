@@ -14,7 +14,7 @@ const MangaPage = ({ route, navigation }) => {
     const [mangaItem, setMangaItem] = useState(manga);
     const [responseMessage, setResponseMessage] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
-
+    
     useEffect(() => {
         getChapters();
     }, [manga]);
@@ -110,7 +110,7 @@ const MangaPage = ({ route, navigation }) => {
                                     <ImageBackground source={{ uri: manga?.coverImage_large }} resizeMode='cover' blurRadius={1} imageStyle={{ borderRadius: 15 }}>
                                         <View style={{ backgroundColor: 'rgba(0,0,0, 0.20)', borderRadius: 12 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', padding: 5 }}>
-                                                <Image source={{ uri: "https://lh4.googleusercontent.com/p5iZUn5MyFNbRFzX9YDnqy5sTY463N3QqDqgdt6_ZWlXAWuv8Kr3-HLipWUrqieUdhE1Yv5dK9n4RnwSvnYEdTqBiFzKaOOg4_rSLKWoGo9gqsARU-Ei_d3cqiL3uy2oMWoYseuXeOKXK_aY_OisCoI" }}
+                                                <Image source={{ uri: "https://lelscans.net/mangas/one-piece/1018/00.jpg?v=fr1625215883" }}
                                                     resizeMode="cover" style={{ width: 84, height: 84, borderRadius: 24 }} />
 
                                                 <View style={{ padding: 5, marginLeft: 20, width: 0, flexGrow: 1, flex: 1, }}>

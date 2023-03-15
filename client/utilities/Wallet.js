@@ -14,10 +14,8 @@ import { contractTokenABI, constTokenAddress, constNftAddress, contractNftABI, c
 
         // Set the private key of the sender account
         const privateKey = await getPrivateKey(_pseudo);
-
-        // Create a new instance of the ethers.js Wallet using the private key
+               // Create a new instance of the ethers.js Wallet using the private key
         const wallet = new ethers.Wallet(privateKey, provider);
-
         return wallet.address;
     };
 

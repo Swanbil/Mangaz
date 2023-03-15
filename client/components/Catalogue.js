@@ -9,7 +9,7 @@ const Catalogue = ({ navigation, catalogue, pageName, widthMangaItem, direction 
             {catalogue?.length === 0
                 ? <Text style={{ flex: 1, textAlign: "center", fontWeight: "500", marginTop: 50 }}>Any mangas in the {pageName === "Favoris" ? "favorites" : "catalogue"} 😪</Text>
                 : (
-                    <View className="catalogue" style={{ flexGrow: 1, flexDirection:( direction === "vertical" ? 'col' : 'row'), flexWrap: 'wrap', justifyContent:'center' }}>
+                    <View className="catalogue" style={{ flexGrow: 1, flexDirection:'row', flexWrap: 'wrap', justifyContent:'center' }}>
                         {catalogue?.map((manga, idx) => (
                             <MangaItem manga={manga} key={manga?.title || manga.idManga} navigation={navigation} width={widthMangaItem} subTitle={manga?.title} />
                         )

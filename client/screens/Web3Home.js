@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button, FlatList, Image, ScrollView, ImageBackground } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -28,6 +28,8 @@ import * as walletUtils from '../utilities/Wallet.js';
 import { getNftsFromCollection } from "../utilities/Wallet.js";
 
 import cardsData from '../utilities/card.json';
+import { useFocusEffect } from '@react-navigation/native';
+import { getDataUser } from '../utilities/localStorage';
 
 
 export default function Web3Home({ navigation }) {
@@ -38,7 +40,7 @@ export default function Web3Home({ navigation }) {
     const [pseudo, setPseudo] = useState("");
 
     //Current address
-    const [address, setAddress] = useState("");
+    const [address, setAddress] = useState(null);
 
     //Wallet Connect
     const connector = useWalletConnect();
@@ -61,29 +63,13 @@ export default function Web3Home({ navigation }) {
     // Loading
     const [loading, setLoading] = useState(false);
 
-    const [profilePicture, setProfilePicture] = useState("");
+    const [profilePicture, setProfilePicture] = useState();
 
     const [collections, setCollections] = useState([]);
 
     const [collection, setCollection] = useState([]);
 
     const [listNftCollection, setListNftCollection] = useState([]);
-
-
-
-    /*  ------ Link with Metamask------
-    
-        const connectWallet = React.useCallback(() => {
-            navigation.navigate("TabNavigator", { screen: 'Wallet' });
-            return connector.connect();
-        }, window.connector = [connector]);
-    
-        const killSession = React.useCallback(() => {
-            return connector.killSession();
-    
-        }, [connector]);
-    
-    */
 
     async function getProfilePicture(_pseudo) {
         const user = { "userPseudo": _pseudo };
@@ -94,79 +80,88 @@ export default function Web3Home({ navigation }) {
     /* ---------------------- */
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
     useEffect(() => {
-
-        const fetchData = async () => {
-
-            setPseudo('Test');
-
-            await getProfilePicture(pseudo).then((picture) => {
-                setProfilePicture(picture);
-            });
-
-            let userAddress = address;
-                if (!userAddress) {
-                    userAddress = await walletUtils.getAddress(pseudo);
-                    setAddress(userAddress);
-                }
-
-                // Get the balance of the connected wallet
-                await walletUtils.getBalance(pseudo).then((balance) => {
-                    setBalance(balance)
-                });
-
-                if (userAddress) {
-                    await walletUtils.getAllNftUser(userAddress).then((listIdNft) => {
-                        setListNftUser(listIdNft);
-                    });
-                }
-
-                // //Get the list of nfts of the user
-                /*
-                    for (let i = 0; i < listNftUser.length; i++) {
-                        console.log("listIdNft[i].id : " + listNftUser[i].token_id);
-                        await walletUtils.getNftUser(contractNftOpenSeaAddress, listNftUser[i].token_id.justifyContent, address).then(r =>
-                        setNfts(nfts => [...nfts, r]));
-                    }
-                 */
-
-
-                /*
-                -------------------------------------------------------------------------------------
-                 */
-
-
-
-            //      //Retrieve the list of collections and each collection
-            //      await walletUtils.getCollections(mangaZAddress)
-            //          .then((collections) => {
-            //              setCollections(collections);
-            //          })
-            //          .catch((error) => {
-            //              // gérer l'erreur
-            //              console.log("error : " + error);
-            //          })
-            //          .finally(() => {
-            //              // faire quelque chose après l'exécution de la fonction asynchrone, comme une autre fonction ou une autre action
-            //              //Get the 3 more recent collections
-            //              for (let i = 0; i < 3; i++) {
-            //                  console.log("collections["+ i +"].slug : " + collections[i].slug);
-            //                  setTimeout(() => {
-            //                      walletUtils.getCollection(collections[i].slug).then((collection) => {
-            //                          console.log("collection coté api : " + collection.collection.name);
-            //                          setCollection(prevCollection => [...prevCollection, collection]);
-            //                      });
-            //                  }, i*4000);
-            //              };
-
-            //          })
-            //  //Get the list of nfts of the collection
-            //  await walletUtils.getNftsFromCollection(collection.slug).then((listNftCollection) => {
-            //      console.log("collection coté code " + collection[0].collection.name);
-            //      setListNftCollection(listNftCollection);
-            //  } );
-        }
         fetchData();
-    }, [address, pseudo]);
+    }, [])
+
+    const setAllNfts = async (listNftUser) => {
+        for (let i = 0; i < listNftUser.length; i++) {
+            console.log("listIdNft[i].id : " + listNftUser[i].token_id);
+            await walletUtils.getNftUser(contractNftOpenSeaAddress, listNftUser[i].token_id.justifyContent, address).then(r =>
+            setNfts(nfts => [...nfts, r]));
+        }
+    }
+
+    const fetchData = async () => {
+        const { userPseudo } = await getDataUser();
+        const pseudo = userPseudo;
+        setPseudo(userPseudo);
+
+        await getProfilePicture(pseudo).then((picture) => {
+            setProfilePicture(picture);
+        });
+
+        if (!address) {
+            const userAddress = await walletUtils.getAddress(pseudo);
+            setAddress(userAddress);
+        }
+
+        // Get the balance of the connected wallet
+        await walletUtils.getBalance(pseudo).then((balance) => {
+            setBalance(balance)
+        });
+
+        if (address) {
+            await walletUtils.getAllNftUser(userAddress).then((listIdNft) => {
+                setListNftUser(listIdNft);
+                setAllNfts(listIdNft)
+            });
+        }
+
+        // //Get the list of nfts of the user
+        /*
+            for (let i = 0; i < listNftUser.length; i++) {
+                console.log("listIdNft[i].id : " + listNftUser[i].token_id);
+                await walletUtils.getNftUser(contractNftOpenSeaAddress, listNftUser[i].token_id.justifyContent, address).then(r =>
+                setNfts(nfts => [...nfts, r]));
+            }
+         */
+
+
+        /*
+        -------------------------------------------------------------------------------------
+         */
+
+
+
+        //      //Retrieve the list of collections and each collection
+        //      await walletUtils.getCollections(mangaZAddress)
+        //          .then((collections) => {
+        //              setCollections(collections);
+        //          })
+        //          .catch((error) => {
+        //              // gérer l'erreur
+        //              console.log("error : " + error);
+        //          })
+        //          .finally(() => {
+        //              // faire quelque chose après l'exécution de la fonction asynchrone, comme une autre fonction ou une autre action
+        //              //Get the 3 more recent collections
+        //              for (let i = 0; i < 3; i++) {
+        //                  console.log("collections["+ i +"].slug : " + collections[i].slug);
+        //                  setTimeout(() => {
+        //                      walletUtils.getCollection(collections[i].slug).then((collection) => {
+        //                          console.log("collection coté api : " + collection.collection.name);
+        //                          setCollection(prevCollection => [...prevCollection, collection]);
+        //                      });
+        //                  }, i*4000);
+        //              };
+
+        //          })
+        //  //Get the list of nfts of the collection
+        //  await walletUtils.getNftsFromCollection(collection.slug).then((listNftCollection) => {
+        //      console.log("collection coté code " + collection[0].collection.name);
+        //      setListNftCollection(listNftCollection);
+        //  } );
+    }
 
     const renderGalleryCard = ({ item }) => (
         <View style={styles.container.flatListContainer.card}>
@@ -264,12 +259,12 @@ export default function Web3Home({ navigation }) {
                 <View style={styles.container.header}>
                     <View style={styles.container.header.profile}>
                         <View style={styles.container.header.profile.profilePicture}>
-                            <Image source={{ uri: profilePicture.profilePicture }} style={styles.container.header.profile.image} />
+                            <Image source={{ uri: profilePicture?.profilePicture }} style={styles.container.header.profile.image} />
                         </View>
                         <View style={styles.container.header.profile.profileInformations}>
                             <Text style={styles.container.header.profile.profileInformations.pseudo}>{pseudo}</Text>
-                            <Text style={styles.container.header.profile.profileInformations.address}>{address.slice(0, 5) + "..." + address.slice(-4)}</Text>
-                            <Text style={styles.container.header.profile.profileInformations.numberNft}>Nft possedés : {listNftUser.length}</Text>
+                            <Text style={styles.container.header.profile.profileInformations.address}>{address?.slice(0, 5) + "..." + address?.slice(-4)}</Text>
+                            <Text style={styles.container.header.profile.profileInformations.numberNft}>Nft possedés : {listNftUser?.length}</Text>
                         </View>
                     </View>
                     <View style={styles.container.header.zenCash}>
@@ -278,9 +273,9 @@ export default function Web3Home({ navigation }) {
                         </View>
                         <View style={styles.container.header.zenCash.backgroundZ}>
                             {balance.toString().length > 5 ?
-                                <Text style={styles.container.header.zenCash.balance}>{balance.toLocaleString().slice(0, 1) + ".." + balance.toLocaleString().slice((-3))} ZC</Text>
+                                <Text style={styles.container.header.zenCash.balance}>{balance?.toLocaleString().slice(0, 1) + ".." + balance?.toLocaleString().slice((-3))} ZC</Text>
                                 :
-                                <Text style={styles.container.header.zenCash.balance}>{balance.toLocaleString()} ZC</Text>
+                                <Text style={styles.container.header.zenCash.balance}>{balance?.toLocaleString()} ZC</Text>
                             }
                         </View>
                         <View style={styles.container.header.zenCash.addTokenButton}>
@@ -361,7 +356,7 @@ const styles = StyleSheet.create({
 
         titleShop: {
             zIndex: 2,
-            fontFamily: 'Oswald',
+            // fontFamily: 'Oswald',
             fontStyle: 'normal',
             fontWeight: '700',
             fontSize: 20,
@@ -507,7 +502,7 @@ const styles = StyleSheet.create({
 
                     pseudo: {
                         /* H5 */
-                        fontfamily: 'Ubuntu',
+                        // fontfamily: 'Ubuntu',
                         fontstyle: 'normal',
                         fontweight: 400,
                         fontsize: 16,
@@ -518,7 +513,7 @@ const styles = StyleSheet.create({
                         color: '#EDEDED',
                     },
                     address: {
-                        fontFamily: 'Ubuntu',
+                        // fontFamily: 'Ubuntu',
                         fontStyle: 'normal',
                         fontWeight: '400',
                         fontSize: 13,
@@ -527,7 +522,7 @@ const styles = StyleSheet.create({
                         color: '#EDEDED',
                     },
                     numberNft: {
-                        fontFamily: 'Ubuntu',
+                        // fontFamily: 'Ubuntu',
                         fontStyle: 'normal',
                         fontWeight: '400',
                         fontSize: 13,
@@ -581,7 +576,7 @@ const styles = StyleSheet.create({
                     marginLeft: '22%',
                     marginTop: '2%',
                     fontSize: 13,
-                    fontFamily: 'Ubuntu',
+                    // fontFamily: 'Ubuntu',
                     top: '5%'
 
                 },

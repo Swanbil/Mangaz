@@ -149,8 +149,8 @@ export default function Subscribe({ getSubState, navigation, route }) {
                     <View style={{ padding: 10, backgroundColor: '#E4E4E4', marginTop: 8, borderRadius: 15 }}>
                         <CardForm
                             cardStyle={{
-                                backgroundColor: '#333',
-                                textColor: '#FFF',
+                                backgroundColor: '#292929',
+                                textColor: '#FFFFFF',
                             }}
                             onFormComplete={(cardDetails) => {
                                 console.log('card details', cardDetails);
