@@ -97,11 +97,6 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, ge
             })} >
                 {(props) => <SearchScreen {...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
             </Stack.Screen>
-            {/* <Stack.Screen name="Web3Home" options={({ navigation }) => ({
-                headerShown: false
-            })} >
-                {(props) => <Web3Home {...props} />}
-            </Stack.Screen> */}
         </Stack.Navigator>
 
     );

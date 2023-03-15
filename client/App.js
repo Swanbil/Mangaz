@@ -10,7 +10,7 @@ import axios from 'axios';
 
 global.Buffer = require('buffer').Buffer;
 
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -32,7 +32,7 @@ export default function App() {
         console.warn(e);
       } finally {
         setAppIsReady(true);
-        //await SplashScreen.hideAsync();
+        await SplashScreen.hideAsync();
       }
     }
     prepare();
@@ -43,9 +43,9 @@ export default function App() {
   }
 
 
-  // if (!appIsReady) {
-  //   return null;
-  // }
+  if (!appIsReady) {
+    return null;
+  }
   return (
     <NavigationContainer>
       <AppNavigator isLogedIn={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={setIsSubscribe} />
