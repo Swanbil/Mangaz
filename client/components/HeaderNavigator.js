@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: "#C0A6F7",
     borderRadius: 10,
-    overflow: "hidden",
+    //overflow: "hidden",
     textAlign:'center'
   },
   headerStyle: {

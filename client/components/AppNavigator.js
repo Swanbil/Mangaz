@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+<<<<<<< HEAD
 import Login from '../screens/LoginScreen';
 import Register from '../screens/RegisterScreen';
 import MangaPage from '../screens/MangaScreen';
@@ -15,12 +16,30 @@ import Subscribe from '../screens/SubscribeScreen';
 import Payment from '../screens/PaymentScreen';
 import ProfilePage from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
+=======
+import Login from '../screens/Login';
+import Register from '../screens/Register';
+import MangaPage from '../screens/MangaPage';
+import History from '../screens/History';
+import Wallet from '../utilities/Wallet';
+import TabNavigator from './TabNavigator';
+import Chapter from './Chapter';
+import MenuProfile from './MenuProfile';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import Settings from '../screens/Settings';
+import Subscribe from '../screens/Subscribe';
+import Web3Home from "../screens/Web3Home";
+>>>>>>> 8445147853f68511ef19d6c7362e36aca7eb0a45
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, getSubState }) => {
     return (
         <Stack.Navigator
+<<<<<<< HEAD
             initialRouteName={isLogedIn ? 'Home' : 'Login'}
+=======
+            initialRouteName={'Catalogue'}
+>>>>>>> 8445147853f68511ef19d6c7362e36aca7eb0a45
             screenOptions={{
                 cardStyle: { backgroundColor: 'white' },
                 headerStyle: { backgroundColor: '#F6F6F6' },
@@ -95,6 +114,11 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, ge
                 headerShown: false
             })} >
                 {(props) => <SearchScreen {...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
+            </Stack.Screen>
+            <Stack.Screen name="Web3Home" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <Web3Home {...props} />}
             </Stack.Screen>
         </Stack.Navigator>
 

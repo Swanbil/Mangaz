@@ -11,15 +11,25 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "api": "^5.0.7",
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
+<<<<<<< HEAD
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "pg": "^8.7.3",
     "prompt-sync": "^4.2.0",
     "stripe": "^11.6.0"
+=======
+    "crypto": "^1.0.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "prompt-sync": "^4.2.0",
+    "request": "^2.88.2"
+>>>>>>> 8445147853f68511ef19d6c7362e36aca7eb0a45
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
