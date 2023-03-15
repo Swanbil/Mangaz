@@ -267,7 +267,8 @@ export default function Web3Home({ navigation }) {
                                <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>New collaborations</Text>
                                 <FlatList
                                     data={collectionsData}
-                                    renderItem={({ item }) => (<NewCollections element={item} />)}
+                                    renderItem={({ item }) => (
+                                    <NewCollections element={item} />)}
                                     keyExtractor={(item) => item.idCollection.toString()}
                                     horizontal={true}
                                     showsHorizontalScrollIndicator={false}
