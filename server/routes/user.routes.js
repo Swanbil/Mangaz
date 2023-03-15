@@ -11,6 +11,7 @@ router.get('/user/:userPseudo', userController.getUserInfos);
 router.get('/user/:userPseudo/stats', userController.getUserStats);
 router.post('/user/subscribe', userController.subscribe);
 router.get('/user/:userPseudo/subscribe', userController.getUserSubscribeValid);
-router.get('/user/:userPseudo/subscription/me', userController.getSubscriptionUserStripe)
+router.get('/user/:userPseudo/subscription/me', userController.getSubscriptionUserStripe);
+router.get('/user/getProfilePicture/:userPseudo', userController.getProfilePicture);
 
 module.exports = router;

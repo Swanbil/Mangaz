@@ -7,6 +7,7 @@ import axios from "axios";
 import { API_URL } from '@env';
 import { getDataUser } from '../utilities/localStorage';
 import Carousel from "react-native-reanimated-carousel";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function Chapter({ route, navigation }) {
   const [pages, setPages] = useState([]);
@@ -72,55 +73,59 @@ export default function Chapter({ route, navigation }) {
     navigation.navigate('Chapter', { chapterNumber: chapterNumber - 1, mangaTitle: mangaTitle });
   }
   return (
+
+
     <View style={{ flex: 1, backgroundColor: 'black' }}>
-      <TouchableOpacity
-        style={{ margin: 20 }}
-        underlayColor='#fff' onPress={() => navigation.goBack()}
-      >
-        <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
-      </TouchableOpacity>
+      <GestureHandlerRootView>
+        <TouchableOpacity
+          style={{ margin: 20 }}
+          underlayColor='#fff' onPress={() => navigation.goBack()}
+        >
+          <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
+        </TouchableOpacity>
 
-      <View style={styles.container}>
-        <Carousel
-          width={320}
-          height={530}
-          data={pages}
-          scrollAnimationDuration={500}
-          defaultIndex={currentIndex}
-          loop={false}
-          onSnapToItem={(index) => swipePage(index)}
-          onScrollEnd={() => saveUserHistoryChapterRead()}
-          renderItem={({ index }) => (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-              }}
-            >
-              <Image source={{ uri: pages[index]?.source }} style={{ width: 320, height: 530 }} />
-            </View>
-          )}
-        />
+        <View style={styles.container}>
 
-        <View style={{
-          flexDirection: "row",
-          marginTop: 10,
-          alignItems: "center",
-          justifyContent: 'space-between'
-        }}>
-          {chapterNumber - 1 > 0
-            ? (<TouchableOpacity
-              style={{ padding: 5, borderWidth: 2, borderColor: "#C0A6F7", borderRadius: 15, marginHorizontal: 25 }}
-              underlayColor='#fff' onPress={goToPreviousChapter}
-            >
-              <Text style={{ color: 'white' }}>{chapterNumber - 1 > 0 ? "Chapt. " + (chapterNumber - 1) : ""}</Text>
-            </TouchableOpacity>)
-            : (<TouchableOpacity style={{ padding: 5, borderWidth: 2, borderRadius: 15, marginHorizontal: 25 }}><Text>{"Chapt. " + (chapterNumber - 1)}</Text></TouchableOpacity>)
-          }
+          <Carousel
+            width={320}
+            height={530}
+            data={pages}
+            scrollAnimationDuration={10}
+            defaultIndex={currentIndex}
+            loop={false}
+            onSnapToItem={(index) => swipePage(index)}
+            onScrollEnd={() => saveUserHistoryChapterRead()}
+            renderItem={({ index }) => (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                }}
+              >
+                <Image source={{ uri: pages[index]?.source }} style={{ width: 320, height: 530 }} />
+              </View>
+            )}
+          />
 
+          <View style={{
+            flexDirection: "row",
+            marginTop: 10,
+            alignItems: "center",
+            justifyContent: 'space-between'
+          }}>
+            {chapterNumber - 1 > 0
+              ? (<TouchableOpacity
+                style={{ padding: 5, borderWidth: 2, borderColor: "#C0A6F7", borderRadius: 15, marginHorizontal: 25 }}
+                underlayColor='#fff' onPress={goToPreviousChapter}
+              >
+                <Text style={{ color: 'white' }}>{chapterNumber - 1 > 0 ? "Chapt. " + (chapterNumber - 1) : ""}</Text>
+              </TouchableOpacity>)
+              : (<TouchableOpacity style={{ padding: 5, borderWidth: 2, borderRadius: 15, marginHorizontal: 25 }}><Text>{"Chapt. " + (chapterNumber - 1)}</Text></TouchableOpacity>)
+            }
 
-          <RNPickerSelect
+            <RNPickerSelect
             onValueChange={(value) => selectPage(value)}
+            useNativeAndroidPickerStyle={false}
             items={selectPageItems}
             value={currentIndex}
             placeholder={{ label: "Select page", value: null }}
@@ -130,19 +135,19 @@ export default function Chapter({ route, navigation }) {
                 right: 12,
               }
             }}
-            useNativeAndroidPickerStyle={false}
             Icon={() => {
               return <Ionicons name="chevron-down-outline" size={16} color="black" />;
             }}
           />
-          <TouchableOpacity
-            style={{ padding: 5, borderWidth: 2, borderColor: "#C0A6F7", borderRadius: 15, marginHorizontal: 25 }}
-            underlayColor='#fff' onPress={goToNextChapter}
-          >
-            <Text style={{ color: 'white' }}>Chapt. {chapterNumber + 1}</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={{ padding: 5, borderWidth: 2, borderColor: "#C0A6F7", borderRadius: 15, marginHorizontal: 25 }}
+              underlayColor='#fff' onPress={goToNextChapter}
+            >
+              <Text style={{ color: 'white' }}>Chapt. {chapterNumber + 1}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </GestureHandlerRootView>
     </View>
 
   );

@@ -7,10 +7,10 @@ import { API_URL } from '@env';
 const Login = ({ navigation, getLogState, getSubState }) => {
     const [pseudo, setPseudo] = useState("");
     const [password, setPassWord] = useState("");
-
-
+    
     const login = async () => {
         const user = { "pseudo": pseudo, "password": password };
+        
         try {
             const response = await axios.post(API_URL + '/login', user);
             const data = response.data;
@@ -44,6 +44,7 @@ const Login = ({ navigation, getLogState, getSubState }) => {
                 underlayColor='#fff'>
                 <Text style={styles.textButton}>Login</Text>
             </TouchableOpacity>
+            
             <TouchableOpacity
                 style={styles.buttonRegister}
                 onPress={() => navigation.navigate('Register')}
@@ -52,9 +53,15 @@ const Login = ({ navigation, getLogState, getSubState }) => {
                 <Text style={styles.textButton}>Register</Text>
             </TouchableOpacity>
 
-
+            <TouchableOpacity
+                style={styles.buttonRegister}
+                onPress={() => navigation.navigate('Web3Home')}
+                underlayColor='#fff'
+            >
+                <Text style={styles.textButton}>Go Wallet</Text>
+            </TouchableOpacity>
+            
         </View>
-
     );
 }
 

@@ -6,12 +6,7 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ],
-    "splash": {
-      "image": "./assets/MangaZ_logo.png",
-      "backgroundColor": "#FFFFFF",
-      "resizeMode" : "contain"
-    }
+    ]
   },
   "name": "Mangaz"
 }

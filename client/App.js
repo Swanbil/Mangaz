@@ -8,6 +8,8 @@ import { getDataUser } from './utilities/localStorage';
 import { API_URL } from '@env';
 import axios from 'axios';
 
+global.Buffer = require('buffer').Buffer;
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
@@ -39,6 +41,7 @@ export default function App() {
   const getLogState = (data) => {
     setIsLogedIn(data);
   }
+
 
   if (!appIsReady) {
     return null;

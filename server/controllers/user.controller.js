@@ -311,3 +311,18 @@ exports.getUserStats = async (req, res) => {
         return;
     })
 }
+
+exports.getProfilePicture = async (req, res) => {
+    const userPseudo = req.params.userPseudo;
+    const sql = 'SELECT "profilePicture" FROM users WHERE pseudo = $1';
+    await db.query(sql, [userPseudo], (err, result) => {
+        if (err) {
+            console.log(err);
+            res.status(404).send({ message: "An error occurred during the get of pp" });
+            return;
+        }
+        const profilePicture = result.rows[0].profilePicture;
+        res.status(200).send({ profilePicture: profilePicture });
+        return;
+    })
+}

@@ -8,7 +8,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getHeaderTitle } from '@react-navigation/elements';
 import { IconButton } from 'react-native-paper';
 import MangaHomePage from '../screens/MangaHomeScreen';
-import Wallet from '../screens/WalletScreen';
+import Wallet from '../utilities/Wallet';
+import Web3Home from '../screens/Web3Home';
 
 
 const Tab = createBottomTabNavigator();
@@ -16,6 +17,7 @@ const Tab = createBottomTabNavigator();
 const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
     return (
         <Tab.Navigator
+            initialRouteName='Home'
             screenOptions={({ navigation, route }) => ({
                 header: ({ navigation, route, options }) => {
                     const title = getHeaderTitle(options, route.name);
@@ -30,7 +32,7 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                     } else if (route.name === 'Profile') {
                         iconName = focused ? 'account-circle' : 'account-circle-outline';
                     }
-                    else if (route.name === 'Wallet') {
+                    else if (route.name === 'Web3Home') {
                         iconName = focused ? 'wallet' : 'wallet';
                     }
                     else if (route.name === 'MangaHome') {
@@ -43,8 +45,8 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                 tabBarActiveTintColor: '#333',
                 tabBarInactiveTintColor: 'white',
                 headerShown: false,
-                tabBarStyle : {position:'absolute', bottom:10, marginHorizontal:30, backgroundColor:'#CFB2E1', borderRadius:32, height:60, opacity:0.95}
-                
+                tabBarStyle: { position: 'absolute', bottom: 10, marginHorizontal: 30, backgroundColor: '#CFB2E1', borderRadius: 32, height: 60, opacity: 0.95 }
+
             })}
         >
 
@@ -57,8 +59,8 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                         <Tab.Screen name="Home">
                             {(props) => <Home {...props} isLog={isLog} isSubscribe={isSubscribe} getLogState={getLogState} getSubState={getSubState} />}
                         </Tab.Screen>
-                        <Tab.Screen name="Wallet">
-                            {(props) => <Wallet {...props} isLog={isLog} isSubscribe={isSubscribe} />}
+                        <Tab.Screen name="Web3Home">
+                            {(props) => <Web3Home {...props} />}
                         </Tab.Screen>
 
                     </>

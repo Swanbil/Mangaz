@@ -5,7 +5,6 @@ import Login from '../screens/LoginScreen';
 import Register from '../screens/RegisterScreen';
 import MangaPage from '../screens/MangaScreen';
 import History from '../screens/HistoryScreen';
-import Wallet from '../screens/WalletScreen';
 import TabNavigator from './TabNavigator';
 import Chapter from './Chapter';
 import MenuProfile from './MenuProfile';
@@ -15,6 +14,8 @@ import Subscribe from '../screens/SubscribeScreen';
 import Payment from '../screens/PaymentScreen';
 import ProfilePage from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
+import Wallet from '../utilities/Wallet';
+import Web3Home from "../screens/Web3Home";
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, getSubState }) => {
