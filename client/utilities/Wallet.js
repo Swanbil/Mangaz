@@ -218,9 +218,6 @@ import { contractTokenABI, constTokenAddress, constNftAddress, contractNftABI, c
             const response = await axios.get(API_URL + '/web3/OpenSea/getNFT/' + _contractAddress + '/' + _idNft + '/' + _addressUser);
             const nft = response.data;
             console.log(nft);
-
-
-            //setNfts(nfts => [...nfts, nft]); // append the new NFT to the list of NFTs
             return nft;
 
         } catch (e) {

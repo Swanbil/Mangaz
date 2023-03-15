@@ -17,6 +17,7 @@ const Tab = createBottomTabNavigator();
 const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
     return (
         <Tab.Navigator
+            initialRouteName='Home'
             screenOptions={({ navigation, route }) => ({
                 header: ({ navigation, route, options }) => {
                     const title = getHeaderTitle(options, route.name);
@@ -44,8 +45,8 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                 tabBarActiveTintColor: '#333',
                 tabBarInactiveTintColor: 'white',
                 headerShown: false,
-                tabBarStyle : {position:'absolute', bottom:10, marginHorizontal:30, backgroundColor:'#CFB2E1', borderRadius:32, height:60, opacity:0.95}
-                
+                tabBarStyle: { position: 'absolute', bottom: 10, marginHorizontal: 30, backgroundColor: '#CFB2E1', borderRadius: 32, height: 60, opacity: 0.95 }
+
             })}
         >
 

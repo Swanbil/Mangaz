@@ -80,13 +80,14 @@ export default function Web3Home({ navigation }) {
 
     /* ---------------------- */
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
-    useEffect(() => {
-        fetchData();
-    }, [])
+    useFocusEffect(
+        useCallback(() => {
+            fetchData();
+        }, [])
+    );
 
     const setAllNfts = async (listNftUser) => {
         for (let i = 0; i < listNftUser.length; i++) {
-            console.log("listIdNft[i].id : " + listNftUser[i].token_id);
             await walletUtils.getNftUser(contractNftOpenSeaAddress, listNftUser[i].token_id.justifyContent, address).then(r =>
                 setNfts(nfts => [...nfts, r]));
         }
@@ -101,17 +102,15 @@ export default function Web3Home({ navigation }) {
             setProfilePicture(picture);
         });
 
-        if (!address) {
-            const userAddress = await walletUtils.getAddress(pseudo);
-            setAddress(userAddress);
-        }
+        const userAddress = await walletUtils.getAddress(pseudo);
+        setAddress(userAddress);
 
         // Get the balance of the connected wallet
         await walletUtils.getBalance(pseudo).then((balance) => {
             setBalance(balance)
         });
 
-        if (address) {
+        if (userAddress) {
             await walletUtils.getAllNftUser(userAddress).then((listIdNft) => {
                 setListNftUser(listIdNft);
                 setAllNfts(listIdNft)
@@ -119,20 +118,11 @@ export default function Web3Home({ navigation }) {
         }
 
         // //Get the list of nfts of the user
-        /*
-            for (let i = 0; i < listNftUser.length; i++) {
-                console.log("listIdNft[i].id : " + listNftUser[i].token_id);
-                await walletUtils.getNftUser(contractNftOpenSeaAddress, listNftUser[i].token_id.justifyContent, address).then(r =>
-                setNfts(nfts => [...nfts, r]));
-            }
-         */
-
+       
 
         /*
         -------------------------------------------------------------------------------------
          */
-
-
 
         //      //Retrieve the list of collections and each collection
         //      await walletUtils.getCollections(mangaZAddress)
@@ -322,10 +312,10 @@ export default function Web3Home({ navigation }) {
 
 
                 <View style={{ marginTop: 20, marginBottom: 80, padding: 5 }}>
-                    <Text style={{ fontWeight: '700', fontSize: 22, color: 'black', marginBottom: 10, marginLeft:5 }}>Shop</Text>
+                    <Text style={{ fontWeight: '700', fontSize: 22, color: 'black', marginBottom: 10, marginLeft: 5 }}>Shop</Text>
                     <FlatList
                         data={cardsData}
-                        renderItem={({item}) => (<ShopCard element={item} />)}
+                        renderItem={({ item }) => (<ShopCard element={item} />)}
                         keyExtractor={(item) => item.id.toString()}
                         horizontal={true}
                         showsVerticalScrollIndicator={false}
@@ -343,6 +333,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         height: 1000
     },
-    
+
 
 });
