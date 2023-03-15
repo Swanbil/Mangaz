@@ -267,7 +267,6 @@ exports.getUserSubscribeValid = async (req, res) => {
     })
 }
 
-<<<<<<< HEAD
 exports.getMangasRated = async (req, res) => {
     const userPseudo = req.params.userPseudo;
     sql = 'SELECT u.pseudo, m."technicalName", m."titleName", rm.rate, m."coverImage", m.description, m."createdDate", m."idManga" from rates_manga rm\
@@ -309,19 +308,6 @@ exports.getUserStats = async (req, res) => {
         const mangasRead = result.rows[0].mangasread;
         //TODO : get number nft of users
         res.status(200).send({ mangasRead: mangasRead, nfts: 3 });
-=======
-exports.getProfilePicture = async (req, res) => {
-    const userPseudo = req.params.userPseudo;
-    const sql = 'SELECT "profilePicture" FROM users WHERE pseudo = $1';
-    await db.query(sql, [userPseudo], (err, result) => {
-        if (err) {
-            console.log(err);
-            res.status(404).send({ message: "An error occurred during the get of pp" });
-            return;
-        }
-        const profilePicture = result.rows[0].profilePicture;
-        res.status(200).send({ profilePicture: profilePicture });
->>>>>>> 8445147853f68511ef19d6c7362e36aca7eb0a45
         return;
     })
 }

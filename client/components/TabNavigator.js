@@ -7,12 +7,9 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getHeaderTitle } from '@react-navigation/elements';
 import { IconButton } from 'react-native-paper';
-<<<<<<< HEAD
 import MangaHomePage from '../screens/MangaHomeScreen';
-import Wallet from '../screens/WalletScreen';
-=======
 import Wallet from '../utilities/Wallet';
->>>>>>> 8445147853f68511ef19d6c7362e36aca7eb0a45
+import Web3Home from '../screens/Web3Home';
 
 
 const Tab = createBottomTabNavigator();
@@ -34,7 +31,7 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                     } else if (route.name === 'Profile') {
                         iconName = focused ? 'account-circle' : 'account-circle-outline';
                     }
-                    else if (route.name === 'Wallet') {
+                    else if (route.name === 'Web3Home') {
                         iconName = focused ? 'wallet' : 'wallet';
                     }
                     else if (route.name === 'MangaHome') {
@@ -61,8 +58,8 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                         <Tab.Screen name="Home">
                             {(props) => <Home {...props} isLog={isLog} isSubscribe={isSubscribe} getLogState={getLogState} getSubState={getSubState} />}
                         </Tab.Screen>
-                        <Tab.Screen name="Wallet">
-                            {(props) => <Wallet {...props} isLog={isLog} isSubscribe={isSubscribe} />}
+                        <Tab.Screen name="Web3Home">
+                            {(props) => <Web3Home {...props} />}
                         </Tab.Screen>
 
                     </>

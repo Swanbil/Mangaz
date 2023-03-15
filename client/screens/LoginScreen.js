@@ -15,15 +15,9 @@ const Login = ({ navigation, getLogState, getSubState }) => {
             const response = await axios.post(API_URL + '/login', user);
             const data = response.data;
             getLogState(true);
-<<<<<<< HEAD:client/screens/LoginScreen.js
             getSubState(data.isSubscribe);
             await storeDataUser(data);
             navigation.navigate("TabNavigator", { screen: 'Home', params: { userName: data }, merge: true, });
-=======
-            getSubState(data);
-            navigation.navigate("TabNavigator", { screen: 'Catalogue', params: { userName: data }, merge: true, });
-            await storeDataUser(data);
->>>>>>> 8445147853f68511ef19d6c7362e36aca7eb0a45:client/screens/Login.js
         } catch (error) {
             alert(error.response.data)
         }

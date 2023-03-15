@@ -10,7 +10,7 @@ import axios from 'axios';
 
 global.Buffer = require('buffer').Buffer;
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -20,7 +20,6 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
-<<<<<<< HEAD
         let userData = await getDataUser();
         console.log("USER CRED", userData);
         if (userData) {
@@ -28,21 +27,12 @@ export default function App() {
           setIsLogedIn(true);
           setIsSubscribe(response.data.active)
         }
-=======
-        // let userData = await getDataUser();
-        // console.log("USER CRED", userData);
-        // if (userData) {
-        //   setIsLogedIn(true);
-        //   setSubState(userData);
-        //}
-        setAppIsReady(true);
->>>>>>> 8445147853f68511ef19d6c7362e36aca7eb0a45
 
       } catch (e) {
         console.warn(e);
       } finally {
         setAppIsReady(true);
-        await SplashScreen.hideAsync();
+        //await SplashScreen.hideAsync();
       }
     }
     prepare();
@@ -52,21 +42,10 @@ export default function App() {
     setIsLogedIn(data);
   }
 
-<<<<<<< HEAD
-=======
-  const setSubState = (data) => {
-    let dateNow = new Date();
-    if ((data.endedDateSubscription && new Date(data.endedDateSubscription).valueOf() > dateNow.valueOf()) || data === true) {
-      setIsSubscribe(true);
-      return
-    }
-    setIsSubscribe(false);
-  }
 
->>>>>>> 8445147853f68511ef19d6c7362e36aca7eb0a45
-  if (!appIsReady) {
-    return null;
-  }
+  // if (!appIsReady) {
+  //   return null;
+  // }
   return (
     <NavigationContainer>
       <AppNavigator isLogedIn={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={setIsSubscribe} />
