@@ -30,6 +30,7 @@ import { getNftsFromCollection } from "../utilities/Wallet.js";
 import cardsData from '../utilities/card.json';
 import { useFocusEffect } from '@react-navigation/native';
 import { getDataUser } from '../utilities/localStorage';
+import ShopCard from '../components/ShopCard';
 
 
 export default function Web3Home({ navigation }) {
@@ -87,7 +88,7 @@ export default function Web3Home({ navigation }) {
         for (let i = 0; i < listNftUser.length; i++) {
             console.log("listIdNft[i].id : " + listNftUser[i].token_id);
             await walletUtils.getNftUser(contractNftOpenSeaAddress, listNftUser[i].token_id.justifyContent, address).then(r =>
-            setNfts(nfts => [...nfts, r]));
+                setNfts(nfts => [...nfts, r]));
         }
     }
 
@@ -162,22 +163,6 @@ export default function Web3Home({ navigation }) {
         //      setListNftCollection(listNftCollection);
         //  } );
     }
-
-    const renderGalleryCard = ({ item }) => (
-        <View style={styles.container.flatListContainer.card}>
-            <Image source={{ uri: item.image_thumbnail_url }} style={styles.container.flatListContainer.cardImage} />
-            <Text style={styles.container.flatListContainer.cardTitle}>{item.name}</Text>
-            {item.description.length >= 18 ?
-                <Text style={styles.container.flatListContainer.cardDescription}>{item.description.slice(0, 20) + "..."}</Text>
-                :
-                <Text style={styles.container.flatListContainer.cardDescription}>{item.description}</Text>
-            }
-            <Text style={styles.container.flatListContainer.cardDescription}>{item.collection.name}</Text>
-            <Text style={styles.container.flatListContainer.cardDescription}>{item.rarity}</Text>
-        </View>
-
-    );
-
 
     /* ---------------------- */
     return (
@@ -255,442 +240,109 @@ export default function Web3Home({ navigation }) {
 
 
         <View style={styles.container}>
-            <View style={styles.container.backgroundCollabDark}>
-                <View style={styles.container.header}>
-                    <View style={styles.container.header.profile}>
-                        <View style={styles.container.header.profile.profilePicture}>
-                            <Image source={{ uri: profilePicture?.profilePicture }} style={styles.container.header.profile.image} />
+            <ScrollView>
+                <View>
+                    <ImageBackground source={{ uri: "https://i.seadn.io/gcs/files/38cf87707737106fdb299f399c1c463f.jpg?w=500&auto=format" }} resizeMode="cover" blurRadius={2} >
+                        <View style={{ backgroundColor: 'rgba(0,0,0, 0.20)' }}>
+                            <View style={{ padding: 20, marginTop: 30 }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <View style={{}}>
+                                            <Image source={{ uri: profilePicture?.profilePicture }} style={{ width: 82, height: 82, borderRadius: 50, borderWidth: 1, borderColor: 'black' }} />
+                                        </View>
+                                        <View style={{ marginLeft: 8 }}>
+                                            <Text style={{ fontSize: 16, fontWeight: '700', color: 'white' }}>{pseudo}</Text>
+                                            <Text style={{ fontSize: 13, fontWeight: '400', color: 'white' }}>{address?.slice(0, 5) + "..." + address?.slice(-4)}</Text>
+                                            <Text style={{ fontSize: 13, fontWeight: '400', color: 'white' }}>Nft possedés : {listNftUser?.length}</Text>
+                                        </View>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                                        <View style={{ backgroundColor: 'white', borderRadius: 15, flexDirection: 'row', alignItems: 'center', padding: 5 }}>
+                                            <Image source={require('../assets/Web3/logoZenCash.png')} style={{ width: 34, height: 34, position: 'absolute', left: -12 }} />
+                                            {balance.toString().length > 5 ?
+                                                <Text style={{ fontSize: 16, fontWeight: '400', marginLeft: 17 }}>{balance?.toLocaleString().slice(0, 1) + ".." + balance?.toLocaleString().slice((-3))} ZC</Text>
+                                                :
+                                                <Text style={{ fontSize: 16, fontWeight: '400', marginLeft: 6 }}>{balance?.toLocaleString()} ZC</Text>
+                                            }
+                                        </View>
+                                        <View style={{ position: 'absolute', right: -3, top: 18 }}>
+                                            <Image source={require('../assets/Web3/AddToken.png')} style={{ width: 15, height: 16, borderRadius: 50 }} />
+                                        </View>
+                                    </View>
+                                </View>
+                                <View>
+                                    <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>New collaborations</Text>
+                                    <ScrollView horizontal={true}>
+                                        <View style={{ flexDirection: 'row' }}>
+
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, marginRight: 37 }}>
+                                                <View>
+                                                    <Image source={{ uri: "https://i.seadn.io/gcs/files/ed2395633653dc6518f818e3c48278d3.jpg?w=500&auto=format" }} style={{ width: 132, height: 175, borderRadius: 12 }} />
+                                                </View>
+                                                <View style={{ flexDirection: 'column', marginLeft: 20 }}>
+                                                    <TouchableOpacity style={{ padding: 8, backgroundColor: '#A2B2FC', borderRadius: 15 }}>
+                                                        <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700' }}>Buy</Text>
+                                                    </TouchableOpacity>
+                                                    <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 5 }}>
+                                                        <Text style={{ fontWeight: '700', fontSize: 16, letterSpacing: -0.33, color: 'white' }}>
+                                                            Pack Dragon Ball
+                                                        </Text>
+                                                        <Text style={{ fontWeight: '300', fontSize: 13, letterSpacing: -0.33, color: 'white' }}>(2 SRR, 4 SR, 4 R )</Text>
+                                                    </View>
+                                                </View>
+                                            </View>
+
+                                        </View>
+                                    </ScrollView>
+                                </View>
+                            </View>
                         </View>
-                        <View style={styles.container.header.profile.profileInformations}>
-                            <Text style={styles.container.header.profile.profileInformations.pseudo}>{pseudo}</Text>
-                            <Text style={styles.container.header.profile.profileInformations.address}>{address?.slice(0, 5) + "..." + address?.slice(-4)}</Text>
-                            <Text style={styles.container.header.profile.profileInformations.numberNft}>Nft possedés : {listNftUser?.length}</Text>
-                        </View>
-                    </View>
-                    <View style={styles.container.header.zenCash}>
-                        <View style={styles.container.header.zenCash.picture}>
-                            <Image source={require('../assets/Web3/logoZenCash.png')} style={styles.container.header.profile.image} />
-                        </View>
-                        <View style={styles.container.header.zenCash.backgroundZ}>
-                            {balance.toString().length > 5 ?
-                                <Text style={styles.container.header.zenCash.balance}>{balance?.toLocaleString().slice(0, 1) + ".." + balance?.toLocaleString().slice((-3))} ZC</Text>
-                                :
-                                <Text style={styles.container.header.zenCash.balance}>{balance?.toLocaleString()} ZC</Text>
-                            }
-                        </View>
-                        <View style={styles.container.header.zenCash.addTokenButton}>
-                            <Image source={require('../assets/Web3/AddToken.png')} style={styles.container.header.zenCash.imageAddTokenButton} />
-                        </View>
-                    </View>
+
+                    </ImageBackground>
                 </View>
-            </View>
 
-            <View style={styles.container.containerButtonNavigation}>
-                <TouchableOpacity
-                    style={styles.container.button}
-                    onPress={() => navigation.navigate('Web3Home')}
-                >
-                    <Image source={require('../assets/Web3/EchangeDeCarteButon.png')} style={styles.container.button.imageButton} />
-                </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={styles.container.button}
-                    onPress={() => navigation.navigate('Web3Home')}
-                >
-                    <Image source={require('../assets/Web3/Gallery.png')} style={styles.container.button.imageButton} />
-                </TouchableOpacity>
-            </View>
 
-            <View style={styles.container.titleNewCollab}>
-                <Text style={styles.container.newCollabTitleText}>Nos nouvelles collaborations</Text>
-            </View>
-
-            <View style={styles.container.newCollabBack}>
-                <View style={styles.container.newCollabCardBackground}>
-                    <Image source={{ uri: "https://i.seadn.io/gcs/files/38cf87707737106fdb299f399c1c463f.jpg?w=500&auto=format" }} style={styles.container.newCollabCardBackgroundImage} />
-                </View>
-            </View>
-
-            <View style={styles.container.newCollab}>
-                <View style={styles.container.newCollab.newCollabCardCover}>
-                    <Image source={{ uri: "https://i.seadn.io/gcs/files/ed2395633653dc6518f818e3c48278d3.jpg?w=500&auto=format" }} style={styles.image} />
-                </View>
-                <View style={styles.container.newCollab.newCollabBuyButton}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 25, padding: 8 }}>
                     <TouchableOpacity
+                        style={{ width: 166, height: 153 }}
                         onPress={() => navigation.navigate('Web3Home')}
                     >
-                        <Text> Acheter (25 Zc)</Text>
+                        <Image source={require('../assets/Web3/EchangeDeCarteButon.png')} style={{ width: '100%', height: '100%', borderRadius: 18 }} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={{ width: 166, height: 153 }}
+                        onPress={() => navigation.navigate('Web3Home')}
+                    >
+                        <Image source={require('../assets/Web3/Gallery.png')} style={{ width: '100%', height: '100%', borderRadius: 18 }} />
                     </TouchableOpacity>
                 </View>
-                <View style={styles.container.newCollab.newCollabInfo}>
-                    <Text style={styles.container.newCollab.newCollabInfo.newCollabNameCollab}> Pack Dragon Ball </Text>
-                    <Text style={styles.container.newCollab.newCollabInfo.newCollabRarities}> (2 SRR, 4 SR, 4 R )</Text>
+
+
+                <View style={{ marginTop: 20, marginBottom: 80, padding: 5 }}>
+                    <Text style={{ fontWeight: '700', fontSize: 22, color: 'black', marginBottom: 10, marginLeft:5 }}>Shop</Text>
+                    <FlatList
+                        data={cardsData}
+                        renderItem={({item}) => (<ShopCard element={item} />)}
+                        keyExtractor={(item) => item.id.toString()}
+                        horizontal={true}
+                        showsVerticalScrollIndicator={false}
+                    />
                 </View>
-            </View>
-            <View style={styles.container.flatListContainer}>
-                <Text style={styles.container.titleShop}>Boutique</Text>
-                <FlatList
-                    data={cardsData}
-                    renderItem={renderGalleryCard}
-                    keyExtractor={(item) => item.id.toString()}
-                    horizontal={true}
-                    showsVerticalScrollIndicator={false}
-                />
-            </View>
-        </View>
+            </ScrollView >
+
+        </View >
     );
 }
 
 const styles = StyleSheet.create({
-
-    image: {
-        width: "100%",
-        height: "100%",
-        // style de l'image
-    },
-
     container: {
         flex: 1,
-        width: '100%',
-        alignItems: 'center',
+        backgroundColor: '#fff',
+        height: 1000
+    },
+    
 
-        titleShop: {
-            zIndex: 2,
-            // fontFamily: 'Oswald',
-            fontStyle: 'normal',
-            fontWeight: '700',
-            fontSize: 20,
-            lineHeight: 36,
-            color: '#171717',
-            marginBottom: "1%",
-            marginLeft: "2%",
-        },
-
-        flatListContainer: {
-            width: '100%',
-            top: '73%',
-            overflow: 'visible',
-            height: '27%',
-            left: '2%',
-            paddingBottom: '2%',
-
-            card: {
-                height: '100%',
-                width: 100,
-                marginRight: 20,
-                borderRadius: 10,
-                backgroundColor: '#fff',
-                elevation: 2,
-            },
-            cardImage: {
-                width: '100%',
-                height: '60%',
-                borderTopLeftRadius: 10,
-                borderTopRightRadius: 10,
-            },
-            cardTitle: {
-                fontWeight: 'bold',
-                fontSize: 10,
-                marginBottom: 1,
-                marginTop: 5,
-                textAlign: 'center',
-            },
-            cardDescription: {
-                fontSize: 8,
-                marginBottom: 2,
-                textAlign: 'center',
-            },
-
-        },
-
-        containerButtonNavigation: {
-            position: 'absolute',
-            top: '47%',
-            width: '100%',
-            height: '30%',
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-around', // add this line
-            textAlign: 'center', // centrage horizontal
-
-
-        },
-        button: {
-            width: '45%',
-            height: '70%',
-            borderRadius: 18,
-            alignSelf: 'center',
-            overflow: 'hidden',
-
-
-            imageButton: {
-                width: '100%',
-                height: '100%',
-            },
-
-
-        },
-
-        backgroundCollabDark: {
-            zIndex: 1,
-            position: 'absolute',
-            width: '100%',
-            height: '45%',
-            backgroundColor: 'rgba(0, 0, 0, 0.26)',
-        },
-
-        newCollabCardBackground: {
-            zIndex: 0,
-
-
-        },
-        newCollabCardBackgroundImage: {
-            width: '100%',
-            height: '100%',
-        },
-
-        newCollabBack: {
-            zIndex: 0,
-            position: 'absolute',
-            width: '100%',
-            height: '45%',
-        },
-
-        header: {
-            zIndex: 1,
-            position: 'absolute',
-            width: '100%',
-            height: '40%',
-
-
-            profile: {
-                marginLeft: '5%',
-                marginTop: '10%',
-                width: 250,
-                height: 100,
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center', // add this line
-
-                profilePicture: {
-                    width: '39%',
-                    height: '100%',
-                    borderRadius: 50,
-                    borderWidth: 2,
-                    borderColor: 'black',
-                    overflow: 'hidden',
-                    left: '8%'
-                },
-
-                image: {
-                    width: '100%',
-                    height: '100%',
-                },
-
-                profileInformations: {
-                    marginLeft: '10%',
-                    position: 'relative',
-                    width: '70%',
-                    height: '30%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    textAlign: 'left',
-                    alignItems: 'flex-start',
-                    justifyContent: 'center',
-
-                    pseudo: {
-                        /* H5 */
-                        // fontfamily: 'Ubuntu',
-                        fontstyle: 'normal',
-                        fontweight: 400,
-                        fontsize: 16,
-                        lineheight: 18,
-                        textalign: 'center',
-
-                        /* Color 1 */
-                        color: '#EDEDED',
-                    },
-                    address: {
-                        // fontFamily: 'Ubuntu',
-                        fontStyle: 'normal',
-                        fontWeight: '400',
-                        fontSize: 13,
-                        lineHeight: 15,
-                        textAlign: 'center',
-                        color: '#EDEDED',
-                    },
-                    numberNft: {
-                        // fontFamily: 'Ubuntu',
-                        fontStyle: 'normal',
-                        fontWeight: '400',
-                        fontSize: 13,
-                        lineHeight: 15,
-                        textAlign: 'center',
-                        color: '#EDEDED',
-
-                    }
-                }
-            },
-
-            zenCash: {
-                width: '30%',
-                height: '40%',
-
-                right: '5%',
-                top: '40%',
-                position: 'absolute',
-
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                overflow: 'visible',
-
-
-                backgroundZ: {
-                    zIndex: 0,
-                    left: '-25%',
-                    width: '75%',
-                    height: "50%",
-                    backgroundColor: '#FFFFFF',
-                    shadowColor: '#FDFDFD',
-                    shadowOffset: {
-                        width: 1,
-                        height: 4,
-                    },
-                    shadowOpacity: 0.25,
-                    shadowRadius: -1,
-                    borderRadius: 17,
-
-                },
-
-                picture: {
-                    zIndex: 1,
-                    width: '40%',
-                    height: '80%',
-                    overflow: 'hidden',
-                },
-                balance: {
-                    flex: 1,
-                    marginLeft: '22%',
-                    marginTop: '2%',
-                    fontSize: 13,
-                    // fontFamily: 'Ubuntu',
-                    top: '5%'
-
-                },
-                addTokenButton: {
-                    zIndex: 1,
-                    left: '-49%',
-                    top: '-12%',
-                    width: "20%",
-                    height: "34%",
-                    borderRadius: 100,
-                    overflow: 'hidden',
-                },
-
-                imageAddTokenButton: {
-                    width: '100%',
-                    height: '100%',
-                },
-            }
-        },
-
-        titleNewCollab: {
-            zIndex: 2,
-            position: 'absolute',
-            top: '18%',
-            left: '3%',
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'baseline',
-        },
-
-        newCollabTitleText: {
-            fontStyle: 'normal',
-            fontWeight: '600',
-            height: '110%',
-            fontSize: 20,
-            lineHeight: 18,
-            textAlign: 'center',
-            color: 'white',
-            overflow: 'visible',
-
-
-        },
-
-
-        newCollab: {
-            zIndex: 1,
-            position: 'absolute',
-            width: '100%',
-            height: '45%',
-
-
-            newCollabCardCover: {
-                position: 'absolute',
-                top: '45%',
-                left: '3%',
-                backgroundColor: 'rgba(0, 0, 0, 1)',
-                width: '35%',
-                height: '53%',
-                borderRadius: 18,
-                alignSelf: 'center',
-                overflow: 'hidden',
-            },
-
-
-            newCollabBuyButton: {
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                width: '30%',
-                height: '10%',
-                borderRadius: 31,
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'rgba(1, 0, 0, 0.2)',
-                background: 'linear-gradient(314.76deg, #A2B2FC 15.51%, #FFF1BE 137.01%)',
-
-
-            },
-            newCollabNfts: {
-
-            },
-            newCollabInfo: {
-                position: 'absolute',
-                width: '55%',
-                height: '20%',
-                top: '60%',
-                left: '40%',
-
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-
-
-                newCollabNameCollab: {
-                    fontStyle: 'normal',
-                    fontWeight: '400',
-                    height: '100%',
-                    fontSize: 16,
-                    lineHeight: 18,
-                    color: 'white',
-
-                },
-                newCollabRarities: {
-                    top: '-70%',
-                    fontStyle: 'normal',
-                    fontWeight: '400',
-                    height: '100%',
-                    fontSize: 14,
-                    lineHeight: 18,
-                    color: 'white',
-
-                },
-            }
-        }
-    }
 });

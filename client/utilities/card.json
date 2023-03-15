@@ -7,7 +7,9 @@
     "collection": {
       "name": "DBZ"
     },
-    "rarity": "LR"
+    "rarity": "LR",
+    "quantity" : 40,
+    "price":500
   },
   {
     "id": 2,
@@ -17,7 +19,9 @@
     "collection": {
       "name": "Marvel"
     },
-    "rarity": "UR"
+    "rarity": "UR",
+    "quantity" : 10,
+    "price":26
   },
   {
     "id": 3,
@@ -27,7 +31,9 @@
     "collection": {
       "name": "Special"
     },
-    "rarity": "LR"
+    "rarity": "LR",
+    "quantity" : 134,
+    "price":250
   },
   {
     "id": 4,
@@ -37,7 +43,9 @@
     "collection": {
       "name": "One Piece"
     },
-    "rarity": "LR"
+    "rarity": "LR",
+    "quantity" : 5,
+    "price":1500
   },
   {
     "id": 5,
@@ -47,7 +55,9 @@
     "collection": {
       "name": "Naruto"
     },
-    "rarity": "SR"
+    "rarity": "SR",
+    "quantity" : 234,
+    "price":10
   },
   {
     "id": 6,
@@ -57,7 +67,9 @@
     "collection": {
       "name": "Fullmetal Alchemist"
     },
-    "rarity": "SSR"
+    "rarity": "SSR",
+    "quantity" : 98,
+    "price":10
   },
   {
     "id": 7,
@@ -67,7 +79,9 @@
     "collection": {
       "name": "Kingdom"
     },
-    "rarity": "UR"
+    "rarity": "UR",
+    "quantity" : 5,
+    "price":1000
   },
   {
     "id": 8,
@@ -77,6 +91,8 @@
     "collection": {
       "name": "Haikyuu!!"
     },
-    "rarity": "SR"
+    "rarity": "SR",
+    "quantity" : 10,
+    "price":200
   }
 ]
