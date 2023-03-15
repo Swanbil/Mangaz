@@ -270,7 +270,7 @@ export default function Web3Home({ navigation }) {
                                     renderItem={({ item }) => (<NewCollections element={item} />)}
                                     keyExtractor={(item) => item.idCollection.toString()}
                                     horizontal={true}
-                                    showsVerticalScrollIndicator={false}
+                                    showsHorizontalScrollIndicator={false}
                                 />
                                </View>
                             </View>
@@ -305,7 +305,7 @@ export default function Web3Home({ navigation }) {
                         renderItem={({ item }) => (<ShopCard element={item} />)}
                         keyExtractor={(item) => item.id.toString()}
                         horizontal={true}
-                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
                     />
                 </View>
             </ScrollView >
