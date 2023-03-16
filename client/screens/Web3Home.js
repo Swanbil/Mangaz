@@ -33,6 +33,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { getDataUser } from '../utilities/localStorage';
 import ShopCard from '../components/ShopCard';
 import NewCollections from '../components/NewCollections';
+import NftCollections from "../components/NftCollections";
 
 
 export default function Web3Home({ navigation }) {
@@ -265,15 +266,27 @@ export default function Web3Home({ navigation }) {
                                 </View>
                                <View style={{ marginTop: 20, marginBottom: 40 }}>
                                <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>New collaborations</Text>
-                                <FlatList
-                                    data={collectionsData}
-                                    renderItem={({ item }) => (
-                                    <NewCollections element={item} />)}
-                                    keyExtractor={(item) => item.idCollection.toString()}
-                                    horizontal={true}
-                                    showsHorizontalScrollIndicator={false}
-                                />
-                               </View>
+                                   <FlatList
+                                       data={collectionsData}
+                                       keyExtractor={(item) => item.idCollection.toString()}
+                                       horizontal={true}
+                                       showsHorizontalScrollIndicator={false}
+                                       renderItem={({ item }) => (
+                                           <View>
+                                               <NewCollections element={item} />
+                                               <FlatList
+                                                   horizontal = {true}
+                                                   data={item.nfts}
+                                                   keyExtractor={(item) => item.idNft.toString()}
+                                                   showsHorizontalScrollIndicator={false}
+                                                   renderItem={({ item }) => (
+                                                       <NftCollections element={item} />
+                                                   )}
+                                               />
+                                           </View>
+                                       )}
+                                   />
+                            </View>
                             </View>
                         </View>
 

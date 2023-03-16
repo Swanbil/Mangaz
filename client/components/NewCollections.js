@@ -25,14 +25,9 @@ export default function NewCollections({ element }) {
                     </View>
                 </View>
             </View>
-            <FlatList
-                data={element.nfts}
-                renderItem={({ item }) => (<NftCollections element={item} />)}
-                keyExtractor={(item) => item.idNft.toString()}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-            />
+
         </View>
+
     )
 
 }
