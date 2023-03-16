@@ -235,7 +235,7 @@ export default function Web3Home({ navigation }) {
         <View style={styles.container}>
             <ScrollView>
                 <View>
-                    <ImageBackground source={{ uri: "https://i.seadn.io/gcs/files/38cf87707737106fdb299f399c1c463f.jpg?w=500&auto=format" }} resizeMode="cover" blurRadius={2} >
+                    <ImageBackground source={ require('../assets/anime_cards.jpg') } resizeMode="cover" blurRadius={2} >
                         <View style={{ backgroundColor: 'rgba(0,0,0, 0.20)' }}>
                             <View style={{ padding: 20, marginTop: 30 }}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
