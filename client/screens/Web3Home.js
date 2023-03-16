@@ -264,30 +264,39 @@ export default function Web3Home({ navigation }) {
                                         </View>
                                     </View>
                                 </View>
-                               <View style={{ marginTop: 20 }}>
-                               <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>New collaborations</Text>
-                                   <FlatList
-                                       data={collectionsData}
-                                       keyExtractor={(item) => item.idCollection.toString()}
-                                       horizontal={true}
-                                       showsHorizontalScrollIndicator={false}
-                                       renderItem={({ item }) => (
-                                           <View>
-                                               <NewCollections element={item} />
-                                               <View>
-                                                   <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop : -100, zIndex : 0, left : 146}}>
-                                                       {item.nfts
-                                                           .filter((nft) => nft.rarity === "SSR")
-                                                           .slice(0,2)
-                                                           .map((nft) => (
-                                                           <NftCollections key={nft.idNft} element={nft} />
-                                                       ))}
-                                                   </ScrollView>
-                                               </View>
+                               <View style={{ marginTop: 20}}>
+                                   <View style={{flexDirection : 'row', alignItems: 'center', justifyContent : 'space-between'}}>
+                                       <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>New collaborations</Text>
 
-                                           </View>
-                                       )}
-                                   />
+                                       <Text onPress={() => navigation.navigate('Home')}
+                                             style={{ marginRight : 30, fontWeight: '500', lineHeight: 18, fontSize: 12, color: '#DA0037'}}>
+                                           Voir plus
+                                       </Text>
+
+                                   </View>
+
+                                       <FlatList
+                                           data={collectionsData}
+                                           keyExtractor={(item) => item.idCollection.toString()}
+                                           horizontal={true}
+                                           showsHorizontalScrollIndicator={false}
+                                           renderItem={({ item }) => (
+                                               <View>
+                                                   <NewCollections element={item} />
+                                                   <View>
+                                                       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop : -100, zIndex : 0, left : 146}}>
+                                                           {item.nfts
+                                                               .filter((nft) => nft.rarity === "SSR")
+                                                               .slice(0,2)
+                                                               .map((nft) => (
+                                                               <NftCollections key={nft.idNft} element={nft} />
+                                                           ))}
+                                                       </ScrollView>
+                                                   </View>
+
+                                               </View>
+                                           )}
+                                       />
                             </View>
                             </View>
                         </View>
