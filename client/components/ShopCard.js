@@ -5,9 +5,9 @@ export default function ShopCard({ element }) {
     return (
         <View style={{ marginHorizontal: 7 }}>
             <ImageBackground source={{ uri: element?.image_thumbnail_url }} style={{ width: 155, height: 189 }} imageStyle={{ borderRadius: 12 }}>
-                <View style={{ padding: 2, backgroundColor: '#D8D8D8', position: 'absolute', bottom: -1, width: '100%', borderBottomLeftRadius: 12, borderBottomRightRadius: 12 }}>
-                    <Text style={{ fontSize: 15, fontWeight: '700', color: 'white' }}>{element?.name}</Text>
-                    <Text style={{ fontSize: 13, fontWeight: '400', color: 'white' }}>{element?.collection?.name}</Text>
+                <View style={{ padding: 2, backgroundColor: 'rgba(21, 18, 18, 0.71)', position: 'absolute', bottom: -1, width: '100%', borderBottomLeftRadius: 12, borderBottomRightRadius: 12 }}>
+                    <Text style={{ fontSize: 15, fontWeight: '700', color: 'white', marginLeft : 5 }}>{element?.name}</Text>
+                    <Text style={{ fontSize: 13, fontWeight: '400', color: 'white', marginLeft : 5 }}>{element?.collection?.name}</Text>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
                         <Text style={{ fontSize: 10, fontWeight: '400', color: 'white' }}>Qty : {element?.quantity}</Text>
