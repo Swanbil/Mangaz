@@ -264,7 +264,7 @@ export default function Web3Home({ navigation }) {
                                         </View>
                                     </View>
                                 </View>
-                               <View style={{ marginTop: 20, marginBottom: 40 }}>
+                               <View style={{ marginTop: 20 }}>
                                <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>New collaborations</Text>
                                    <FlatList
                                        data={collectionsData}
@@ -274,15 +274,14 @@ export default function Web3Home({ navigation }) {
                                        renderItem={({ item }) => (
                                            <View>
                                                <NewCollections element={item} />
-                                               <FlatList
-                                                   horizontal = {true}
-                                                   data={item.nfts}
-                                                   keyExtractor={(item) => item.idNft.toString()}
-                                                   showsHorizontalScrollIndicator={false}
-                                                   renderItem={({ item }) => (
-                                                       <NftCollections element={item} />
-                                                   )}
-                                               />
+                                               <View>
+                                                   <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop : -100, zIndex : 0}}>
+                                                       {item.nfts.map((nft) => (
+                                                           <NftCollections key={nft.idNft} element={nft} />
+                                                       ))}
+                                                   </ScrollView>
+                                               </View>
+
                                            </View>
                                        )}
                                    />
