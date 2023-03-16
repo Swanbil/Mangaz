@@ -12,8 +12,9 @@ export default function NewCollections({ element }) {
                     <Image source={{ uri: element?.image_cover }} style={{ width: 146, height: 213, borderRadius: 12}} />
                 </View>
                 <View style={{ flexDirection: 'column', marginLeft: 20, top: -55, alignItems: 'flex-start' }}>
-                    <TouchableOpacity style={{ padding: 8, backgroundColor: '#A2B2FC', borderRadius: 15, width: 130, marginLeft : 20 }}>
-                        <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700' }}>Buy ({element?.pricePack} ZC)</Text>
+                    <TouchableOpacity style={{ padding: 8, backgroundColor: '#A2B2FC', borderRadius: 15, width: 130, marginLeft : 20, flexDirection : 'row', justifyContent : 'center'}}>
+                        <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700', marginLeft : -6 }}>Buy ({element?.pricePack}    )</Text>
+                        <Image source={require('../assets/Web3/logoZenCash.png')} style={{ width: 12, height: 12, marginLeft: -18, marginTop : 6  }} />
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'column', alignItems: 'flex-start', marginTop: 5, marginLeft : -13 }}>
                         <Text style={{ fontWeight: '700', fontSize: 16, letterSpacing: -0.33, color: 'white' }}>

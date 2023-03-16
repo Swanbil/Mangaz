@@ -275,8 +275,11 @@ export default function Web3Home({ navigation }) {
                                            <View>
                                                <NewCollections element={item} />
                                                <View>
-                                                   <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop : -100, zIndex : 0}}>
-                                                       {item.nfts.map((nft) => (
+                                                   <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop : -100, zIndex : 0, left : 146}}>
+                                                       {item.nfts
+                                                           .filter((nft) => nft.rarity === "SSR")
+                                                           .slice(0,2)
+                                                           .map((nft) => (
                                                            <NftCollections key={nft.idNft} element={nft} />
                                                        ))}
                                                    </ScrollView>

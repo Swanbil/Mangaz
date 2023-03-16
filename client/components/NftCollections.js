@@ -3,8 +3,8 @@ import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button, Fla
 export default function NftCollections({ element }) {
 
     return (
-        <View style={{ marginHorizontal: 7, marginTop : -4}}>
-            <ImageBackground source={{ uri: element?.image }} style={{ width: 83, height: 103 }} imageStyle={{ borderRadius: 12 }}>
+        <View style={{ marginHorizontal: 7}}>
+            <ImageBackground source={{ uri: element?.image }} style={{ width: 83, height: 103,  }} imageStyle={{ borderRadius: 12}}>
                 <View style={{ padding: 2, backgroundColor: '#D8D8D8', position: 'absolute', bottom: 0, width: '100%', borderBottomLeftRadius: 12, borderBottomRightRadius: 12, height : 40, overflow : 'hidden'}}>
                     <Text style={{ fontSize: 10, fontWeight: '700', color: 'white' }}>{element?.name}</Text>
                     <Text style={{ fontSize: 8, fontWeight: '400', color: 'white' }}>{element?.nameCollection}</Text>
