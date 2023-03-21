@@ -57,7 +57,7 @@ export default function UserProfile({ isLog, userInfos, isSubscribe, navigation,
                             style={{ width: 16, height: 16}} />
                     </TouchableOpacity>
                 </View>
-                <View style={styles.menuButton}>
+                <View style={styles.discordButton}>
                     <TouchableOpacity onPress={handlePress}>
                         <Image source={require("../assets/Discord.png")}
                             style={{ width: 29, height: 29}} />
@@ -66,7 +66,6 @@ export default function UserProfile({ isLog, userInfos, isSubscribe, navigation,
             </View>
         </View>
     )
-
 }
 
 const styles = StyleSheet.create({
@@ -89,7 +88,9 @@ const styles = StyleSheet.create({
     },
     blockTextInfos: {
         flexDirection: "row",
-        padding: 3,
+        padding: 0,
+        textAlign: "center",
+        alignItems: "center",
 
     },
     textInfos: {
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         marginLeft: 10,
         borderRadius: 25,
-        shadowColor: 'rgba(0, 0, 0, 0.5)',
+        shadowColor: 'rgba(0, 0, 0, 0.25)',
         shadowOffset: {
             width: 0,
             height: 2,
@@ -129,6 +130,15 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         shadowRadius: 7,
         elevation: 2 // cette propriété doit être ajoutée pour que l'ombre soit visible sur Android
+    },
+    discordButton: {
+            width : 34,
+            height : 34,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#FFFFFF',
+            marginLeft: 10,
+            borderRadius: 25,
     }
 
 })
