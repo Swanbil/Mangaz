@@ -217,7 +217,7 @@ const getUserId = async (userPseudo) => {
 
 exports.getUserInfos = async (req, res) => {
     const userPseudo = req.params.userPseudo;
-    const sql = "SELECT firstname, lastname, pseudo, email from users WHERE pseudo = $1";
+    const sql = "SELECT firstname, lastname, pseudo, email, profilepicture from users WHERE pseudo = $1";
     await db.query(sql, [userPseudo], (err, result) => {
         if (err) {
             console.log(err);
@@ -314,7 +314,7 @@ exports.getUserStats = async (req, res) => {
 
 exports.getProfilePicture = async (req, res) => {
     const userPseudo = req.params.userPseudo;
-    const sql = 'SELECT "profilePicture" FROM users WHERE pseudo = $1';
+    const sql = 'SELECT "profilepicture" FROM users WHERE pseudo = $1';
     await db.query(sql, [userPseudo], (err, result) => {
         if (err) {
             console.log(err);
