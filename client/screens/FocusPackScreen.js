@@ -85,7 +85,6 @@ export default function FocusPackScreen({ navigation, route }) {
     useFocusEffect(
         useCallback(() => {
             fetchData();
-            console.log("COllectionnnnnn",collectionItem)
         }, [])
     );
 
@@ -137,7 +136,7 @@ export default function FocusPackScreen({ navigation, route }) {
                 <ImageBackground source={{uri : collectionItem.image_background}} resizeMode="cover" blurRadius={2} style={{height : 406}}>
                     <View style={{backgroundColor : 'rgba(0,0,0, 0.40)',  flex : 1}}>
                         <View style = {{zIndex : 1000}}>
-                            <TouchableOpacity onPress={() => navigation.navigate("PackList")} style={{top: 27, left: 5}}>
+                            <TouchableOpacity onPress={() => navigation.goBack()} style={{top: 27, left: 5}}>
                                 <Image source={require('../assets/arrow-left.png')} style={{width: 24, height: 24}}/>
                             </TouchableOpacity>
                         </View>
