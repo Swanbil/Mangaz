@@ -152,6 +152,19 @@ export default function PackListScreen({ navigation }) {
                     </View>
                 </View>
 
+                <View style={{marginLeft : 20, marginTop : 40}}>
+                    <Text style = {{fontWeight: '700', fontSize: 22, color: 'black'}}>Toutes nos collab</Text>
+                    <View style={{alignItems : 'center'}}>
+                        <FlatList
+                            data={collectionsData.reverse()}
+                            renderItem={({ item }) => (<NewCollabPackList element={item} />)}
+                            keyExtractor={(item) => item.idCollection.toString()}
+                            horizontal={false}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                </View>
+
             </ScrollView>
         </View>
     )
