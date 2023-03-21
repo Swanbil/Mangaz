@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button, FlatList, Image, ScrollView, ImageBackground } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button, FlatList, Image, ScrollView, ImageBackground, SafeAreaView } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { API_URL } from '@env';
@@ -154,9 +154,9 @@ export default function PackListScreen({ navigation }) {
 
                 <View style={{marginLeft : 20, marginTop : 40}}>
                     <Text style = {{fontWeight: '700', fontSize: 22, color: 'black'}}>Toutes nos collab</Text>
-                    <View style={{alignItems : 'center'}}>
+                    <View style={{alignItems : 'center', marginBottom : 20}}>
                         <FlatList
-                            data={collectionsData.reverse()}
+                            data={collectionsData.slice().reverse()}
                             renderItem={({ item }) => (<NewCollabPackList element={item} />)}
                             keyExtractor={(item) => item.idCollection.toString()}
                             horizontal={false}
