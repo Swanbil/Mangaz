@@ -69,8 +69,6 @@ export default function Web3Home({ navigation }) {
 
     const [userInfos, setUserInfos] = useState();
 
-    const [profilePicture, setProfilePicture] = useState();
-
     const [collections, setCollections] = useState([]);
 
     const [collection, setCollection] = useState([]);
