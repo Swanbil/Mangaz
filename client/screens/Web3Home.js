@@ -67,6 +67,8 @@ export default function Web3Home({ navigation }) {
     // Loading
     const [loading, setLoading] = useState(false);
 
+    const [userInfos, setUserInfos] = useState();
+
     const [profilePicture, setProfilePicture] = useState();
 
     const [collections, setCollections] = useState([]);
@@ -96,14 +98,24 @@ export default function Web3Home({ navigation }) {
         }
     }
 
+    const getUserInfos = async () => {
+        const { userPseudo } = await getDataUser();
+        if (userPseudo) {
+          try {
+            const response = await axios.get(`${API_URL}/user/${userPseudo}`);
+            setUserInfos(response.data.userInfos);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+
     const fetchData = async () => {
         const { userPseudo } = await getDataUser();
         const pseudo = userPseudo;
         setPseudo(userPseudo);
 
-        await getProfilePicture(pseudo).then((picture) => {
-            setProfilePicture(picture);
-        });
+        getUserInfos();
 
         const userAddress = await walletUtils.getAddress(pseudo);
         setAddress(userAddress);
@@ -241,7 +253,7 @@ export default function Web3Home({ navigation }) {
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <View style={{}}>
-                                            <Image source={{ uri: profilePicture?.profilePicture }} style={{ width: 82, height: 82, borderRadius: 50, borderWidth: 1, borderColor: 'black' }} />
+                                            <Image source={{ uri: userInfos?.profilepicture }} style={{ width: 82, height: 82, borderRadius: 50, borderWidth: 1, borderColor: 'black' }} />
                                         </View>
                                         <View style={{ marginLeft: 8 }}>
                                             <Text style={{ fontSize: 16, fontWeight: '700', color: 'white' }}>{pseudo}</Text>

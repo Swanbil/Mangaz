@@ -17,10 +17,12 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
     const [recommandations, setRecommandations] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const genres = ['Action', 'Aventure', 'Drame', 'Fun', 'Romance'];
+    const [userInfos, setUserInfos] = useState();
 
     useFocusEffect(
         useCallback(() => {
             getCatalogue();
+            getUserInfos();
             getRecommandations()
         }, [])
     );
@@ -66,6 +68,18 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
         navigation.navigate('Search', { filter: genre })
     }
 
+    const getUserInfos = async () => {
+        const { userPseudo } = await getDataUser();
+        if (userPseudo) {
+          try {
+            const response = await axios.get(`${API_URL}/user/${userPseudo}`);
+            setUserInfos(response.data.userInfos);
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -78,7 +92,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                                     <Text style={{ marginLeft: 5 }}>Search Mangas</Text>
                                 </TouchableOpacity>
                                 <View style={{ marginLeft: 10 }}>
-                                    <Image source={{ uri: "https://img.wattpad.com/6d13c0a6090e0e3b8851180426edf247b461205f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f376a68464955746e42735a3750773d3d2d3937393137353136322e313634356663326464396631393063383933353132383638303036322e6a7067?s=fit&w=720&h=720" }}
+                                    <Image source={{ uri: userInfos?.profilepicture }}
                                         style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
                                     <View style={{ position: 'absolute', left: 64, top: 6 }}>
                                         <Badge style={{ color: "white", fontWeight: "bold", backgroundColor: (isSubscribe ? "#9CE594" : "#FFCA68") }}>{isSubscribe ? "V" : "Free"}</Badge>
