@@ -35,6 +35,7 @@ import ShopCard from '../components/ShopCard';
 import NewCollections from '../components/NewCollections';
 import NftCollections from "../components/NftCollections";
 import Web3ProfilePicture from "../components/Web3ProfilePicture";
+import ContentPack from "../components/ContentPack";
 
 export default function FocusPackScreen({ navigation, route }) {
     const {pack} = route.params;
@@ -174,6 +175,18 @@ export default function FocusPackScreen({ navigation, route }) {
                         </View>
                     </View>
                 </View>
+                <View style={{top : -270, flex : 1, alignItems : 'center'}}>
+                    <Text style = {{fontWeight: '700', fontSize: 24, color: 'black'}}>Contenu du pack</Text>
+                    <View style={{marginTop : 15}}>
+                        <FlatList
+                            data={collectionItem.nfts}
+                            renderItem={({ item }) => (<ContentPack element={item} />)}
+                            keyExtractor={(item) => item.idNft.toString()}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                </View>
             </ScrollView>
 
 
@@ -184,7 +197,6 @@ export default function FocusPackScreen({ navigation, route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        height: 1000
+        backgroundColor: '#fff'
     },
 });
