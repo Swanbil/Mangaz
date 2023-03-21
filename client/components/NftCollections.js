@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button, Fla
 export default  function NftCollections({element}) {
 
     return (
-        <View style={{marginHorizontal: 7}}>
+        <View style={{marginHorizontal: 6}}>
             <ImageBackground source={{uri: element?.image}} style={{width: 83, height: 103,}}
                              imageStyle={{borderRadius: 12}}>
                 <View

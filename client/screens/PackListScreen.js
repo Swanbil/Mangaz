@@ -34,6 +34,8 @@ import { getDataUser } from '../utilities/localStorage';
 import ShopCard from '../components/ShopCard';
 import NewCollections from '../components/NewCollections';
 import NftCollections from "../components/NftCollections";
+import Web3ProfilePicture from "../components/Web3ProfilePicture";
+import NewCollabPackList from "../components/NewCollabPackList";
 
 
 export default function PackListScreen({ navigation }) {
@@ -132,68 +134,24 @@ export default function PackListScreen({ navigation }) {
                     <Image source={require('../assets/arrow-left.png')} style={{width: 24, height: 24}}/>
                 </TouchableOpacity>
             </View>
-
             <ScrollView>
-                <View style = {{top: -20}}>
-                    <View>
-                        <View style={{padding: 20, marginTop: 30}}>
-                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <View style={{}}>
-                                        <Image source={{uri: userInfos?.profilepicture}} style={{
-                                            width: 82,
-                                            height: 82,
-                                            borderRadius: 50,
-                                            borderWidth: 1,
-                                            borderColor: 'black'
-                                        }}/>
-                                    </View>
-                                    <View style={{marginLeft: 8, color : 'black'}}>
-                                        <Text style={{fontSize: 16, fontWeight: '700'}}>{pseudo}</Text>
-                                        <Text style={{
-                                            fontSize: 13,
-                                            fontWeight: '400',
-                                        }}>{address?.slice(0, 5) + "..." + address?.slice(-4)}</Text>
-                                        <Text style={{fontSize: 13, fontWeight: '400'}}>Nft possedés
-                                            : {listNftUser?.length}</Text>
-                                    </View>
-                                </View>
-                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View>
+                    <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true}/>
+                </View>
 
-                                    <View style={{
-                                        backgroundColor: 'black',
-                                        borderRadius: 15,
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                        padding: 5
-                                    }}>
-                                        <Image source={require('../assets/Web3/logoZenCash.png')}
-                                               style={{width: 34, height: 34, position: 'absolute', left: -12}}/>
-                                        {balance.toString().length > 5 ?
-                                            <Text style={{
-                                                fontSize: 16,
-                                                fontWeight: '400',
-                                                marginLeft: 17,
-                                                color : 'white'
-                                            }}>{balance?.toLocaleString().slice(0, 1) + ".." + balance?.toLocaleString().slice((-3))} ZC</Text>
-                                            :
-                                            <Text style={{
-                                                fontSize: 16,
-                                                fontWeight: '400',
-                                                marginLeft: 6,
-                                                color : 'white'
-                                            }}>{balance?.toLocaleString()} ZC</Text>
-                                        }
-                                    </View>
-                                    <View style={{position: 'absolute', right: -3, top: 18}}>
-                                        <Image source={require('../assets/Web3/AddToken.png')}
-                                               style={{width: 15, height: 16, borderRadius: 50}}/>
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
+                <View style={{marginLeft : 20}}>
+                    <Text style = {{fontWeight: '700', fontSize: 22, color: 'black'}}>Nouvelles collaborations</Text>
+                    <View style={{marginLeft : -5}}>
+                        <FlatList
+                            data={collectionsData.slice(0, 2)}
+                            renderItem={({ item }) => (<NewCollabPackList element={item} />)}
+                            keyExtractor={(item) => item.idCollection.toString()}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
                     </View>
                 </View>
+
             </ScrollView>
         </View>
     )

@@ -6,7 +6,7 @@ import collectionsData from '../utilities/collections.json';
 export default function NewCollections({ element }) {
 
     return (
-        <View style={{ flexDirection: 'row', zIndex : 4 }}>
+        <View style={{ flexDirection: 'row', zIndex : 4, marginLeft : 6 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, marginRight: 37 }}>
                 <View>
                     <Image source={{ uri: element?.image_cover }} style={{ width: 146, height: 213, borderRadius: 12}} />
@@ -24,7 +24,6 @@ export default function NewCollections({ element }) {
                     </View>
                 </View>
             </View>
-
         </View>
 
     )
