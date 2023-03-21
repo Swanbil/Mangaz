@@ -25,6 +25,7 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                 },
                 tabBarIcon: ({ focused }) => {
                     let source;
+                    let iconName;
                     if (route.name === 'Home') {
                       source = focused ? require('../assets/HomeFocus.png') : require('../assets/home.png');
                     } 

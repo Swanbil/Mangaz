@@ -75,11 +75,6 @@ export default function Web3Home({ navigation }) {
 
     const [listNftCollection, setListNftCollection] = useState([]);
 
-    async function getProfilePicture(_pseudo) {
-        const user = { "userPseudo": _pseudo };
-        const response = await axios.get(API_URL + '/user/getProfilePicture/' + user.userPseudo);
-        return (response.data);
-    };
 
     /* ---------------------- */
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
@@ -278,7 +273,7 @@ export default function Web3Home({ navigation }) {
                                    <View style={{flexDirection : 'row', alignItems: 'center', justifyContent : 'space-between'}}>
                                        <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>New collaborations</Text>
 
-                                       <Text onPress={() => navigation.navigate('Home')}
+                                       <Text onPress={() => navigation.navigate('PackList')}
                                              style={{ marginRight : 30, fontWeight: '500', lineHeight: 18, fontSize: 12, color: '#DA0037'}}>
                                            Voir plus
                                        </Text>
@@ -355,6 +350,4 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         height: 1000
     },
-
-
 });

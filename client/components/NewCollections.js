@@ -28,5 +28,4 @@ export default function NewCollections({ element }) {
         </View>
 
     )
-
 }
