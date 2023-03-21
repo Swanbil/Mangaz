@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
         marginLeft: 3,
         marginRight: 3,
         borderRadius: 5,
+        marginTop: 10
     },
     userProfileImage: {
         padding: 10,

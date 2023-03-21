@@ -85,7 +85,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
             <ScrollView>
                 <View>
                     <ImageBackground source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10} >
-                        <View style={{ padding: 20 }}>
+                        <View style={{ padding: 20, marginTop: 10 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                                 <TouchableOpacity style={{ padding: 8, backgroundColor: '#EEEEEE', borderRadius: 25, flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.navigate('Search')}>
                                     <Icon name={"search"} size={18} color={''} />
@@ -106,7 +106,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                                     ? (
                                         <>
                                             <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>Recommandation</Text>
-                                            <ScrollView horizontal={true}>
+                                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                                                 <View style={{ flexDirection: 'row' }}>
                                                     {recommandations?.map((recommandation) => (
 
@@ -145,7 +145,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
 
                 <View style={{ padding: 20 }}>
                     <View>
-                        <ScrollView horizontal={true}>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                             <View style={{ marginTop: 15, flexDirection: 'row' }}>
                                 {genres.map((genre, index) => (
                                     <ImageBackground key={index} source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10}
