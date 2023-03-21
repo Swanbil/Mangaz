@@ -130,6 +130,13 @@ export default function FocusPackScreen({ navigation, route }) {
         }
     }
 
+    function randomNft(nftList) {
+        const randomIndex = Math.floor(Math.random() * nftList.length);
+        console.log("random ",nftList[randomIndex])
+        return nftList[randomIndex];
+    }
+
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -167,7 +174,9 @@ export default function FocusPackScreen({ navigation, route }) {
                                         )}
                                 />
                             </View>
-                            <TouchableOpacity style={{ top : 10,left : 55, padding: 8, backgroundColor: '#A2B2FC', borderRadius: 20, width: 130,height : 40, marginLeft : 20, marginBottom : 55}}>
+                            <TouchableOpacity style={{ top : 10,left : 55, padding: 8, backgroundColor: '#A2B2FC', borderRadius: 20, width: 130,height : 40
+                                , marginLeft : 20, marginBottom : 55}}  onPress={() => navigation.navigate('OpenPackScreen', {nft: randomNft(collectionItem.nfts)})}>
+
                                 <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700', marginLeft : -6 }}>Acheter ({collectionItem?.pricePack}    )</Text>
                                 <Image source={require('../assets/Web3/logoZenCash.png')} style={{ width: 12, height: 12, marginLeft: 87, marginTop : -15  }} />
                             </TouchableOpacity>
