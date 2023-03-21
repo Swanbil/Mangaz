@@ -3,7 +3,7 @@ import Home from '../screens/HomeScreen';
 import HeaderNavigator from './HeaderNavigator';
 import ProfilePage from '../screens/ProfileScreen';
 import Favoris from '../screens/FavorisScreen';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getHeaderTitle } from '@react-navigation/elements';
 import { IconButton } from 'react-native-paper';
@@ -24,27 +24,25 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                     return <HeaderNavigator title={title} />;
                 },
                 tabBarIcon: ({ focused, color, size }) => {
-                    let iconName;
+                    let source;
                     if (route.name === 'Home') {
-                        iconName = focused
-                            ? 'home-circle'
-                            : 'home-circle-outline';
-                    } else if (route.name === 'Profile') {
-                        iconName = focused ? 'account-circle' : 'account-circle-outline';
-                    }
+                      source = focused ? require('../assets/HomeFocus.png') : require('../assets/home.png');
+                    } 
+                    // else if (route.name === 'Profile') {
+                    //   source = focused ? require('../assets/profile-icon-focused.png') : require('../assets/profile-icon.png');
+                    // } 
                     else if (route.name === 'Web3Home') {
-                        iconName = focused ? 'wallet' : 'wallet';
+                      source = focused ? require('../assets/EthereumFocus.png') : require('../assets/Ethereum.png');
+                    } else if (route.name === 'MangaHome') {
+                      source = focused ? require('../assets/MangaFocus.png') : require('../assets/Manga.png');
                     }
-                    else if (route.name === 'MangaHome') {
-                        iconName = focused ? 'book-open-page-variant' : 'book-open-variant';
-                    }
-
-                    // You can return any component that you like here!
-                    return <IconButton icon={iconName} size={32} color={color} />;
-                },
+                    return <Image source={source} style={{ width: size, height: size }} />;
+                  },
+                  
                 tabBarActiveTintColor: '#333',
                 tabBarInactiveTintColor: 'white',
                 headerShown: false,
+                tabBarShowLabel: false,
                 tabBarStyle: { position: 'absolute', bottom: 10, marginHorizontal: 30, backgroundColor: '#CFB2E1', borderRadius: 32, height: 60, opacity: 0.95 }
 
             })}
