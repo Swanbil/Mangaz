@@ -127,9 +127,12 @@ export default function PackListScreen({ navigation }) {
     }
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigation.navigate("Web3Home")} style={{top: 27, left: 5}}>
-                <Image source={require('../assets/arrow-left.png')} style={{width: 24, height: 24}}/>
-            </TouchableOpacity>
+            <View style = {{zIndex : 1000}}>
+                <TouchableOpacity onPress={() => navigation.navigate("Web3Home")} style={{top: 27, left: 5}}>
+                    <Image source={require('../assets/arrow-left.png')} style={{width: 24, height: 24}}/>
+                </TouchableOpacity>
+            </View>
+
             <ScrollView>
                 <View style = {{top: -20}}>
                     <View>
