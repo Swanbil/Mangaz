@@ -38,7 +38,6 @@ import Web3ProfilePicture from "../components/Web3ProfilePicture";
 
 export default function FocusPackScreen({ navigation, route }) {
     const {pack} = route.params;
-    console.log(pack)
 
     /* ---------------------- */
 
@@ -85,6 +84,7 @@ export default function FocusPackScreen({ navigation, route }) {
     useFocusEffect(
         useCallback(() => {
             fetchData();
+            console.log("COllectionnnnnn",collectionItem)
         }, [])
     );
 
@@ -139,6 +139,11 @@ export default function FocusPackScreen({ navigation, route }) {
             </View>
             <View>
                 <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={false}/>
+            </View>
+
+            <View style={{}}>
+                <Text>{collectionItem.collection_Name}</Text>
+                <Image source={{ uri: collectionItem.image_background }}  style={{ width: 146, height: 213, borderRadius: 12}}></Image>
             </View>
         </View>
     )
