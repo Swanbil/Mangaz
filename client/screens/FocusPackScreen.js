@@ -133,7 +133,7 @@ export default function FocusPackScreen({ navigation, route }) {
     return (
         <View style={styles.container}>
             <View style = {{zIndex : 1000}}>
-                <TouchableOpacity onPress={() => navigation.navigate("Web3Home")} style={{top: 27, left: 5}}>
+                <TouchableOpacity onPress={() => navigation.navigate("PackList")} style={{top: 27, left: 5}}>
                     <Image source={require('../assets/arrow-left.png')} style={{width: 24, height: 24}}/>
                 </TouchableOpacity>
             </View>

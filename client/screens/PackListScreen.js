@@ -157,7 +157,7 @@ export default function PackListScreen({ navigation }) {
                     <View style={{alignItems : 'center', marginBottom : 20}}>
                         <FlatList
                             data={collectionsData.slice().reverse()}
-                            renderItem={({ item }) => (<NewCollabPackList element={item} />)}
+                            renderItem={({ item }) => (<NewCollabPackList navigation={navigation} element={item} />)}
                             keyExtractor={(item) => item.idCollection.toString()}
                             horizontal={false}
                             showsHorizontalScrollIndicator={false}
