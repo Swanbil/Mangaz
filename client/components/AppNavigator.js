@@ -17,11 +17,10 @@ import SearchScreen from '../screens/SearchScreen';
 import BuyToken from '../screens/BuyTokenScreen';
 import DisplayNft from '../screens/DisplayNftScreen';
 import ExchangeCard from '../screens/ExchangeCardsScreen';
-import FocusPack from '../screens/FocusPackScreen';
 import Gallery from '../screens/GalleryScreen';
 import OpenPack from '../screens/OpenPackScreen';
 import PackList from '../screens/PackListScreen';
-
+import FocusPack from '../screens/FocusPackScreen';
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, getSubState }) => {
@@ -107,6 +106,11 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, ge
                 headerShown: false
             })} >
                 {(props) => <PackList {...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
+            </Stack.Screen>
+            <Stack.Screen name="FocusPackScreen" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => < FocusPack{...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
             </Stack.Screen>
         </Stack.Navigator>
 
