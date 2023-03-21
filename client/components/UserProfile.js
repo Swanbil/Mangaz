@@ -26,7 +26,8 @@ export default function UserProfile({ isLog, userInfos, isSubscribe, navigation,
                     <Image source={{ uri: userInfos?.profilepicture }}
                         style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
                     <View style={{ position: 'absolute', left: 70, top: 10 }}>
-                        <Badge style={{ color: "white", fontWeight: "bold", backgroundColor: (isSubscribe ? "#9CE594" : "#FFCA68") }}>{isSubscribe ? "V" : "Free"}</Badge>
+                        {isSubscribe ? <Image source={require("../assets/Verified.png")}
+                                              style={{width : 26, height : 26 }}/> : null }
                     </View>
                 </View>
             </TouchableOpacity>
