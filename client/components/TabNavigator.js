@@ -23,27 +23,28 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                     const title = getHeaderTitle(options, route.name);
                     return <HeaderNavigator title={title} />;
                 },
-                tabBarIcon: ({ focused, color, size }) => {
+                tabBarIcon: ({ focused }) => {
                     let source;
                     if (route.name === 'Home') {
                       source = focused ? require('../assets/HomeFocus.png') : require('../assets/home.png');
                     } 
-                    // else if (route.name === 'Profile') {
-                    //   source = focused ? require('../assets/profile-icon-focused.png') : require('../assets/profile-icon.png');
-                    // } 
+                    else if (route.name === 'Profile') {
+                        iconName = focused ? 'account-circle' : 'account-circle-outline';
+                    } 
                     else if (route.name === 'Web3Home') {
                       source = focused ? require('../assets/EthereumFocus.png') : require('../assets/Ethereum.png');
                     } else if (route.name === 'MangaHome') {
                       source = focused ? require('../assets/MangaFocus.png') : require('../assets/Manga.png');
                     }
-                    return <Image source={source} style={{ width: size, height: size }} />;
+                    return <Image source={source} style={{aspectRatio: 1, resizeMode: 'contain', width : 24, height : 24}} />;
+
                   },
                   
                 tabBarActiveTintColor: '#333',
                 tabBarInactiveTintColor: 'white',
                 headerShown: false,
                 tabBarShowLabel: false,
-                tabBarStyle: { position: 'absolute', bottom: 10, marginHorizontal: 30, backgroundColor: '#CFB2E1', borderRadius: 32, height: 60, opacity: 0.95 }
+                tabBarStyle: { position: 'absolute', bottom: 10, marginHorizontal: 30, backgroundColor: '#CFB2E1', borderRadius: 32, height: 62, opacity: 0.95 }
 
             })}
         >

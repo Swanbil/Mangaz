@@ -44,17 +44,23 @@ export default function UserProfile({ isLog, userInfos, isSubscribe, navigation,
                 </View>
             </View>
 
-            <View style={{ flexDirection:'row' }}>
+            <View style={{ flexDirection: 'row'}}>
+                <View style={styles.menuButton}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+                        <Image source={require("../assets/Nouveaute.png")}
+                            style={{ width: 29, height: 29}} />
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.menuButton}>
                     <TouchableOpacity onPress={onClickButton} >
-                    <Image source={require('../assets/icon_defis.png')}
-                            style={{ width: 29, height: 29, borderRadius: 50 }} />
+                        <Image source={require('../assets/icon_defis.png')}
+                            style={{ width: 29, height: 29}} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.menuButton}>
                     <TouchableOpacity onPress={handlePress}>
-                        <Image source={{ uri: "https://play-lh.googleusercontent.com/fbrWR4LbtB_1Ulgz3_rw8bY3tx_zPU7A9ZOB5WYG_QmqOUUjA6JEzE_20GA4YBDWMx4" }}
-                            style={{ width: 29, height: 29, borderRadius: 50 }} />
+                        <Image source={require("../assets/Discord.png")}
+                            style={{ width: 29, height: 29}} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -109,14 +115,16 @@ const styles = StyleSheet.create({
     },
     menuButton: {
         marginLeft: 10,
-        padding: 5,
-        borderWidth: 2,
-        borderColor: '#FFFFFF',
-        borderRadius: 15,
-        shadowOffset: { width: 1, height: 2 },
-        shadowRadius: 2,
-        shadowColor: '#333',
-        shadowOpacity: 0.1,
+        overflow: "visible",
+        borderRadius: 50,
+        shadowColor: 'rgba(0, 0, 0, 0.5)',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 7,
+        elevation: 2 // cette propriété doit être ajoutée pour que l'ombre soit visible sur Android
     }
 
 })
