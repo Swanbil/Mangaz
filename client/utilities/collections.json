@@ -48,12 +48,7 @@
       }
     ],
     "rarities": "275 SSR, 200 R",
-    "tags": [
-      {
-        "tag1": "dragonball",
-        "tag2": "shonen"
-      }
-    ],
+    "tags": ["dragonball", "shonen"],
     "pricePack": 25
   },
   {
@@ -105,12 +100,7 @@
       }
     ],
     "rarities": "131 SSR, 50 SR",
-    "tags": [
-      {
-        "tag1": "fate",
-        "tag2": "nasu"
-      }
-    ],
+    "tags": ["fate", "nasu"],
     "pricePack": 25
   },
   {
@@ -162,12 +152,7 @@
       }
     ],
     "rarities": "20 SSR, 40 SR",
-    "tags": [
-      {
-        "tag1": "monster",
-        "tag2": "urasawa"
-      }
-    ],
+    "tags": ["monster", "urasawa"],
     "pricePack": 25
   },
   {
@@ -219,12 +204,7 @@
       }
     ],
     "rarities": "17 SSR",
-    "tags": [
-      {
-        "tag1": "konosuba",
-        "tag2": "chunchunmaru"
-      }
-    ],
+    "tags": ["konosuba", "chunchunmaru"],
     "pricePack": 25
   }
 ]
