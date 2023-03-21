@@ -48,13 +48,13 @@ export default function UserProfile({ isLog, userInfos, isSubscribe, navigation,
                 <View style={styles.menuButton}>
                     <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
                         <Image source={require("../assets/Nouveaute.png")}
-                            style={{ width: 29, height: 29}} />
+                            style={{ width: 21, height: 21}} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.menuButton}>
                     <TouchableOpacity onPress={onClickButton} >
                         <Image source={require('../assets/icon_defis.png')}
-                            style={{ width: 29, height: 29}} />
+                            style={{ width: 16, height: 16}} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.menuButton}>
@@ -114,9 +114,13 @@ const styles = StyleSheet.create({
         elevation: 3
     },
     menuButton: {
+        width : 34,
+        height : 34,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#FFFFFF',
         marginLeft: 10,
-        overflow: "visible",
-        borderRadius: 50,
+        borderRadius: 25,
         shadowColor: 'rgba(0, 0, 0, 0.5)',
         shadowOffset: {
             width: 0,
