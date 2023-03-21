@@ -132,19 +132,52 @@ export default function FocusPackScreen({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <View style = {{zIndex : 1000}}>
-                <TouchableOpacity onPress={() => navigation.navigate("PackList")} style={{top: 27, left: 5}}>
-                    <Image source={require('../assets/arrow-left.png')} style={{width: 24, height: 24}}/>
-                </TouchableOpacity>
-            </View>
-            <View>
-                <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={false}/>
-            </View>
+            <ScrollView>
+                <ImageBackground source={{uri : collectionItem.image_background}} resizeMode="cover" blurRadius={2} style={{height : 406}}>
+                    <View style={{backgroundColor : 'rgba(0,0,0, 0.40)',  flex : 1}}>
+                        <View style = {{zIndex : 1000}}>
+                            <TouchableOpacity onPress={() => navigation.navigate("PackList")} style={{top: 27, left: 5}}>
+                                <Image source={require('../assets/arrow-left.png')} style={{width: 24, height: 24}}/>
+                            </TouchableOpacity>
+                        </View>
+                        <View>
+                            <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={false}/>
+                        </View>
+                    </View>
+                </ImageBackground>
+                <View style={{zIndex : 30, alignItems : 'center', top : -250, flex : 1}}>
+                    <Image source={{ uri: collectionItem.image_cover }}  style={{ width: 178, height: 260, borderRadius: 12}}></Image>
+                    <View style={{backgroundColor : '#171717', borderRadius : 40, width : 328, top : -55, overflow : 'hidden', flex : 1}}>
+                        <View style={{top : 30, marginHorizontal : 20}}>
+                            <Text style = {{fontWeight: '700', fontSize: 24, color: 'white', left : -7}}> {collectionItem?.collection_Name}</Text>
+                            <Text style={{fontWeight : '300', fontSize : 13, left : 170, top : -22, color : 'white'}}> ({collectionItem?.rarities})</Text>
 
-            <View style={{}}>
-                <Text>{collectionItem.collection_Name}</Text>
-                <Image source={{ uri: collectionItem.image_background }}  style={{ width: 146, height: 213, borderRadius: 12}}></Image>
-            </View>
+                            <View style ={{alignItems : 'flex-start', flexDirection : 'column', marginBottom : 20}}>
+                                <Text style={{fontWeight: '700', fontSize : 18, color : 'rgba(237, 237, 237, 0.5)'}}>Description</Text>
+                                <Text style={{fontWeight : '500', fontSize : 12, color : 'rgba(237, 237, 237, 0.5)'}}>{collectionItem?.description}</Text>
+                            </View>
+                            <View>
+                                <Text style={{fontWeight: '700', fontSize : 18, color : 'rgba(237, 237, 237, 0.5)'}} >Tags</Text>
+                                <FlatList
+                                        horizontal={true}
+                                        data={collectionItem?.tags}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={({ item }) => (
+                                            <Text style={{fontWeight : '500', fontSize : 12, color : 'rgba(237, 237, 237, 0.5)'}} >{item}   </Text>
+                                        )}
+                                />
+                            </View>
+                            <TouchableOpacity style={{ top : 10,left : 55, padding: 8, backgroundColor: '#A2B2FC', borderRadius: 20, width: 130,height : 40, marginLeft : 20, marginBottom : 55}}>
+                                <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700', marginLeft : -6 }}>Acheter ({collectionItem?.pricePack}    )</Text>
+                                <Image source={require('../assets/Web3/logoZenCash.png')} style={{ width: 12, height: 12, marginLeft: 87, marginTop : -15  }} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </ScrollView>
+
+
+
         </View>
     )
 }

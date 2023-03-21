@@ -281,6 +281,8 @@ export default function Web3Home({ navigation }) {
                     </ImageBackground>
                 </View>
 
+
+
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 25, padding: 8 }}>
                     <TouchableOpacity
                         style={{ width: 166, height: 153 }}
