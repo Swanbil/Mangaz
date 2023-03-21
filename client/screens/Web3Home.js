@@ -261,7 +261,7 @@ export default function Web3Home({ navigation }) {
                                            showsHorizontalScrollIndicator={false}
                                            renderItem={({ item }) => (
                                                <View>
-                                                   <NewCollections element={item} />
+                                                   <NewCollections navigation={navigation} element={item} />
                                                    <View>
                                                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop : -100, zIndex : 0, left : 146, marginLeft : 13}}>
                                                            {item.nfts

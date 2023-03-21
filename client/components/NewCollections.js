@@ -3,13 +3,15 @@ import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button, Fla
 import NftCollections from './NftCollections';
 import collectionsData from '../utilities/collections.json';
 
-export default function NewCollections({ element }) {
+export default function NewCollections({ navigation, element }) {
 
     return (
         <View style={{ flexDirection: 'row', zIndex : 4, marginLeft : 6 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, marginRight: 37 }}>
                 <View>
-                    <Image source={{ uri: element?.image_cover }} style={{ width: 146, height: 213, borderRadius: 12}} />
+                    <TouchableOpacity onPress={() => navigation.navigate('FocusPackScreen', {pack : element})}>
+                        <Image source={{ uri: element?.image_cover }} style={{ width: 146, height: 213, borderRadius: 12}} />
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'column', marginLeft: 20, top: -55, alignItems: 'flex-start' }}>
                     <TouchableOpacity style={{ padding: 8, backgroundColor: '#A2B2FC', borderRadius: 15, width: 130, marginLeft : 20, flexDirection : 'row', justifyContent : 'center'}}>
