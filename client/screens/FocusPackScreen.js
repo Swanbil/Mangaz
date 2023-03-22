@@ -188,7 +188,7 @@ export default function FocusPackScreen({ navigation, route }) {
                     <View style={{marginTop : 15}}>
                         <FlatList
                             data={collectionItem.nfts}
-                            renderItem={({ item }) => (<ContentPack element={item} />)}
+                            renderItem={({ item }) => (<ContentPack navigation={navigation} element={item} />)}
                             keyExtractor={(item) => item.idNft.toString()}
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}

@@ -44,6 +44,7 @@
     "react-native-collapsible": "^1.6.0",
     "react-native-color-grabber": "^0.0.3",
     "react-native-dotenv": "^3.3.1",
+    "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "~2.8.0",
     "react-native-get-random-values": "~1.8.0",
     "react-native-grid-component": "^2.0.1",

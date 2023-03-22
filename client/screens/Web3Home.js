@@ -35,6 +35,7 @@ import ShopCard from '../components/ShopCard';
 import NewCollections from '../components/NewCollections';
 import NftCollections from "../components/NftCollections";
 import Web3ProfilePicture from "../components/Web3ProfilePicture";
+import userNfts from "../utilities/NftsUser.json";
 
 
 export default function Web3Home({ navigation }) {
@@ -165,34 +166,7 @@ export default function Web3Home({ navigation }) {
 
     /* ---------------------- */
     return (
-        /*<View style={styles.container}>
-            <TouchableOpacity
-                style={{ margin: 20 }}
-                underlayColor='#fff' onPress={() => navigation.goBack()}
-            >
-                <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
-            </TouchableOpacity>
-
-            <View style={styles.walletContainer}>
-                <View style={styles.pageTitleContainer}>
-                    <Icon name={"wallet"} color={"#333"} size={20} />
-                    <Text style={styles.pageTitle}>Wallet</Text>
-                </View>
-            </View>
-            {!connector.connected && (
-                <TouchableOpacity onPress={connectWallet} style={styles.button}>
-                    <Text style={styles.buttonTextStyle}>Connect a Wallet</Text>
-                </TouchableOpacity>
-            )}
-            {!!connector.connected && (
-                <>
-                    <Text>{('Your address on the Ether chain is ' + connector.accounts[0])}</Text>
-                    <TouchableOpacity onPress={killSession} style={styles.button}>
-                        <Text style={styles.buttonTextStyle}>Log out</Text>
-                    </TouchableOpacity>
-                    <Text>{`Your balance : ${balance} ZC`}</Text>
-                </>
-            )}
+        /*
             <View>
                 <Modal visible={isModal}>
                     <Text>Modal is open!</Text>
@@ -207,13 +181,6 @@ export default function Web3Home({ navigation }) {
                 </Modal>
             </View>
 
-            <FlatList
-                data={nfts}
-                renderItem={renderGalleryCard}
-                keyExtractor={(item) => item.id.toString()}
-                style={styles.container}
-            />
-
             <View style={styles.containerLoad}>
                 {loading ? (
                     <View style={styles.loadingContainer}>
@@ -227,14 +194,6 @@ export default function Web3Home({ navigation }) {
                     </TouchableOpacity>
                 )}
             </View>
-
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate('Web3Home')}
-                underlayColor='#fff'
-            >
-                <Text style={styles.textButton}>Go Wallet</Text>
-            </TouchableOpacity>
         </View>*/
 
 
@@ -263,12 +222,12 @@ export default function Web3Home({ navigation }) {
                                                <View>
                                                    <NewCollections navigation={navigation} element={item} />
                                                    <View>
-                                                       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop : -100, zIndex : 0, left : 146, marginLeft : 13}}>
+                                                       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop : -100, zIndex : 0, left : 146, marginLeft : 13, zIndex : 20}}>
                                                            {item.nfts
                                                                .filter((nft) => nft.rarity === "SSR")
                                                                .slice(0,2)
                                                                .map((nft) => (
-                                                               <NftCollections key={nft.idNft} element={nft} />
+                                                               <NftCollections key={nft.idNft}  navigation = {navigation} element={nft} />
                                                            ))}
                                                        </ScrollView>
                                                    </View>
@@ -293,18 +252,19 @@ export default function Web3Home({ navigation }) {
 
                     <TouchableOpacity
                         style={{ width: 166, height: 153 }}
-                        onPress={() => navigation.navigate('Web3Home')}
+                        onPress={() => navigation.navigate('GalleryScreen', {nftsJson : userNfts})}
                     >
                         <Image source={require('../assets/Web3/Gallery.png')} style={{ width: '100%', height: '100%', borderRadius: 18 }} />
                     </TouchableOpacity>
                 </View>
 
 
+                
                 <View style={{ marginTop: 20, marginBottom: 80, padding: 5 }}>
                     <Text style={{ fontWeight: '700', fontSize: 22, color: 'black', marginBottom: 10, marginLeft: 5 }}>Shop</Text>
                     <FlatList
                         data={cardsData}
-                        renderItem={({ item }) => (<ShopCard element={item} />)}
+                        renderItem={({ item }) => (<ShopCard navigation={navigation} element={item} />)}
                         keyExtractor={(item) => item.id.toString()}
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}

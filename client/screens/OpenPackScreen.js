@@ -6,7 +6,6 @@ import { API_URL } from '@env';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 
-
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 
 // Import the required shims
@@ -29,6 +28,7 @@ import { getNftsFromCollection } from "../utilities/Wallet.js";
 
 import cardsData from '../utilities/card.json';
 import collectionsData from '../utilities/collections.json';
+import userGallery from '../utilities/NftsUser.json'
 import { useFocusEffect } from '@react-navigation/native';
 import { getDataUser } from '../utilities/localStorage';
 import ShopCard from '../components/ShopCard';
@@ -42,6 +42,7 @@ export default function OpenPackScreen({ navigation, route }) {
 
     /* ---------------------- */
     const [nftItem, setNftItem] = useState(nft);
+    const [userNfts, setUserNfts] = useState (userGallery);
 
     //Current user
     const [pseudo, setPseudo] = useState("");
@@ -135,13 +136,14 @@ export default function OpenPackScreen({ navigation, route }) {
                 <View>
                     <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true}/>
                 </View>
-                <View style={{alignItems : 'center'}}>
+                <View style={{alignItems : 'center', top : -20}}>
+                    <Text style={{fontSize : 28, fontWeight : '700', color : 'black', marginBottom : 15 }}>Vous avez obtenu</Text>
                     <Image source={{uri: nftItem?.image}} style={{width: 358, height: 358, borderRadius : 20}}/>
 
                     <View style={{backgroundColor : '#171717' , width : '110%',height : 310,
                         borderTopLeftRadius: 60,
                         borderTopRightRadius: 60,
-                        marginTop : 35,marginBottom : -50 }}>
+                        marginTop : 35,marginBottom : -60 }}>
                         <View style={{flex : 1, flexDirection : 'row', marginTop : 25, marginLeft : 35}}>
                             <Image source={{uri: nftItem?.coverCollection}} style={{width: 86, height: 86, borderRadius : 50}}/>
                             <View style={{flex : 1, flexDirection : 'column', alignItems : 'flex-start', left : 15}}>

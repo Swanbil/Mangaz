@@ -1,14 +1,4 @@
 [
-  {
-    "idNft": 1,
-    "name": "Kid Goku",
-    "rarity": "SSR",
-    "quantity": 100,
-    "description": "Le meilleur personnage de fiction de l'histoire, durant son enfance.",
-    "image": "https://i.seadn.io/gcs/files/bc5cae506d6402d9aec5b565216f9975.jpg?auto=format&w=1000",
-    "nameCollection": "Dragon Ball by MangaZ",
-    "coverCollection": "https://i.seadn.io/gcs/files/6f330d6aa7db28b5b12fe755fe518c8e.jpg?auto=format&w=256"
-  },
 
   {
     "idNft": 4,
