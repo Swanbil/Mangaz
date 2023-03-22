@@ -221,8 +221,8 @@ export default function Web3Home({ navigation }) {
                                            renderItem={({ item }) => (
                                                <View>
                                                    <NewCollections navigation={navigation} element={item} />
-                                                   <View>
-                                                       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop : -100, zIndex : 0, left : 146, marginLeft : 13, zIndex : 20}}>
+                                                   <View style ={{zIndex : 20}}>
+                                                       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop : -100, left : 146, marginLeft : 13}}>
                                                            {item.nfts
                                                                .filter((nft) => nft.rarity === "SSR")
                                                                .slice(0,2)
@@ -231,7 +231,6 @@ export default function Web3Home({ navigation }) {
                                                            ))}
                                                        </ScrollView>
                                                    </View>
-
                                                </View>
                                            )}
                                        />
