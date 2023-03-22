@@ -1,15 +1,18 @@
-// SplashScreenVideo.js
 import React from 'react';
-import {View} from 'react-native';
+import {View, Dimensions} from 'react-native';
 import {Video} from 'expo-av';
 
 const SplashScreenVideo = ({onVideoEnd}) => {
+
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, flexDirection : 'row', flexGrow : 1}}>
       <Video
         source={require('../assets/bochiThePeak.mp4')}
-        style={{flex: 1}}
-        resizeMode={Video.RESIZE_MODE_COVER}
+        style ={{
+            flex: 1,
+            backgroundColor : 'black'
+        }}
+        resizeMode={'cover'}
         shouldPlay
         isLooping={false}
         onPlaybackStatusUpdate={(status) => {
