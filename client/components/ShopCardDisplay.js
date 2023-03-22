@@ -6,7 +6,7 @@ export default  function ShopCardDisplay ({navigation,element}) {
     return (
         <View style={{marginHorizontal: 6}}>
             <TouchableOpacity onPress={() => navigation.navigate('DisplayShopCardScreen', {nft : element})}>
-                <ImageBackground source={{uri: element?.image_thumbnail_url}} style={{width: 83, height: 103,}}
+                <ImageBackground source={{uri: element?.image_thumbnail_url}} style={{width: 110, height: 160,}}
                                 imageStyle={{borderRadius: 12}}>
                     <View
                         style={{

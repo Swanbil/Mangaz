@@ -270,13 +270,6 @@ export default function Web3Home({ navigation }) {
                         showsHorizontalScrollIndicator={false}
                     />
                 </View>
-                {/* <FlatList
-                            data={collectionItem.nfts}
-                            renderItem={({ item }) => (<ContentPack navigation={navigation} element={item} />)}
-                            keyExtractor={(item) => item.idNft.toString()}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                        /> */}
             </ScrollView >
 
         </View >
