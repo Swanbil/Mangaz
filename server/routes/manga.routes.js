@@ -6,6 +6,7 @@ router.get('/manga/:manga/chapter/:number', mangaController.getPagesOfChapter);
 router.get('/manga/catalogue', mangaController.getCatalogue);
 router.get('/manga/catalogue/:userPseudo', mangaController.getCatalogueWithUserFavoris);
 router.get('/manga/catalogue/popular/:userPseudo', mangaController.getMostPopular);
+router.get('/manga/catalogue/trends/:userPseudo', mangaController.getTrends);
 router.get('/manga/catalogue/:userPseudo/recommandations', mangaController.getCatalogueRecommandation);
 router.get('/manga/:mangaName/chapters', mangaController.getChapters);
 router.post('/manga/add/favoris', mangaController.addMangaToFavoris);

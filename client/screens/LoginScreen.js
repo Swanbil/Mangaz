@@ -12,10 +12,7 @@ const Login = ({ navigation, getLogState, getSubState }) => {
         const user = { "pseudo": pseudo, "password": password };
         
         try {
-            console.log(user);
-            console.log(API_URL + '/login');
             const response = await axios.post(API_URL + '/login', user);
-            console.log("response.data");
             const data = response.data;
             getLogState(true);
             getSubState(data.isSubscribe);
@@ -54,14 +51,6 @@ const Login = ({ navigation, getLogState, getSubState }) => {
                 underlayColor='#fff'
             >
                 <Text style={styles.textButton}>Register</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                style={styles.buttonRegister}
-                onPress={() => navigation.navigate('Web3Home')}
-                underlayColor='#fff'
-            >
-                <Text style={styles.textButton}>Go Wallet</Text>
             </TouchableOpacity>
             
         </View>

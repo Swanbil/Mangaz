@@ -16,6 +16,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
     const [catalogue, setCatalogue] = useState([]);
     const [recommandations, setRecommandations] = useState([]);
     const [mostPopular, setMostPopular] = useState([]);
+    const [trends, setTrends] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const genres = [{ title: 'Action', image: require('../assets/filter_drame.png') }, { title: 'Aventure', image: require('../assets/filter_aventure.png') }, { title: 'Drame', image: require('../assets/filter_drame.png') }, { title: 'Fun', image: require('../assets/filter_aventure.png') }, { title: 'Romance', image: require('../assets/filter_drame.png') }];
     const genres2 = ['Action', 'Aventure', 'Drame', 'Fun', 'Romance'];
@@ -28,6 +29,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
             getUserInfos();
             getRecommandations();
             getMostPopular();
+            getTrends();
         }, [])
     );
 
@@ -76,6 +78,23 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                 const response = await axios.get(API_URL + `/manga/catalogue/popular/${userPseudo}`);
                 const data = response.data;
                 setMostPopular(data);
+            }
+            catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        }
+    }
+    const getTrends = async () => {
+        setLoading(true);
+        const userData = await getDataUser();
+        if (userData) {
+            const userPseudo = userData.userPseudo;
+            try {
+                const response = await axios.get(API_URL + `/manga/catalogue/trends/${userPseudo}`);
+                const data = response.data;
+                setTrends(data);
             }
             catch (error) {
                 console.error(error);
@@ -170,7 +189,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                             <View style={{ marginTop: 15, flexDirection: 'row' }}>
                                 {genres.map((genre, index) => (
-                                    <ImageBackground key={index} source={genre?.image } resizeMode="cover" blurRadius={0.5}
+                                    <ImageBackground key={index} source={genre?.image} resizeMode="cover" blurRadius={0.5}
                                         style={{ width: 124, height: 54, marginRight: 8, justifyContent: 'center', alignItems: 'center' }} imageStyle={{ borderRadius: 31 }}>
                                         <TouchableOpacity onPress={() => goToFilterByGenre(genre.title)}>
                                             <View style={{ borderBottomWidth: 3, borderBottomColor: "#C5B1F2" }}>
@@ -186,17 +205,24 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
 
 
                     </View>
-                    <View style={{ marginTop: 15 }}>
-                        <Text style={{ fontWeight: '700', fontSize: 22 }}>Catalogue</Text>
-                        <View style={{ marginTop: 15 }}>
-                            <Catalogue navigation={navigation} catalogue={catalogue} pageName="Home" widthMangaItem="large" />
-                        </View>
 
+                    <View style={{ marginTop: 15 }}>
+                        <Text style={{ fontWeight: '700', fontSize: 22 }}>Trends</Text>
+                        <View style={{ marginTop: 15 }}>
+                            <Catalogue navigation={navigation} catalogue={trends} pageName="Home" widthMangaItem="large"  />
+                        </View>
                     </View>
                     <View style={{ marginTop: 15 }}>
                         <Text style={{ fontWeight: '700', fontSize: 22 }}>Most popular</Text>
                         <View style={{ marginTop: 15 }}>
                             <Catalogue navigation={navigation} catalogue={mostPopular} pageName="Home" widthMangaItem="small" direction={"vertical"} />
+                        </View>
+                    </View>
+
+                    <View style={{ marginTop: 15 }}>
+                        <Text style={{ fontWeight: '700', fontSize: 22 }}>Catalogue</Text>
+                        <View style={{ marginTop: 15 }}>
+                            <Catalogue navigation={navigation} catalogue={catalogue} pageName="Home" widthMangaItem="large" />
                         </View>
                     </View>
 
