@@ -220,3 +220,34 @@ exports.rateManga = async (req, res) => {
     });
 
 }
+
+exports.getMostPopular = async (req, res) => {
+    const userPseudo = req.params.userPseudo;
+    let sql = 'SELECT m."technicalName", ROUND(AVG(rate), 0) as rate, m."coverImage", m."coverImage_large", m."createdDate", m.description, m.genre, m."idManga", m."popularityRank",\
+    m."titleName" from rates_manga rm INNER JOIN manga m ON m."idManga" = rm."idManga" WHERE rate > 3.8 GROUP BY m."technicalName", m."coverImage", m."coverImage_large",\
+    m."createdDate", m.description, m.genre, m."idManga", m."popularityRank", m."titleName"';
+    await db.query(sql, async (err, result) => {
+        if (err) {
+            console.error('Error executing query', err.stack);
+            res.status(404).send({ message: "An error occured by rating this manga" });
+            return;
+        }
+        const catalogue = result.rows;
+        sql = 'SELECT m."technicalName" FROM users_favoris uf INNER JOIN manga m ON m."idManga" = uf."idManga" INNER JOIN users u ON u."idUser" = uf."idUser"\
+        WHERE u.pseudo = $1';
+        await db.query(sql, [userPseudo], async (err, result) => {
+            if (err) {
+                return console.error('Error executing query', err.stack)
+            }
+            const mangaFavoris = result.rows;
+            const catalogueMostPopular = catalogue.map((manga) => {
+                manga.isFavoris = (mangaFavoris.find(m => m.technicalName === manga.technicalName)) !== undefined ? true : false;
+                return manga;
+            });
+            res.status(200).send(catalogueMostPopular);
+            return;
+
+        });
+    });
+
+}

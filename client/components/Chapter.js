@@ -90,7 +90,7 @@ export default function Chapter({ route, navigation }) {
             width={320}
             height={530}
             data={pages}
-            scrollAnimationDuration={10}
+            scrollAnimationDuration={500}
             defaultIndex={currentIndex}
             loop={false}
             onSnapToItem={(index) => swipePage(index)}

@@ -97,7 +97,6 @@ exports.getNftsUser = async (req, res) => {
 
         res.json(response.data);
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: 'Une erreur est survenue lors de la récupération des informations des actif.' });
     }
 
@@ -111,7 +110,6 @@ exports.getNft = async (req, res) => {
         const response = await axios.get(url);
         res.json(response.data);
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: 'Une erreur est survenue lors de la récupération des informations de l\'actif.' });
     }
 }
@@ -123,7 +121,6 @@ exports.getCollection = async (req, res) => {
         const response = await axios.get(url);
         res.json(response.data);
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: 'Une erreur est survenue lors de la récupération des informations des actif.' });
     }
 }
@@ -136,7 +133,6 @@ exports.getCollections = async (req, res) => {
         const response = await axios.get(url);
         res.json(response.data);
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: 'Une erreur est survenue lors de la récupération des informations des actif.' });
     }
 
@@ -150,7 +146,6 @@ exports.getNftsFromCollection = async (req, res) => {
         const response = await axios.get(url);
         res.json(response.data);
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: 'Une erreur est survenue lors de la récupération des informations des actif.' });
     }
 }

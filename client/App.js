@@ -42,7 +42,6 @@ export default function App() {
     setIsLogedIn(data);
   }
 
-
   if (!appIsReady) {
     return null;
   }

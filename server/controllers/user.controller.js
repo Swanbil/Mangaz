@@ -29,10 +29,6 @@ const isUserSubscribe = async (userPseudo) => {
         }, 100)
     });
 
-
-
-
-
 }
 
 exports.login = async (req, res) => {
@@ -217,7 +213,7 @@ const getUserId = async (userPseudo) => {
 
 exports.getUserInfos = async (req, res) => {
     const userPseudo = req.params.userPseudo;
-    const sql = "SELECT firstname, lastname, pseudo, email, profilepicture from users WHERE pseudo = $1";
+    const sql = 'SELECT firstname, lastname, pseudo, email, profilepicture from users WHERE pseudo = $1';
     await db.query(sql, [userPseudo], (err, result) => {
         if (err) {
             console.log(err);

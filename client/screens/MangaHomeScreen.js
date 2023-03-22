@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
     const [catalogue, setCatalogue] = useState([]);
     const [recommandations, setRecommandations] = useState([]);
+    const [mostPopular, setMostPopular] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const genres = ['Action', 'Aventure', 'Drame', 'Fun', 'Romance'];
     const [userInfos, setUserInfos] = useState();
@@ -23,7 +24,8 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
         useCallback(() => {
             getCatalogue();
             getUserInfos();
-            getRecommandations()
+            getRecommandations();
+            getMostPopular();
         }, [])
     );
 
@@ -55,6 +57,23 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                 const response = await axios.get(API_URL + `/manga/catalogue/${userPseudo}/recommandations`);
                 const data = response.data;
                 setRecommandations(data);
+            }
+            catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        }
+    }
+    const getMostPopular = async () => {
+        setLoading(true);
+        const userData = await getDataUser();
+        if (userData) {
+            const userPseudo = userData.userPseudo;
+            try {
+                const response = await axios.get(API_URL + `/manga/catalogue/popular/${userPseudo}`);
+                const data = response.data;
+                setMostPopular(data);
             }
             catch (error) {
                 console.error(error);
@@ -175,7 +194,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                     <View style={{ marginTop: 15 }}>
                         <Text style={{ fontWeight: '700', fontSize: 22 }}>Most popular</Text>
                         <View style={{ marginTop: 15 }}>
-                            <Catalogue navigation={navigation} catalogue={recommandations} pageName="Home" widthMangaItem="large" />
+                            <Catalogue navigation={navigation} catalogue={mostPopular} pageName="Home" widthMangaItem="small" direction={"vertical"} />
                         </View>
                     </View>
 
