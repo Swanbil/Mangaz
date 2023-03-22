@@ -4,9 +4,9 @@ import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button, Fla
 export default  function NftsGallery({navigation,element}) {
 
     return (
-        <View style={{marginHorizontal: 6}}>
+        <View style={{marginHorizontal: 6, flex : 1, alignItems : 'center', marginTop : 60}}>
             <TouchableOpacity onPress={() => navigation.navigate('DisplayNftScreen', {nft : element})}>
-                <ImageBackground source={{uri: element?.image}} style={{width: 83, height: 103,}}
+                <ImageBackground source={{uri: element?.image}} style={{width: 310, height: 405}}
                                 imageStyle={{borderRadius: 12}}>
                     <View
                         style={{
@@ -17,15 +17,16 @@ export default  function NftsGallery({navigation,element}) {
                             width: '100%',
                             borderBottomLeftRadius: 12,
                             borderBottomRightRadius: 12,
-                            height: 40,
+                            height: 91,
+
                             overflow: 'hidden',
                         }}
                     >
-                        <Text style={{fontSize: 10, fontWeight: '700', color: 'white'}}>{element?.name}</Text>
-                        <Text style={{fontSize: 8, fontWeight: '400', color: 'white'}}>{element?.nameCollection}</Text>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10}}>
-                            <Text style={{fontSize: 6, fontWeight: '400', color: 'white'}}>Qty : {element?.quantity}</Text>
-                            <Text style={{fontSize: 6, fontWeight: '400', color: 'white'}}>{element?.rarity}</Text>
+                        <Text style={{fontSize: 17, fontWeight: '700', color: 'white'}}>{element?.name}</Text>
+                        <Text style={{fontSize: 15, fontWeight: '500', color: 'white', marginTop : 5}}>{element?.nameCollection}</Text>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10, marginTop : 15}}>
+                            <Text style={{fontSize: 13, fontWeight: '500', color: 'white'}}>Qty : {element?.quantity}</Text>
+                            <Text style={{fontSize: 13, fontWeight: '500', color: 'white'}}>{element?.rarity}</Text>
                         </View>
                     </View>
                 </ImageBackground>

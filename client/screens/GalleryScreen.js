@@ -36,7 +36,7 @@ import NewCollections from '../components/NewCollections';
 import NftCollections from "../components/NftCollections";
 import Web3ProfilePicture from "../components/Web3ProfilePicture";
 import ContentPack from "../components/ContentPack";
-import NftsGallery from '../components/nftsGallery';
+import NftsGallery from '../components/NftsGallery';
 
 export default function GalleryScreen({ navigation, route }) {
     const {nftsJson} = route.params;
