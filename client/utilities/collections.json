@@ -3,7 +3,7 @@
     "idCollection": 1,
     "collection_Name": "Dragon Ball ",
     "image_cover": "https://i.seadn.io/gcs/files/6fd136f5e616a9e792c4b6af7f212855.jpg?auto=format&w=1920",
-    "image_background": "https://i.seadn.io/gcs/files/38cf87707737106fdb299f399c1c463f.jpg?auto=format&w=1080",
+    "image_background": "https://i.seadn.io/gcs/files/84c498b1d0d4998911ea378dd795269a.png?auto=format&w=1080",
     "description": "Collection Dragon ball, partnenariat avec Glénat.",
     "nfts": [
       {
@@ -48,12 +48,7 @@
       }
     ],
     "rarities": "275 SSR, 200 R",
-    "tags": [
-      {
-        "tag1": "dragonball",
-        "tag2": "shonen"
-      }
-    ],
+    "tags": ["dragonball", "shonen"],
     "pricePack": 25
   },
   {
@@ -105,19 +100,14 @@
       }
     ],
     "rarities": "131 SSR, 50 SR",
-    "tags": [
-      {
-        "tag1": "fate",
-        "tag2": "nasu"
-      }
-    ],
+    "tags": ["fate", "nasu"],
     "pricePack": 25
   },
   {
     "idCollection": 3,
     "collection_Name": "Monster ",
     "image_cover": "https://i.seadn.io/gcs/files/a2e05c7cd79bf1f616e181d46a441d6d.jpg?auto=format&w=1920",
-    "image_background": "https://i.seadn.io/gcs/files/eacb5a8b2512edc01bb95a008e1de791.png?auto=format&w=640",
+    "image_background": "https://i.seadn.io/gcs/files/17ac5ef707c0d46bc11476fc75234dba.jpg?auto=format&w=828",
     "description": "New collab with the manga Monster by Naoki Urasawa.",
     "nfts": [
       {
@@ -162,12 +152,7 @@
       }
     ],
     "rarities": "20 SSR, 40 SR",
-    "tags": [
-      {
-        "tag1": "monster",
-        "tag2": "urasawa"
-      }
-    ],
+    "tags": ["monster", "urasawa"],
     "pricePack": 25
   },
   {
@@ -219,12 +204,7 @@
       }
     ],
     "rarities": "17 SSR",
-    "tags": [
-      {
-        "tag1": "konosuba",
-        "tag2": "chunchunmaru"
-      }
-    ],
+    "tags": ["konosuba", "chunchunmaru"],
     "pricePack": 25
   }
 ]

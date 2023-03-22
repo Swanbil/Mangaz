@@ -14,8 +14,13 @@ import Subscribe from '../screens/SubscribeScreen';
 import Payment from '../screens/PaymentScreen';
 import ProfilePage from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
-import Wallet from '../utilities/Wallet';
-import Web3Home from "../screens/Web3Home";
+import BuyToken from '../screens/BuyTokenScreen';
+import DisplayNft from '../screens/DisplayNftScreen';
+import ExchangeCard from '../screens/ExchangeCardsScreen';
+import Gallery from '../screens/GalleryScreen';
+import OpenPack from '../screens/OpenPackScreen';
+import PackList from '../screens/PackListScreen';
+import FocusPack from '../screens/FocusPackScreen';
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, getSubState }) => {
@@ -96,6 +101,31 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, ge
                 headerShown: false
             })} >
                 {(props) => <SearchScreen {...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
+            </Stack.Screen>
+            <Stack.Screen name="PackList" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <PackList {...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
+            </Stack.Screen>
+            <Stack.Screen name="FocusPackScreen" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => < FocusPack{...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
+            </Stack.Screen>
+            <Stack.Screen name="OpenPackScreen" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <OpenPack{...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
+            </Stack.Screen>
+            <Stack.Screen name="DisplayNftScreen" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <DisplayNft{...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
+            </Stack.Screen>
+            <Stack.Screen name="GalleryScreen" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <Gallery{...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
             </Stack.Screen>
         </Stack.Navigator>
 

@@ -3,16 +3,25 @@ import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button, Fla
 import NftCollections from './NftCollections';
 import collectionsData from '../utilities/collections.json';
 
-export default function NewCollections({ element }) {
-
+export default function NewCollections({ navigation, element }) {
+ 
+    function randomNft(nftList) {
+        const randomIndex = Math.floor(Math.random() * nftList.length);
+        console.log("random ",nftList[randomIndex])
+        return nftList[randomIndex];
+    }
     return (
-        <View style={{ flexDirection: 'row', zIndex : 4 }}>
+        <View style={{ flexDirection: 'row', zIndex : 4, marginLeft : 6 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, marginRight: 37 }}>
                 <View>
-                    <Image source={{ uri: element?.image_cover }} style={{ width: 146, height: 213, borderRadius: 12}} />
+                    <TouchableOpacity onPress={() => navigation.navigate('FocusPackScreen', {pack : element})}>
+                        <Image source={{ uri: element?.image_cover }} style={{ width: 146, height: 213, borderRadius: 12}} />
+                    </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'column', marginLeft: 20, top: -55, alignItems: 'flex-start' }}>
-                    <TouchableOpacity style={{ padding: 8, backgroundColor: '#A2B2FC', borderRadius: 15, width: 130, marginLeft : 20, flexDirection : 'row', justifyContent : 'center'}}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('OpenPackScreen', {nft: randomNft(element.nfts)})}
+                        style={{ padding: 8, backgroundColor: '#A2B2FC', borderRadius: 15, width: 130, marginLeft : 20, flexDirection : 'row', justifyContent : 'center'}}>
                         <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700', marginLeft : -6 }}>Buy ({element?.pricePack}    )</Text>
                         <Image source={require('../assets/Web3/logoZenCash.png')} style={{ width: 12, height: 12, marginLeft: -18, marginTop : 6  }} />
                     </TouchableOpacity>
@@ -24,9 +33,7 @@ export default function NewCollections({ element }) {
                     </View>
                 </View>
             </View>
-
         </View>
 
     )
-
 }

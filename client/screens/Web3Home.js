@@ -34,6 +34,8 @@ import { getDataUser } from '../utilities/localStorage';
 import ShopCard from '../components/ShopCard';
 import NewCollections from '../components/NewCollections';
 import NftCollections from "../components/NftCollections";
+import Web3ProfilePicture from "../components/Web3ProfilePicture";
+import userNfts from "../utilities/NftsUser.json";
 
 
 export default function Web3Home({ navigation }) {
@@ -75,11 +77,6 @@ export default function Web3Home({ navigation }) {
 
     const [listNftCollection, setListNftCollection] = useState([]);
 
-    async function getProfilePicture(_pseudo) {
-        const user = { "userPseudo": _pseudo };
-        const response = await axios.get(API_URL + '/user/getProfilePicture/' + user.userPseudo);
-        return (response.data);
-    };
 
     /* ---------------------- */
     // //At the refresh of the page, check if the user has a private key and get the balance of the connected wallet
@@ -169,34 +166,7 @@ export default function Web3Home({ navigation }) {
 
     /* ---------------------- */
     return (
-        /*<View style={styles.container}>
-            <TouchableOpacity
-                style={{ margin: 20 }}
-                underlayColor='#fff' onPress={() => navigation.goBack()}
-            >
-                <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
-            </TouchableOpacity>
-
-            <View style={styles.walletContainer}>
-                <View style={styles.pageTitleContainer}>
-                    <Icon name={"wallet"} color={"#333"} size={20} />
-                    <Text style={styles.pageTitle}>Wallet</Text>
-                </View>
-            </View>
-            {!connector.connected && (
-                <TouchableOpacity onPress={connectWallet} style={styles.button}>
-                    <Text style={styles.buttonTextStyle}>Connect a Wallet</Text>
-                </TouchableOpacity>
-            )}
-            {!!connector.connected && (
-                <>
-                    <Text>{('Your address on the Ether chain is ' + connector.accounts[0])}</Text>
-                    <TouchableOpacity onPress={killSession} style={styles.button}>
-                        <Text style={styles.buttonTextStyle}>Log out</Text>
-                    </TouchableOpacity>
-                    <Text>{`Your balance : ${balance} ZC`}</Text>
-                </>
-            )}
+        /*
             <View>
                 <Modal visible={isModal}>
                     <Text>Modal is open!</Text>
@@ -211,13 +181,6 @@ export default function Web3Home({ navigation }) {
                 </Modal>
             </View>
 
-            <FlatList
-                data={nfts}
-                renderItem={renderGalleryCard}
-                keyExtractor={(item) => item.id.toString()}
-                style={styles.container}
-            />
-
             <View style={styles.containerLoad}>
                 {loading ? (
                     <View style={styles.loadingContainer}>
@@ -231,14 +194,6 @@ export default function Web3Home({ navigation }) {
                     </TouchableOpacity>
                 )}
             </View>
-
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate('Web3Home')}
-                underlayColor='#fff'
-            >
-                <Text style={styles.textButton}>Go Wallet</Text>
-            </TouchableOpacity>
         </View>*/
 
 
@@ -246,45 +201,18 @@ export default function Web3Home({ navigation }) {
             <ScrollView>
                 <View>
                     <ImageBackground source={ require('../assets/shonen_jump.jpg') } resizeMode="cover" blurRadius={2} >
-                        <View style={{ backgroundColor: 'rgba(0,0,0, 0.20)' }}>
-                            <View style={{ padding: 20, marginTop: 30 }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <View style={{}}>
-                                            <Image source={{ uri: userInfos?.profilepicture }} style={{ width: 82, height: 82, borderRadius: 50, borderWidth: 1, borderColor: 'black' }} />
-                                        </View>
-                                        <View style={{ marginLeft: 8 }}>
-                                            <Text style={{ fontSize: 16, fontWeight: '700', color: 'white' }}>{pseudo}</Text>
-                                            <Text style={{ fontSize: 13, fontWeight: '400', color: 'white' }}>{address?.slice(0, 5) + "..." + address?.slice(-4)}</Text>
-                                            <Text style={{ fontSize: 13, fontWeight: '400', color: 'white' }}>Nft possedés : {listNftUser?.length}</Text>
-                                        </View>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-
-                                        <View style={{ backgroundColor: 'white', borderRadius: 15, flexDirection: 'row', alignItems: 'center', padding: 5 }}>
-                                            <Image source={require('../assets/Web3/logoZenCash.png')} style={{ width: 34, height: 34, position: 'absolute', left: -12 }} />
-                                            {balance.toString().length > 5 ?
-                                                <Text style={{ fontSize: 16, fontWeight: '400', marginLeft: 17 }}>{balance?.toLocaleString().slice(0, 1) + ".." + balance?.toLocaleString().slice((-3))} ZC</Text>
-                                                :
-                                                <Text style={{ fontSize: 16, fontWeight: '400', marginLeft: 6 }}>{balance?.toLocaleString()} ZC</Text>
-                                            }
-                                        </View>
-                                        <View style={{ position: 'absolute', right: -3, top: 18 }}>
-                                            <Image source={require('../assets/Web3/AddToken.png')} style={{ width: 15, height: 16, borderRadius: 50 }} />
-                                        </View>
-                                    </View>
-                                </View>
-                               <View style={{ marginTop: 20}}>
+                        <View style={{ backgroundColor: 'rgba(0,0,0, 0.20)'}}>
+                            <View>
+                                <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={false}/>
+                            </View>
+                               <View style={{ marginTop: -20, marginLeft : 22, marginBottom : 10}}>
                                    <View style={{flexDirection : 'row', alignItems: 'center', justifyContent : 'space-between'}}>
                                        <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>New collaborations</Text>
-
-                                       <Text onPress={() => navigation.navigate('Home')}
+                                       <Text onPress={() => navigation.navigate('PackList')}
                                              style={{ marginRight : 30, fontWeight: '500', lineHeight: 18, fontSize: 12, color: '#DA0037'}}>
                                            Voir plus
                                        </Text>
-
                                    </View>
-
                                        <FlatList
                                            data={collectionsData}
                                            keyExtractor={(item) => item.idCollection.toString()}
@@ -292,25 +220,22 @@ export default function Web3Home({ navigation }) {
                                            showsHorizontalScrollIndicator={false}
                                            renderItem={({ item }) => (
                                                <View>
-                                                   <NewCollections element={item} />
-                                                   <View>
-                                                       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop : -100, zIndex : 0, left : 146}}>
+                                                   <NewCollections navigation={navigation} element={item} />
+                                                   <View style ={{zIndex : 20}}>
+                                                       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop : -100, left : 146, marginLeft : 13}}>
                                                            {item.nfts
                                                                .filter((nft) => nft.rarity === "SSR")
                                                                .slice(0,2)
                                                                .map((nft) => (
-                                                               <NftCollections key={nft.idNft} element={nft} />
+                                                               <NftCollections key={nft.idNft}  navigation = {navigation} element={nft} />
                                                            ))}
                                                        </ScrollView>
                                                    </View>
-
                                                </View>
                                            )}
                                        />
                             </View>
-                            </View>
                         </View>
-
                     </ImageBackground>
                 </View>
 
@@ -326,18 +251,19 @@ export default function Web3Home({ navigation }) {
 
                     <TouchableOpacity
                         style={{ width: 166, height: 153 }}
-                        onPress={() => navigation.navigate('Web3Home')}
+                        onPress={() => navigation.navigate('GalleryScreen', {nftsJson : userNfts})}
                     >
                         <Image source={require('../assets/Web3/Gallery.png')} style={{ width: '100%', height: '100%', borderRadius: 18 }} />
                     </TouchableOpacity>
                 </View>
 
 
+                
                 <View style={{ marginTop: 20, marginBottom: 80, padding: 5 }}>
                     <Text style={{ fontWeight: '700', fontSize: 22, color: 'black', marginBottom: 10, marginLeft: 5 }}>Shop</Text>
                     <FlatList
                         data={cardsData}
-                        renderItem={({ item }) => (<ShopCard element={item} />)}
+                        renderItem={({ item }) => (<ShopCard navigation={navigation} element={item} />)}
                         keyExtractor={(item) => item.id.toString()}
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
@@ -355,6 +281,4 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         height: 1000
     },
-
-
 });
