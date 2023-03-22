@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { API_URL } from '@env';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
+import SplashScreenVideo from '../components/SplashScreenVideo';
+
 
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 
@@ -39,6 +41,13 @@ import ContentPack from "../components/ContentPack";
 
 export default function OpenPackScreen({ navigation, route }) {
     const {nft} = route.params;
+
+
+    const [videoEnded, setVideoEnded] = useState(false);
+
+    const handleVideoEnd = () => {
+        setVideoEnded(true);
+    };
 
     /* ---------------------- */
     const [nftItem, setNftItem] = useState(nft);
@@ -129,6 +138,10 @@ export default function OpenPackScreen({ navigation, route }) {
             });
         }
     }
+
+    if (!videoEnded) {
+        return <SplashScreenVideo onVideoEnd={handleVideoEnd} />;
+      }
 
     return (
         <View style={styles.container}>

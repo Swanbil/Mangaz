@@ -4,7 +4,7 @@ import NftCollections from './NftCollections';
 import collectionsData from '../utilities/collections.json';
 
 export default function NewCollections({ navigation, element }) {
-
+ 
     function randomNft(nftList) {
         const randomIndex = Math.floor(Math.random() * nftList.length);
         console.log("random ",nftList[randomIndex])

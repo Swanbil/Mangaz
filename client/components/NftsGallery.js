@@ -22,9 +22,9 @@ export default  function NftsGallery({navigation,element}) {
                             overflow: 'hidden',
                         }}
                     >
-                        <Text style={{fontSize: 17, fontWeight: '700', color: 'white'}}>{element?.name}</Text>
-                        <Text style={{fontSize: 15, fontWeight: '500', color: 'white', marginTop : 5}}>{element?.nameCollection}</Text>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10, marginTop : 15}}>
+                        <Text style={{fontSize: 17, fontWeight: '700', color: 'white', marginLeft : 10}}>{element?.name}</Text>
+                        <Text style={{fontSize: 15, fontWeight: '500', color: 'white', marginTop : 5, marginLeft : 10}}>{element?.nameCollection}</Text>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 25, marginTop : 15}}>
                             <Text style={{fontSize: 13, fontWeight: '500', color: 'white'}}>Qty : {element?.quantity}</Text>
                             <Text style={{fontSize: 13, fontWeight: '500', color: 'white'}}>{element?.rarity}</Text>
                         </View>

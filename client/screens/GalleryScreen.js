@@ -141,7 +141,7 @@ export default function GalleryScreen({ navigation, route }) {
                         <TouchableOpacity onPress={() => navigation.goBack()} style={{left : -30}}>
                             <Image source={require('../assets/arrow-left.png')} style={{width: 24, height: 24}}/>
                         </TouchableOpacity>
-                        <Text style = {{fontSize : 28, fontWeight : '400'}}> Explorez votre galerie </Text>
+                        <Text style = {{fontSize : 28, fontWeight : '400', left : -10}}> Explorez votre galerie </Text>
                     </View>
                     <View >
                         <FlatList
