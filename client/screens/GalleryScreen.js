@@ -143,13 +143,14 @@ export default function GalleryScreen({ navigation, route }) {
                         </TouchableOpacity>
                         <Text style = {{fontSize : 28, fontWeight : '400'}}> Explorez votre galerie </Text>
                     </View>
-                    <View>
+                    <View >
                         <FlatList
                             data={nftsJson}
                             renderItem={({ item }) => (<NftsGallery navigation={navigation} element={item} />)}
                             keyExtractor={(item) => item.idNft.toString()}
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
+                            style ={{marginHorizontal : 30}}
                         />
                     </View>
                 </View>
