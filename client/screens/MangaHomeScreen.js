@@ -17,7 +17,9 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
     const [recommandations, setRecommandations] = useState([]);
     const [mostPopular, setMostPopular] = useState([]);
     const [isLoading, setLoading] = useState(false);
-    const genres = ['Action', 'Aventure', 'Drame', 'Fun', 'Romance'];
+    const genres = [{ title: 'Action', image: require('../assets/filter_drame.png') }, { title: 'Aventure', image: require('../assets/filter_aventure.png') }, { title: 'Drame', image: require('../assets/filter_drame.png') }, { title: 'Fun', image: require('../assets/filter_aventure.png') }, { title: 'Romance', image: require('../assets/filter_drame.png') }];
+    const genres2 = ['Action', 'Aventure', 'Drame', 'Fun', 'Romance'];
+
     const [userInfos, setUserInfos] = useState();
 
     useFocusEffect(
@@ -90,14 +92,14 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
     const getUserInfos = async () => {
         const { userPseudo } = await getDataUser();
         if (userPseudo) {
-          try {
-            const response = await axios.get(`${API_URL}/user/${userPseudo}`);
-            setUserInfos(response.data.userInfos);
-          } catch (error) {
-            console.log(error);
-          }
+            try {
+                const response = await axios.get(`${API_URL}/user/${userPseudo}`);
+                setUserInfos(response.data.userInfos);
+            } catch (error) {
+                console.log(error);
+            }
         }
-      }
+    }
 
     return (
         <View style={styles.container}>
@@ -115,7 +117,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                                         style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
                                     <View style={{ position: 'absolute', left: 64, top: 6 }}>
                                         {isSubscribe ? <Image source={require("../assets/Verified.png")}
-                                                              style={{width : 26, height : 26 }}/> : null }
+                                            style={{ width: 26, height: 26 }} /> : null}
                                     </View>
                                 </View>
 
@@ -168,11 +170,11 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                             <View style={{ marginTop: 15, flexDirection: 'row' }}>
                                 {genres.map((genre, index) => (
-                                    <ImageBackground key={index} source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10}
+                                    <ImageBackground key={index} source={genre?.image } resizeMode="cover" blurRadius={0.5}
                                         style={{ width: 124, height: 54, marginRight: 8, justifyContent: 'center', alignItems: 'center' }} imageStyle={{ borderRadius: 31 }}>
-                                        <TouchableOpacity onPress={() => goToFilterByGenre(genre)}>
+                                        <TouchableOpacity onPress={() => goToFilterByGenre(genre.title)}>
                                             <View style={{ borderBottomWidth: 3, borderBottomColor: "#C5B1F2" }}>
-                                                <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>{genre}</Text>
+                                                <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>{genre?.title}</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </ImageBackground>
