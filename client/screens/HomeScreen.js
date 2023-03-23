@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useCallback, useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator, ScrollView, FlatList } from 'react-native';
 import Catalogue from "../components/Catalogue";
 import { API_URL } from '@env';
 import { useFocusEffect } from '@react-navigation/native';
 import { getDataUser } from '../utilities/localStorage';
 import { DefisModal } from '../components/DefisModal';
 import UserProfile from '../components/UserProfile';
+import userNfts from "../utilities/NftsUser.json";
+import HomeDisplayNfts from "../components/HomeDisplayNfts.js"
 
 export default function Home({ navigation, route, isLog, isSubscribe, getLogState, getSubState  }) {
   const [historyReadChapters, setHistoryReadChapters] = useState([]);
@@ -96,8 +98,14 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
 
                   <View style={{ ...styles.shadowProp, ...styles.blockHome, ...{ backgroundColor: "#FFD4D1", marginTop: 10 } }}>
                     <Text style={styles.titleBlockHome}>Yours NFT</Text>
-                    <View>
-
+                    <View >
+                    <FlatList
+                        data={userNfts}
+                        renderItem={({ item }) => (<HomeDisplayNfts navigation={navigation} element={item} />)}
+                        keyExtractor={(item) => item.idNft.toString()}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                    />
                     </View>
                   </View>
 
