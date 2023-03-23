@@ -36,6 +36,7 @@ import NewCollections from '../components/NewCollections';
 import NftCollections from "../components/NftCollections";
 import Web3ProfilePicture from "../components/Web3ProfilePicture";
 import userNfts from "../utilities/NftsUser.json";
+import ShopCardDisplay from '../components/ShopCardDisplay';
 
 
 export default function Web3Home({ navigation }) {
@@ -260,10 +261,10 @@ export default function Web3Home({ navigation }) {
 
                 
                 <View style={{ marginTop: 20, marginBottom: 80, padding: 5 }}>
-                    <Text style={{ fontWeight: '700', fontSize: 22, color: 'black', marginBottom: 10, marginLeft: 5 }}>Shop</Text>
+                    <Text style={{ fontWeight: '700', fontSize: 22, color: 'black', marginBottom: 10, marginLeft: 5 }}>Boutique</Text>
                     <FlatList
                         data={cardsData}
-                        renderItem={({ item }) => (<ShopCard navigation={navigation} element={item} />)}
+                        renderItem={({ item }) => (<ShopCardDisplay navigation={navigation} element={item} />)}
                         keyExtractor={(item) => item.id.toString()}
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}

@@ -21,6 +21,7 @@ import Gallery from '../screens/GalleryScreen';
 import OpenPack from '../screens/OpenPackScreen';
 import PackList from '../screens/PackListScreen';
 import FocusPack from '../screens/FocusPackScreen';
+import DisplayShopCard from '../screens/DisplayShopCardScreen';
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, getSubState }) => {
@@ -127,6 +128,12 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, ge
             })} >
                 {(props) => <Gallery{...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
             </Stack.Screen>
+            <Stack.Screen name="DisplayShopCardScreen" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <DisplayShopCard{...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
+            </Stack.Screen>
+            
         </Stack.Navigator>
 
     );

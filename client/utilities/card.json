@@ -1,98 +1,90 @@
 [
   {
     "id": 1,
-    "image_thumbnail_url": "https://www.stylevore.com/wp-content/uploads/2022/08/bloggerharry-8165978963341761.jpg",
-    "name": "Goku",
-    "description": "Strongest Warrior",
-    "collection": {
-      "name": "DBZ"
-    },
+    "image_thumbnail_url": "https://i.redd.it/gq7mlz8k31z61.jpg",
+    "name": "Son Goku",
+    "description": "Le Saiyan élevé sur Terre",
+    "collection": "Dragon Ball GT",
+    "coverCollection" : "https://i0.wp.com/www.filmspourenfants.net/wp-content/uploads/2018/03/dragon-ball-gt-a.jpg?fit=602%2C810&ssl=1",
     "rarity": "LR",
-    "quantity" : 40,
+    "quantity" : 5,
     "price":500
   },
   {
     "id": 2,
-    "image_thumbnail_url": "https://upload.wikimedia.org/wikipedia/en/d/db/TASM_Vol_1_529.jpg",
-    "name": "Spiderman",
-    "description": "Best marvel hero",
-    "collection": {
-      "name": "Marvel"
-    },
+    "image_thumbnail_url": "https://c4.wallpaperflare.com/wallpaper/319/90/328/anime-manga-hajime-no-ippo-ippo-wallpaper-preview.jpg",
+    "name": "Ippo Makunouchi",
+    "description": "Futur champion",
+    "collection": "Hajime no Ippo",
+    "coverCollection" : "https://www.ecranlarge.com/media/cache/1600x1200/uploads/image/001/171/nz1baewswkikoarvbeztqs5ljeg-178.jpg",
     "rarity": "UR",
     "quantity" : 10,
-    "price":26
+    "price":400
   },
   {
     "id": 3,
-    "image_thumbnail_url": "https://image.over-blog.com/U4MLaIvM6dWScqwW1WkuNCoTiIU=/filters:no_upscale()/image%2F3917276%2F20201213%2Fob_25b3c1_uhc03t1.jpg",
-    "name": "CyberKnight",
-    "description": "A future knight",
-    "collection": {
-      "name": "Special"
-    },
+    "image_thumbnail_url": "https://static.wikia.nocookie.net/kimetsu-no-yaiba/images/9/92/Hinokami_Kagura_%28Zenshuchuten%29.png/revision/latest?cb=20210118110424&path-prefix=tr",
+    "name": "Kamado Tanjiro",
+    "description": "Grand frère en mission",
+    "collection": "Demon Slayer",
+    "coverCollection" : "https://planu9.ro/wp-content/uploads/2020/11/Demon-Slayer.jpg",
     "rarity": "LR",
-    "quantity" : 134,
-    "price":250
+    "quantity" : 5,
+    "price":500
   },
   {
     "id": 4,
     "image_thumbnail_url": "https://i.pinimg.com/564x/71/5e/21/715e2122d5d7e28d3ffb26d13239e499.jpg",
     "name": "Yamato",
-    "description": "Wano's protector",
-    "collection": {
-      "name": "One Piece"
-    },
+    "description": "Protectrice de Wano",
+    "collection": "One Piece",
+    "coverCollection" : "https://images.rtl.fr/~c/880v587/rtl/www/1159313-one-piece-arrive-sur-netflix-en-live-action.jpg",
     "rarity": "LR",
     "quantity" : 5,
-    "price":1500
+    "price":500
   },
   {
     "id": 5,
-    "image_thumbnail_url": "https://www.setaswall.com/wp-content/uploads/2022/06/Naruto-Phone-Wallpaper-43.jpg",
-    "name": "Naruto",
-    "description": "Future Hokage",
-    "collection": {
-      "name": "Naruto"
-    },
-    "rarity": "SR",
-    "quantity" : 234,
-    "price":10
+    "image_thumbnail_url": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e4f9c6a9-00e2-46b3-94c4-c619380cab70/dajupi6-e1bb56db-b166-4e51-8d98-1aed8ac895a1.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2U0ZjljNmE5LTAwZTItNDZiMy05NGM0LWM2MTkzODBjYWI3MFwvZGFqdXBpNi1lMWJiNTZkYi1iMTY2LTRlNTEtOGQ5OC0xYWVkOGFjODk1YTEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Hy56cW-FQC2MIrWH2VmbnyDcN7VvvvR4QBbz9GD4ePA",
+    "name": "Naruto Uzumaki",
+    "description": "Futur Hokage",
+    "collection": "Naruto",
+    "coverCollection" : "https://www.manga-news.com/public/images/dvd/.naruto-shippuden-anime_large.jpg",
+    "rarity": "LR",
+    "quantity" : 5,
+    "price":500
   },
   {
     "id": 6,
     "image_thumbnail_url": "https://mcdn.wallpapersafari.com/medium/50/26/wVMDoI.jpg",
     "name": "Edward Elric",
-    "description": "Alchemist",
-    "collection": {
-      "name": "Fullmetal Alchemist"
-    },
-    "rarity": "SSR",
-    "quantity" : 98,
-    "price":10
+    "description": "L'alchimiste de métal",
+    "collection": "Fullmetal Alchemist",
+    "coverCollection" : "https://furansujapon.com/wp-content/uploads/2022/09/Fullmetal-Alchemist.jpg",
+    "rarity": "UR",
+    "quantity" : 10,
+    "price": 400
   },
   {
     "id": 7,
     "image_thumbnail_url": "https://qph.cf2.quoracdn.net/main-qimg-d9f5bc70c7bcab9d6efcba606b534ca9-lq",
     "name": "Shin",
-    "description": "Future great general under the heavens",
-    "collection": {
-      "name": "Kingdom"
-    },
+    "description": "Futur grand général sous les cieux",
+    "collection":"Kingdom",
+    "coverCollection" : "https://www.crunchyroll.com/imgsrv/display/thumbnail/480x720/catalog/crunchyroll/5fd2827ea8c22a8473760a87a6f4aed1.jpe",
     "rarity": "UR",
-    "quantity" : 5,
-    "price":1000
+    "quantity" : 10,
+    "price":400
   },
   {
     "id": 8,
     "image_thumbnail_url": "https://i0.wp.com/ramenswag.com/wp-content/uploads/2019/12/haikyuu-wallpaper-hinata.jpg?w=1080&ssl=1",
     "name": "Shoyo Hinata",
-    "description": "Volleyball player",
-    "collection": {
-      "name": "Haikyuu!!"
-    },
-    "rarity": "SR",
+    "description": "Le nouveau Petit Géant",
+    "collection": "Haikyuu!!",
+    "coverCollection" : "https://furansujapon.com/wp-content/uploads/2022/09/Haikyu.jpg",
+    "rarity": "UR",
     "quantity" : 10,
-    "price":200
+    "price":400
   }
 ]
