@@ -130,17 +130,17 @@ export default function Subscribe({ getSubState, navigation, route }) {
                 <View style={styles.subContainer}>
                     <View style={styles.pageTitleContainer}>
                         <Icon name={"coins"} color={"#333"} size={20} />
-                        <Text style={styles.pageTitle}>Payment</Text>
+                        <Text style={styles.pageTitle}>Paiement</Text>
                     </View>
                     <View style={{ padding: 10, backgroundColor: '#E4E4E4', marginTop: 8, borderRadius: 15 }}>
                         <View>
-                            <Text>Cart</Text>
+                            <Text>Panier</Text>
                             <View style={styles.subRow}>
-                                <Text style={styles.subLabel}>Subscripion type : </Text>
+                                <Text style={styles.subLabel}>Type d'abonnement : </Text>
                                 <Text style={styles.subText}>{subscriptionPlan?.type}</Text>
                             </View>
                             <View style={styles.subRow}>
-                                <Text style={styles.subLabel}>Price : </Text>
+                                <Text style={styles.subLabel}>Prix : </Text>
                                 <Text style={styles.subText}>{subscriptionPlan?.price}</Text>
                             </View>
 
@@ -162,7 +162,7 @@ export default function Subscribe({ getSubState, navigation, route }) {
                         {isLoading
                             ? (<ActivityIndicator style={{ flex: 1, color:'black' }} />)
                             : (<TouchableOpacity style={{ ...styles.subButton, ...{ opacity: (loading || !card) ? 0.3 : 1 } }} onPress={handleSubscription} disabled={loading || !card}>
-                                <Text style={[styles.text, { fontWeight: '500', textAlign: 'center' }]}>Pay</Text>
+                                <Text style={[styles.text, { fontWeight: '500', textAlign: 'center' }]}>Payer</Text>
                             </TouchableOpacity>)
                         }
                     </View>

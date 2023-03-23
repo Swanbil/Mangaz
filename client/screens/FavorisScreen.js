@@ -30,7 +30,7 @@ const Favoris = ({ navigation, isLog}) => {
                 style
                 onPress={() => navigation.navigate('Login')}
                 underlayColor='#fff'>
-                <Text style>Go To Login Page </Text>
+                <Text style>Connectez vous</Text>
             </TouchableOpacity>
         )
     }

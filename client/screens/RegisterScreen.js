@@ -26,11 +26,11 @@ const Register = ({ navigation }) => {
             </View>
 
             <TextInput style={styles.textInput}
-                placeholder="Firstname"
+                placeholder="Prénom"
                 placeholderTextColor="#C1C1C1"
                 onChangeText={(firstname) => setFirstName(firstname)} />
             <TextInput style={styles.textInput}
-                placeholder="Lastname"
+                placeholder="Nom"
                 placeholderTextColor="#C1C1C1"
                 onChangeText={(lastname) => setLastName(lastname)} />
             <TextInput style={styles.textInput}
@@ -42,7 +42,7 @@ const Register = ({ navigation }) => {
                 placeholderTextColor="#C1C1C1"
                 onChangeText={(pseudo) => setPseudo(pseudo)} />
             <TextInput style={styles.textInput}
-                placeholder="Password"
+                placeholder="Mot de passe"
                 placeholderTextColor="#C1C1C1"
                 secureTextEntry={true}
                 onChangeText={(password) => setPassWord(password)} />
@@ -50,7 +50,7 @@ const Register = ({ navigation }) => {
                 style={styles.button}
                 onPress={register}
                 underlayColor='#fff'>
-                <Text style={styles.textButton}>Register</Text>
+                <Text style={styles.textButton}>S'inscrire</Text>
             </TouchableOpacity>
 
         </View>

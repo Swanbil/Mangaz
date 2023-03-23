@@ -76,10 +76,10 @@ const SearchScreen = ({ route, navigation }) => {
                         <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
                     </TouchableOpacity>
                     <Searchbar
-                        placeholder="Search a manga"
+                        placeholder="Rechercher"
                         onChangeText={(value) => onSearchingManga(value)}
                         value={searchQuery}
-                        style={{ width: 252, height: 40, borderRadius: 25, backgroundColor: '#EDEDED' }}
+                        style={{ width: 260, height: 40, borderRadius: 25, backgroundColor: '#EDEDED' }}
                         iconColor='#333'
                         onIconPress={() => navigation.navigate('Search')}
                     />

@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 export default function UserProfile({ isLog, userInfos, isSubscribe, navigation, getLogState, getSubState, stats, onClickButton }) {
 
     const handlePress = async () => {
-        const url = 'https://discord.gg/qgYxvS2j';
+        const url = 'https://discord.gg/eyQZzNhU';
         try {
             const supported = await Linking.canOpenURL(url);
             if (supported) {
@@ -36,11 +36,11 @@ export default function UserProfile({ isLog, userInfos, isSubscribe, navigation,
                     <Text style={{ fontSize: 16, fontWeight: '400' }}>{userInfos?.pseudo}</Text>
                 </View>
                 <View style={styles.blockTextInfos}>
-                    <Text style={styles.textLabel}>Mangas read: </Text>
+                    <Text style={styles.textLabel}>Mangas lus : </Text>
                     <Text style={styles.textInfos}>{stats?.mangasRead}</Text>
                 </View>
                 <View style={styles.blockTextInfos}>
-                    <Text style={styles.textLabel}>Nfts:  </Text>
+                    <Text style={styles.textLabel}>Nfts possédés :  </Text>
                     <Text style={styles.textInfos}>{stats?.nfts}</Text>
                 </View>
             </View>

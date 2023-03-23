@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useCallback, useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ActivityIndicator, ScrollView, FlatList } from 'react-native';
 import Catalogue from "../components/Catalogue";
 import { API_URL } from '@env';
 import { useFocusEffect } from '@react-navigation/native';
 import { getDataUser } from '../utilities/localStorage';
 import { DefisModal } from '../components/DefisModal';
 import UserProfile from '../components/UserProfile';
+import userNfts from "../utilities/NftsUser.json";
+import HomeDisplayNfts from "../components/HomeDisplayNfts.js"
 
 export default function Home({ navigation, route, isLog, isSubscribe, getLogState, getSubState }) {
   const [historyReadChapters, setHistoryReadChapters] = useState([]);
@@ -78,10 +80,10 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
             : (
               <>
                 <UserProfile userInfos={userInfos} navigation={navigation} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} stats={userStats} onClickButton={() => setModalVisible(true)} />
-                <View style={{ padding: 15 }}>
+                <View style={{ padding: 15, marginTop: -10 }}>
 
                   <View style={{ ...styles.shadowProp, ...styles.blockHome, ...{ backgroundColor: "#D1F1FF" } }}>
-                    <Text style={styles.titleBlockHome}>Continue to read</Text>
+                    <Text style={styles.titleBlockHome}>Continuer à lire</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
                       <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity onPress={() => navigation.navigate('MangaPage', { manga: historyReadChapters[0] })}>
@@ -98,10 +100,22 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
                     </View>
                   </View>
 
-                  <View style={{ ...styles.shadowProp, ...styles.blockHome, ...{ backgroundColor: "#FFD4D1", marginTop: 10 } }}>
-                    <Text style={styles.titleBlockHome}>Yours NFT</Text>
-                    <View>
-
+                  <View style={{ ...styles.shadowProp, ...styles.blockHome, ...{ backgroundColor: "#FFD4D1", marginTop: 20 } }}>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent : 'space-between'}}>
+                      <Text style={{ ...styles.titleBlockHome, ...{ marginBottom: 10 } }}>Vos NFTs</Text>
+                      <Text onPress={() => navigation.navigate('GalleryScreen', {nftsJson : userNfts})}
+                        style={{ marginRight: 30, fontWeight: '500', lineHeight: 18, fontSize: 12, color: '#DA0037' }}>
+                        Voir plus
+                      </Text>
+                    </View>
+                    <View style={{ marginLeft: -5 }}>
+                      <FlatList
+                        data={userNfts.slice(0,3)}
+                        renderItem={({ item }) => (<HomeDisplayNfts navigation={navigation} element={item} />)}
+                        keyExtractor={(item) => item.idNft.toString()}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                      />
                     </View>
                   </View>
 

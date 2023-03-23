@@ -34,7 +34,7 @@ const Login = ({ navigation, getLogState, getSubState }) => {
                 placeholderTextColor="#C1C1C1"
                 onChangeText={(pseudo) => setPseudo(pseudo)} />
             <TextInput style={styles.textInput}
-                placeholder="Password"
+                placeholder="Mot de passe"
                 placeholderTextColor="#C1C1C1"
                 secureTextEntry={true}
                 onChangeText={(password) => setPassWord(password)} />
@@ -42,7 +42,7 @@ const Login = ({ navigation, getLogState, getSubState }) => {
                 style={styles.button}
                 onPress={() => login()}
                 underlayColor='#fff'>
-                <Text style={styles.textButton}>Login</Text>
+                <Text style={styles.textButton}>Connexion</Text>
             </TouchableOpacity>
             
             <TouchableOpacity
@@ -50,9 +50,8 @@ const Login = ({ navigation, getLogState, getSubState }) => {
                 onPress={() => navigation.navigate('Register')}
                 underlayColor='#fff'
             >
-                <Text style={styles.textButton}>Register</Text>
-            </TouchableOpacity>
-            
+                <Text style={styles.textButton}>Inscription</Text>
+            </TouchableOpacity>            
         </View>
     );
 }

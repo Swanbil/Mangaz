@@ -208,7 +208,7 @@ export default function Web3Home({ navigation, isSubscribe }) {
                             </View>
                                <View style={{ marginTop: -20, marginLeft : 22, marginBottom : 10}}>
                                    <View style={{flexDirection : 'row', alignItems: 'center', justifyContent : 'space-between'}}>
-                                       <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>New collaborations</Text>
+                                       <Text style={{ fontWeight: '700', fontSize: 22, color: 'white' }}>Nouvelles collaborations</Text>
                                        <Text onPress={() => navigation.navigate('PackList')}
                                              style={{ marginRight : 30, fontWeight: '500', lineHeight: 18, fontSize: 12, color: '#DA0037'}}>
                                            Voir plus

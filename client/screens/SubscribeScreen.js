@@ -42,7 +42,7 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
                 >
                     <AntDesign name="leftcircleo" size={26} color="#C0A6F7" />
                 </TouchableOpacity>
-                <Text style={{ textAlign: 'center', fontSize: 28, fontWeight: '600' }}>{isSubscribe ? "Premium status 🔥":"Pass to Premium 🚀"}</Text>
+                <Text style={{ textAlign: 'center', fontSize: 28, fontWeight: '600' }}>{isSubscribe ? "Statut premium 🔥":"Passez au Premium 🚀"}</Text>
             </View>
 
 
@@ -79,28 +79,28 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
                                                         <Image source= {require("../assets/Verified.png")} style={{width : 26, height : 26 }}/>
                                                     </View>
                                                 </View>
-                                                <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Premium badge</Text>
+                                                <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Badge premium</Text>
                                             </View>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
                                                 <View style={styles.userProfileImage}>
                                                     <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/234/234635.png" }}
                                                         style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
                                                 </View>
-                                                <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Unlimited reading</Text>
+                                                <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Lecture illimitée</Text>
                                             </View>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
                                                 <View style={styles.userProfileImage}>
                                                     <Image source={{ uri: "https://thumbs.dreamstime.com/b/no-ads-sign-web-browser-red-crossed-round-button-adblock-prohibited-forbidden-ad-icon-remove-advertisement-symbol-bl-block-265285657.jpg" }}
                                                         style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
                                                 </View>
-                                                <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>No ads during reading</Text>
+                                                <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Pas de pub</Text>
                                             </View>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
                                                 <View style={styles.userProfileImage}>
                                                     <Image source={{ uri: "https://img.freepik.com/premium-vector/modern-badge-discord-icon_578229-169.jpg?w=2000" }}
                                                         style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
                                                 </View>
-                                                <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>New roles + channels</Text>
+                                                <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Nouveaux rôles + channels</Text>
                                             </View>
 
                                         </View>
@@ -108,7 +108,7 @@ export default function Subscribe({ isLog, userInfos, isSubscribe, getSubState, 
                                     <View style={{ marginTop: 30, alignItems: 'center', justifyContent: 'center' }}>
                                         <TouchableOpacity style={{ backgroundColor: '#A2B2FC', padding: 5, borderRadius: 25, width: 133, height:43}}  onPress={() => navigation.navigate('Payment', { subscriptionPlan : subscriptionsPlan[0] })}>
                                             <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 12 }}>Premium</Text>
-                                            <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 12 }}>For 5$ /month</Text>
+                                            <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 12 }}>Pour 9.99€/mois</Text>
 
                                         </TouchableOpacity>
                                     </View>
