@@ -7,7 +7,7 @@ const Catalogue = ({ navigation, catalogue, pageName, widthMangaItem, direction 
     return (
         <ScrollView horizontal={ direction === "vertical" ? false : true} showsHorizontalScrollIndicator={false}>
             {catalogue?.length === 0
-                ? <Text style={{ flex: 1, textAlign: "center", fontWeight: "500", marginTop: 50 }}>Any mangas in the {pageName === "Favoris" ? "favorites" : "catalogue"} 😪</Text>
+                ? <Text style={{ flex: 1, textAlign: "center", fontWeight: "500", marginTop: 50 }}>Aucun manga dans {pageName === "Favoris" ? "les favoris" : "le catalogue"} 😪</Text>
                 : (
                     <View className="catalogue" style={{ flexGrow: 1, flexDirection:'row', flexWrap: 'wrap', justifyContent:'center' }}>
                         {catalogue?.map((manga, idx) => (

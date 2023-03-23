@@ -36,7 +36,7 @@ export default function History({ isLog, navigation, route }) {
             <View style={styles.historyContainer}>
                 <View style={styles.pageTitleContainer}>
                     <Icon name={"history"} color={"#333"} size={20} />
-                    <Text style={styles.pageTitle}>History</Text>
+                    <Text style={styles.pageTitle}>Vos mangas lus</Text>
                 </View>
 
                 <ScrollView style={styles.chapterContainer}>

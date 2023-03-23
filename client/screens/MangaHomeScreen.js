@@ -16,7 +16,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
     const [catalogue, setCatalogue] = useState([]);
     const [recommandations, setRecommandations] = useState([]);
     const [isLoading, setLoading] = useState(false);
-    const genres = ['Action', 'Aventure', 'Drame', 'Fun', 'Romance'];
+    const genres = ['Action', 'Aventure', 'Drame', 'Humour', 'Romance'];
     const [userInfos, setUserInfos] = useState();
 
     useFocusEffect(
@@ -89,7 +89,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                                 <TouchableOpacity style={{ padding: 8, backgroundColor: '#EEEEEE', borderRadius: 25, flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.navigate('Search')}>
                                     <Icon name={"search"} size={18} color={''} />
-                                    <Text style={{ marginLeft: 5 }}>Search Mangas</Text>
+                                    <Text style={{ marginLeft: 5 }}>Rechercher un manga</Text>
                                 </TouchableOpacity>
                                 <View style={{ marginLeft: 10 }}>
                                     <Image source={{ uri: userInfos?.profilepicture }}
@@ -173,7 +173,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
 
                     </View>
                     <View style={{ marginTop: 15 }}>
-                        <Text style={{ fontWeight: '700', fontSize: 22 }}>Most popular</Text>
+                        <Text style={{ fontWeight: '700', fontSize: 22 }}>Les plus populaires</Text>
                         <View style={{ marginTop: 15 }}>
                             <Catalogue navigation={navigation} catalogue={recommandations} pageName="Home" widthMangaItem="large" />
                         </View>
