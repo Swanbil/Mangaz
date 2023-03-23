@@ -8,7 +8,7 @@ import { getDataUser } from '../utilities/localStorage';
 import { DefisModal } from '../components/DefisModal';
 import UserProfile from '../components/UserProfile';
 
-export default function Home({ navigation, route, isLog, isSubscribe, getLogState, getSubState  }) {
+export default function Home({ navigation, route, isLog, isSubscribe, getLogState, getSubState }) {
   const [historyReadChapters, setHistoryReadChapters] = useState([]);
 
   const [isLoading, setLoading] = useState(false);
@@ -74,22 +74,26 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
       <View style={styles.container}>
         <ScrollView >
           {isLoading
-            ? <ActivityIndicator style={{ flex: 1, justifyContent:'center', alignItems:'center' }} />
+            ? <ActivityIndicator style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />
             : (
               <>
-                <UserProfile userInfos={userInfos} navigation={navigation} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} stats={userStats} onClickButton={() => setModalVisible(true)}/>
+                <UserProfile userInfos={userInfos} navigation={navigation} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} stats={userStats} onClickButton={() => setModalVisible(true)} />
                 <View style={{ padding: 15 }}>
 
                   <View style={{ ...styles.shadowProp, ...styles.blockHome, ...{ backgroundColor: "#D1F1FF" } }}>
                     <Text style={styles.titleBlockHome}>Continue to read</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
                       <View style={{ alignItems: 'center' }}>
-                        <Image source={{ uri: historyReadChapters[0]?.coverImage }} style={styles.imageBlock} />
-                        <Text style={styles.subTitleBlock}>{historyReadChapters[0]?.titleName}</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('MangaPage', { manga: historyReadChapters[0] })}>
+                          <Image source={{ uri: historyReadChapters[0]?.coverImage }} style={styles.imageBlock} />
+                          <Text style={styles.subTitleBlock}>{historyReadChapters[0]?.titleName}</Text>
+                        </TouchableOpacity>
                       </View>
                       <View style={{ alignItems: 'center' }}>
-                        <Image source={{ uri: historyReadChapters[1]?.coverImage }} style={styles.imageBlock} />
-                        <Text style={styles.subTitleBlock}>{historyReadChapters[1]?.titleName}</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('MangaPage', { manga: historyReadChapters[1] })}>
+                          <Image source={{ uri: historyReadChapters[1]?.coverImage }} style={styles.imageBlock} />
+                          <Text style={styles.subTitleBlock}>{historyReadChapters[1]?.titleName}</Text>
+                        </TouchableOpacity>
                       </View>
                     </View>
                   </View>
@@ -105,7 +109,7 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
               </>
             )
           }
-        <DefisModal isModalVisible={isModalVisible} setModalVisible={setModalVisible}/>
+          <DefisModal isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
         </ScrollView>
       </View>
 
