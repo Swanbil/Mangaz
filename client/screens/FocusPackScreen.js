@@ -175,10 +175,10 @@ export default function FocusPackScreen({ navigation, route }) {
                                 />
                             </View>
                             <TouchableOpacity style={{ top : 10,left : 55, padding: 8, backgroundColor: '#A2B2FC', borderRadius: 20, width: 130,height : 40
-                                , marginLeft : 20, marginBottom : 55}}  onPress={() => navigation.navigate('OpenPackScreen', {nft: randomNft(collectionItem.nfts)})}>
-
-                                <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700'}}>Acheter ({collectionItem?.pricePack}    )</Text>
-                                <Image source={require('../assets/Web3/logoZenCash.png')} style={{ width: 12, height: 12, marginLeft: 91, marginTop : -15  }} />
+                                , marginLeft : 20, marginBottom : 55, flexDirection:'row', alignItems:'center'}}  onPress={() => navigation.navigate('OpenPackScreen', {nft: randomNft(collectionItem.nfts)})}>
+                                <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700'}}>Acheter ({collectionItem?.pricePack} </Text>
+                                <Image source={require('../assets/Web3/logoZenCash.png')} style={{ width: 12, height: 12,marginLeft:3  }} />
+                                <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700'}}>)</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

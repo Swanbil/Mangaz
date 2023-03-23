@@ -127,14 +127,14 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                     <ImageBackground source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10} >
                         <View style={{ padding: 20, marginTop: 10 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
-                                <TouchableOpacity style={{ padding: 8, backgroundColor: '#EEEEEE', borderRadius: 25, flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.navigate('Search')}>
-                                    <Icon name={"search"} size={18} color={''} />
+                                <TouchableOpacity style={{ padding: 8, backgroundColor: 'white',opacity: 0.6, borderRadius: 25, flexDirection: 'row', alignItems: 'center', width:180 }} onPress={() => navigation.navigate('Search')}>
+                                    <Icon name={"search"} size={18} />
                                     <Text style={{ marginLeft: 5 }}>Search Mangas</Text>
                                 </TouchableOpacity>
                                 <View style={{ marginLeft: 10 }}>
                                     <Image source={{ uri: userInfos?.profilepicture }}
                                         style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
-                                    <View style={{ position: 'absolute', left: 64, top: 6 }}>
+                                    <View style={{ position: 'absolute', left: 58, top: -1}}>
                                         {isSubscribe ? <Image source={require("../assets/Verified.png")}
                                             style={{ width: 26, height: 26 }} /> : null}
                                     </View>
@@ -216,13 +216,6 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                         <Text style={{ fontWeight: '700', fontSize: 22 }}>Most popular</Text>
                         <View style={{ marginTop: 15 }}>
                             <Catalogue navigation={navigation} catalogue={mostPopular} pageName="Home" widthMangaItem="small" direction={"vertical"} />
-                        </View>
-                    </View>
-
-                    <View style={{ marginTop: 15 }}>
-                        <Text style={{ fontWeight: '700', fontSize: 22 }}>Catalogue</Text>
-                        <View style={{ marginTop: 15 }}>
-                            <Catalogue navigation={navigation} catalogue={catalogue} pageName="Home" widthMangaItem="large" />
                         </View>
                     </View>
 

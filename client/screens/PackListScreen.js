@@ -134,7 +134,7 @@ export default function PackListScreen({ navigation }) {
                     <Image source={require('../assets/arrow-left.png')} style={{width: 24, height: 24}}/>
                 </TouchableOpacity>
             </View>
-            <ScrollView>
+            {/* <ScrollView> */}
                 <View>
                     <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true}/>
                 </View>
@@ -165,7 +165,7 @@ export default function PackListScreen({ navigation }) {
                     </View>
                 </View>
 
-            </ScrollView>
+            {/* </ScrollView> */}
         </View>
     )
 }

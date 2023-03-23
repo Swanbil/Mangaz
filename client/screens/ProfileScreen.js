@@ -71,7 +71,7 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
                         <View style={{ position: 'absolute', top: 119, left: 14 }}>
                             <Image source={{ uri: userInfos?.profilepicture }}
                                 style={{ width: 79, height: 79, borderRadius: 50, borderWidth: 2, borderColor: '#333' }} />
-                            <View style={{ position: 'absolute', left: 50, top: 10 }}>
+                            <View style={{ position: 'absolute', left: 58, top: -1 }}>
                                 {isSubscribe ? <Image source={require("../assets/Verified.png")}
                                                       style={{width : 26, height : 26 }}/> : null }
                             </View>

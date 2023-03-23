@@ -170,10 +170,12 @@ export default function DisplayShopCard({ navigation, route }) {
                                 Alert.alert('Achat confirmé');
                                 navigation.goBack();
                             }}
-                            style={{ backgroundColor: '#A2B2FC', borderRadius: 20, width: 170, height: 40, top: -50, alignItems: 'center', justifyContent: 'center', marginLeft: 10 }}
+                            style={{ backgroundColor: '#A2B2FC', borderRadius: 20, width: 170, height: 40, top: -50, alignItems: 'center', justifyContent: 'center', marginLeft: 10, flexDirection:'row' }}
                         >
-                            <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700' }}>Acheter ({nftItem.price}   )</Text>
-                            <Image source={require('../assets/Web3/logoZenCash.png')} style={{ width: 12, height: 12, marginLeft: 91, marginTop: -15 }} />
+                            <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700' }}>Acheter ({nftItem.price}</Text>
+                            <Image source={require('../assets/Web3/logoZenCash.png')} style={{ width: 12, height: 12,marginLeft:3}} />
+                            <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: '700' }}>)</Text>
+                            
                         </TouchableOpacity>
                     </View>
                 </View>
