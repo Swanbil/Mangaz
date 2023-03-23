@@ -84,13 +84,13 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
                                 <Icon name={"settings"} color={"#333"} size={22} onPress={() => navigation.navigate('Settings')} />
                             </View>
                             <TouchableOpacity style={{ borderRadius: 25, padding: 6, backgroundColor: '#F2BB13', width: 96 }} onPress={() => navigation.navigate('Subscribe')}>
-                                <Text style={{ color: 'white', fontSize: 10, fontWeight: '700', textAlign:'center' }}>{isSubscribe ? "My subscription" : "Become Premium"}</Text>
+                                <Text style={{ color: 'white', fontSize: 10, fontWeight: '700', textAlign:'center' }}>{isSubscribe ? "Mon abonnement" : "Passer Premium"}</Text>
                             </TouchableOpacity>
 
                         </View>
 
                         <View style={{ marginTop: 35 }}>
-                            <Text style={{ fontWeight: '700', fontSize: 22 }}>Your favorites</Text>
+                            <Text style={{ fontWeight: '700', fontSize: 22 }}>Vos mangas favoris</Text>
                             <View style={{ marginTop: 15 }}>
                                 {
                                     isLoading
@@ -103,7 +103,7 @@ export default function ProfilePage({ navigation, isLog, getLogState, isSubscrib
                         </View>
 
                         <View style={{ marginTop: 35 }}>
-                            <Text style={{ fontWeight: '700', fontSize: 22 }}>History</Text>
+                            <Text style={{ fontWeight: '700', fontSize: 22 }}>Vos mangas lus</Text>
                             <View style={{ marginTop: 15 }}>
                                 {
                                     isLoading

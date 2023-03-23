@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View, Text, Modal, Pressable, ImageBackgr
 import { ProgressBar } from "./ProgressBar";
 
 export const DefisModal = ({ isModalVisible, setModalVisible }) => {
-    const defis = [{ title: "Read 3 chapters today", toDo: 3, completed: 2 }, { title: "Read a one piece chapter today", toDo: 1, completed: 0 }, { title: "Read a glena manga today", toDo: 1, completed: 1 }];
+    const defis = [{ title: "Lire 3 chapitres", toDo: 3, completed: 2 }, { title: "Lire un chapitre de One Piece", toDo: 1, completed: 0 }, { title: "Lire un manga de Glénat", toDo: 1, completed: 1 }];
 
     return (
         <View style={styles.centeredView}>
@@ -16,7 +16,7 @@ export const DefisModal = ({ isModalVisible, setModalVisible }) => {
                 }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={{ fontWeight: '700', fontSize: 17 }}>Your challenges</Text>
+                        <Text style={{ fontWeight: '700', fontSize: 17 }}>Défis</Text>
                         <View>
                             {defis.map((defi) => (
                                 <View key={defi.title} style={{marginVertical:15}}>
@@ -34,7 +34,7 @@ export const DefisModal = ({ isModalVisible, setModalVisible }) => {
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
                             onPress={() => setModalVisible(!isModalVisible)}>
-                            <Text style={{ ...styles.textStyle, color: 'black' }}>Hide Modal</Text>
+                            <Text style={{ ...styles.textStyle, color: 'black' }}>Fermer</Text>
                         </Pressable>
                     </View>
                 </View>

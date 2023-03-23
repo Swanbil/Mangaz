@@ -102,7 +102,7 @@ const MangaPage = ({ route, navigation }) => {
                 </View>
 
                 <View style={{ marginTop: 100, padding: 10 }}>
-                    <Text style={{ fontSize: 24, fontWeight: '700' }}>Chapters</Text>
+                    <Text style={{ fontSize: 24, fontWeight: '700' }}>Chapitres</Text>
                     <View>
                         {chapters.map((chapter) => {
                             return (

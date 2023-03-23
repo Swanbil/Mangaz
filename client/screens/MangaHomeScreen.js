@@ -18,9 +18,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
     const [mostPopular, setMostPopular] = useState([]);
     const [trends, setTrends] = useState([]);
     const [isLoading, setLoading] = useState(false);
-    const genres = [{ title: 'Action', image: require('../assets/filter_drame.png') }, { title: 'Aventure', image: require('../assets/filter_aventure.png') }, { title: 'Drame', image: require('../assets/filter_drame.png') }, { title: 'Fun', image: require('../assets/filter_aventure.png') }, { title: 'Romance', image: require('../assets/filter_drame.png') }];
-    const genres2 = ['Action', 'Aventure', 'Drame', 'Fun', 'Romance'];
-
+    const genres = ['Action', 'Aventure', 'Drame', 'Humour', 'Romance'];
     const [userInfos, setUserInfos] = useState();
 
     useFocusEffect(
@@ -127,9 +125,9 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                     <ImageBackground source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10} >
                         <View style={{ padding: 20, marginTop: 10 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
-                                <TouchableOpacity style={{ padding: 8, backgroundColor: 'white',opacity: 0.6, borderRadius: 25, flexDirection: 'row', alignItems: 'center', width:180 }} onPress={() => navigation.navigate('Search')}>
-                                    <Icon name={"search"} size={18} />
-                                    <Text style={{ marginLeft: 5 }}>Search Mangas</Text>
+                                <TouchableOpacity style={{ padding: 8, backgroundColor: '#EEEEEE', borderRadius: 25, flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.navigate('Search')}>
+                                    <Icon name={"search"} size={18} color={''} />
+                                    <Text style={{ marginLeft: 5 }}>Rechercher un manga</Text>
                                 </TouchableOpacity>
                                 <View style={{ marginLeft: 10 }}>
                                     <Image source={{ uri: userInfos?.profilepicture }}
@@ -213,7 +211,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                         </View>
                     </View>
                     <View style={{ marginTop: 15 }}>
-                        <Text style={{ fontWeight: '700', fontSize: 22 }}>Most popular</Text>
+                        <Text style={{ fontWeight: '700', fontSize: 22 }}>Les plus populaires</Text>
                         <View style={{ marginTop: 15 }}>
                             <Catalogue navigation={navigation} catalogue={mostPopular} pageName="Home" widthMangaItem="small" direction={"vertical"} />
                         </View>

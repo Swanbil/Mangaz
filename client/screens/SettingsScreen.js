@@ -32,7 +32,7 @@ export default function Settings({ navigation, isLog, getLogState, getSubState }
                         style={styles.logoutBtn}
                         onPress={logout}
                         underlayColor='#fff'>
-                        <Text style={styles.textButton}>Logout </Text>
+                        <Text style={styles.textButton}>Se déconnecter </Text>
                     </TouchableOpacity>
                 </View>
             </View>
