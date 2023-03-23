@@ -18,7 +18,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
     const [mostPopular, setMostPopular] = useState([]);
     const [trends, setTrends] = useState([]);
     const [isLoading, setLoading] = useState(false);
-    const genres = ['Action', 'Aventure', 'Drame', 'Humour', 'Romance'];
+    const genres = [{ title: 'Action', image: require('../assets/filter_drame.png') }, { title: 'Aventure', image: require('../assets/filter_aventure.png') }, { title: 'Drame', image: require('../assets/filter_drame.png') }, { title: 'Fun', image: require('../assets/filter_aventure.png') }, { title: 'Romance', image: require('../assets/filter_drame.png') }];
     const [userInfos, setUserInfos] = useState();
 
     useFocusEffect(
@@ -126,7 +126,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                         <View style={{ padding: 20, marginTop: 10 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                                 <TouchableOpacity style={{ padding: 8, backgroundColor: '#EEEEEE', borderRadius: 25, flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.navigate('Search')}>
-                                    <Icon name={"search"} size={18} color={''} />
+                                    <Icon name={"search"} size={18} />
                                     <Text style={{ marginLeft: 5 }}>Rechercher un manga</Text>
                                 </TouchableOpacity>
                                 <View style={{ marginLeft: 10 }}>
