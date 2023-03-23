@@ -5,8 +5,8 @@ export default  function HomeDisplayNfts ({navigation,element}) {
 
     return (
         <View style={{marginHorizontal: 6}}>
-            <TouchableOpacity onPress={() => navigation.navigate('DisplayShopCardScreen', {nft : element})}>
-                <ImageBackground source={{uri: element?.image}} style={{width: 110, height: 165,}}
+            <TouchableOpacity onPress={() => navigation.navigate('DisplayNftScreen', {nft : element})}>
+                <ImageBackground source={{uri: element?.image}} style={{width: 128, height: 190,}}
                                 imageStyle={{borderRadius: 12}}>
                     <View
                         style={{

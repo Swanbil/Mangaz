@@ -10,7 +10,7 @@ import UserProfile from '../components/UserProfile';
 import userNfts from "../utilities/NftsUser.json";
 import HomeDisplayNfts from "../components/HomeDisplayNfts.js"
 
-export default function Home({ navigation, route, isLog, isSubscribe, getLogState, getSubState  }) {
+export default function Home({ navigation, route, isLog, isSubscribe, getLogState, getSubState }) {
   const [historyReadChapters, setHistoryReadChapters] = useState([]);
 
   const [isLoading, setLoading] = useState(false);
@@ -76,14 +76,14 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
       <View style={styles.container}>
         <ScrollView >
           {isLoading
-            ? <ActivityIndicator style={{ flex: 1, justifyContent:'center', alignItems:'center' }} />
+            ? <ActivityIndicator style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />
             : (
               <>
-                <UserProfile userInfos={userInfos} navigation={navigation} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} stats={userStats} onClickButton={() => setModalVisible(true)}/>
-                <View style={{ padding: 15 }}>
+                <UserProfile userInfos={userInfos} navigation={navigation} isLog={isLog} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} stats={userStats} onClickButton={() => setModalVisible(true)} />
+                <View style={{ padding: 15, marginTop: -10 }}>
 
                   <View style={{ ...styles.shadowProp, ...styles.blockHome, ...{ backgroundColor: "#D1F1FF" } }}>
-                    <Text style={styles.titleBlockHome}>Continue to read</Text>
+                    <Text style={styles.titleBlockHome}>Continuer à lire</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
                       <View style={{ alignItems: 'center' }}>
                         <Image source={{ uri: historyReadChapters[0]?.coverImage }} style={styles.imageBlock} />
@@ -96,16 +96,22 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
                     </View>
                   </View>
 
-                  <View style={{ ...styles.shadowProp, ...styles.blockHome, ...{ backgroundColor: "#FFD4D1", marginTop: 10 } }}>
-                    <Text style={styles.titleBlockHome}>Yours NFT</Text>
-                    <View >
-                    <FlatList
-                        data={userNfts}
+                  <View style={{ ...styles.shadowProp, ...styles.blockHome, ...{ backgroundColor: "#FFD4D1", marginTop: 20 } }}>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent : 'space-between'}}>
+                      <Text style={{ ...styles.titleBlockHome, ...{ marginBottom: 10 } }}>Vos NFTs</Text>
+                      <Text onPress={() => navigation.navigate('GalleryScreen', {nftsJson : userNfts})}
+                        style={{ marginRight: 30, fontWeight: '500', lineHeight: 18, fontSize: 12, color: '#DA0037' }}>
+                        Voir plus
+                      </Text>
+                    </View>
+                    <View style={{ marginLeft: -5 }}>
+                      <FlatList
+                        data={userNfts.slice(0,3)}
                         renderItem={({ item }) => (<HomeDisplayNfts navigation={navigation} element={item} />)}
                         keyExtractor={(item) => item.idNft.toString()}
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
-                    />
+                      />
                     </View>
                   </View>
 
@@ -113,7 +119,7 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
               </>
             )
           }
-        <DefisModal isModalVisible={isModalVisible} setModalVisible={setModalVisible}/>
+          <DefisModal isModalVisible={isModalVisible} setModalVisible={setModalVisible} />
         </ScrollView>
       </View>
 
