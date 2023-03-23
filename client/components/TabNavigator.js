@@ -60,7 +60,7 @@ const Tabs = ({ getLogState, isLog, isSubscribe, getSubState }) => {
                             {(props) => <Home {...props} isLog={isLog} isSubscribe={isSubscribe} getLogState={getLogState} getSubState={getSubState} />}
                         </Tab.Screen>
                         <Tab.Screen name="Web3Home">
-                            {(props) => <Web3Home {...props} />}
+                            {(props) => <Web3Home {...props} isSubscribe={isSubscribe}/>}
                         </Tab.Screen>
 
                     </>

@@ -12,10 +12,7 @@ const Login = ({ navigation, getLogState, getSubState }) => {
         const user = { "pseudo": pseudo, "password": password };
         
         try {
-            console.log(user);
-            console.log(API_URL + '/login');
             const response = await axios.post(API_URL + '/login', user);
-            console.log("response.data");
             const data = response.data;
             getLogState(true);
             getSubState(data.isSubscribe);

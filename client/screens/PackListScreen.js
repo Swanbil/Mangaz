@@ -106,7 +106,7 @@ export default function PackListScreen({ navigation }) {
     }
 
     const fetchData = async () => {
-        const {userPseudo} = await getDataUser();
+        const { userPseudo } = await getDataUser();
         const pseudo = userPseudo;
         setPseudo(userPseudo);
 
@@ -129,39 +129,35 @@ export default function PackListScreen({ navigation }) {
     }
     return (
         <View style={styles.container}>
-            <View style = {{zIndex : 1000}}>
-                <TouchableOpacity onPress={() => navigation.navigate("Web3Home")} style={{top: 27, left: 5}}>
-                    <Image source={require('../assets/arrow-left.png')} style={{width: 24, height: 24}}/>
+            <View style={{ zIndex: 1000 }}>
+                <TouchableOpacity onPress={() => navigation.navigate("Web3Home")} style={{ top: 27, left: 5 }}>
+                    <Image source={require('../assets/arrow-left.png')} style={{ width: 24, height: 24 }} />
                 </TouchableOpacity>
             </View>
             <ScrollView>
                 <View>
-                    <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true}/>
+                    <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true} />
                 </View>
 
-                <View style={{marginLeft : 20}}>
-                    <Text style = {{fontWeight: '700', fontSize: 22, color: 'black'}}>Nouvelles collaborations</Text>
-                    <View style={{marginLeft : -5}}>
-                        <FlatList
-                            data={collectionsData.slice(0, 2)}
-                            renderItem={({ item }) => (<NewCollabPackList navigation={navigation} element={item} />)}
-                            keyExtractor={(item) => item.idCollection.toString()}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                        />
-                    </View>
+                <View style={{ marginLeft: 20 }}>
+                    <Text style={{ fontWeight: '700', fontSize: 22, color: 'black' }}>Nouvelles collaborations</Text>
+                    <ScrollView horizontal={true}>
+                        <View style={{ marginLeft: -5, flexDirection: 'row' }}>
+                            {collectionsData.slice(0, 2).map((collection, index) => (
+                                <NewCollabPackList key={index} navigation={navigation} element={collection} />
+                            ))}
+                        </View>
+
+                    </ScrollView>
+
                 </View>
 
-                <View style={{marginLeft : 20, marginTop : 40}}>
-                    <Text style = {{fontWeight: '700', fontSize: 22, color: 'black'}}>Toutes nos collab</Text>
-                    <View style={{alignItems : 'center', marginBottom : 20}}>
-                        <FlatList
-                            data={collectionsData.slice().reverse()}
-                            renderItem={({ item }) => (<NewCollabPackList navigation={navigation} element={item} />)}
-                            keyExtractor={(item) => item.idCollection.toString()}
-                            horizontal={false}
-                            showsHorizontalScrollIndicator={false}
-                        />
+                <View style={{ marginLeft: 20, marginTop: 40 }}>
+                    <Text style={{ fontWeight: '700', fontSize: 22, color: 'black' }}>Toutes nos collab</Text>
+                    <View style={{ alignItems: 'center', marginBottom: 20 }}>
+                        {collectionsData.slice().reverse().map((collection, index) => (
+                            <NewCollabPackList key={index} navigation={navigation} element={collection} />
+                        ))}
                     </View>
                 </View>
 

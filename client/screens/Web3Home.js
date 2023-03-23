@@ -39,7 +39,7 @@ import userNfts from "../utilities/NftsUser.json";
 import ShopCardDisplay from '../components/ShopCardDisplay';
 
 
-export default function Web3Home({ navigation }) {
+export default function Web3Home({ navigation, isSubscribe }) {
 
     /* ---------------------- */
 
@@ -204,7 +204,7 @@ export default function Web3Home({ navigation }) {
                     <ImageBackground source={ require('../assets/shonen_jump.jpg') } resizeMode="cover" blurRadius={2} >
                         <View style={{ backgroundColor: 'rgba(0,0,0, 0.20)'}}>
                             <View>
-                                <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={false}/>
+                                <Web3ProfilePicture isSubscribe={isSubscribe} address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={false}/>
                             </View>
                                <View style={{ marginTop: -20, marginLeft : 22, marginBottom : 10}}>
                                    <View style={{flexDirection : 'row', alignItems: 'center', justifyContent : 'space-between'}}>

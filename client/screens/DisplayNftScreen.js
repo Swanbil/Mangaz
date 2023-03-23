@@ -38,11 +38,11 @@ import Web3ProfilePicture from "../components/Web3ProfilePicture";
 import ContentPack from "../components/ContentPack";
 
 export default function DisplayNftScreen({ navigation, route }) {
-    const {nft} = route.params;
+    const { nft } = route.params;
 
     /* ---------------------- */
     const [nftItem, setNftItem] = useState(nft);
-    const [userNfts, setUserNfts] = useState (userGallery);
+    const [userNfts, setUserNfts] = useState(userGallery);
 
     //Current user
     const [pseudo, setPseudo] = useState("");
@@ -108,7 +108,7 @@ export default function DisplayNftScreen({ navigation, route }) {
     }
 
     const fetchData = async () => {
-        const {userPseudo} = await getDataUser();
+        const { userPseudo } = await getDataUser();
         const pseudo = userPseudo;
         setPseudo(userPseudo);
 
@@ -134,34 +134,47 @@ export default function DisplayNftScreen({ navigation, route }) {
         <View style={styles.container}>
             <ScrollView>
                 <View>
-                    <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true}/>
+                    <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true} />
                 </View>
-                <View style={{alignItems : 'center'}}>
-                    <Image source={{uri: nftItem?.image}} style={{width: 358, height: 358, borderRadius : 20}}/>
+                <View style={{ alignItems: 'center' }}>
+                    <Image source={{ uri: nftItem?.image }} style={{ width: 358, height: 358, borderRadius: 20 }} />
 
-                    <View style={{backgroundColor : '#171717' , width : '110%',height : 310,
-                        borderTopLeftRadius: 60,
-                        borderTopRightRadius: 60,
-                        marginTop : 35,marginBottom : -50 }}>
-                        <View style={{flex : 1, flexDirection : 'row', marginTop : 25, marginLeft : 35}}>
-                            <Image source={{uri: nftItem?.coverCollection}} style={{width: 86, height: 86, borderRadius : 50}}/>
-                            <View style={{flex : 1, flexDirection : 'column', alignItems : 'flex-start', left : 15}}>
-                                <Text style={{fontSize : 16, fontWeight : '600', color : '#8D8D8D'}}>{nftItem.nameCollection}</Text>
-                                <View style={{flex : 1, flexDirection : 'row', alignItems : 'flex-start'}}>
-                                    <Text style={{fontSize : 24, fontWeight : '800', color : 'white'}}>{nftItem.name}, </Text>
-                                    <Text style={{fontSize : 24, fontWeight : '700',  color: nftItem.rarity === "SSR" ? "#FAFF00" : nftItem.rarity === "SR" ? "#FF74E0" : "#FFB545"}}>{nftItem.rarity}</Text>
+                    <View style={{
+                        backgroundColor: '#171717',
+                        width: '100%',
+                        
+                        borderTopLeftRadius: 30,
+                        borderTopRightRadius: 30,
+                        marginTop: 35,
+                        padding: 20
+                    }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Image source={{ uri: nftItem?.coverCollection }} style={{ width: 86, height: 86, borderRadius: 50 }} />
+                            <View style={{ flexDirection: 'column', alignItems: 'flex-start', marginLeft: 15 }}>
+                                <Text style={{ fontSize: 16, fontWeight: '600', color: '#8D8D8D' }}>{nftItem.nameCollection}</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Text style={{ fontSize: 24, fontWeight: '800', color: 'white' }}>{nftItem.name}, </Text>
+                                    <Text style={{ fontSize: 24, fontWeight: '700', color: nftItem.rarity === "SSR" ? "#FAFF00" : nftItem.rarity === "SR" ? "#FF74E0" : "#FFB545" }}>{nftItem.rarity}</Text>
                                 </View>
                             </View>
                         </View>
-                        <View style={{top : -60, flex : 1, width : 300, left : 40, marginTop : 25}}>
-                            <Text style={{fontSize : 18, fontWeight : '700', color : 'rgba(237, 237, 237, 0.5)'}}>Description</Text>
-                            <Text style={{fontSize : 16, fontWeight : '500', color : 'rgba(237, 237, 237, 0.5)'}}>{nftItem.description}</Text>
+                        <View style={{ width: 300, marginTop: 25 }}>
+                            <Text style={{ fontSize: 18, fontWeight: '700', color: 'rgba(237, 237, 237, 0.5)' }}>Description</Text>
+                            <Text style={{ fontSize: 16, fontWeight: '500', color: 'rgba(237, 237, 237, 0.5)' }}>{nftItem.description}</Text>
                         </View>
+
+                        <View style={{marginTop:15, justifyContent:'center', alignItems:'center'}}>
+                            <TouchableOpacity
+                                onPress={() => { navigation.goBack() }}
+                                style={{ backgroundColor: '#A2B2FC', borderRadius: 20, width: 130, padding: 8, marginTop: 10 }}>
+                                <Text style={{ fontSize: 16, fontWeight: '400', color: 'white', textAlign: 'center' }}>Retour</Text>
+                            </TouchableOpacity>
+
+                        </View>
+
+
                     </View>
-                    <TouchableOpacity
-                        onPress={ () => {navigation.goBack()}} style={{ backgroundColor: '#A2B2FC', borderRadius: 20, width: 130,height : 40, top : -50, alignItems : 'center', justifyContent : 'center'}}>
-                        <Text style={{fontSize : 16, fontWeight : '400', color : 'white'}}>Retour</Text>
-                    </TouchableOpacity>
+
                 </View>
 
             </ScrollView>

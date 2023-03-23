@@ -86,12 +86,16 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
                     <Text style={styles.titleBlockHome}>Continuer à lire</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
                       <View style={{ alignItems: 'center' }}>
-                        <Image source={{ uri: historyReadChapters[0]?.coverImage }} style={styles.imageBlock} />
-                        <Text style={styles.subTitleBlock}>{historyReadChapters[0]?.titleName}</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('MangaPage', { manga: historyReadChapters[0] })}>
+                          <Image source={{ uri: historyReadChapters[0]?.coverImage }} style={styles.imageBlock} />
+                          <Text style={styles.subTitleBlock}>{historyReadChapters[0]?.titleName}</Text>
+                        </TouchableOpacity>
                       </View>
                       <View style={{ alignItems: 'center' }}>
-                        <Image source={{ uri: historyReadChapters[1]?.coverImage }} style={styles.imageBlock} />
-                        <Text style={styles.subTitleBlock}>{historyReadChapters[1]?.titleName}</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('MangaPage', { manga: historyReadChapters[1] })}>
+                          <Image source={{ uri: historyReadChapters[1]?.coverImage }} style={styles.imageBlock} />
+                          <Text style={styles.subTitleBlock}>{historyReadChapters[1]?.titleName}</Text>
+                        </TouchableOpacity>
                       </View>
                     </View>
                   </View>

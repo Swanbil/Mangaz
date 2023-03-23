@@ -1,5 +1,6 @@
 const db = require('../config/database');
 const { getUserIdFromPseudo } = require('../controllers/user.controller');
+const { getRateOfManga } = require('../utilities/global-functions');
 const { recommande } = require('../utilities/recommandation');
 
 exports.getCatalogue = async (req, res) => {
@@ -219,4 +220,83 @@ exports.rateManga = async (req, res) => {
         });
     });
 
+}
+
+exports.getMostPopular = async (req, res) => {
+    const userPseudo = req.params.userPseudo;
+    let sql = 'SELECT m."technicalName", ROUND(AVG(rate), 0) as rate, m."coverImage", m."coverImage_large", m."createdDate", m.description, m.genre, m."idManga", m."popularityRank",\
+    m."titleName" from rates_manga rm INNER JOIN manga m ON m."idManga" = rm."idManga" WHERE rate > 3.8 GROUP BY m."technicalName", m."coverImage", m."coverImage_large",\
+    m."createdDate", m.description, m.genre, m."idManga", m."popularityRank", m."titleName"';
+    await db.query(sql, async (err, result) => {
+        if (err) {
+            console.error('Error executing query', err.stack);
+            res.status(404).send({ message: "An error occured by rating this manga" });
+            return;
+        }
+        const catalogue = result.rows;
+        sql = 'SELECT m."technicalName" FROM users_favoris uf INNER JOIN manga m ON m."idManga" = uf."idManga" INNER JOIN users u ON u."idUser" = uf."idUser"\
+        WHERE u.pseudo = $1';
+        await db.query(sql, [userPseudo], async (err, result) => {
+            if (err) {
+                return console.error('Error executing query', err.stack)
+            }
+            const mangaFavoris = result.rows;
+            const catalogueMostPopular = catalogue.map((manga) => {
+                manga.isFavoris = (mangaFavoris.find(m => m.technicalName === manga.technicalName)) !== undefined ? true : false;
+                return manga;
+            });
+            res.status(200).send(catalogueMostPopular);
+            return;
+
+        });
+    });
+}
+
+exports.getTrends = async (req, res) => {
+    const NUMBER_READ_MANGA = 2;
+    const userPseudo = req.params.userPseudo;
+    let sql = 'SELECT distinct m."technicalName", COUNT(m."technicalName") as number_read, hm."readDate", m."coverImage", m."coverImage_large", m."createdDate", m.description, \
+    m.genre, m."idManga", m."popularityRank", m."titleName" from history_read_chapter hm INNER JOIN chapter c ON c."idChapter" = hm."idChapter"\
+    INNER JOIN manga m ON c."idManga" = m."idManga"\
+    WHERE hm."readDate" >= $1\
+    GROUP BY m."technicalName", m."coverImage", m."coverImage_large",m."createdDate", m.description, m.genre, m."idManga", m."popularityRank", m."titleName", hm."readDate"';
+    let currentDate = new Date();
+    currentDate.setDate(0)
+    currentDate.setDate(1)
+    let lastMonthDate = new Date(currentDate);
+    lastMonthDate = lastMonthDate.getFullYear() + '-' + (lastMonthDate.getMonth() - 1 < 0 ? '01' : lastMonthDate.getMonth() + 1) + '-' + lastMonthDate.getDay();
+    await db.query(sql, [lastMonthDate], async (err, result) => {
+        if (err) {
+            console.error('Error executing query', err.stack);
+            res.status(404).send({ message: "An error occured by rating this manga" });
+            return;
+        }
+        const readMangas = result.rows;
+        let catalogueTrends = []
+        readMangas.forEach((manga) => {
+            const count = readMangas.filter((obj) => obj.technicalName === manga.technicalName).length;
+            if (count >= NUMBER_READ_MANGA) {
+                console.log(manga.technicalName + " : " + count)
+                catalogueTrends.push(manga);
+            }
+        })
+        catalogueTrends = [...new Map(catalogueTrends.map(item =>
+            [item['technicalName'], item])).values()];
+        sql = 'SELECT m."technicalName" FROM users_favoris uf INNER JOIN manga m ON m."idManga" = uf."idManga" INNER JOIN users u ON u."idUser" = uf."idUser"\
+        WHERE u.pseudo = $1';
+        await db.query(sql, [userPseudo], async (err, result) => {
+            if (err) {
+                return console.error('Error executing query', err.stack)
+            }
+            const mangaFavoris = result.rows;
+            for (var i = 0; i < catalogueTrends.length; i++) {
+                catalogueTrends[i].rate = await getRateOfManga(catalogueTrends[i].idManga);
+                catalogueTrends[i].isFavoris = (mangaFavoris.find(m => m.technicalName === catalogueTrends[i].technicalName)) !== undefined ? true : false;
+            }
+            res.status(200).send(catalogueTrends);
+            return;
+
+        });
+
+    });
 }
