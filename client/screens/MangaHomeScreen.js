@@ -125,7 +125,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                     <ImageBackground source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10} >
                         <View style={{ padding: 20, marginTop: 10 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
-                                <TouchableOpacity style={{ padding: 8, backgroundColor: '#EEEEEE', borderRadius: 25, flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.navigate('Search')}>
+                                <TouchableOpacity style={{ padding: 8, backgroundColor: '#EEEEEE', borderRadius: 25, flexDirection: 'row', alignItems: 'center', opacity:0.7 }} onPress={() => navigation.navigate('Search')}>
                                     <Icon name={"search"} size={18} />
                                     <Text style={{ marginLeft: 5 }}>Rechercher un manga</Text>
                                 </TouchableOpacity>
