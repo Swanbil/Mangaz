@@ -205,7 +205,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                     </View>
 
                     <View style={{ marginTop: 15 }}>
-                        <Text style={{ fontWeight: '700', fontSize: 22 }}>Trends</Text>
+                        <Text style={{ fontWeight: '700', fontSize: 22 }}>En tendance</Text>
                         <View style={{ marginTop: 15 }}>
                             <Catalogue navigation={navigation} catalogue={trends} pageName="Home" widthMangaItem="large"  />
                         </View>
