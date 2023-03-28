@@ -133,6 +133,11 @@ const AppNavigator = ({ isLogedIn, getLogState, userCredentials, isSubscribe, ge
             })} >
                 {(props) => <DisplayShopCard{...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
             </Stack.Screen>
+            <Stack.Screen name="BuyTokenScreen" options={({ navigation }) => ({
+                headerShown: false
+            })} >
+                {(props) => <BuyToken{...props} isLog={isLogedIn} getLogState={getLogState} isSubscribe={isSubscribe} getSubState={getSubState} />}
+            </Stack.Screen>
             
         </Stack.Navigator>
 

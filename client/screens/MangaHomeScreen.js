@@ -195,10 +195,8 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                                             </View>
                                         </TouchableOpacity>
                                     </ImageBackground>
-
                                 ))}
                             </View>
-
                         </ScrollView>
 
 
