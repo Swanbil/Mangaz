@@ -1,0 +1,32 @@
+[
+  {
+    "idShop": 1,
+    "amountToken": 10,
+    "price": 0.99
+  },
+  {
+    "idShop": 2,
+    "amountToken": 25,
+    "price": 6.99
+  },
+  {
+    "idShop": 3,
+    "amountToken": 50,
+    "price": 16.99
+  },
+  {
+    "idShop": 4,
+    "amountToken": 100,
+    "price": 31.99
+  },
+  {
+    "idShop": 5,
+    "amountToken": 150,
+    "price": 44.99
+  },
+  {
+    "idShop": 6,
+    "amountToken": 200,
+    "price": 51.99
+  }
+]
