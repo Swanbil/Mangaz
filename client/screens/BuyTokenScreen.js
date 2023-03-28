@@ -149,6 +149,7 @@ export default function BuyTokenScreen({ navigation, isSubscribe }) {
       <ScrollView>
         <View>
           <Web3ProfilePicture
+            navigation={navigation}
             address={address}
             balance={balance}
             listNftUser={listNftUser}
