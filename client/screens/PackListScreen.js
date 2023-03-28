@@ -141,14 +141,14 @@ export default function PackListScreen({ navigation }) {
 
                 <View style={{ marginLeft: 20 }}>
                     <Text style={{ fontWeight: '700', fontSize: 22, color: 'black' }}>Nouvelles collaborations</Text>
-                    <ScrollView horizontal={true}>
-                        <View style={{ marginLeft: -5, flexDirection: 'row' }}>
-                            {collectionsData.slice(0, 2).map((collection, index) => (
-                                <NewCollabPackList key={index} navigation={navigation} element={collection} />
-                            ))}
-                        </View>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+  <View style={{ marginLeft: -5, flexDirection: 'row' }}>
+    {collectionsData.slice(0, 2).map((collection, index) => (
+      <NewCollabPackList key={index} navigation={navigation} element={collection} />
+    ))}
+  </View>
+</ScrollView>
 
-                    </ScrollView>
 
                 </View>
 
