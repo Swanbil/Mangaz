@@ -122,7 +122,8 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
         <View style={styles.container}>
             <ScrollView>
                 <View>
-                    <ImageBackground source={{ uri: recommandations[0] ? recommandations[0]?.coverImage_large : "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10} >
+                    <ImageBackground source={{ uri: "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10}>
+                        <View style={{ backgroundColor: 'rgba(0,0,0, 0.40)'}}>
                         <View style={{ padding: 20, marginTop: 10 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                                 <TouchableOpacity style={{ padding: 8, backgroundColor: '#EEEEEE', borderRadius: 25, flexDirection: 'row', alignItems: 'center', opacity:0.7 }} onPress={() => navigation.navigate('Search')}>
@@ -137,8 +138,6 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                                             style={{ width: 26, height: 26 }} /> : null}
                                     </View>
                                 </View>
-
-
                             </View>
                             <View>
                                 {recommandations[0]
@@ -178,6 +177,8 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                                 }
                             </View>
                         </View>
+                        </View>
+                        
 
                     </ImageBackground>
                 </View>

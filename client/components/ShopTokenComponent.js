@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button, Fla
 export default function ShopTokenComnponent({ navigation, element }) {
     
     return (
-        <View style={{ marginHorizontal: 10, marginBottom : 10  }}>
+        <View style={{ marginHorizontal: 10, marginBottom : 20  }}>
                 <ImageBackground source={ require('../assets/Web3/BuyToken.png') } style={{ width: 155, height: 173 }} imageStyle={{ borderRadius: 49 }}>
                     <View style ={{flex : 1, flexDirection : 'column', alignItems : 'center', justifyContent : 'center'}}>
                         <Image source={require('../assets/Web3/logoZenCash.png')} style={{width : 47, height : 47}} />
