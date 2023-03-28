@@ -18,7 +18,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
     const [mostPopular, setMostPopular] = useState([]);
     const [trends, setTrends] = useState([]);
     const [isLoading, setLoading] = useState(false);
-    const genres = [{ title: 'Action', image: require('../assets/filter_drame.png') }, { title: 'Aventure', image: require('../assets/filter_aventure.png') }, { title: 'Drame', image: require('../assets/filter_drame.png') }, { title: 'Fun', image: require('../assets/filter_aventure.png') }, { title: 'Romance', image: require('../assets/filter_drame.png') }];
+    const genres = [{ title: 'Action', image: require('../assets/Action.png') }, { title: 'Aventure', image: require('../assets/Fun.png') }, { title: 'Drame', image: require('../assets/filter_drame.png') }, { title: 'Fun', image: require('../assets/filter_aventure.png') }, { title: 'Romance', image: require('../assets/Romance.png') }];
     const [userInfos, setUserInfos] = useState();
 
     useFocusEffect(
@@ -125,7 +125,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                     <ImageBackground source={{ uri: "https://wallpaper.dog/large/20475321.jpg" }} resizeMode="cover" blurRadius={10}>
                         <View style={{ backgroundColor: 'rgba(0,0,0, 0.40)'}}>
                         <View style={{ padding: 20, marginTop: 10 }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                                 <TouchableOpacity style={{ padding: 8, backgroundColor: '#EEEEEE', borderRadius: 25, flexDirection: 'row', alignItems: 'center', opacity:0.7 }} onPress={() => navigation.navigate('Search')}>
                                     <Icon name={"search"} size={18} />
                                     <Text style={{ marginLeft: 5 }}>Rechercher un manga</Text>
@@ -186,7 +186,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
                 <View style={{ padding: 20 }}>
                     <View>
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                            <View style={{ marginTop: 15, flexDirection: 'row' }}>
+                            <View style={{ marginTop: 15, flexDirection: 'row'}}>
                                 {genres.map((genre, index) => (
                                     <ImageBackground key={index} source={genre?.image} resizeMode="cover" blurRadius={0.5}
                                         style={{ width: 124, height: 54, marginRight: 8, justifyContent: 'center', alignItems: 'center' }} imageStyle={{ borderRadius: 31 }}>
@@ -203,7 +203,7 @@ const MangaHomePage = ({ route, navigation, isSubscribe, isLog }) => {
 
                     </View>
 
-                    <View style={{ marginTop: 15 }}>
+                    <View style={{ marginTop: 25 }}>
                         <Text style={{ fontWeight: '700', fontSize: 22 }}>En tendance</Text>
                         <View style={{ marginTop: 15 }}>
                             <Catalogue navigation={navigation} catalogue={trends} pageName="Home" widthMangaItem="large"  />
