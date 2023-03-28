@@ -1,23 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Modal, TextInput, Button, FlatList, Image, ScrollView, ImageBackground } from "react-native";
-export default function ShopCard({ navigation, element }) {
+export default function ShopTokenComnponent({ navigation, element }) {
     
     return (
-        <View style={{ marginHorizontal: 7 }}>
-                <ImageBackground source={ require('../assets/Web3/BuyToken.png') } style={{ width: 175, height: 193 }} imageStyle={{ borderRadius: 12 }}>
-                    <View style={{ padding: 2, backgroundColor: 'rgba(21, 18, 18, 0.71)', position: 'absolute', bottom: -1, width: '100%', borderBottomLeftRadius: 12, borderBottomRightRadius: 12 }}>
-                        <Text style={{ fontSize: 15, fontWeight: '700', color: 'white', marginLeft : 5 }}>{element?.name}</Text>
-                        <Text style={{ fontSize: 13, fontWeight: '400', color: 'white', marginLeft : 5 }}>{element?.collection?.name}</Text>
-
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: 10 }}>
-                            <Text style={{ fontSize: 10, fontWeight: '400', color: 'white' }}>Qty : {element?.quantity}</Text>
-                            <Text style={{ fontSize: 10, fontWeight: '400', color: 'white' }}>{element?.rarity}</Text>
-                            <View style={{ flexDirection: 'row', alignelements: 'center' }}>
-                                <Text style={{ fontSize: 10, fontWeight: '400', color: 'white' }}>{element?.price}</Text>
-                                <Image source={require('../assets/Web3/logoZenCash.png')} style={{ width: 10, height: 10, marginLeft: 2, marginTop : 2  }} />
-                            </View>
-
-                        </View>
+        <View style={{ marginHorizontal: 10, marginBottom : 10  }}>
+                <ImageBackground source={ require('../assets/Web3/BuyToken.png') } style={{ width: 175, height: 193 }} imageStyle={{ borderRadius: 49 }}>
+                    <View style ={{flex : 1, flexDirection : 'column', alignItems : 'center', justifyContent : 'center'}}>
+                        <Image source={require('../assets/Web3/logoZenCash.png')} style={{width : 47, height : 47}} />
+                        <Text style={{fontSize : 20, fontWeight : '700', color : 'white', marginTop : 10}}>{element?.amountToken} ZenCash</Text>
+                        <TouchableOpacity style={{marginTop : 5,backgroundColor: '#A2B2FC', borderRadius: 20, width: 92,height : 28, flexDirection:'row', alignItems:'center', justifyContent : 'center'}}>
+                                <Text style={{fontSize : 12, fontWeight : '400', color : 'white'}}>{element?.price} €</Text>
+                        </TouchableOpacity>
                     </View>
                 </ImageBackground>
         </View>

@@ -43,6 +43,7 @@ import ShopTokenComnponent from '../components/ShopTokenComponent.js';
 
 
 export default function BuyTokenScreen({ navigation, isSubscribe }) {
+    const numColumns = 2;
     /* ---------------------- */
     //Current user
     const [pseudo, setPseudo] = useState("");
@@ -143,14 +144,15 @@ export default function BuyTokenScreen({ navigation, isSubscribe }) {
                         </TouchableOpacity>
                         <Text style = {{fontSize : 28, fontWeight : '400', left : -10}}> Magasin </Text>
                     </View>
-                    <View >
+                    <View style={{marginLeft : -2,}}>
                         <FlatList
                             data={ShopToken}
-                            renderItem={({ item }) => (<ShopTokenComnponent navigation={navigation} element={item}/>)}
+                            renderItem={({ item }) => (
+                            <ShopTokenComnponent navigation={navigation} element={item} />
+                            )}
                             keyExtractor={(item) => item.idShop.toString()}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            style ={{marginHorizontal : 30}}
+                            numColumns={numColumns}
+                            style={{marginTop: 20}}
                         />
                     </View>
                 </View>
