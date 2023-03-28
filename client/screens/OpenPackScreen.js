@@ -147,7 +147,7 @@ export default function OpenPackScreen({ navigation, route }) {
         <View style={styles.container}>
             <ScrollView>
                 <View>
-                    <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true} />
+                    <Web3ProfilePicture navigation={navigation} address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true} />
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <Text style={{ fontSize: 28, fontWeight: '700', color: 'black', marginBottom: 15 }}>Vous avez obtenu</Text>

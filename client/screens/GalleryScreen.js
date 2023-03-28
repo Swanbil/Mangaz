@@ -134,7 +134,7 @@ export default function GalleryScreen({ navigation, route }) {
         <View style={styles.container}>
             <ScrollView>
                 <View>
-                    <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true}/>
+                    <Web3ProfilePicture navigation={navigation} address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true}/>
                 </View>
                 <View style={{alignItems : 'center', top : -20}}>
                     <View style = {{zIndex : 1000, flexDirection : 'row', alignItems:'center', marginTop : 10}}>

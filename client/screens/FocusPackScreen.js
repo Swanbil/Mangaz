@@ -148,7 +148,7 @@ export default function FocusPackScreen({ navigation, route }) {
                             </TouchableOpacity>
                         </View>
                         <View>
-                            <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={false}/>
+                            <Web3ProfilePicture navigation={navigation} address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={false}/>
                         </View>
                     </View>
                 </ImageBackground>

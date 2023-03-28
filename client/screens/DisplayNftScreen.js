@@ -134,7 +134,7 @@ export default function DisplayNftScreen({ navigation, route }) {
         <View style={styles.container}>
             <ScrollView>
                 <View>
-                    <Web3ProfilePicture address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true} />
+                    <Web3ProfilePicture navigation={navigation} address={address} balance={balance} listNftUser={listNftUser} pseudo={pseudo} userInfos={userInfos} isBlack={true} />
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <Image source={{ uri: nftItem?.image }} style={{ width: 358, height: 358, borderRadius: 20 }} />
