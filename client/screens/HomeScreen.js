@@ -18,15 +18,16 @@ export default function Home({ navigation, route, isLog, isSubscribe, getLogStat
   const [userStats, setUserStats] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
 
-  useFocusEffect(
-    useCallback(() => {
-      getHistoryReadChapters();
-    }, [])
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     getHistoryReadChapters();
+  //   }, [])
+  // );
 
   useEffect(() => {
     getUserInfos();
-    getUserStats()
+    getUserStats(),
+    getHistoryReadChapters();
   }, []);
 
   const getUserInfos = async () => {
