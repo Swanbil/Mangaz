@@ -1,18 +1,24 @@
-# Mangaz
-Configuration :
-
-Clonez le projet depuis Github.
-
+# Installation et configuration #
+Clonez le projet depuis GitHub.
+Téléchargez l'application "Expo Go" sur votre portable.
 Vérifiez que votre ordinateur et votre portable soient sur le même réseau.
 
+Importez la base de données sur PgAdmin à l'aide du fichier MangaZ.tar :
+>- Téléchargez le fichier MangaZ.tar
+>- Créez une base de données "MangaZ"
+
 Depuis le terminal :
-- cd Mangaz
-- npm init
-- npm install (rien à changer)
-- npm run web
+>- cd Mangaz
+    >- cd server
+        >- npm install 
+        >- créer un fichier .env contenant l'adresse
+    >- cd client
+        >- npm install 
+        >- créer un fichier .env avec les informations suivantes : 
+        ![alt text](image.png)
 
-Normalement y a une page qui s'ouvre sur votre navigateur et un QR code apparait dans le terminal.
 
-Téléchargez l'application "Expo Go" sur votre portable et scannez le QR code avec l'application.
+# Lancement de l'application #
+>Scannez le QR code avec l'application.
 
 La page devrait s'afficher sur votre portable.
