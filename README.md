@@ -1,5 +1,8 @@
 # Installation et configuration #
-Clonez le projet depuis GitHub.
+Ouvrez un terminal à l'endroit où vous voulez placer le projet et clonez le code depuis GitHub à l'aide de la commande suivante  :
+```shell
+git clone https://github.com/Swanbil/Mangaz.git
+```
 Téléchargez l'application "Expo Go" sur votre portable.
 Vérifiez que votre ordinateur et votre portable soient sur le même réseau.
 
@@ -17,16 +20,16 @@ Vérifiez que votre ordinateur et votre portable soient sur le même réseau.
 - Vous obtiendrez la base de données nécessaire pour le bon fonctionnement de l'application
 
 ## Installation des dépendances ##
+Assurez vous de vous être placer dans le dossier "MangaZ".
+
 Ouvrez un premier terminal et tapez les commandes suivantes
 ```shell
-cd MangaZ
 cd client
 npm init
 npm install
 ```
 Ouvrez un second terminal et tapez les commandes suivantes
 ```shell
-cd MangaZ
 cd server
 npm init
 npm install
