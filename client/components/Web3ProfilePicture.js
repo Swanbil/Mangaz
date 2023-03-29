@@ -121,7 +121,7 @@ export default function Web3ProfilePicture({
                     style={{
                       fontSize: 16,
                       fontWeight: "400",
-                      marginLeft: 6,
+                      marginLeft: 17,
                       color: isBlack ? "white" : "black",
                     }}
                   >
