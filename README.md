@@ -44,6 +44,6 @@ npm run start
 ```
 Dans le terminal "client"
 ```shell
-expo start -c
+expo start
 ```
 Scannez le QR code avec l'application et attendez le chargement de la page sur votre smartphone.
