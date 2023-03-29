@@ -38,4 +38,12 @@ PGPORT = 5432
 ```    
 
 # Lancement de l'application #
+Dans le terminal "server"
+```shell
+npm run start
+```
+Dans le terminal "client"
+```shell
+expo start -c
+```
 Scannez le QR code avec l'application et attendez le chargement de la page sur votre smartphone.
